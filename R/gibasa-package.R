@@ -1,4 +1,5 @@
 #' @keywords internal
-#' @importFrom Rcpp compileAttributes
+#' @import Rcpp
+#' @importFrom RcppParallel RcppParallelLibs
 #' @useDynLib gibasa, .registration = TRUE
 "_PACKAGE"

@@ -3,12 +3,57 @@
 
 # gibasa
 
->  Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
+> Gibasa is a cleaner ‘Rcpp’ interface to ‘MeCab’.
 
 ## Installation
 
-```r
+``` r
 remotes::install_github("paithiov909/gibasa")
+```
+
+## Usage
+
+``` r
+res <- gibasa::tokenize(
+  c("頭が赤い魚を食べる猫",
+    "望遠鏡で泳ぐ彼女を見た")
+)
+
+head(res)
+#>   doc_id sentence_id token_id  token
+#> 1      1           1        1     頭
+#> 2      1           1        2     が
+#> 3      1           1        3   赤い
+#> 4      1           1        4     魚
+#> 5      1           1        5     を
+#> 6      1           1        6 食べる
+#>                                                      feature
+#> 1                         名詞,一般,*,*,*,*,頭,アタマ,アタマ
+#> 2                            助詞,格助詞,一般,*,*,*,が,ガ,ガ
+#> 3 形容詞,自立,*,*,形容詞・アウオ段,基本形,赤い,アカイ,アカイ
+#> 4                         名詞,一般,*,*,*,*,魚,サカナ,サカナ
+#> 5                            助詞,格助詞,一般,*,*,*,を,ヲ,ヲ
+#> 6             動詞,自立,*,*,一段,基本形,食べる,タベル,タベル
+head(gibasa::prettify(res))
+#>   doc_id sentence_id token_id  token   POS1   POS2 POS3 POS4      X5StageUse1
+#> 1      1           1        1     頭   名詞   一般 <NA> <NA>             <NA>
+#> 2      1           1        2     が   助詞 格助詞 一般 <NA>             <NA>
+#> 3      1           1        3   赤い 形容詞   自立 <NA> <NA> 形容詞・アウオ段
+#> 4      1           1        4     魚   名詞   一般 <NA> <NA>             <NA>
+#> 5      1           1        5     を   助詞 格助詞 一般 <NA>             <NA>
+#> 6      1           1        6 食べる   動詞   自立 <NA> <NA>             一段
+#>   X5StageUse2 Original  Yomi1  Yomi2
+#> 1        <NA>       頭 アタマ アタマ
+#> 2        <NA>       が     ガ     ガ
+#> 3      基本形     赤い アカイ アカイ
+#> 4        <NA>       魚 サカナ サカナ
+#> 5        <NA>       を     ヲ     ヲ
+#> 6      基本形   食べる タベル タベル
+
+gibasa::pack(res)
+#>   doc_id                         text
+#> 1      1   頭 が 赤い 魚 を 食べる 猫
+#> 2      2 望遠鏡 で 泳ぐ 彼女 を 見 た
 ```
 
 ## License
