@@ -1,6 +1,6 @@
 Package: gibasa
 Type: Package
-Title: An Alternative 'Rcpp' Interface to 'MeCab'
+Title: An Alternate 'Rcpp' Interface to 'MeCab'
 Version: 0.1.0
 Authors@R: c(
     person("Akiru", "Kato", email = "paithiov909@gmail.com", role = c("aut", "cre")))
