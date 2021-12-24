@@ -7,6 +7,9 @@
 
 ## Installation
 
+To install gibasa from source package requires the MeCab library (mecab,
+libmecab-dev and mecab-ipadic-utf8) installed and available.
+
 ``` r
 remotes::install_github("paithiov909/gibasa")
 ```
@@ -54,6 +57,52 @@ gibasa::pack(res)
 #>   doc_id                         text
 #> 1      1   頭 が 赤い 魚 を 食べる 猫
 #> 2      2 望遠鏡 で 泳ぐ 彼女 を 見 た
+
+res %>%
+  gibasa::prettify() %>% 
+  gibasa::gbs_c()
+#> [[1]]
+#>     名詞     助詞   形容詞     名詞     助詞     動詞     名詞 
+#>     "頭"     "が"   "赤い"     "魚"     "を" "食べる"     "猫" 
+#> 
+#> [[2]]
+#>     名詞     助詞     動詞     名詞     助詞     動詞   助動詞 
+#> "望遠鏡"     "で"   "泳ぐ"   "彼女"     "を"     "見"     "た"
+
+res %>%
+  gibasa::prettify() %>% 
+  gibasa::gbs_freq()
+#> # A tibble: 13 x 4
+#>    Term   Info1  Info2   Freq
+#>    <chr>  <chr>  <chr>  <int>
+#>  1 が     助詞   格助詞     1
+#>  2 た     助動詞 <NA>       1
+#>  3 で     助詞   格助詞     1
+#>  4 を     助詞   格助詞     2
+#>  5 泳ぐ   動詞   自立       1
+#>  6 魚     名詞   一般       1
+#>  7 見     動詞   自立       1
+#>  8 食べる 動詞   自立       1
+#>  9 赤い   形容詞 自立       1
+#> 10 頭     名詞   一般       1
+#> 11 猫     名詞   一般       1
+#> 12 彼女   名詞   代名詞     1
+#> 13 望遠鏡 名詞   一般       1
+
+gibasa::gbs_as_tokens(res)
+#> Tokens consisting of 2 documents.
+#> 1 :
+#> [1] "頭"     "が"     "赤い"   "魚"     "を"     "食べる" "猫"    
+#> 
+#> 2 :
+#> [1] "望遠鏡" "で"     "泳ぐ"   "彼女"   "を"     "見"     "た"
+gibasa::gbs_dfm(res)
+#> Document-feature matrix of: 2 documents, 13 features (46.15% sparse) and 0 docvars.
+#>     features
+#> docs 頭 が 赤い 魚 を 食べる 猫 望遠鏡 で 泳ぐ
+#>    1  1  1    1  1  1      1  1      0  0    0
+#>    2  0  0    0  0  1      0  0      1  1    1
+#> [ reached max_nfeat ... 3 more features ]
 ```
 
 ## License

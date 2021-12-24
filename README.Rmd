@@ -20,6 +20,8 @@ require(gibasa)
 
 ## Installation
 
+To install gibasa from source package requires the MeCab library (mecab, libmecab-dev and mecab-ipadic-utf8) installed and available.
+
 ```r
 remotes::install_github("paithiov909/gibasa")
 ```
@@ -36,6 +38,17 @@ head(res)
 head(gibasa::prettify(res))
 
 gibasa::pack(res)
+
+res %>%
+  gibasa::prettify() %>% 
+  gibasa::gbs_c()
+
+res %>%
+  gibasa::prettify() %>% 
+  gibasa::gbs_freq()
+
+gibasa::gbs_as_tokens(res)
+gibasa::gbs_dfm(res)
 ```
 
 ## License

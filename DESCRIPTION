@@ -8,12 +8,14 @@ Maintainer: Akiru Kato <paithiov909@gmail.com>
 Description: Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 License: GPL (>= 3)
 Encoding: UTF-8
-LazyData: true
+BugReports: https://github.com/paithiov909/gibasa/issues
+SystemRequirements: GNU make, C++11, MeCab
 RoxygenNote: 7.1.2
 Imports: 
     magrittr,
     dplyr,
     purrr,
+    quanteda,
     Rcpp,
     rlang (>= 0.4.11),
     stringi,

@@ -8,6 +8,13 @@
 \description{
 Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item Report bugs at \url{https://github.com/paithiov909/gibasa/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Akiru Kato \email{paithiov909@gmail.com}
 
