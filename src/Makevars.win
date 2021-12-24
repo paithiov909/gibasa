@@ -1,0 +1,37 @@
+## Confirm the environment variable that defining where the 'libmecab.dll' is placed.
+## i.e. if you using the Korean mecab, MECAB_LIBS goes to '/mecab',
+## or (if you using the Japanese mecab), MECAB_LIBS goes to somewhere like '/PROGRA~2/mecab/bin'.
+ifeq "$(MECAB_LIBS)" ""
+	MECAB_LIBS = .
+endif
+
+ifeq "$(WIN)" "64"
+	MECAB_URL = https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-msvc-x64-0.996.6.zip
+else
+	MECAB_URL = https://github.com/shogo82148/mecab/releases/download/v0.996.6/mecab-msvc-x86-0.996.6.zip
+endif
+
+## Compiler / linker flags with RcppParallel library
+## -----
+## Drop '-Wno-parentheses' from PKG_CXXFLAGS for portability (2021-08-26).
+CXX_STD = CXX11
+PKG_CPPFLAGS = -I../inst/include -DBOOST_NO_AUTO_PTR
+PKG_CXXFLAGS = -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT -DSTRICT_R_HEADERS
+PKG_LIBS = -L$(MECAB_LIBS) -llibmecab $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
+
+all: libmecab $(SHLIB) clean
+
+## Ensure the build succeed even if there is no 'libmecab.dll'.
+## -----
+## target to ensure tar.gz files get unpacked
+## the opening '@' ensures operations are executed 'quietly'
+## in order to see commands as they happens add a 'v' to the tar and cp commands
+## -----
+## Note that using RcppMeCab still requires system dictionaries properly installed.
+libmecab:
+	@if [ ! -d ../mecab$(R_ARCH) ]; then mkdir -p ../mecab$(R_ARCH); fi
+	`"$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "download.file(url='$(MECAB_URL)', destfile='../mecab$(R_ARCH)/mecab.zip', quiet=TRUE)"`
+	@unzip -o ../mecab$(R_ARCH)/mecab.zip "libmecab$(SHLIB_EXT)"
+
+clean:
+	@rm libmecab$(SHLIB_EXT)
