@@ -63,7 +63,7 @@ struct TextParse
   mecab_model_t* model_;
 };
 
-};
+}
 
 using namespace Rcpp;
 using namespace TextParser;

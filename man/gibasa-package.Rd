@@ -4,7 +4,7 @@
 \name{gibasa-package}
 \alias{gibasa}
 \alias{gibasa-package}
-\title{gibasa: An Alternative 'Rcpp' Intercace to 'MeCab'}
+\title{gibasa: An Alternative 'Rcpp' Interface to 'MeCab'}
 \description{
 Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 }
