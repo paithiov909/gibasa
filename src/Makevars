@@ -15,12 +15,12 @@ libmecab:
 	@if [ ! -d ./mecab ]; then mkdir -p ./mecab; fi
 	`"$(R_HOME)/bin/Rscript" -e "download.file(url='$(MECAB_URL)', destfile='./mecab/mecab-0.996.tar.gz', quiet=TRUE)"`
 	cd mecab
-	echo $PWD
+	pwd
 	ls
-	@tar xvf ./mecab-0.996.tar.gz
+	@tar xvf ./mecab/mecab-0.996.tar.gz
 	cd mecab-0.996
-	echo $PWD
-	./configure --prefix=$PWD/../tmp --enable-utf8-only
+	pwd
+	./configure --prefix=$(PWD)/../tmp --enable-utf8-only
 	@make
 	@make install
 	cd ../../
