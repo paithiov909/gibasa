@@ -1,5 +1,5 @@
 ifeq "$(MECAB_LIBS)" ""
-	MECAB_LIBS = .
+	MECAB_LIBS = ./tmp/lib
 endif
 
 CXX_STD = CXX11
@@ -12,16 +12,6 @@ MECAB_URL = https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXli
 all: libmecab $(SHLIB)
 
 libmecab:
-	@if [ ! -d ./mecab ]; then mkdir -p ./mecab; fi
-	`"$(R_HOME)/bin/Rscript" -e "download.file(url='$(MECAB_URL)', destfile='./mecab/mecab-0.996.tar.gz', quiet=TRUE)"`
-	cd mecab
-	pwd
-	ls
-	@tar xvf ./mecab/mecab-0.996.tar.gz
-	cd mecab-0.996
-	pwd
-	./configure --prefix=$(PWD)/../tmp --enable-utf8-only
-	@make
-	@make install
-	cd ../../
-	cp -r ./mecab/tmp/lib/* .
+	`"$(R_HOME)/bin/Rscript" -e "download.file(url='$(MECAB_URL)', destfile='./mecab-0.996.tar.gz', quiet=TRUE)"`
+	@tar xvf ./mecab-0.996.tar.gz
+	./mecab-0.996/configure --prefix=$(PWD)/tmp --enable-utf8-only
