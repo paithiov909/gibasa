@@ -1,4 +1,23 @@
+ifeq "$(MECAB_LIBS)" ""
+	MECAB_LIBS = .
+endif
+
 CXX_STD = CXX11
 PKG_CPPFLAGS = -DBOOST_NO_AUTO_PTR
-PKG_CXXFLAGS = $(shell mecab-config --cflags)
-PKG_LIBS = -L$(shell mecab-config --libs-only-L) -lmecab $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
+PKG_LIBS = -L$(MECAB_LIBS) -lmecab $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
+
+MECAB_URL = https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE
+
+all: libmecab $(SHLIB)
+
+libmecab:
+	@if [ ! -d ../mecab ]; then mkdir -p ../mecab; fi
+	`"$(R_HOME)/bin/Rscript" -e "download.file(url='$(MECAB_URL)', destfile='../mecab/mecab-0.996.tar.gz', quiet=TRUE)"`
+	cd ../mecab
+	@tar xvf mecab-0.996.tar.gz
+	cd mecab-0.996
+	./configure --prefix=$PWD/../tmp --enable-utf8-only
+	@make
+	@make install
+	cd ../../src
+	cp -r ../mecab/tmp/lib/* .

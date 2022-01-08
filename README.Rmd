@@ -16,6 +16,11 @@ require(gibasa)
 
 # gibasa
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
+<!-- badges: end -->
+
+
 >  Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 
 ## Installation

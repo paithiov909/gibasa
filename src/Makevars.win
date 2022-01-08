@@ -12,21 +12,14 @@ else
 endif
 
 ## Compiler / linker flags with RcppParallel library
-## -----
-## Drop '-Wno-parentheses' from PKG_CXXFLAGS for portability (2021-08-26).
 CXX_STD = CXX11
 PKG_CPPFLAGS = -I../inst/include -DBOOST_NO_AUTO_PTR
 PKG_CXXFLAGS = -DRCPP_PARALLEL_USE_TBB=1 -DDLL_IMPORT -DSTRICT_R_HEADERS
 PKG_LIBS = -L$(MECAB_LIBS) -llibmecab $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
 
-all: libmecab $(SHLIB) clean
+all: libmecab $(SHLIB)
 
 ## Ensure the build succeed even if there is no 'libmecab.dll'.
-## -----
-## target to ensure tar.gz files get unpacked
-## the opening '@' ensures operations are executed 'quietly'
-## in order to see commands as they happens add a 'v' to the tar and cp commands
-## -----
 ## Note that using RcppMeCab still requires system dictionaries properly installed.
 libmecab:
 	@if [ ! -d ../mecab$(R_ARCH) ]; then mkdir -p ../mecab$(R_ARCH); fi
