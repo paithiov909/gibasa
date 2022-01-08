@@ -17,6 +17,7 @@ Imports:
     purrr,
     quanteda,
     Rcpp,
+    RcppParallel,
     rlang (>= 0.4.11),
     stringi,
     tidyr

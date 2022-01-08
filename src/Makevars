@@ -4,6 +4,7 @@ endif
 
 CXX_STD = CXX11
 PKG_CPPFLAGS = -DBOOST_NO_AUTO_PTR
+PKG_CXXFLAGS = -I../inst/include 
 PKG_LIBS = -L$(MECAB_LIBS) -lmecab $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
 
 MECAB_URL = https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE
@@ -11,14 +12,16 @@ MECAB_URL = https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXli
 all: libmecab $(SHLIB)
 
 libmecab:
-	@if [ ! -d ../mecab ]; then mkdir -p ../mecab; fi
-	`"$(R_HOME)/bin/Rscript" -e "download.file(url='$(MECAB_URL)', destfile='../mecab/mecab-0.996.tar.gz', quiet=TRUE)"`
-	cd ../mecab
+	@if [ ! -d ./mecab ]; then mkdir -p ./mecab; fi
+	`"$(R_HOME)/bin/Rscript" -e "download.file(url='$(MECAB_URL)', destfile='./mecab/mecab-0.996.tar.gz', quiet=TRUE)"`
+	cd mecab
+	echo $PWD
 	ls
 	@tar xvf ./mecab-0.996.tar.gz
 	cd mecab-0.996
+	echo $PWD
 	./configure --prefix=$PWD/../tmp --enable-utf8-only
 	@make
 	@make install
-	cd ../../src
-	cp -r ../mecab/tmp/lib/* .
+	cd ../../
+	cp -r ./mecab/tmp/lib/* .
