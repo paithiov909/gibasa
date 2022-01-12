@@ -46,7 +46,6 @@ jobs:
           ./configure --enable-utf8-only
           make
           sudo make install
-          sudo ldconfig
           cd ../mecab-ipadic
           ./configure --with-charset=utf8
           make
