@@ -39,14 +39,13 @@ jobs:
           use-public-rspm: true
 
       - name: Install MeCab
-        if: ${{ matrix.platform != 'windows-latest' }}
+        if: ${{ matrix.config.os != 'windows-latest' }}
         run: |
           git clone --depth=1 https://github.com/taku910/mecab.git
           cd mecab/mecab
           ./configure --enable-utf8-only
           make
           sudo make install
-          mecab-config --libs-only-L | sudo tee /etc/ld.so.conf.d/mecab.conf
           sudo ldconfig
           cd ../mecab-ipadic
           ./configure --with-charset=utf8
