@@ -1,3 +1,5 @@
+## -*- mode: Makefile; tab-width: 8 -*-
+
 ## Confirm the environment variable that defining where the 'libmecab.dll' is placed.
 ## i.e. if you using the Korean mecab, MECAB_LIBS goes to '/mecab',
 ## or (if you using the Japanese mecab), MECAB_LIBS goes to somewhere like '/PROGRA~2/mecab/bin'.

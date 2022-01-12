@@ -38,7 +38,25 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install MeCab
+        if: ${{ matrix.platform != 'windows-latest' }}
+        run: |
+          git clone --depth=1 https://github.com/taku910/mecab.git
+          cd mecab/mecab
+          ./configure --enable-utf8-only
+          make
+          sudo make install
+          mecab-config --libs-only-L | sudo tee /etc/ld.so.conf.d/mecab.conf
+          sudo ldconfig
+          cd ../mecab-ipadic
+          ./configure --with-charset=utf8
+          make
+          sudo make install
+          cd ../../
+
       - uses: r-lib/actions/setup-r-dependencies@v1
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         with:
           extra-packages: rcmdcheck
 
