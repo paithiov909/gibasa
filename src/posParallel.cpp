@@ -2,6 +2,7 @@
 // [[Rcpp::depends(RcppThread, RcppParallel, BH)]]
 
 #define R_NO_REMAP
+#define RCPPTHREAD_OVERRIDE_COUT 1
 #define RCPPTHREAD_OVERRIDE_THREAD 1
 
 #include <iostream>
