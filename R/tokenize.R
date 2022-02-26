@@ -7,10 +7,17 @@
 #' @param user_dic Character vector; path to the user dictionary for mecab.
 #' @param split Logical; If true, the function internally split the sentence
 #' into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.
-#' @return data.frame
+#' @param mode Character scalar to switch output format.
+#' @return data.frame or named list.
 #'
 #' @export
-tokenize <- function(sentence, sys_dic = "", user_dic = "", split = FALSE) {
+tokenize <- function(sentence,
+                     sys_dic = "",
+                     user_dic = "",
+                     split = FALSE,
+                     mode = c("parse", "wakati")) {
+  mode <- rlang::arg_match(mode, c("parse", "wakati"))
+
   # keep names
   nm <- names(sentence)
   if (identical(nm, NULL)) {
@@ -39,6 +46,13 @@ tokenize <- function(sentence, sys_dic = "", user_dic = "", split = FALSE) {
       doc_id = as.factor(.data$doc_id),
       sentence_id = as.factor(.data$sentence_id)
     )
+
+  if (identical(mode, "wakati")) {
+    result <- result %>%
+      dplyr::group_by(.data$doc_id) %>%
+      dplyr::group_map(~ .x$token) %>%
+      purrr::set_names(nm)
+  }
   return(result)
 }
 

@@ -4,7 +4,13 @@
 \alias{tokenize}
 \title{Tokenize sentence}
 \usage{
-tokenize(sentence, sys_dic = "", user_dic = "", split = FALSE)
+tokenize(
+  sentence,
+  sys_dic = "",
+  user_dic = "",
+  split = FALSE,
+  mode = c("parse", "wakati")
+)
 }
 \arguments{
 \item{sentence}{Character vector.}
@@ -17,9 +23,11 @@ not Shift-JIS or other encodings.}
 
 \item{split}{Logical; If true, the function internally split the sentence
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
+
+\item{mode}{Character scalar to switch output format.}
 }
 \value{
-data.frame
+data.frame or named list.
 }
 \description{
 Tokenize sentence

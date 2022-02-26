@@ -1,12 +1,11 @@
 // [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppThread, RcppParallel, BH)]]
+// [[Rcpp::depends(RcppParallel, BH)]]
 
 #define R_NO_REMAP
 
 #include <iostream>
 #include <sstream>
 #include <Rcpp.h>
-#include <RcppThread.h>
 #include <RcppParallel.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/tuple/tuple.hpp>

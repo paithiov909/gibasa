@@ -7,12 +7,12 @@
 gbs_as_tokens(df, pull = "token", n = 1L, sep = "-", what = "fastestword", ...)
 }
 \arguments{
-\item{df}{Prettified data.frame of tokens.}
+\item{df}{A prettified data.frame of tokens.}
 
-\item{pull}{Column to be packed into text or ngrams body. Default value is `token`.}
+\item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{n}{Integer internally passed to ngrams tokenizer function
-created of \code{gibasa::ngram_tokenizer()}}
+created of \code{audubon::ngram_tokenizer()}}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 

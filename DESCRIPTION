@@ -1,18 +1,15 @@
-Package: gibasa
 Type: Package
+Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.1.0
-Authors@R: c(
-    person("Akiru", "Kato", email = "paithiov909@gmail.com", role = c("aut", "cre")))
+Version: 0.1.2
+Authors@R: 
+    person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Maintainer: Akiru Kato <paithiov909@gmail.com>
 Description: Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 License: GPL (>= 3)
-Encoding: UTF-8
 BugReports: https://github.com/paithiov909/gibasa/issues
-SystemRequirements: GNU make, C++11, MeCab
-RoxygenNote: 7.1.2
 Imports: 
-    magrittr,
+    audubon,
     dplyr,
     purrr,
     quanteda,
@@ -21,15 +18,18 @@ Imports:
     rlang (>= 0.4.11),
     stringi,
     tidyr
+Suggests: 
+    devtools,
+    knitr,
+    markdown,
+    rmarkdown,
+    roxygen2
 LinkingTo:
     BH,
     Rcpp,
-    RcppParallel,
-    RcppThread
-Suggests: 
-    roxygen2,
-    knitr,
-    markdown,
-    devtools,
-    rmarkdown
-VignetteBuilder: knitr
+    RcppParallel
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+SystemRequirements: GNU make, C++11, MeCab

@@ -7,24 +7,47 @@
 pack(df, n = 1L, pull = "token", sep = "-", .collapse = " ")
 }
 \arguments{
-\item{df}{Prettified data.frame of tokens.}
+\item{df}{A prettified data.frame of tokens.}
 
 \item{n}{Integer internally passed to ngrams tokenizer function
-created of \code{gibasa::ngram_tokenizer()}}
+created of \code{audubon::ngram_tokenizer()}}
 
-\item{pull}{Column to be packed into text or ngrams body. Default value is `token`.}
+\item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 
-\item{.collapse}{Character scalar passed to \code{stringi::stri_c()}.}
+\item{.collapse}{This argument is passed to \code{stringi::stri_join()}.}
 }
 \value{
-data.frame
+A data.frame.
 }
 \description{
-Pack prettified data.frame of tokens into a new data.frame of corpus
-compatible with the Text Interchange Formats.
+Pack a prettified data.frame of tokens into a new data.frame of corpus,
+which is compatible with the Text Interchange Formats.
 }
+\section{Text Interchange Formats (TIF)}{
+
+
+
+The Text Interchange Formats (TIF) is a set of standards
+that allows R text analysis packages to target defined inputs and outputs
+for corpora, tokens, and document-term matrices.
+
+}
+
+\section{Valid data.frame of tokens}{
+
+
+
+The prettified data.frame of tokens here is a data.frame object
+compatible with the TIF.
+
+A TIF valid data.frame of tokens are expected to have one unique key column (named \code{doc_id})
+of each text and several feature columns of each tokens.
+The feature columns must contain at least \code{token} itself.
+
+}
+
 \seealso{
 \url{https://github.com/ropensci/tif}
 }
