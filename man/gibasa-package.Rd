@@ -11,6 +11,7 @@ Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://paithiov909.github.io/gibasa/}
   \item Report bugs at \url{https://github.com/paithiov909/gibasa/issues}
 }
 

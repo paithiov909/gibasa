@@ -23,7 +23,7 @@ tokenize <- function(sentence,
   if (identical(nm, NULL)) {
     nm <- seq_along(sentence)
   }
-  sentence <- enc2utf8(sentence) %>%
+  sentence <- stringi::stri_enc_toutf8(sentence) %>%
     purrr::set_names(nm)
 
   sys_dic <- paste0(sys_dic, collapse = "")
@@ -58,8 +58,8 @@ tokenize <- function(sentence,
 
 #' @noRd
 reset_encoding <- function(chr) {
-  sapply(chr, function(elem) {
+  unlist(lapply(chr, function(elem) {
     Encoding(elem) <- "UTF-8"
     return(elem)
-  }, USE.NAMES = FALSE)
+  }))
 }

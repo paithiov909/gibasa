@@ -4,11 +4,7 @@
 \alias{prettify}
 \title{Prettify tokenized output}
 \usage{
-prettify(
-  df,
-  into = c("POS1", "POS2", "POS3", "POS4", "X5StageUse1", "X5StageUse2", "Original",
-    "Yomi1", "Yomi2")
-)
+prettify(df, into = get_dict_features("ipa"))
 }
 \arguments{
 \item{df}{Dataframe that comes out of \code{tokenize()}.}
