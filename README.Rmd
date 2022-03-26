@@ -21,7 +21,7 @@ require(gibasa)
 <!-- badges: end -->
 
 
->  Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
+Gibasa is an 'Rcpp' interface to 'MeCab'.
 
 ## Installation
 

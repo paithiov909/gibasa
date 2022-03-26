@@ -3,7 +3,7 @@
 
 # gibasa
 
-> Gibasa is a cleaner ‘Rcpp’ interface to ‘MeCab’.
+Gibasa is a cleaner ‘Rcpp’ interface to ‘MeCab’.
 
 ## Installation
 

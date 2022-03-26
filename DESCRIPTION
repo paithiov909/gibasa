@@ -7,6 +7,7 @@ Authors@R:
 Maintainer: Akiru Kato <paithiov909@gmail.com>
 Description: Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
 License: GPL (>= 3)
+URL: https://paithiov909.github.io/gibasa/
 BugReports: https://github.com/paithiov909/gibasa/issues
 Imports: 
     audubon,
