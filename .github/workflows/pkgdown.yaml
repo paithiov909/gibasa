@@ -23,11 +23,6 @@ jobs:
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
-        with:
-          extra-packages: pkgdown
-          needs: website
-
       - name: Install MeCab
         run: |
           git clone --depth=1 https://github.com/taku910/mecab.git
@@ -40,6 +35,11 @@ jobs:
           make
           sudo make install
           cd ../../
+
+      - uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: pkgdown
+          needs: website
 
       - name: Deploy package
         run: |
