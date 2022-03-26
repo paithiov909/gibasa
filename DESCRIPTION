@@ -33,4 +33,4 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 RoxygenNote: 7.1.2
-SystemRequirements: GNU make, C++11, MeCab
+SystemRequirements: C++11, GNU make, MeCab
