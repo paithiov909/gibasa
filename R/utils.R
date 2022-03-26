@@ -10,15 +10,10 @@
 prettify <- function(df,
                      into = get_dict_features("ipa")) {
   df %>%
-    dplyr::mutate(
-      feature = .data$feature %>%
-        stringi::stri_replace_all_regex("\\\"", "") %>%
-        stringi::stri_replace_all_regex("(\\d+),", "$1 ")
-    ) %>%
     tidyr::separate(
       col = "feature",
       into = into,
-      sep = ",",
+      sep = ",(?=(?:[^\\\"]*\"[^\\\"]*\\\")*(?![^\\\"]*\\\"))",
       fill = "right"
     ) %>%
     dplyr::mutate_if(is.character, ~ dplyr::na_if(., "*"))
