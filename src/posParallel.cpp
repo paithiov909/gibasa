@@ -125,7 +125,6 @@ Rcpp::DataFrame posParallelRcpp( std::vector<std::string> text, std::string sys_
   mecab_model_destroy(model);
 
   // make columns for result data.frame.
-  // make columns for result data.frame.
   for (size_t k = 0; k < results.size(); ++k) {
     // check user interrupt (Ctrl+C).
     if (k % 1000 == 0) checkUserInterrupt();
