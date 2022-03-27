@@ -13,9 +13,6 @@
     <loc>https://paithiov909.github.io/gibasa/index.html</loc>
   </url>
   <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/download_unidic.html</loc>
-  </url>
-  <url>
     <loc>https://paithiov909.github.io/gibasa/reference/gbs_as_tokens.html</loc>
   </url>
   <url>
@@ -23,9 +20,6 @@
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/gbs_dfm.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/gbs_freq.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/get_dict_features.html</loc>
@@ -53,8 +47,5 @@
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/tokenize.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/unidic_availables.html</loc>
   </url>
 </urlset>

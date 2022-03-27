@@ -60,7 +60,9 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="gibasa">gibasa<a class="anchor" aria-label="anchor" href="#gibasa"></a>
 </h1></div>
-<p>Gibasa is a cleaner ‘Rcpp’ interface to ‘MeCab’.</p>
+<!-- badges: start -->
+
+<p>Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -124,26 +126,6 @@
 <span class="co">#&gt;     名詞     助詞     動詞     名詞     助詞     動詞   助動詞 </span>
 <span class="co">#&gt; "望遠鏡"     "で"   "泳ぐ"   "彼女"     "を"     "見"     "た"</span>
 
-<span class="va">res</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> 
-  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_freq.html">gbs_freq</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 13 x 4</span>
-<span class="co">#&gt;    Term   Info1  Info2   Freq</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 が     助詞   格助詞     1</span>
-<span class="co">#&gt;  2 た     助動詞 &lt;NA&gt;       1</span>
-<span class="co">#&gt;  3 で     助詞   格助詞     1</span>
-<span class="co">#&gt;  4 を     助詞   格助詞     2</span>
-<span class="co">#&gt;  5 泳ぐ   動詞   自立       1</span>
-<span class="co">#&gt;  6 魚     名詞   一般       1</span>
-<span class="co">#&gt;  7 見     動詞   自立       1</span>
-<span class="co">#&gt;  8 食べる 動詞   自立       1</span>
-<span class="co">#&gt;  9 赤い   形容詞 自立       1</span>
-<span class="co">#&gt; 10 頭     名詞   一般       1</span>
-<span class="co">#&gt; 11 猫     名詞   一般       1</span>
-<span class="co">#&gt; 12 彼女   名詞   代名詞     1</span>
-<span class="co">#&gt; 13 望遠鏡 名詞   一般       1</span>
-
 <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_as_tokens.html">gbs_as_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt; Tokens consisting of 2 documents.</span>
 <span class="co">#&gt; 1 :</span>
@@ -196,7 +178,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/paithiov909/gibasa/actions" class="external-link"><img src="https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
