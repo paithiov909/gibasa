@@ -1,11 +1,11 @@
 #' Tokenize sentence
 #'
 #' @param sentence Character vector.
-#' @param sys_dic Character vector; path to the system dictionary for mecab.
+#' @param sys_dic Character scalar; path to the system dictionary for mecab.
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.
-#' @param user_dic Character vector; path to the user dictionary for mecab.
-#' @param split Logical; If true, the function internally split the sentence
+#' @param user_dic Character scalar; path to the user dictionary for mecab.
+#' @param split Logical. If true, the function internally split the sentence
 #' into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.
 #' @param mode Character scalar to switch output format.
 #' @return data.frame or named list.
@@ -65,6 +65,6 @@ reset_encoding <- function(chr) {
 }
 
 #' Alias of `tokenize`
-#' @noRd
+#' @inherit tokenize
 #' @export
 gbs_tokenize <- tokenize
