@@ -23,16 +23,24 @@ prettify <- function(df,
 #'
 #' Returns features of dictionary.
 #' Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
-#' "unidic29" (schema used in 2.2.0, 2.3.0), and "ipa".
+#' "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
+#' and "ipa".
 #'
-#' @param dict String; one of "ipa", "unidic17", "unidic26" or "unidic29".
+#' @seealso See also
+#' \href{https://ccd.ninjal.ac.jp/unidic/}{UniDic},
+#' \href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{CC-CEDICT-MeCab},
+#' and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{mecab-ko-dic}.
+#' @param dict Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
+#' "cc-cedict", or "ko-dic".
 #' @return A character vector.
 #' @export
 get_dict_features <- function(dict = c(
                                 "ipa",
                                 "unidic17",
                                 "unidic26",
-                                "unidic29"
+                                "unidic29",
+                                "cc-cedict",
+                                "ko-dic"
                               )) {
   dict <- rlang::arg_match(dict)
   feat <- dplyr::case_when(
@@ -53,9 +61,26 @@ get_dict_features <- function(dict = c(
       "fForm", "iConType", "fConType", "type", "kana", "kanaBase", "form", "formBase", "aType", "aConType",
       "aModType", "lid", "lemma_id"
     )),
+    dict == "cc-cedict" ~ list(c(
+      "POS1", "POS2", "POS3", "POS4",
+      "pinyin_pron", "traditional_char_form", "simplified_char_form",
+      "definition"
+    )),
+    dict == "ko-dic" ~ list(c(
+      "POS", "meaning", "presence", "reading", "type", "first_pos", "last_pos", "expression"
+    )),
     TRUE ~ list(c("POS1", "POS2", "POS3", "POS4", "X5StageUse1", "X5StageUse2", "Original", "Yomi1", "Yomi2"))
   )
   unlist(feat)
+}
+
+#' Pack prettified data.frame of tokens
+#'
+#' @inherit audubon::pack description return details sections seealso
+#' @inheritParams audubon::pack
+#' @export
+pack <- function(df, n = 1L, pull = "token", sep = "-", .collapse = " ") {
+  audubon::pack(df, n, pull = pull, sep = sep, .collapse = .collapse)
 }
 
 #' Pipe operator
@@ -67,12 +92,3 @@ get_dict_features <- function(dict = c(
 #' @export
 #' @usage lhs \%>\% rhs
 NULL
-
-#' Pack prettified data.frame of tokens
-#'
-#' @inherit audubon::pack description return details sections seealso
-#' @inheritParams audubon::pack
-#' @export
-pack <- function(df, n = 1L, pull = "token", sep = "-", .collapse = " ") {
-  audubon::pack(df, n, pull = pull, sep = sep, .collapse = .collapse)
-}

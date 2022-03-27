@@ -12,16 +12,13 @@ BugReports: https://github.com/paithiov909/gibasa/issues
 Imports: 
     audubon,
     dplyr,
-    jsonlite,
     purrr,
     quanteda,
     Rcpp,
     RcppParallel,
     rlang (>= 0.4.11),
     stringi,
-    tidyr,
-    utils,
-    yesno
+    tidyr
 Suggests: 
     devtools,
     knitr,

@@ -1,5 +1,4 @@
 #' List of available 'UniDic'
-#' @export
 unidic_availables <- function() {
   jsonlite::read_json(
     "https://raw.githubusercontent.com/polm/unidic-py/master/dicts.json"
@@ -15,7 +14,6 @@ unidic_availables <- function() {
 #' @param version String; version of 'UniDic'.
 #' @param dirname String; directory where unzip the dictionary.
 #' @return full path to `dirname` is returned invisibly.
-#' @export
 download_unidic <- function(version = "latest", dirname = "unidic") {
   json <- unidic_availables()
   version <- rlang::arg_match(version, values = names(json))

@@ -3,38 +3,11 @@
 #' These functions are compact RMeCab alternatives
 #' based on \href{https://quanteda.io/}{quanteda}.
 #'
-#' @seealso gbs_freq, gbs_c, gbs_as_tokens, gbs_dfm, gbs_collocate
+#' @seealso gbs_c, gbs_as_tokens, gbs_dfm
 #' @rdname gibasa
 #' @name gbs
 #' @keywords internal
 NULL
-
-#' An alternative of RMeCabFreq
-#'
-#' @param df A prettified data.frame of tokenized sentences.
-#' @param ... Other arguments are passed to \code{dplyr::tally()}.
-#' @param .name_repair Logical:
-#' If true, then rename the column names as RMeCabFreq-compatible style.
-#' @returns A data.frame.
-#' @family gbs
-#' @export
-gbs_freq <- function(df, ..., .name_repair = TRUE) {
-  df <- df %>%
-    dplyr::group_by(.data$token, .data$POS1, .data$POS2) %>%
-    dplyr::tally(...) %>%
-    dplyr::ungroup()
-  if (.name_repair) {
-    df <-
-      dplyr::rename(
-        df,
-        Term = .data$token,
-        Info1 = .data$POS1,
-        Info2 = .data$POS2,
-        Freq = .data$n
-      )
-  }
-  return(df)
-}
 
 #' An alternative of RMeCabC
 #'
@@ -44,14 +17,12 @@ gbs_freq <- function(df, ..., .name_repair = TRUE) {
 #' @return A list of named vectors.
 #' @family gbs
 #' @export
-gbs_c <- function(df, pull = c("token", "Original"), names = "POS1") {
-  pull <- rlang::arg_match(pull)
-  re <- df %>%
+gbs_c <- function(df, pull = "token", names = "POS1") {
+  df %>%
     dplyr::group_by(.data$doc_id) %>%
     dplyr::group_map(function(.x, .y) {
       purrr::set_names(dplyr::pull(.x, {{ pull }}), dplyr::pull(.x, {{ names }}))
     })
-  return(re)
 }
 
 #' Pack prettified output as quanteda tokens
@@ -63,11 +34,10 @@ gbs_c <- function(df, pull = c("token", "Original"), names = "POS1") {
 #' @family gbs
 #' @export
 gbs_as_tokens <- function(df, pull = "token", n = 1L, sep = "-", what = "fastestword", ...) {
-  df <-
-    pack(df, pull = pull, n = n, sep = sep) %>%
+  df %>%
+    pack(pull = pull, n = n, sep = sep) %>%
     quanteda::corpus() %>%
     quanteda::tokens(what = what, ...)
-  return(df)
 }
 
 #' An alternative of docDF family
@@ -81,8 +51,7 @@ gbs_as_tokens <- function(df, pull = "token", n = 1L, sep = "-", what = "fastest
 #' @family gbs
 #' @export
 gbs_dfm <- function(df, pull = "token", n = 1L, sep = "-", what = "fastestword", ...) {
-  res <-
-    gbs_as_tokens(df, pull = pull, n = n, sep = sep, what = what, ...) %>%
+  df %>%
+    gbs_as_tokens(pull = pull, n = n, sep = sep, what = what, ...) %>%
     quanteda::dfm()
-  return(res)
 }

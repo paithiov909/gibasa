@@ -8,6 +8,6 @@ These functions are compact RMeCab alternatives
 based on \href{https://quanteda.io/}{quanteda}.
 }
 \seealso{
-gbs_freq, gbs_c, gbs_as_tokens, gbs_dfm, gbs_collocate
+gbs_c, gbs_as_tokens, gbs_dfm
 }
 \keyword{internal}

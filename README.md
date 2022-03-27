@@ -3,7 +3,12 @@
 
 # gibasa
 
-Gibasa is a cleaner ‘Rcpp’ interface to ‘MeCab’.
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
+<!-- badges: end -->
+
+Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’.
 
 ## Installation
 
@@ -69,26 +74,6 @@ res %>%
 #>     名詞     助詞     動詞     名詞     助詞     動詞   助動詞 
 #> "望遠鏡"     "で"   "泳ぐ"   "彼女"     "を"     "見"     "た"
 
-res %>%
-  gibasa::prettify() %>% 
-  gibasa::gbs_freq()
-#> # A tibble: 13 x 4
-#>    Term   Info1  Info2   Freq
-#>    <chr>  <chr>  <chr>  <int>
-#>  1 が     助詞   格助詞     1
-#>  2 た     助動詞 <NA>       1
-#>  3 で     助詞   格助詞     1
-#>  4 を     助詞   格助詞     2
-#>  5 泳ぐ   動詞   自立       1
-#>  6 魚     名詞   一般       1
-#>  7 見     動詞   自立       1
-#>  8 食べる 動詞   自立       1
-#>  9 赤い   形容詞 自立       1
-#> 10 頭     名詞   一般       1
-#> 11 猫     名詞   一般       1
-#> 12 彼女   名詞   代名詞     1
-#> 13 望遠鏡 名詞   一般       1
-
 gibasa::gbs_as_tokens(res)
 #> Tokens consisting of 2 documents.
 #> 1 :
@@ -107,4 +92,4 @@ gibasa::gbs_dfm(res)
 
 ## License
 
-GPL (>=3).
+GPL (\>=3).

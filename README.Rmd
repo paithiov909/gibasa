@@ -21,7 +21,7 @@ require(gibasa)
 <!-- badges: end -->
 
 
-Gibasa is an 'Rcpp' interface to 'MeCab'.
+Gibasa is a plain 'Rcpp' interface to 'MeCab'.
 
 ## Installation
 
@@ -47,10 +47,6 @@ gibasa::pack(res)
 res %>%
   gibasa::prettify() %>% 
   gibasa::gbs_c()
-
-res %>%
-  gibasa::prettify() %>% 
-  gibasa::gbs_freq()
 
 gibasa::gbs_as_tokens(res)
 gibasa::gbs_dfm(res)

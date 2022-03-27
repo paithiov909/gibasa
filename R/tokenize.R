@@ -63,3 +63,8 @@ reset_encoding <- function(chr) {
     return(elem)
   }))
 }
+
+#' Alias of `tokenize`
+#' @noRd
+#' @export
+gbs_tokenize <- tokenize

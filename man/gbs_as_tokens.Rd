@@ -29,7 +29,6 @@ Pack prettified output as quanteda tokens
 \seealso{
 Other gbs: 
 \code{\link{gbs_c}()},
-\code{\link{gbs_dfm}()},
-\code{\link{gbs_freq}()}
+\code{\link{gbs_dfm}()}
 }
 \concept{gbs}

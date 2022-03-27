@@ -31,7 +31,6 @@ This function is a shorthand of
 \seealso{
 Other gbs: 
 \code{\link{gbs_as_tokens}()},
-\code{\link{gbs_c}()},
-\code{\link{gbs_freq}()}
+\code{\link{gbs_c}()}
 }
 \concept{gbs}
