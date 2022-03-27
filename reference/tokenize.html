@@ -62,13 +62,13 @@
     <dl><dt>sentence</dt>
 <dd><p>Character vector.</p></dd>
 <dt>sys_dic</dt>
-<dd><p>Character vector; path to the system dictionary for mecab.
+<dd><p>Character scalar; path to the system dictionary for mecab.
 Note that the system dictionary is expected to be compiled with UTF-8,
 not Shift-JIS or other encodings.</p></dd>
 <dt>user_dic</dt>
-<dd><p>Character vector; path to the user dictionary for mecab.</p></dd>
+<dd><p>Character scalar; path to the user dictionary for mecab.</p></dd>
 <dt>split</dt>
-<dd><p>Logical; If true, the function internally split the sentence
+<dd><p>Logical. If true, the function internally split the sentence
 into sub-sentences using <code>stringi::stri_split_boudaries(type = "sentence")</code>.</p></dd>
 <dt>mode</dt>
 <dd><p>Character scalar to switch output format.</p></dd>
