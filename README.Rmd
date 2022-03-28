@@ -23,6 +23,19 @@ require(gibasa)
 
 Gibasa is a plain 'Rcpp' interface to 'MeCab', a CJK tokenizer and morphological analysis tool.
 
+The main goal of gibasa package is to provide an alternative to `tidytext::unnest_tokens` for CJK text data.
+For analyzing CJK text data, it usually requires part-of-speech tagging,
+as most of them are not separated with spaces and `tokenizers::tokenize_words` sometimes splits them into erroneous tokens.
+
+Gibasa provides 3 main functions: `gibasa::tokenize`, `gibasa::prettify`, and `gibasa::pack`.
+
+![image](man/figures/tidytext_fig5_1_mod.drawio.png)
+
+- `gibasa::tokenize` gets a TIF-compliant data.frame of corpus, returning tokens as format that known as 'tidy text data', so that the users can replace `tidytext::unnest_tokens` with it for tokenizing CJK text.
+- `gibasa::prettify` turns tagged features into columns.
+- `gibasa::pack` gets a 'tidy text data', typically returning space-separated corpus.
+
+
 ## Installation
 
 To install gibasa from source package requires the MeCab library (mecab, libmecab-dev and mecab-ipadic-utf8) installed and available.
@@ -36,19 +49,18 @@ remotes::install_github("paithiov909/gibasa")
 ### Tokenize and prettify output
 
 ```{r}
-res <- gibasa::gbs_tokenize(
-  c("頭が赤い魚を食べる猫",
-    "望遠鏡で泳ぐ彼女を見た")
+res <- gibasa::tokenize(
+  data.frame(
+    doc_id = seq_len(length(audubon::polano[3:8])),
+    text = audubon::polano[3:8]
+  )
 )
 
 head(res)
+
 head(gibasa::prettify(res))
 
 gibasa::pack(res)
-
-res %>%
-  gibasa::prettify() %>% 
-  gibasa::gbs_c()
 ```
 
 ### Integrate with 'quanteda'

@@ -11,6 +11,25 @@
 Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and
 morphological analysis tool.
 
+The main goal of gibasa package is to provide an alternative to
+`tidytext::unnest_tokens` for CJK text data. For analyzing CJK text
+data, it usually requires part-of-speech tagging, as most of them are
+not separated with spaces and `tokenizers::tokenize_words` sometimes
+splits them into erroneous tokens.
+
+Gibasa provides 3 main functions: `gibasa::tokenize`,
+`gibasa::prettify`, and `gibasa::pack`.
+
+![image](man/figures/tidytext_fig5_1_mod.drawio.png)
+
+-   `gibasa::tokenize` gets a TIF-compliant data.frame of corpus,
+    returning tokens as format that known as ‘tidy text data’, so that
+    the users can replace `tidytext::unnest_tokens` with it for
+    tokenizing CJK text.
+-   `gibasa::prettify` turns tagged features into columns.
+-   `gibasa::pack` gets a ‘tidy text data’, typically returning
+    space-separated corpus.
+
 ## Installation
 
 To install gibasa from source package requires the MeCab library (mecab,
@@ -25,76 +44,106 @@ remotes::install_github("paithiov909/gibasa")
 ### Tokenize and prettify output
 
 ``` r
-res <- gibasa::gbs_tokenize(
-  c("頭が赤い魚を食べる猫",
-    "望遠鏡で泳ぐ彼女を見た")
+res <- gibasa::tokenize(
+  data.frame(
+    doc_id = seq_len(length(audubon::polano[3:8])),
+    text = audubon::polano[3:8]
+  )
 )
 
 head(res)
-#>   doc_id sentence_id token_id  token
-#> 1      1           1        1     頭
-#> 2      1           1        2     が
-#> 3      1           1        3   赤い
-#> 4      1           1        4     魚
-#> 5      1           1        5     を
-#> 6      1           1        6 食べる
-#>                                                      feature
-#> 1                         名詞,一般,*,*,*,*,頭,アタマ,アタマ
-#> 2                            助詞,格助詞,一般,*,*,*,が,ガ,ガ
-#> 3 形容詞,自立,*,*,形容詞・アウオ段,基本形,赤い,アカイ,アカイ
-#> 4                         名詞,一般,*,*,*,*,魚,サカナ,サカナ
-#> 5                            助詞,格助詞,一般,*,*,*,を,ヲ,ヲ
-#> 6             動詞,自立,*,*,一段,基本形,食べる,タベル,タベル
+#>   doc_id sentence_id token_id                token
+#> 1      1           1        1                   前
+#> 2      1           1        2                   十
+#> 3      1           1        3                   七
+#> 4      1           1        4                   等
+#> 5      1           1        5                   官
+#> 6      1           1        6 レオーノ・キュースト
+#>                                feature
+#> 1 接頭詞,名詞接続,*,*,*,*,前,ゼン,ゼン
+#> 2     名詞,数,*,*,*,*,十,ジュウ,ジュー
+#> 3         名詞,数,*,*,*,*,七,ナナ,ナナ
+#> 4  名詞,接尾,助数詞,*,*,*,等,トウ,トー
+#> 5    名詞,接尾,一般,*,*,*,官,カン,カン
+#> 6                  名詞,一般,*,*,*,*,*
+
 head(gibasa::prettify(res))
-#>   doc_id sentence_id token_id  token   POS1   POS2 POS3 POS4      X5StageUse1
-#> 1      1           1        1     頭   名詞   一般 <NA> <NA>             <NA>
-#> 2      1           1        2     が   助詞 格助詞 一般 <NA>             <NA>
-#> 3      1           1        3   赤い 形容詞   自立 <NA> <NA> 形容詞・アウオ段
-#> 4      1           1        4     魚   名詞   一般 <NA> <NA>             <NA>
-#> 5      1           1        5     を   助詞 格助詞 一般 <NA>             <NA>
-#> 6      1           1        6 食べる   動詞   自立 <NA> <NA>             一段
-#>   X5StageUse2 Original  Yomi1  Yomi2
-#> 1        <NA>       頭 アタマ アタマ
-#> 2        <NA>       が     ガ     ガ
-#> 3      基本形     赤い アカイ アカイ
-#> 4        <NA>       魚 サカナ サカナ
-#> 5        <NA>       を     ヲ     ヲ
-#> 6      基本形   食べる タベル タベル
+#>   doc_id sentence_id token_id                token   POS1     POS2   POS3 POS4
+#> 1      1           1        1                   前 接頭詞 名詞接続   <NA> <NA>
+#> 2      1           1        2                   十   名詞       数   <NA> <NA>
+#> 3      1           1        3                   七   名詞       数   <NA> <NA>
+#> 4      1           1        4                   等   名詞     接尾 助数詞 <NA>
+#> 5      1           1        5                   官   名詞     接尾   一般 <NA>
+#> 6      1           1        6 レオーノ・キュースト   名詞     一般   <NA> <NA>
+#>   X5StageUse1 X5StageUse2 Original  Yomi1  Yomi2
+#> 1        <NA>        <NA>       前   ゼン   ゼン
+#> 2        <NA>        <NA>       十 ジュウ ジュー
+#> 3        <NA>        <NA>       七   ナナ   ナナ
+#> 4        <NA>        <NA>       等   トウ   トー
+#> 5        <NA>        <NA>       官   カン   カン
+#> 6        <NA>        <NA>     <NA>   <NA>   <NA>
 
 gibasa::pack(res)
-#>   doc_id                         text
-#> 1      1   頭 が 赤い 魚 を 食べる 猫
-#> 2      2 望遠鏡 で 泳ぐ 彼女 を 見 た
-
-res %>%
-  gibasa::prettify() %>% 
-  gibasa::gbs_c()
-#> [[1]]
-#>     名詞     助詞   形容詞     名詞     助詞     動詞     名詞 
-#>     "頭"     "が"   "赤い"     "魚"     "を" "食べる"     "猫" 
-#> 
-#> [[2]]
-#>     名詞     助詞     動詞     名詞     助詞     動詞   助動詞 
-#> "望遠鏡"     "で"   "泳ぐ"   "彼女"     "を"     "見"     "た"
+#>   doc_id
+#> 1      1
+#> 2      2
+#> 3      3
+#> 4      4
+#> 5      5
+#> 6      6
+#>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             text
+#> 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         前 十 七 等 官 レオーノ・キュースト 誌
+#> 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 宮沢 賢治 訳述
+#> 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし た 。
+#> 4 十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし た し 俸給 も ほんの わずか でし た が 、 受持ち が 標本 の 採集 や 整理 で 生れ 付き 好き な こと でし た から 、 わたくし は 毎日 ずいぶん 愉快 に はたらき まし た 。 殊に その ころ 、 モリーオ 市 で は 競馬 場 を 植物 園 に 拵え 直す と いう ので 、 その 景色 の いい まわり に アカシヤ を 植え込ん だ 広い 地面 が 、 切符 売場 や 信号 所 の 建物 の つい た まま 、 わたくし ども の 役所 の 方 へ まわっ て 来 た もの です から 、 わたくし は すぐ 宿直 という 名前 で 月賦 で 買っ た 小さな 蓄音器 と 二 十 枚 ばかり の レコード を もっ て 、 その 番小屋 に ひとり 住む こと に なり まし た 。 わたくし は そこ の 馬 を 置く 場所 に 板 で 小さな し きい を つけ て 一疋 の 山羊 を 飼い まし た 。 毎朝 その 乳 を しぼっ て つめたい パン を ひたし て た べ 、 それ から 黒い 革 の かばん へ すこし の 書類 や 雑誌 を 入れ 、 靴 も きれい に みがき 、 並木 の ポプラ の 影法師 を 大股 にわたって 市 の 役所 へ 出 て 行く の でし た 。
+#> 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を もつ 青い そら 、 うつくしい 森 で 飾ら れ た モリーオ 市 、 郊外 の ぎらぎら ひかる 草 の 波 。
+#> 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼーロ と ロザーロ 、 羊 飼 の ミーロ や 、 顔 の 赤い こども たち 、 地主 の テーモ 、 山猫 博士 の ボーガント・デストゥパーゴ など 、 いま この 暗い 巨 き な 石 の 建物 の なか で 考え て いる と 、 みんな むかし 風 の なつかしい 青い 幻 燈 の よう に 思わ れ ます 。 で は 、 わたくし は いつか の 小さな み だし を つけ ながら 、 しずか に あの 年 の イーハトーヴォ の 五月 から 十月 まで を 書きつけ ましょ う 。
 ```
 
 ### Integrate with ‘quanteda’
 
 ``` r
 gibasa::gbs_as_tokens(res) ## cast as quanteda 'tokens' object
-#> Tokens consisting of 2 documents.
+#> Tokens consisting of 6 documents.
 #> 1 :
-#> [1] "頭"     "が"     "赤い"   "魚"     "を"     "食べる" "猫"    
+#> [1] "前"                   "十"                   "七"                  
+#> [4] "等"                   "官"                   "レオーノ・キュースト"
+#> [7] "誌"                  
 #> 
 #> 2 :
-#> [1] "望遠鏡" "で"     "泳ぐ"   "彼女"   "を"     "見"     "た"
+#> [1] "宮沢" "賢治" "訳述"
+#> 
+#> 3 :
+#>  [1] "その"     "ころ"     "わたくし" "は"       "、"       "モリーオ"
+#>  [7] "市"       "の"       "博物"     "局"       "に"       "勤め"    
+#> [ ... and 5 more ]
+#> 
+#> 4 :
+#>  [1] "十"   "八"   "等"   "官"   "でし" "た"   "から" "役所" "の"   "なか"
+#> [11] "でも" "、"  
+#> [ ... and 219 more ]
+#> 
+#> 5 :
+#>  [1] "あの"           "イーハトーヴォ" "の"             "すきとおっ"    
+#>  [5] "た"             "風"             "、"             "夏"            
+#>  [9] "で"             "も"             "底"             "に"            
+#> [ ... and 24 more ]
+#> 
+#> 6 :
+#>  [1] "また"     "その"     "なか"     "で"       "いっしょ" "に"      
+#>  [7] "なっ"     "た"       "たくさん" "の"       "ひと"     "たち"    
+#> [ ... and 89 more ]
 gibasa::gbs_dfm(res) ## cast as quanteda 'dfm' object
-#> Document-feature matrix of: 2 documents, 13 features (46.15% sparse) and 0 docvars.
+#> Document-feature matrix of: 6 documents, 210 features (79.37% sparse) and 0 docvars.
 #>     features
-#> docs 頭 が 赤い 魚 を 食べる 猫 望遠鏡 で 泳ぐ
-#>    1  1  1    1  1  1      1  1      0  0    0
-#>    2  0  0    0  0  1      0  0      1  1    1
-#> [ reached max_nfeat ... 3 more features ]
+#> docs 前 十 七 等 官 レオーノ・キュースト 誌 宮沢 賢治 訳述
+#>    1  1  1  1  1  1                    1  1    0    0    0
+#>    2  0  0  0  0  0                    0  0    1    1    1
+#>    3  0  0  0  0  0                    0  0    0    0    0
+#>    4  0  2  0  1  1                    0  0    0    0    0
+#>    5  0  0  0  0  0                    0  0    0    0    0
+#>    6  0  0  0  0  0                    0  0    0    0    0
+#> [ reached max_nfeat ... 200 more features ]
 ```
 
 ### Change dictionary
