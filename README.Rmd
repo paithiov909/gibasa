@@ -36,7 +36,7 @@ remotes::install_github("paithiov909/gibasa")
 ### Tokenize and prettify output
 
 ```{r}
-res <- gibasa::tokenize(
+res <- gibasa::gbs_tokenize(
   c("頭が赤い魚を食べる猫",
     "望遠鏡で泳ぐ彼女を見た")
 )
@@ -64,7 +64,7 @@ IPA, [UniDic](https://ccd.ninjal.ac.jp/unidic/), [CC-CEDICT-MeCab](https://githu
 
 ```r
 ## CC-CEDICT
-gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") %>%
+gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") %>%
     gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
 #>   doc_id sentence_id token_id            token POS1 POS2 POS3 POS4 pinyin_pron
 #> 1      1           1        1               它 <NA> <NA> <NA> <NA>         ta1
@@ -98,7 +98,7 @@ gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/me
 #> 9                                                    to analyze/analysis/CL:個|个[ge4]/
 
 ## mecan-ko-dic
-gibasa::tokenize("하네다공항한정토트백", sys_dic = "/mecab/mecab-ko-dic") %>%
+gibasa::gbs_tokenize("하네다공항한정토트백", sys_dic = "/mecab/mecab-ko-dic") %>%
     gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
 #>   doc_id sentence_id token_id                    token POS          meaning
 #> 1      1           1        1 <U+D558><U+B124><U+B2E4> NNP <U+C778><U+BA85>

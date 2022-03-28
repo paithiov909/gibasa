@@ -1,4 +1,4 @@
-#' Tokenize sentence
+#' Tokenize sentence for character vector
 #'
 #' @param sentence Character vector.
 #' @param sys_dic Character scalar; path to the system dictionary for mecab.
@@ -11,11 +11,11 @@
 #' @return data.frame or named list.
 #'
 #' @export
-tokenize <- function(sentence,
-                     sys_dic = "",
-                     user_dic = "",
-                     split = FALSE,
-                     mode = c("parse", "wakati")) {
+gbs_tokenize <- function(sentence,
+                         sys_dic = "",
+                         user_dic = "",
+                         split = FALSE,
+                         mode = c("parse", "wakati")) {
   mode <- rlang::arg_match(mode, c("parse", "wakati"))
 
   # keep names
@@ -56,6 +56,52 @@ tokenize <- function(sentence,
   return(result)
 }
 
+#' Tokenize sentence for data.frame
+#'
+#' @param tbl A data.frame.
+#' @param text_field String or symbol; column name where to get texts.
+#' @param docid_field String or symbol; column name where to get identifiers of texts.
+#' @inheritParams gbs_tokenize
+#' @return data.frame.
+#'
+#' @export
+tokenize <- function(tbl,
+                     text_field = "text",
+                     docid_field = "doc_id",
+                     sys_dic = "",
+                     user_dic = "",
+                     split = FALSE) {
+  text_field <- rlang::enquo(text_field)
+  docid_field <- rlang::enquo(docid_field)
+
+  sentence <-
+    purrr::set_names(
+      dplyr::pull(tbl, {{ text_field }}) %>% stringi::stri_enc_toutf8(),
+      dplyr::pull(tbl, {{ docid_field }})
+    )
+  sys_dic <- paste0(sys_dic, collapse = "")
+  user_dic <- paste0(user_dic, collapse = "")
+
+  result <-
+    purrr::imap_dfr(sentence, function(vec, doc_id) {
+      if (identical(split, TRUE)) {
+        vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
+          unlist()
+      }
+      dplyr::bind_cols(
+        data.frame(doc_id = doc_id),
+        posParallelRcpp(vec, sys_dic, user_dic)
+      )
+    }) %>%
+    dplyr::mutate_if(is.character, ~ reset_encoding(.)) %>%
+    dplyr::mutate_if(is.character, ~ dplyr::na_if(., "*")) %>%
+    dplyr::mutate(
+      doc_id = as.factor(.data$doc_id),
+      sentence_id = as.factor(.data$sentence_id)
+    )
+  return(result)
+}
+
 #' @noRd
 reset_encoding <- function(chr) {
   unlist(lapply(chr, function(elem) {
@@ -63,8 +109,3 @@ reset_encoding <- function(chr) {
     return(elem)
   }))
 }
-
-#' Alias of `tokenize`
-#' @inherit tokenize
-#' @export
-gbs_tokenize <- tokenize

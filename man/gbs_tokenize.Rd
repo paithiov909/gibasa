@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize.R
 \name{gbs_tokenize}
 \alias{gbs_tokenize}
-\title{Alias of `tokenize`}
+\title{Tokenize sentence for character vector}
 \usage{
 gbs_tokenize(
   sentence,
@@ -30,5 +30,5 @@ into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}
 data.frame or named list.
 }
 \description{
-Alias of `tokenize`
+Tokenize sentence for character vector
 }

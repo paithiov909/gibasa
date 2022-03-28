@@ -2,18 +2,23 @@
 % Please edit documentation in R/tokenize.R
 \name{tokenize}
 \alias{tokenize}
-\title{Tokenize sentence}
+\title{Tokenize sentence for data.frame}
 \usage{
 tokenize(
-  sentence,
+  tbl,
+  text_field = "text",
+  docid_field = "doc_id",
   sys_dic = "",
   user_dic = "",
-  split = FALSE,
-  mode = c("parse", "wakati")
+  split = FALSE
 )
 }
 \arguments{
-\item{sentence}{Character vector.}
+\item{tbl}{A data.frame.}
+
+\item{text_field}{String or symbol; column name where to get texts.}
+
+\item{docid_field}{String or symbol; column name where to get identifiers of texts.}
 
 \item{sys_dic}{Character scalar; path to the system dictionary for mecab.
 Note that the system dictionary is expected to be compiled with UTF-8,
@@ -23,12 +28,10 @@ not Shift-JIS or other encodings.}
 
 \item{split}{Logical. If true, the function internally split the sentence
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
-
-\item{mode}{Character scalar to switch output format.}
 }
 \value{
-data.frame or named list.
+data.frame.
 }
 \description{
-Tokenize sentence
+Tokenize sentence for data.frame
 }
