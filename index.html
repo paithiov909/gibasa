@@ -73,7 +73,7 @@
 </div>
 <ul>
 <li>
-<code><a href="reference/tokenize.html">gibasa::tokenize</a></code> gets a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that the users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
+<code><a href="reference/tokenize.html">gibasa::tokenize</a></code> gets a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
 <li>
 <code><a href="reference/prettify.html">gibasa::prettify</a></code> turns tagged features into columns.</li>
 <li>
@@ -199,7 +199,40 @@
 </h3>
 <p>IPA, <a href="https://ccd.ninjal.ac.jp/unidic/" class="external-link">UniDic</a>, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## CC-CEDICT</span>
+<code class="sourceCode R"><span class="co">## UniDic (using UniDic-qkana_1603 here)</span>
+<span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"さうぢやない、あれはやまなしだ、流れて行くぞ。ついて行って見よう、あゝいゝ匂ひだな。"</span>, sys_dic <span class="op">=</span> <span class="st">"/mecab/UniDic-qkana_1603"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id sentence_id token_id token     POS1       POS2 POS3 POS4     cType</span>
+<span class="co">#&gt; 1      1           1        1  さう     副詞       &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 2      1           1        2  ぢや   助動詞       &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; 助動詞-ダ</span>
+<span class="co">#&gt; 3      1           1        3  ない   形容詞 非自立可能 &lt;NA&gt; &lt;NA&gt;    形容詞</span>
+<span class="co">#&gt; 4      1           1        4    、 補助記号       読点 &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 5      1           1        5  あれ   代名詞       &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 6      1           1        6    は     助詞     係助詞 &lt;NA&gt; &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt;         cForm lForm lemma orth pron orthBase pronBase goshu iType iForm fType</span>
+<span class="co">#&gt; 1        &lt;NA&gt;  ソウ  そう さう ソー     サウ       和  さう  ソー  サウ  ソウ</span>
+<span class="co">#&gt; 2 連用形-融合    ダ    だ ぢや ジャ     ヂヤ       和    だ    ダ    ダ    ダ</span>
+<span class="co">#&gt; 3 終止形-一般  ナイ  無い ない ナイ     ナイ       和  ない  ナイ  ナイ  ナイ</span>
+<span class="co">#&gt; 4        &lt;NA&gt;          、   、                   記号    、                  </span>
+<span class="co">#&gt; 5        &lt;NA&gt;  アレ  彼れ あれ アレ     アレ       和  あれ  アレ  アレ  アレ</span>
+<span class="co">#&gt; 6        &lt;NA&gt;    ハ    は   は   ワ       ハ       和    は    ワ    ハ    ハ</span>
+<span class="co">#&gt;   fForm kana kanaBase form formBase iConType fConType</span>
+<span class="co">#&gt; 1  &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;        1</span>
+<span class="co">#&gt; 2  &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="co">#&gt; 3  &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;        1</span>
+<span class="co">#&gt; 4  &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="co">#&gt; 5  &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;        0</span>
+<span class="co">#&gt; 6  &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="co">#&gt;                              aType aConType aModeType</span>
+<span class="co">#&gt; 1                             &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 2                          名詞%F1     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 3                               C3     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 4                             &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 5                             &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;</span>
+<span class="co">#&gt; 6 "動詞%F2@0,名詞%F1,形容詞%F2@-1"     &lt;NA&gt;      &lt;NA&gt;</span>
+
+<span class="co">## CC-CEDICT</span>
 <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"它可以进行日语和汉语的语态分析"</span>, sys_dic <span class="op">=</span> <span class="st">"/mecab/cc-cedict"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
     <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"cc-cedict"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   doc_id sentence_id token_id            token POS1 POS2 POS3 POS4 pinyin_pron</span>
