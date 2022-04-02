@@ -80,4 +80,4 @@ get_dict_features <- function(dict = c(
 #' @inheritParams audubon::pack
 #' @importFrom audubon pack
 #' @export
-pack <- pack
+pack <- audubon::pack
