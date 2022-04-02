@@ -78,17 +78,6 @@ get_dict_features <- function(dict = c(
 #'
 #' @inherit audubon::pack description return details sections seealso
 #' @inheritParams audubon::pack
+#' @importFrom audubon pack
 #' @export
-pack <- function(df, n = 1L, pull = "token", sep = "-", .collapse = " ") {
-  audubon::pack(df, n, pull = pull, sep = sep, .collapse = .collapse)
-}
-
-#' Pipe operator
-#'
-#' @name %>%
-#' @rdname pipe
-#' @keywords internal
-#' @importFrom dplyr %>%
-#' @export
-#' @usage lhs \%>\% rhs
-NULL
+pack <- pack

@@ -2,12 +2,12 @@
 % Please edit documentation in R/compat-rmecab.R
 \name{gbs_dfm}
 \alias{gbs_dfm}
-\title{An alternative of docDF family}
+\title{Cast prettified output as quanteda dfm}
 \usage{
-gbs_dfm(df, pull = "token", n = 1L, sep = "-", what = "fastestword", ...)
+gbs_dfm(tbl, pull = "token", n = 1L, sep = "-", what = "fastestword", ...)
 }
 \arguments{
-\item{df}{A prettified data.frame of tokens.}
+\item{tbl}{A prettified data.frame of tokens.}
 
 \item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
@@ -28,9 +28,3 @@ Create a sparse document-feature matrix.
 This function is a shorthand of
 \code{gibasa::gbs_as_tokens()} and then \code{quatenda::dfm()}.
 }
-\seealso{
-Other gbs: 
-\code{\link{gbs_as_tokens}()},
-\code{\link{gbs_c}()}
-}
-\concept{gbs}

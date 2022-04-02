@@ -4,10 +4,17 @@
 \alias{gbs_as_tokens}
 \title{Pack prettified output as quanteda tokens}
 \usage{
-gbs_as_tokens(df, pull = "token", n = 1L, sep = "-", what = "fastestword", ...)
+gbs_as_tokens(
+  tbl,
+  pull = "token",
+  n = 1L,
+  sep = "-",
+  what = "fastestword",
+  ...
+)
 }
 \arguments{
-\item{df}{A prettified data.frame of tokens.}
+\item{tbl}{A prettified data.frame of tokens.}
 
 \item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
@@ -26,9 +33,3 @@ A quanteda 'token' class object.
 \description{
 Pack prettified output as quanteda tokens
 }
-\seealso{
-Other gbs: 
-\code{\link{gbs_c}()},
-\code{\link{gbs_dfm}()}
-}
-\concept{gbs}

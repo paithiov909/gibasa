@@ -5,7 +5,9 @@ Version: 0.2.0
 Authors@R: 
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Maintainer: Akiru Kato <paithiov909@gmail.com>
-Description: Gibasa is a cleaner 'Rcpp' interface to 'MeCab'.
+Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', a CJK
+    tokenizer and morphological analysis tool. The main goal of gibasa
+    package is to provide an alternative to 'tidytext' for CJK text data.
 License: GPL (>= 3)
 URL: https://paithiov909.github.io/gibasa/
 BugReports: https://github.com/paithiov909/gibasa/issues

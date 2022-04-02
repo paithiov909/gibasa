@@ -4,15 +4,15 @@
 \alias{pack}
 \title{Pack prettified data.frame of tokens}
 \usage{
-pack(df, n = 1L, pull = "token", sep = "-", .collapse = " ")
+pack(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ")
 }
 \arguments{
-\item{df}{A prettified data.frame of tokens.}
+\item{tbl}{A prettified data.frame of tokens.}
+
+\item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{n}{Integer internally passed to ngrams tokenizer function
 created of \code{audubon::ngram_tokenizer()}}
-
-\item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 

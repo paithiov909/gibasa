@@ -4,10 +4,10 @@
 \alias{gbs_c}
 \title{An alternative of RMeCabC}
 \usage{
-gbs_c(df, pull = "token", names = "POS1")
+gbs_c(tbl, pull = "token", names = "POS1")
 }
 \arguments{
-\item{df}{A prettified data.frame of tokenized sentences.}
+\item{tbl}{A prettified data.frame of tokenized sentences.}
 
 \item{pull}{A column name of `df`.}
 
@@ -19,9 +19,3 @@ A list of named vectors.
 \description{
 An alternative of RMeCabC
 }
-\seealso{
-Other gbs: 
-\code{\link{gbs_as_tokens}()},
-\code{\link{gbs_dfm}()}
-}
-\concept{gbs}

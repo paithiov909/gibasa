@@ -5,6 +5,9 @@
 
 <!-- badges: start -->
 
+![GitHub R package
+version](https://img.shields.io/github/r-package/v/paithiov909/gibasa)
+![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
 <!-- badges: end -->
 
@@ -155,8 +158,8 @@ schemes are supported.
 
 ``` r
 ## UniDic (using UniDic-qkana_1603 here)
-gibasa::gbs_tokenize("さうぢやない、あれはやまなしだ、流れて行くぞ。ついて行って見よう、あゝいゝ匂ひだな。", sys_dic = "/mecab/UniDic-qkana_1603") %>%
-  gibasa::prettify(into = gibasa::get_dict_features("unidic26")) %>%
+gibasa::gbs_tokenize("さうぢやない、あれはやまなしだ、流れて行くぞ。ついて行って見よう、あゝいゝ匂ひだな。", sys_dic = "/mecab/UniDic-qkana_1603") |> 
+  gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
   head()
 #>   doc_id sentence_id token_id token     POS1       POS2 POS3 POS4     cType
 #> 1      1           1        1  さう     副詞       <NA> <NA> <NA>      <NA>
@@ -188,7 +191,7 @@ gibasa::gbs_tokenize("さうぢやない、あれはやまなしだ、流れて�
 #> 6 "動詞%F2@0,名詞%F1,形容詞%F2@-1"     <NA>      <NA>
 
 ## CC-CEDICT
-gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") %>%
+gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") |> 
     gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
 #>   doc_id sentence_id token_id            token POS1 POS2 POS3 POS4 pinyin_pron
 #> 1      1           1        1               它 <NA> <NA> <NA> <NA>         ta1
@@ -222,7 +225,7 @@ gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = 
 #> 9                                                    to analyze/analysis/CL:個|个[ge4]/
 
 ## mecan-ko-dic
-gibasa::gbs_tokenize("하네다공항한정토트백", sys_dic = "/mecab/mecab-ko-dic") %>%
+gibasa::gbs_tokenize("하네다공항한정토트백", sys_dic = "/mecab/mecab-ko-dic") |> 
     gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
 #>   doc_id sentence_id token_id                    token POS          meaning
 #> 1      1           1        1 <U+D558><U+B124><U+B2E4> NNP <U+C778><U+BA85>
