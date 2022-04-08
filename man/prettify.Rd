@@ -4,17 +4,26 @@
 \alias{prettify}
 \title{Prettify tokenized output}
 \usage{
-prettify(df, into = get_dict_features("ipa"))
+prettify(df, into = get_dict_features("ipa"), col_select = seq_along(into))
 }
 \arguments{
 \item{df}{Dataframe that comes out of \code{tokenize()}.}
 
 \item{into}{Character vector that is used as column names of
 features.}
+
+\item{col_select}{Character or integer vector that will be kept
+in prettified result. If `NULL` provided, keeps all features.}
 }
 \value{
 data.frame.
 }
 \description{
 Prettify tokenized output
+}
+\examples{
+df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+prettify(df, col_select = 1:3)
+prettify(df, col_select = c(1, 3, 6))
+prettify(df, col_select = c("POS1", "Original"))
 }

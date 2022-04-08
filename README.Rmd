@@ -33,9 +33,9 @@ Gibasa provides 3 main functions: `gibasa::tokenize`, `gibasa::prettify`, and `g
 
 ![image](man/figures/tidytext_fig5_1_mod.drawio.png)
 
-- `gibasa::tokenize` gets a TIF-compliant data.frame of corpus, returning tokens as format that known as 'tidy text data', so that users can replace `tidytext::unnest_tokens` with it for tokenizing CJK text.
+- `gibasa::tokenize` retrieves a TIF-compliant data.frame of corpus, returning tokens as format that known as 'tidy text data', so that users can replace `tidytext::unnest_tokens` with it for tokenizing CJK text.
 - `gibasa::prettify` turns tagged features into columns.
-- `gibasa::pack` gets a 'tidy text data', typically returning space-separated corpus.
+- `gibasa::pack` retrieves a 'tidy text data', typically returning space-separated corpus.
 
 
 ## Installation
@@ -53,8 +53,8 @@ remotes::install_github("paithiov909/gibasa")
 ```{r}
 res <- gibasa::tokenize(
   data.frame(
-    doc_id = seq_len(length(audubon::polano[3:8])),
-    text = audubon::polano[3:8]
+    doc_id = seq_len(length(audubon::polano[5:8])),
+    text = audubon::polano[5:8]
   )
 )
 
@@ -79,8 +79,8 @@ IPA, [UniDic](https://ccd.ninjal.ac.jp/unidic/), [CC-CEDICT-MeCab](https://githu
 ```r
 ## UniDic (using UniDic-qkana_1603 here)
 gibasa::gbs_tokenize("さうぢやない、あれはやまなしだ、流れて行くぞ。ついて行って見よう、あゝいゝ匂ひだな。", sys_dic = "/mecab/UniDic-qkana_1603") |> 
-  gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
-  head()
+    gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
+    head()
 #>   doc_id sentence_id token_id token     POS1       POS2 POS3 POS4     cType
 #> 1      1           1        1  さう     副詞       <NA> <NA> <NA>      <NA>
 #> 2      1           1        2  ぢや   助動詞       <NA> <NA> <NA> 助動詞-ダ
@@ -102,13 +102,13 @@ gibasa::gbs_tokenize("さうぢやない、あれはやまなしだ、流れて�
 #> 4  <NA> <NA>     <NA> <NA>     <NA>     <NA>     <NA>
 #> 5  <NA> <NA>     <NA> <NA>     <NA>     <NA>        0
 #> 6  <NA> <NA>     <NA> <NA>     <NA>     <NA>     <NA>
-#>                              aType aConType aModeType
-#> 1                             <NA>     <NA>      <NA>
-#> 2                          名詞%F1     <NA>      <NA>
-#> 3                               C3     <NA>      <NA>
-#> 4                             <NA>     <NA>      <NA>
-#> 5                             <NA>     <NA>      <NA>
-#> 6 "動詞%F2@0,名詞%F1,形容詞%F2@-1"     <NA>      <NA>
+#>                            aType aConType aModeType
+#> 1                           <NA>     <NA>          
+#> 2                        名詞%F1     <NA>          
+#> 3                             C3     <NA>          
+#> 4                           <NA>     <NA>          
+#> 5                           <NA>     <NA>          
+#> 6 動詞%F2@0,名詞%F1,形容詞%F2@-1     <NA>
 
 ## CC-CEDICT
 gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") |> 
