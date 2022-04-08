@@ -28,8 +28,10 @@ prettify <- function(df,
   suppressWarnings({
     ## ignore warnings when there are missing columns.
     features <-
-      c(stringi::stri_c(into, collapse = ","),
-        dplyr::pull(df, "feature")) %>%
+      c(
+        stringi::stri_c(into, collapse = ","),
+        dplyr::pull(df, "feature")
+      ) %>%
       stringi::stri_c(collapse = "\n") %>%
       I() %>%
       readr::read_csv(

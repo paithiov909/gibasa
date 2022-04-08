@@ -20,7 +20,7 @@ gbs_tokenize <- function(sentence,
 
   # keep names
   nm <- names(sentence)
-  if (identical(nm, NULL)) {
+  if (is.null(nm)) {
     nm <- seq_along(sentence)
   }
   sentence <- stringi::stri_enc_toutf8(sentence) %>%
