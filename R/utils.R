@@ -3,20 +3,46 @@
 #' @param df Dataframe that comes out of \code{tokenize()}.
 #' @param into Character vector that is used as column names of
 #' features.
+#' @param col_select Character or integer vector that will be kept
+#' in prettified result. If `NULL` provided, keeps all features.
 #'
 #' @return data.frame.
-#'
 #' @export
+#' @examples
+#' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+#' prettify(df, col_select = 1:3)
+#' prettify(df, col_select = c(1, 3, 6))
+#' prettify(df, col_select = c("POS1", "Original"))
 prettify <- function(df,
-                     into = get_dict_features("ipa")) {
-  df %>%
-    tidyr::separate(
-      col = "feature",
-      into = into,
-      sep = ",(?=(?:[^\\\"]*\"[^\\\"]*\\\")*(?![^\\\"]*\\\"))",
-      fill = "right"
-    ) %>%
-    dplyr::mutate_if(is.character, ~ dplyr::na_if(., "*"))
+                     into = get_dict_features("ipa"),
+                     col_select = seq_along(into)) {
+  if (is.numeric(col_select) && max(col_select) <= length(into)) {
+    col_select <- which(seq_along(into) %in% col_select, arr.ind = TRUE)
+  } else {
+    col_select <- which(into %in% col_select, arr.ind = TRUE)
+  }
+  ## TODO: test case
+  if (rlang::is_empty(col_select)) {
+    rlang::abort("Invalid columns have been selected.")
+  }
+  suppressWarnings({
+    ## ignore warnings when there are missing columns.
+    features <-
+      c(stringi::stri_c(into, collapse = ","),
+        dplyr::pull(df, "feature")) %>%
+      stringi::stri_c(collapse = "\n") %>%
+      I() %>%
+      readr::read_csv(
+        col_select = tidyselect::all_of(col_select),
+        na = c("", "*"),
+        progress = FALSE,
+        show_col_types = FALSE
+      )
+  })
+  dplyr::bind_cols(
+    dplyr::select(df, !.data$feature),
+    dplyr::rename_with(features, ~ purrr::set_names(into, into)[col_select])
+  )
 }
 
 #' Get features of dictionary

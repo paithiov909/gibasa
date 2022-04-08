@@ -79,36 +79,36 @@ IPA, [UniDic](https://ccd.ninjal.ac.jp/unidic/), [CC-CEDICT-MeCab](https://githu
 ```r
 ## UniDic (using UniDic-qkana_1603 here)
 gibasa::gbs_tokenize("さうぢやない、あれはやまなしだ、流れて行くぞ。ついて行って見よう、あゝいゝ匂ひだな。", sys_dic = "/mecab/UniDic-qkana_1603") |> 
-  gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
-  head()
+    gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
+    head()
 #>   doc_id sentence_id token_id token     POS1       POS2 POS3 POS4     cType
-#> 1      1           1        1  さう     副詞       <NA> <NA> <NA>      <NA>
-#> 2      1           1        2  ぢや   助動詞       <NA> <NA> <NA> 助動詞-ダ
-#> 3      1           1        3  ない   形容詞 非自立可能 <NA> <NA>    形容詞
-#> 4      1           1        4    、 補助記号       読点 <NA> <NA>      <NA>
-#> 5      1           1        5  あれ   代名詞       <NA> <NA> <NA>      <NA>
-#> 6      1           1        6    は     助詞     係助詞 <NA> <NA>      <NA>
+#> 1      1           1        1  さう     副詞       <NA> <NA>   NA      <NA>
+#> 2      1           1        2  ぢや   助動詞       <NA> <NA>   NA 助動詞-ダ
+#> 3      1           1        3  ない   形容詞 非自立可能 <NA>   NA    形容詞
+#> 4      1           1        4    、 補助記号       読点 <NA>   NA      <NA>
+#> 5      1           1        5  あれ   代名詞       <NA> <NA>   NA      <NA>
+#> 6      1           1        6    は     助詞     係助詞 <NA>   NA      <NA>
 #>         cForm lForm lemma orth pron orthBase pronBase goshu iType iForm fType
 #> 1        <NA>  ソウ  そう さう ソー     サウ       和  さう  ソー  サウ  ソウ
 #> 2 連用形-融合    ダ    だ ぢや ジャ     ヂヤ       和    だ    ダ    ダ    ダ
 #> 3 終止形-一般  ナイ  無い ない ナイ     ナイ       和  ない  ナイ  ナイ  ナイ
-#> 4        <NA>          、   、                   記号    、                  
+#> 4        <NA>  <NA>    、   、 <NA>     <NA>     記号    、  <NA>  <NA>  <NA>
 #> 5        <NA>  アレ  彼れ あれ アレ     アレ       和  あれ  アレ  アレ  アレ
 #> 6        <NA>    ハ    は   は   ワ       ハ       和    は    ワ    ハ    ハ
 #>   fForm kana kanaBase form formBase iConType fConType
-#> 1  <NA> <NA>     <NA> <NA>     <NA>     <NA>        1
-#> 2  <NA> <NA>     <NA> <NA>     <NA>     <NA>     <NA>
-#> 3  <NA> <NA>     <NA> <NA>     <NA>     <NA>        1
-#> 4  <NA> <NA>     <NA> <NA>     <NA>     <NA>     <NA>
-#> 5  <NA> <NA>     <NA> <NA>     <NA>     <NA>        0
-#> 6  <NA> <NA>     <NA> <NA>     <NA>     <NA>     <NA>
-#>                              aType aConType aModeType
-#> 1                             <NA>     <NA>      <NA>
-#> 2                          名詞%F1     <NA>      <NA>
-#> 3                               C3     <NA>      <NA>
-#> 4                             <NA>     <NA>      <NA>
-#> 5                             <NA>     <NA>      <NA>
-#> 6 "動詞%F2@0,名詞%F1,形容詞%F2@-1"     <NA>      <NA>
+#> 1    NA   NA       NA   NA       NA       NA        1
+#> 2    NA   NA       NA   NA       NA       NA       NA
+#> 3    NA   NA       NA   NA       NA       NA        1
+#> 4    NA   NA       NA   NA       NA       NA       NA
+#> 5    NA   NA       NA   NA       NA       NA        0
+#> 6    NA   NA       NA   NA       NA       NA       NA
+#>                            aType aConType aModeType
+#> 1                           <NA>     <NA>        NA
+#> 2                        名詞%F1     <NA>        NA
+#> 3                             C3     <NA>        NA
+#> 4                           <NA>     <NA>        NA
+#> 5                           <NA>     <NA>        NA
+#> 6 動詞%F2@0,名詞%F1,形容詞%F2@-1     <NA>  
 
 ## CC-CEDICT
 gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") |> 
