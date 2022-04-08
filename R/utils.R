@@ -35,8 +35,9 @@ prettify <- function(df,
       stringi::stri_c(collapse = "\n") %>%
       I() %>%
       readr::read_csv(
+        col_types = stringi::stri_c(rep("c", length(into)), collapse = ""),
         col_select = tidyselect::all_of(col_select),
-        na = c("", "*"),
+        na = c("*"),
         progress = FALSE,
         show_col_types = FALSE
       )
