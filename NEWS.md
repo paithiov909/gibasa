@@ -1,3 +1,7 @@
+# gibasa 0.2.1
+
+* `prettify` now can extract columns only specified by `col_select`.
+
 # gibasa 0.2.0
 
 * Added a `NEWS.md` file to track changes to the package.
