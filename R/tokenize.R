@@ -108,7 +108,15 @@ tokenize <- function(tbl,
       doc_id = as.factor(.data$doc_id),
       sentence_id = as.factor(.data$sentence_id)
     )
-  return(result)
+
+  tbl %>%
+    dplyr::select(-!!text_field) %>%
+    dplyr::mutate(dplyr::across(!!docid_field, ~ as.factor(.))) %>%
+    dplyr::rename(doc_id = {{ docid_field }}) %>%
+    dplyr::left_join(
+      result,
+      by = c("doc_id" = "doc_id")
+    )
 }
 
 #' @noRd
