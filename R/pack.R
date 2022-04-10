@@ -4,4 +4,7 @@
 #' @inheritParams audubon::pack
 #' @importFrom audubon pack
 #' @export
-pack <- audubon::pack
+pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
+  pull <- rlang::ensym(pull)
+  audubon::pack(tbl, pull, n = n, sep = sep, .collapse = .collapse)
+}
