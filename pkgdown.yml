@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-04-10T07:53Z
+last_built: 2022-04-10T08:21Z
 urls:
   reference: https://paithiov909.github.io/gibasa/reference
   article: https://paithiov909.github.io/gibasa/articles
