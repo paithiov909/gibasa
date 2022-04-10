@@ -4,7 +4,7 @@
 #' @param into Character vector that is used as column names of
 #' features.
 #' @param col_select Character or integer vector that will be kept
-#' in prettified result. If `NULL` provided, keeps all features.
+#' in prettified result.
 #'
 #' @return data.frame.
 #' @export
@@ -49,7 +49,7 @@ prettify <- function(df,
 #' Returns features of dictionary.
 #' Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
 #' "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
-#' and "ipa".
+#' "naist11", and "ipa".
 #'
 #' @seealso See also
 #' \href{https://ccd.ninjal.ac.jp/unidic/}{UniDic},

@@ -19,7 +19,7 @@ A character vector.
 Returns features of dictionary.
 Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
 "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
-and "ipa".
+"naist11", and "ipa".
 }
 \seealso{
 See also

@@ -13,7 +13,7 @@ prettify(df, into = get_dict_features("ipa"), col_select = seq_along(into))
 features.}
 
 \item{col_select}{Character or integer vector that will be kept
-in prettified result. If `NULL` provided, keeps all features.}
+in prettified result.}
 }
 \value{
 data.frame.
