@@ -39,4 +39,4 @@ vignettes/*.pdf
 .Renviron
 docs
 inst/doc
-mecab
+windows
