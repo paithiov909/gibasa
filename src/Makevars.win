@@ -1,7 +1,7 @@
 VERSION=0.996-5
 RWINLIB=../windows/libmecab-$(VERSION)
 CXX_STD=CXX11
-PKG_CPPFLAGS=-I../inst/include -DBOOST_NO_AUTO_PTR
+PKG_CPPFLAGS=-DBOOST_NO_AUTO_PTR
 PKG_CXXFLAGS=-DRCPP_PARALLEL_USE_TBB=1
 PKG_LIBS=-L${RWINLIB}/lib${R_ARCH}${CRT} -lmecab \
 	$(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
