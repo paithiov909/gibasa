@@ -21,7 +21,6 @@ prettify <- function(df,
   } else {
     col_select <- which(into %in% col_select, arr.ind = TRUE)
   }
-  ## TODO: test case
   if (rlang::is_empty(col_select)) {
     rlang::abort("Invalid columns have been selected.")
   }
