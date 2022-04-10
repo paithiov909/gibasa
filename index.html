@@ -30,7 +30,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,41 +86,48 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>To install gibasa from source package requires the MeCab library (mecab, libmecab-dev and mecab-ipadic-utf8) installed and available.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/gibasa"</span><span class="op">)</span></code></pre></div>
+<p>To install gibasa from source package requires the MeCab library installed and available.</p>
+<p>In case using Linux or Mac OSX, you can install that via their package managers, or build and install from the source by yourself.</p>
+<p>In case using Windows, launch msys2 console of the rtools, then install MeCab and its dictionary via pacman before your installing package (currently being tested on rtools42).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="ex">pacman</span> -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="section level3">
-<h3 id="tokenize-and-prettify-output">Tokenize and prettify output<a class="anchor" aria-label="anchor" href="#tokenize-and-prettify-output"></a>
+<h3 id="tokenize-sentences">Tokenize sentences<a class="anchor" aria-label="anchor" href="#tokenize-sentences"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-    doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">audubon</span><span class="fu">::</span><span class="va"><a href="https://paithiov909.github.io/audubon/reference/polano.html" class="external-link">polano</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
-    text <span class="op">=</span> <span class="fu">audubon</span><span class="fu">::</span><span class="va"><a href="https://paithiov909.github.io/audubon/reference/polano.html" class="external-link">polano</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>
-  <span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
-<span class="co">#&gt;   doc_id sentence_id token_id    token</span>
-<span class="co">#&gt; 1      1           1        1     その</span>
-<span class="co">#&gt; 2      1           1        2     ころ</span>
-<span class="co">#&gt; 3      1           1        3 わたくし</span>
-<span class="co">#&gt; 4      1           1        4       は</span>
-<span class="co">#&gt; 5      1           1        5       、</span>
-<span class="co">#&gt; 6      1           1        6 モリーオ</span>
-<span class="co">#&gt;                                             feature</span>
-<span class="co">#&gt; 1                   連体詞,*,*,*,*,*,その,ソノ,ソノ</span>
-<span class="co">#&gt; 2         名詞,非自立,副詞可能,*,*,*,ころ,コロ,コロ</span>
-<span class="co">#&gt; 3 名詞,代名詞,一般,*,*,*,わたくし,ワタクシ,ワタクシ</span>
-<span class="co">#&gt; 4                      助詞,係助詞,*,*,*,*,は,ハ,ワ</span>
-<span class="co">#&gt; 5                        記号,読点,*,*,*,*,、,、,、</span>
-<span class="co">#&gt; 6                     名詞,固有名詞,地域,一般,*,*,*</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>res &lt;-<span class="st"> </span>gibasa<span class="op">::</span><span class="kw">tokenize</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="kw">data.frame</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="dt">doc_id =</span> <span class="kw">seq_len</span>(<span class="kw">length</span>(audubon<span class="op">::</span>polano[<span class="dv">5</span><span class="op">:</span><span class="dv">8</span>])),</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="dt">text =</span> audubon<span class="op">::</span>polano[<span class="dv">5</span><span class="op">:</span><span class="dv">8</span>]</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  ),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="dt">sys_dic =</span> <span class="st">"/mecab/ipadic-utf8"</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>  )</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="er">)</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="kw">head</span>(res)</span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;   doc_id sentence_id token_id    token</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 1      1           1        1     その</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 2      1           1        2     ころ</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 3      1           1        3 わたくし</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 4      1           1        4       は</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 5      1           1        5       、</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 6      1           1        6 モリーオ</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;                                             feature</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; 1                   連体詞,*,*,*,*,*,その,ソノ,ソノ</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; 2         名詞,非自立,副詞可能,*,*,*,ころ,コロ,コロ</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 3 名詞,代名詞,一般,*,*,*,わたくし,ワタクシ,ワタクシ</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; 4                      助詞,係助詞,*,*,*,*,は,ハ,ワ</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; 5                        記号,読点,*,*,*,*,、,、,、</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; 6                     名詞,固有名詞,地域,一般,*,*,*</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="prettify-output">Prettify output<a class="anchor" aria-label="anchor" href="#prettify-output"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;   doc_id sentence_id token_id    token   POS1     POS2     POS3 POS4</span>
 <span class="co">#&gt; 1      1           1        1     その 連体詞     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;</span>
 <span class="co">#&gt; 2      1           1        2     ころ   名詞   非自立 副詞可能 &lt;NA&gt;</span>
@@ -135,7 +142,36 @@
 <span class="co">#&gt; 4        &lt;NA&gt;        &lt;NA&gt;       は       ハ       ワ</span>
 <span class="co">#&gt; 5        &lt;NA&gt;        &lt;NA&gt;       、       、       、</span>
 <span class="co">#&gt; 6        &lt;NA&gt;        &lt;NA&gt;     &lt;NA&gt;</span>
-
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id sentence_id token_id    token   POS1     POS2     POS3</span>
+<span class="co">#&gt; 1      1           1        1     その 連体詞     &lt;NA&gt;     &lt;NA&gt;</span>
+<span class="co">#&gt; 2      1           1        2     ころ   名詞   非自立 副詞可能</span>
+<span class="co">#&gt; 3      1           1        3 わたくし   名詞   代名詞     一般</span>
+<span class="co">#&gt; 4      1           1        4       は   助詞   係助詞     &lt;NA&gt;</span>
+<span class="co">#&gt; 5      1           1        5       、   記号     読点     &lt;NA&gt;</span>
+<span class="co">#&gt; 6      1           1        6 モリーオ   名詞 固有名詞     地域</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id sentence_id token_id    token   POS1     POS3 X5StageUse1</span>
+<span class="co">#&gt; 1      1           1        1     その 連体詞     &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="co">#&gt; 2      1           1        2     ころ   名詞 副詞可能        &lt;NA&gt;</span>
+<span class="co">#&gt; 3      1           1        3 わたくし   名詞     一般        &lt;NA&gt;</span>
+<span class="co">#&gt; 4      1           1        4       は   助詞     &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="co">#&gt; 5      1           1        5       、   記号     &lt;NA&gt;        &lt;NA&gt;</span>
+<span class="co">#&gt; 6      1           1        6 モリーオ   名詞     地域        &lt;NA&gt;</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id sentence_id token_id    token   POS1 Original</span>
+<span class="co">#&gt; 1      1           1        1     その 連体詞     その</span>
+<span class="co">#&gt; 2      1           1        2     ころ   名詞     ころ</span>
+<span class="co">#&gt; 3      1           1        3 わたくし   名詞 わたくし</span>
+<span class="co">#&gt; 4      1           1        4       は   助詞       は</span>
+<span class="co">#&gt; 5      1           1        5       、   記号       、</span>
+<span class="co">#&gt; 6      1           1        6 モリーオ   名詞     &lt;NA&gt;</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="pack-output">Pack output<a class="anchor" aria-label="anchor" href="#pack-output"></a>
+</h3>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span>
 <span class="co">#&gt;   doc_id</span>
 <span class="co">#&gt; 1      1</span>
@@ -146,49 +182,24 @@
 <span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし た 。</span>
 <span class="co">#&gt; 2 十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし た し 俸給 も ほんの わずか でし た が 、 受持ち が 標本 の 採集 や 整理 で 生れ 付き 好き な こと でし た から 、 わたくし は 毎日 ずいぶん 愉快 に はたらき まし た 。 殊に その ころ 、 モリーオ 市 で は 競馬 場 を 植物 園 に 拵え 直す と いう ので 、 その 景色 の いい まわり に アカシヤ を 植え込ん だ 広い 地面 が 、 切符 売場 や 信号 所 の 建物 の つい た まま 、 わたくし ども の 役所 の 方 へ まわっ て 来 た もの です から 、 わたくし は すぐ 宿直 という 名前 で 月賦 で 買っ た 小さな 蓄音器 と 二 十 枚 ばかり の レコード を もっ て 、 その 番小屋 に ひとり 住む こと に なり まし た 。 わたくし は そこ の 馬 を 置く 場所 に 板 で 小さな し きい を つけ て 一疋 の 山羊 を 飼い まし た 。 毎朝 その 乳 を しぼっ て つめたい パン を ひたし て た べ 、 それ から 黒い 革 の かばん へ すこし の 書類 や 雑誌 を 入れ 、 靴 も きれい に みがき 、 並木 の ポプラ の 影法師 を 大股 にわたって 市 の 役所 へ 出 て 行く の でし た 。</span>
 <span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を もつ 青い そら 、 うつくしい 森 で 飾ら れ た モリーオ 市 、 郊外 の ぎらぎら ひかる 草 の 波 。</span>
-<span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼーロ と ロザーロ 、 羊 飼 の ミーロ や 、 顔 の 赤い こども たち 、 地主 の テーモ 、 山猫 博士 の ボーガント・デストゥパーゴ など 、 いま この 暗い 巨 き な 石 の 建物 の なか で 考え て いる と 、 みんな むかし 風 の なつかしい 青い 幻 燈 の よう に 思わ れ ます 。 で は 、 わたくし は いつか の 小さな み だし を つけ ながら 、 しずか に あの 年 の イーハトーヴォ の 五月 から 十月 まで を 書きつけ ましょ う 。</span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="integrate-with-quanteda">Integrate with ‘quanteda’<a class="anchor" aria-label="anchor" href="#integrate-with-quanteda"></a>
-</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_as_tokens.html">gbs_as_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co">## cast as quanteda 'tokens' object</span>
-<span class="co">#&gt; Tokens consisting of 4 documents.</span>
-<span class="co">#&gt; 1 :</span>
-<span class="co">#&gt;  [1] "その"     "ころ"     "わたくし" "は"       "、"       "モリーオ"</span>
-<span class="co">#&gt;  [7] "市"       "の"       "博物"     "局"       "に"       "勤め"    </span>
-<span class="co">#&gt; [ ... and 5 more ]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; 2 :</span>
-<span class="co">#&gt;  [1] "十"   "八"   "等"   "官"   "でし" "た"   "から" "役所" "の"   "なか"</span>
-<span class="co">#&gt; [11] "でも" "、"  </span>
-<span class="co">#&gt; [ ... and 219 more ]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; 3 :</span>
-<span class="co">#&gt;  [1] "あの"           "イーハトーヴォ" "の"             "すきとおっ"    </span>
-<span class="co">#&gt;  [5] "た"             "風"             "、"             "夏"            </span>
-<span class="co">#&gt;  [9] "で"             "も"             "底"             "に"            </span>
-<span class="co">#&gt; [ ... and 24 more ]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; 4 :</span>
-<span class="co">#&gt;  [1] "また"     "その"     "なか"     "で"       "いっしょ" "に"      </span>
-<span class="co">#&gt;  [7] "なっ"     "た"       "たくさん" "の"       "ひと"     "たち"    </span>
-<span class="co">#&gt; [ ... and 89 more ]</span>
-<span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_dfm.html">gbs_dfm</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co">## cast as quanteda 'dfm' object</span>
-<span class="co">#&gt; Document-feature matrix of: 4 documents, 203 features (69.21% sparse) and 0 docvars.</span>
-<span class="co">#&gt;     features</span>
-<span class="co">#&gt; docs その ころ わたくし は 、 モリーオ 市 の 博物 局</span>
-<span class="co">#&gt;    1    1    1        1  1  1        1  1  1    1  1</span>
-<span class="co">#&gt;    2    4    1        4  4 12        1  2 17    0  0</span>
-<span class="co">#&gt;    3    0    0        0  0  3        1  1  3    0  0</span>
-<span class="co">#&gt;    4    1    0        1  2  9        0  0 12    0  0</span>
-<span class="co">#&gt; [ reached max_nfeat ... 193 more features ]</span></code></pre></div>
+<span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼーロ と ロザーロ 、 羊 飼 の ミーロ や 、 顔 の 赤い こども たち 、 地主 の テーモ 、 山猫 博士 の ボーガント・デストゥパーゴ など 、 いま この 暗い 巨 き な 石 の 建物 の なか で 考え て いる と 、 みんな むかし 風 の なつかしい 青い 幻 燈 の よう に 思わ れ ます 。 で は 、 わたくし は いつか の 小さな み だし を つけ ながら 、 しずか に あの 年 の イーハトーヴォ の 五月 から 十月 まで を 書きつけ ましょ う 。</span>
+<span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">token</span>, n <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span>
+<span class="co">#&gt;   doc_id</span>
+<span class="co">#&gt; 1      1</span>
+<span class="co">#&gt; 2      2</span>
+<span class="co">#&gt; 3      3</span>
+<span class="co">#&gt; 4      4</span>
+<span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          text</span>
+<span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             その-ころ ころ-わたくし わたくし-は は-、 、-モリーオ モリーオ-市 市-の の-博物 博物-局 局-に に-勤め 勤め-て て-居 居-り り-まし まし-た た-。</span>
+<span class="co">#&gt; 2 十-八 八-等 等-官 官-で で-し し-た た-から から-役所 役所-の の-なか なか-でも でも-、 、-ず ず-う う-っ っ-と と-下 下-の の-方 方-で で-し し-た た-し し-俸給 俸給-も も-ほんの ほんの-わずか わずか-で で-し し-た た-が が-、 、-受 受-持ち 持ち-が が-標本 標本-の の-採集 採集-や や-整理 整理-で で-生れ 生れ-付き 付き-好き 好き-な な-こと こと-で で-し し-た た-から から-、 、-わたくし わたくし-は は-毎日 毎日-ずいぶん ずいぶん-愉快 愉快-に に-はたらき はたらき-まし まし-た た-。 。-殊に 殊に-その その-ころ ころ-、 、-モリーオ モリーオ-市 市-で で-は は-競馬 競馬-場 場-を を-植物 植物-園 園-に に-拵え 拵え-直す 直す-と と-いう いう-ので ので-、 、-その その-景色 景色-の の-いい いい-まわり まわり-に に-アカシヤ アカシヤ-を を-植 植-え え-込 込-ん ん-だ だ-広い 広い-地面 地面-が が-、 、-切符 切符-売場 売場-や や-信号 信号-所 所-の の-建物 建物-の の-つい つい-た た-まま まま-、 、-わたくし わたくし-ども ども-の の-役所 役所-の の-方 方-へ へ-ま ま-わっ わっ-て て-来 来-た た-もの もの-です です-から から-、 、-わたくし わたくし-は は-すぐ すぐ-宿直 宿直-という という-名前 名前-で で-月賦 月賦-で で-買 買-っ っ-た た-小さな 小さな-蓄音器 蓄音器-と と-二 二-十 十-枚 枚-ばかり ばかり-の の-レコード レコード-を を-も も-っ っ-て て-、 、-その その-番小屋 番小屋-に に-ひとり ひとり-住む 住む-こと こと-に に-なり なり-まし まし-た た-。 。-わたくし わたくし-は は-そこ そこ-の の-馬 馬-を を-置く 置く-場所 場所-に に-板 板-で で-小さな 小さな-し し-きい きい-を を-つけ つけ-て て-一疋 一疋-の の-山羊 山羊-を を-飼 飼-い い-まし まし-た た-。 。-毎朝 毎朝-その その-乳 乳-を を-しぼ しぼ-っ っ-て て-つめたい つめたい-パン パン-を を-ひ ひ-た た-し し-て て-た た-べ べ-、 、-それ それ-から から-黒い 黒い-革 革-の の-かばん かばん-へ へ-すこし すこし-の の-書類 書類-や や-雑誌 雑誌-を を-入れ 入れ-、 、-靴 靴-も も-きれい きれい-に に-みがき みがき-、 、-並木 並木-の の-ポプラ ポプラ-の の-影法師 影法師-を を-大 大-股 股-にわたって にわたって-市 市-の の-役所 役所-へ へ-出 出-て て-行く 行く-の の-で で-し し-た た-。</span>
+<span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 あの-イーハトーヴォ イーハトーヴォ-の の-すき すき-と と-おっ おっ-た た-風 風-、 、-夏 夏-で で-も も-底 底-に に-冷 冷-た た-さ さ-を を-もつ もつ-青い 青い-そら そら-、 、-うつくしい うつくしい-森 森-で で-飾 飾-ら ら-れ れ-た た-モリーオ モリーオ-市 市-、 、-郊外 郊外-の の-ぎらぎら ぎらぎら-ひかる ひかる-草 草-の の-波 波-。</span>
+<span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         また-その その-なか なか-で で-いっしょ いっしょ-に に-な な-っ っ-た た-たくさん たくさん-の の-ひと ひと-たち たち-、 、-ファゼーロ ファゼーロ-と と-ロ ロ-ザー ザー-ロ ロ-、 、-羊 羊-飼 飼-の の-ミー ミー-ロ ロ-や や-、 、-顔 顔-の の-赤い 赤い-こども こども-たち たち-、 、-地主 地主-の の-テーモ テーモ-、 、-山猫 山猫-博士 博士-の の-ボーガント ボーガント-・ ・-デストゥパーゴ デストゥパーゴ-など など-、 、-いま いま-この この-暗い 暗い-巨 巨-き き-な な-石 石-の の-建物 建物-の の-なか なか-で で-考え 考え-て て-いる いる-と と-、 、-みんな みんな-むかし むかし-風 風-の の-なつかしい なつかしい-青い 青い-幻 幻-燈 燈-の の-よう よう-に に-思 思-わ わ-れ れ-ます ます-。 。-で で-は は-、 、-わたくし わたくし-は は-いつか いつか-の の-小さな 小さな-み み-だし だし-を を-つけ つけ-ながら ながら-、 、-しずか しずか-に に-あの あの-年 年-の の-イーハトーヴォ イーハトーヴォ-の の-五月 五月-から から-十月 十月-まで まで-を を-書き 書き-つけ つけ-ま ま-しょ しょ-う う-。</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>
 </h3>
 <p>IPA, <a href="https://ccd.ninjal.ac.jp/unidic/" class="external-link">UniDic</a>, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## UniDic (using UniDic-qkana_1603 here)</span>
 <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"さうぢやない、あれはやまなしだ、流れて行くぞ。ついて行って見よう、あゝいゝ匂ひだな。"</span>, sys_dic <span class="op">=</span> <span class="st">"/mecab/UniDic-qkana_1603"</span><span class="op">)</span> |&gt; 
     <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span> |&gt; 
