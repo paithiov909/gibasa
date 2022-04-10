@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.2.2
+Version: 0.3.0
 Authors@R: 
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Maintainer: Akiru Kato <paithiov909@gmail.com>
@@ -26,13 +26,15 @@ Suggests:
     knitr,
     markdown,
     rmarkdown,
-    roxygen2
+    roxygen2,
+    testthat (>= 3.0.0)
 LinkingTo:
     BH,
     Rcpp,
     RcppParallel
 VignetteBuilder: 
     knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.1.2
 SystemRequirements: C++11, GNU make, MeCab

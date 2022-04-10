@@ -1,3 +1,7 @@
+# gibasa 0.3.0
+
+* Changed build process on Windows.
+
 # gibasa 0.2.1
 
 * `prettify` now can extract columns only specified by `col_select`.
