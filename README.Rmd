@@ -37,39 +37,52 @@ Gibasa provides 3 main functions: `gibasa::tokenize`, `gibasa::prettify`, and `g
 - `gibasa::prettify` turns tagged features into columns.
 - `gibasa::pack` retrieves a 'tidy text data', typically returning space-separated corpus.
 
-
 ## Installation
-
-To install gibasa from source package requires the MeCab library (mecab, libmecab-dev and mecab-ipadic-utf8) installed and available.
 
 ```r
 remotes::install_github("paithiov909/gibasa")
 ```
 
+To install gibasa from source package requires the MeCab library installed and available.
+
+In case using Linux or Mac OSX, you can install that via their package managers, or build and install from the source by yourself.
+
+In case using Windows, launch msys2 console of the rtools, then install MeCab and its dictionary via pacman before your installing package (currently being tested on rtools42).
+
+```sh
+$ pacman -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic
+```
+
 ## Usage
 
-### Tokenize and prettify output
+### Tokenize sentences
 
 ```{r}
 res <- gibasa::tokenize(
   data.frame(
     doc_id = seq_len(length(audubon::polano[5:8])),
     text = audubon::polano[5:8]
-  )
+  ),
+  sys_dic = "/mecab/ipadic-utf8"
 )
-
 head(res)
-
-head(gibasa::prettify(res))
-
-gibasa::pack(res)
 ```
 
-### Integrate with 'quanteda'
+### Prettify output
 
 ```{r}
-gibasa::gbs_as_tokens(res) ## cast as quanteda 'tokens' object
-gibasa::gbs_dfm(res) ## cast as quanteda 'dfm' object
+head(gibasa::prettify(res))
+head(gibasa::prettify(res, col_select = 1:3))
+head(gibasa::prettify(res, col_select = c(1,3,5)))
+head(gibasa::prettify(res, col_select = c("POS1", "Original")))
+```
+
+### Pack output
+
+```{r}
+res <- gibasa::prettify(res)
+gibasa::pack(res)
+gibasa::pack(res, token, n = 2L)
 ```
 
 ### Change dictionary

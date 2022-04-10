@@ -2,8 +2,8 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^LICENSE\.md$
-^mecab$
 ^\.github$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^windows$
