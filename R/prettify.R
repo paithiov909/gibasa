@@ -21,6 +21,10 @@ prettify <- function(df,
   } else {
     col_select <- which(into %in% col_select, arr.ind = TRUE)
   }
+<<<<<<< HEAD:R/prettify.R
+=======
+  ## TODO: test case
+>>>>>>> main:R/utils.R
   if (rlang::is_empty(col_select)) {
     rlang::abort("Invalid columns have been selected.")
   }
@@ -41,7 +45,14 @@ prettify <- function(df,
         show_col_types = FALSE
       )
   })
+<<<<<<< HEAD:R/prettify.R
   dplyr::bind_cols(dplyr::select(df, !.data$feature), features)
+=======
+  dplyr::bind_cols(
+    dplyr::select(df, !.data$feature),
+    dplyr::rename_with(features, ~ purrr::set_names(into, into)[col_select])
+  )
+>>>>>>> main:R/utils.R
 }
 
 #' Get features of dictionary

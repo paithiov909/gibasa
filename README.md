@@ -64,6 +64,7 @@ res <- gibasa::tokenize(
     text = audubon::polano[5:8]
   ),
   sys_dic = "/mecab/ipadic-utf8"
+  )
 )
 head(res)
 #>   doc_id sentence_id token_id    token
