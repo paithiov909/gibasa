@@ -42,10 +42,7 @@ prettify <- function(df,
         show_col_types = FALSE
       )
   })
-  dplyr::bind_cols(
-    dplyr::select(df, !.data$feature),
-    dplyr::rename_with(features, ~ purrr::set_names(into, into)[col_select])
-  )
+  dplyr::bind_cols(dplyr::select(df, !.data$feature), features)
 }
 
 #' Get features of dictionary
@@ -60,7 +57,7 @@ prettify <- function(df,
 #' \href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{CC-CEDICT-MeCab},
 #' and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{mecab-ko-dic}.
 #' @param dict Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
-#' "cc-cedict", or "ko-dic".
+#' "cc-cedict", "ko-dic", or "naist11".
 #' @return A character vector.
 #' @export
 get_dict_features <- function(dict = c(
@@ -69,7 +66,8 @@ get_dict_features <- function(dict = c(
                                 "unidic26",
                                 "unidic29",
                                 "cc-cedict",
-                                "ko-dic"
+                                "ko-dic",
+                                "naist11"
                               )) {
   dict <- rlang::arg_match(dict)
   feat <- dplyr::case_when(
@@ -98,15 +96,10 @@ get_dict_features <- function(dict = c(
     dict == "ko-dic" ~ list(c(
       "POS", "meaning", "presence", "reading", "type", "first_pos", "last_pos", "expression"
     )),
+    dict == "naist11" ~ list(c(
+      "POS1", "POS2", "POS3", "POS4", "X5StageUse1", "X5StageUse2", "Original", "Yomi1", "Yomi2", "Info", "Misc"
+    )),
     TRUE ~ list(c("POS1", "POS2", "POS3", "POS4", "X5StageUse1", "X5StageUse2", "Original", "Yomi1", "Yomi2"))
   )
   unlist(feat)
 }
-
-#' Pack prettified data.frame of tokens
-#'
-#' @inherit audubon::pack description return details sections seealso
-#' @inheritParams audubon::pack
-#' @importFrom audubon pack
-#' @export
-pack <- audubon::pack
