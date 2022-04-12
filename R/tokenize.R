@@ -31,23 +31,7 @@ gbs_tokenize <- function(sentence,
   sys_dic <- paste0(sys_dic, collapse = "")
   user_dic <- paste0(user_dic, collapse = "")
 
-  result <-
-    purrr::imap_dfr(sentence, function(vec, doc_id) {
-      if (identical(split, TRUE)) {
-        vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
-          unlist()
-      }
-      dplyr::bind_cols(
-        data.frame(doc_id = doc_id),
-        posParallelRcpp(vec, sys_dic, user_dic)
-      )
-    }) %>%
-    dplyr::mutate_if(is.character, ~ reset_encoding(.)) %>%
-    dplyr::mutate_if(is.character, ~ dplyr::na_if(., "*")) %>%
-    dplyr::mutate(
-      doc_id = as.factor(.data$doc_id),
-      sentence_id = as.factor(.data$sentence_id)
-    )
+  result <- tagger_impl(sentence, sys_dic, user_dic, split)
 
   if (identical(mode, "wakati")) {
     result <- result %>%
@@ -91,9 +75,22 @@ tokenize <- function(tbl,
   sys_dic <- paste0(sys_dic, collapse = "")
   user_dic <- paste0(user_dic, collapse = "")
 
-  result <-
-    purrr::imap_dfr(sentence, function(vec, doc_id) {
-      if (identical(split, TRUE)) {
+  result <- tagger_impl(sentence, sys_dic, user_dic, split)
+
+  tbl %>%
+    dplyr::select(-!!text_field) %>%
+    dplyr::mutate(dplyr::across(!!docid_field, ~ as.factor(.))) %>%
+    dplyr::rename(doc_id = {{ docid_field }}) %>%
+    dplyr::left_join(
+      result,
+      by = c("doc_id" = "doc_id")
+    )
+}
+
+#' @noRd
+tagger_impl <- function(sentence, sys_dic, user_dic, split) {
+  purrr::imap_dfr(sentence, function(vec, doc_id) {
+      if (identical(split, FALSE)) {
         vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
           unlist()
       }
@@ -107,15 +104,6 @@ tokenize <- function(tbl,
     dplyr::mutate(
       doc_id = as.factor(.data$doc_id),
       sentence_id = as.factor(.data$sentence_id)
-    )
-
-  tbl %>%
-    dplyr::select(-!!text_field) %>%
-    dplyr::mutate(dplyr::across(!!docid_field, ~ as.factor(.))) %>%
-    dplyr::rename(doc_id = {{ docid_field }}) %>%
-    dplyr::left_join(
-      result,
-      by = c("doc_id" = "doc_id")
     )
 }
 
