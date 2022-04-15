@@ -89,22 +89,32 @@ tokenize <- function(tbl,
 
 #' @noRd
 tagger_impl <- function(sentence, sys_dic, user_dic, split) {
-  purrr::imap_dfr(sentence, function(vec, doc_id) {
-      if (identical(split, FALSE)) {
+  if (identical(split, TRUE)) {
+    res <-
+      purrr::imap_dfr(sentence, function(vec, doc_id) {
         vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
           unlist()
-      }
-      dplyr::bind_cols(
-        data.frame(doc_id = doc_id),
-        posParallelRcpp(vec, sys_dic, user_dic)
-      )
-    }) %>%
-    dplyr::mutate_if(is.character, ~ reset_encoding(.)) %>%
-    dplyr::mutate_if(is.character, ~ dplyr::na_if(., "*")) %>%
-    dplyr::mutate(
-      doc_id = as.factor(.data$doc_id),
-      sentence_id = as.factor(.data$sentence_id)
-    )
+        dplyr::bind_cols(
+          data.frame(doc_id = doc_id),
+          posParallelRcpp(vec, sys_dic, user_dic)
+        )
+      })
+  } else {
+    res <-
+      posParallelRcpp(sentence, sys_dic, user_dic) %>%
+      dplyr::left_join(
+        data.frame(
+          sentence_id = seq_along(sentence),
+          doc_id = names(sentence)
+        ),
+        by = "sentence_id"
+      ) %>%
+      dplyr::relocate(.data$doc_id, dplyr::everything())
+  }
+  res %>%
+    dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%
+    dplyr::mutate(dplyr::across(where(is.character), ~ dplyr::na_if(., "*"))) %>%
+    dplyr::mutate(doc_id = as.factor(.data$doc_id))
 }
 
 #' @noRd

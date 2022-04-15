@@ -1,6 +1,7 @@
 # gibasa 0.3.0
 
 * Changed build process on Windows.
+* Refactor `tokenize` and `gbs_tokenize`.
 
 # gibasa 0.2.1
 

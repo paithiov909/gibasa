@@ -20,7 +20,8 @@ Imports:
     readr,
     rlang (>= 0.4.11),
     stringi,
-    tidyselect
+    tidyselect,
+    utils
 Suggests: 
     devtools,
     knitr,

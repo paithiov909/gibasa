@@ -2,7 +2,6 @@
 test_that("gbs_tokenize works", {
   df <- gbs_tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
   expect_s3_class(df$doc_id, "factor")
-  expect_s3_class(df$sentence_id, "factor")
   expect_equal(df[1, 1], factor("text1"))
   expect_equal(df$token[1], "\u3053\u3093\u306b\u3061\u306f")
 
@@ -19,7 +18,6 @@ test_that("tokenize works", {
     )
   )
   expect_s3_class(df$doc_id, "factor")
-  expect_s3_class(df$sentence_id, "factor")
   expect_equal(df[1, 1], factor("1"))
   expect_equal(df$token[1], "\u3053\u3093\u306b\u3061\u306f")
 })

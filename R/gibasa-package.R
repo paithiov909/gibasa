@@ -5,3 +5,6 @@
 #' @importFrom dplyr %>%
 #' @useDynLib gibasa, .registration = TRUE
 "_PACKAGE"
+
+#' @importFrom utils globalVariables
+utils::globalVariables("where")
