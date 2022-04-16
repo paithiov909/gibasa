@@ -113,7 +113,6 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split) {
   }
   res %>%
     dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%
-    dplyr::mutate(dplyr::across(where(is.character), ~ dplyr::na_if(., "*"))) %>%
     dplyr::mutate(doc_id = as.factor(.data$doc_id))
 }
 
