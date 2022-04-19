@@ -17,6 +17,11 @@
 <meta property="og:description" content="Gibasa is a plain Rcpp interface to MeCab, a CJK
     tokenizer and morphological analysis tool. The main goal of gibasa
     package is to provide an alternative to tidytext for CJK text data.">
+<meta property="og:image" content="https://paithiov909.github.io/gibasa/reference/figures/tidytext_fig5_1_mod.drawio.png">
+<meta property="og:image:alt" content="Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and morphological analysis tool.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@paithiov909">
+<meta name="twitter:site" content="@paithiov909">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -39,6 +44,9 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="articles/gibasa.html">Get started</a>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
@@ -91,7 +99,7 @@
 <p>To install gibasa from source package requires the MeCab library installed and available.</p>
 <p>In case using Linux or Mac OSX, you can install that with their package managers, or build and install from the source by yourself.</p>
 <p>In case using Windows, launch msys2 console of the rtools, then install MeCab and its dictionary with pacman before your installing package (currently being tested on rtools42).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="ex">pacman</span> -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pacman <span class="at">-Sy</span> mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
