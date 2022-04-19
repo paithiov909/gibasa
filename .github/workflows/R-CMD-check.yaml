@@ -59,6 +59,6 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          args: 'c("--no-vignettes", "--no-manual", "--as-cran")',
-          build_args: 'c("--no-build-vignettes", "--no-manual")',
+          args: 'c("--no-vignettes", "--no-manual", "--as-cran")'
+          build_args: 'c("--no-build-vignettes", "--no-manual")'
           error-on: '"error"'
