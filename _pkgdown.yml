@@ -1,4 +1,11 @@
 url: https://paithiov909.github.io/gibasa/
 template:
   bootstrap: 5
-
+  opengraph:
+    image:
+      src: man/figures/tidytext_fig5_1_mod.drawio.png
+      alt: "Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and
+morphological analysis tool."
+    twitter:
+      creator: "@paithiov909"
+      card: summary_large_image
