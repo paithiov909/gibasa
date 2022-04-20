@@ -7,7 +7,8 @@
 prettify(df, into = get_dict_features("ipa"), col_select = seq_along(into))
 }
 \arguments{
-\item{df}{Dataframe that comes out of \code{tokenize()}.}
+\item{df}{A data.frame that comes out of \code{tokenize()}
+or \code{gbs_tokenize()}.}
 
 \item{into}{Character vector that is used as column names of
 features.}

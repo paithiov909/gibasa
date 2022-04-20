@@ -1,6 +1,7 @@
 #' Prettify tokenized output
 #'
-#' @param df Dataframe that comes out of \code{tokenize()}.
+#' @param df A data.frame that comes out of \code{tokenize()}
+#' or \code{gbs_tokenize()}.
 #' @param into Character vector that is used as column names of
 #' features.
 #' @param col_select Character or integer vector that will be kept
@@ -44,9 +45,9 @@ prettify <- function(df,
   dplyr::bind_cols(dplyr::select(df, !.data$feature), features)
 }
 
-#' Get features of dictionary
+#' Get dictionary's features
 #'
-#' Returns features of dictionary.
+#' Returns dictionary's features.
 #' Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
 #' "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
 #' "naist11", and "ipa".

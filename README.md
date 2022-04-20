@@ -11,6 +11,8 @@ version](https://img.shields.io/github/r-package/v/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
 <!-- badges: end -->
 
+## Overview
+
 Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and
 morphological analysis tool.
 
@@ -39,15 +41,17 @@ Gibasa provides 3 main functions: `gibasa::tokenize`,
 remotes::install_github("paithiov909/gibasa")
 ```
 
-To install gibasa from source package requires the MeCab library
-installed and available.
+To install gibasa from source package requires the
+[MeCab](https://taku910.github.io/mecab/) library installed and
+available.
 
-In case using Linux or Mac OSX, you can install that with their package
+In case using Linux or OSX, you can install that with their package
 managers, or build and install from the source by yourself.
 
 In case using Windows, launch msys2 console of the rtools, then install
 MeCab and its dictionary with pacman before your installing package
-(currently being tested on rtools42).
+(currently being tested on
+[rtools42](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)).
 
 ``` sh
 $ pacman -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic

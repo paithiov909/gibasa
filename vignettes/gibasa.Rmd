@@ -225,7 +225,7 @@ corp <- tbl |>
   dplyr::mutate(text = audubon::strj_normalize(text),
                 chunk = dplyr::ntile(doc_id, 10)) |>
   dplyr::group_by(chunk) |>
-  dplyr::group_map(\(df, idx) {
+  dplyr::group_map(function(df, idx) {
     data.frame(
       doc_id = df$doc_id,
       text = df$text
@@ -288,10 +288,12 @@ topics <-
   ) |>
   dplyr::arrange(topic)
 
-reactable::reactable(topics,
-                     filterable = TRUE,
-                     searchable = TRUE,
-                     compact = TRUE)
+reactable::reactable(
+  topics,
+  filterable = TRUE,
+  searchable = TRUE,
+  compact = TRUE
+)
 ```
 
 ## セッション情報

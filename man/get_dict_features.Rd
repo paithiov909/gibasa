@@ -2,7 +2,7 @@
 % Please edit documentation in R/prettify.R
 \name{get_dict_features}
 \alias{get_dict_features}
-\title{Get features of dictionary}
+\title{Get dictionary's features}
 \usage{
 get_dict_features(
   dict = c("ipa", "unidic17", "unidic26", "unidic29", "cc-cedict", "ko-dic", "naist11")
@@ -16,7 +16,7 @@ get_dict_features(
 A character vector.
 }
 \description{
-Returns features of dictionary.
+Returns dictionary's features.
 Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
 "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
 "naist11", and "ipa".

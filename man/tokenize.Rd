@@ -16,7 +16,7 @@ tokenize(
 \arguments{
 \item{tbl}{A data.frame.}
 
-\item{text_field}{String or symbol; column name where to get texts.}
+\item{text_field}{String or symbol; column name where to get texts to be tokenized.}
 
 \item{docid_field}{String or symbol; column name where to get identifiers of texts.}
 
@@ -26,7 +26,7 @@ not Shift-JIS or other encodings.}
 
 \item{user_dic}{Character scalar; path to the user dictionary for mecab.}
 
-\item{split}{Logical. If true, the function internally split the sentence
+\item{split}{Logical. If true, the function internally splits the sentence
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
 }
 \value{

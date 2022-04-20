@@ -13,7 +13,7 @@ gbs_tokenize(
 )
 }
 \arguments{
-\item{sentence}{Character vector.}
+\item{sentence}{Character vector to be tokenized.}
 
 \item{sys_dic}{Character scalar; path to the system dictionary for mecab.
 Note that the system dictionary is expected to be compiled with UTF-8,
@@ -21,7 +21,7 @@ not Shift-JIS or other encodings.}
 
 \item{user_dic}{Character scalar; path to the user dictionary for mecab.}
 
-\item{split}{Logical. If true, the function internally split the sentence
+\item{split}{Logical. If true, the function internally splits the sentence
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
 
 \item{mode}{Character scalar to switch output format.}
