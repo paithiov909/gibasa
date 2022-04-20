@@ -77,6 +77,9 @@
 </h1></div>
 <!-- badges: start -->
 
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p>Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and morphological analysis tool.</p>
 <p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code>tokenizers::tokenize_words</code> sometimes splits them into erroneous tokens.</p>
 <p>Gibasa provides 3 main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
@@ -91,14 +94,15 @@
 <li>
 <code><a href="reference/pack.html">gibasa::pack</a></code> retrieves a ‘tidy text data’, typically returning space-separated corpus.</li>
 </ul>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/gibasa"</span><span class="op">)</span></code></pre></div>
-<p>To install gibasa from source package requires the MeCab library installed and available.</p>
-<p>In case using Linux or Mac OSX, you can install that with their package managers, or build and install from the source by yourself.</p>
-<p>In case using Windows, launch msys2 console of the rtools, then install MeCab and its dictionary with pacman before your installing package (currently being tested on rtools42).</p>
+<p>To install gibasa from source package requires the <a href="https://taku910.github.io/mecab/" class="external-link">MeCab</a> library installed and available.</p>
+<p>In case using Linux or OSX, you can install that with their package managers, or build and install from the source by yourself.</p>
+<p>In case using Windows, launch msys2 console of the rtools, then install MeCab and its dictionary with pacman before your installing package (currently being tested on <a href="https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html" class="external-link">rtools42</a>).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pacman <span class="at">-Sy</span> mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic</span></code></pre></div>
 </div>
 <div class="section level2">
