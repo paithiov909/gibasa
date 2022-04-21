@@ -210,9 +210,9 @@
 <div class="section level3">
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>
 </h3>
-<p>IPA, <a href="https://ccd.ninjal.ac.jp/unidic/" class="external-link">UniDic</a>, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
+<p>IPA, <a href="https://clrd.ninjal.ac.jp/unidic/" class="external-link">UniDic</a>, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## UniDic</span>
+<code class="sourceCode R"><span class="co">## UniDic 2.1.2</span>
 <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="st">"/mecab/unidic-lite"</span><span class="op">)</span> |&gt; 
     <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span> |&gt; 
     <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span>
