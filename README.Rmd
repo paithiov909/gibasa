@@ -88,10 +88,10 @@ gibasa::pack(res, POS1)
 
 ### Change dictionary
 
-IPA, [UniDic](https://ccd.ninjal.ac.jp/unidic/), [CC-CEDICT-MeCab](https://github.com/ueda-keisuke/CC-CEDICT-MeCab), and [mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/) schemes are supported.
+IPA, [UniDic](https://clrd.ninjal.ac.jp/unidic/), [CC-CEDICT-MeCab](https://github.com/ueda-keisuke/CC-CEDICT-MeCab), and [mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/) schemes are supported.
 
 ```r
-## UniDic
+## UniDic 2.1.2
 gibasa::gbs_tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/mecab/unidic-lite") |> 
     gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
     head()
