@@ -52,6 +52,8 @@ In case using Windows, launch msys2 console of the rtools, then install
 MeCab and its dictionary with pacman before your installing package
 (currently being tested on
 [rtools42](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)).
+Note that you may have to add `%RTOOLS42_HOME%\ucrt64\bin` directory to
+the PATH environment variable.
 
 ``` sh
 $ pacman -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic
