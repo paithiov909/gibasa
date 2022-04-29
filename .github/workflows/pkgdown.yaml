@@ -51,4 +51,4 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          Rscript -e 'pkgdown::deploy_to_branch(devel = FALSE)'
+          Rscript -e 'pkgdown::deploy_to_branch(install = TRUE)'
