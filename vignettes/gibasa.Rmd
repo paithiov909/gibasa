@@ -33,13 +33,13 @@ GitHubリポジトリからソースパッケージをビルドしてインス�
 remotes::install_github("paithiov909/gibasa")
 ```
 
-Windowsの場合、ソースビルドに[Rtools42](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)が必要です。また、gibasaを利用するにはmecabの静的ライブラリが必要なため、gibasaをインストールする前に、pacmanを利用してmecabをインストールしておいてください。具体的には、Rtoolsに付属しているmsys2を起ち上げて、次のコマンドを実行すると入るはずです。
+Windowsの場合、ソースビルドに[Rtools42](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)が必要です。また、gibasaを利用するにはmecabのバイナリが必要なため、gibasaをインストールする前に、pacmanを利用してmecabをインストールしておいてください。具体的には、Rtoolsに付属しているmsys2を起ち上げて、次のコマンドを実行すると入るはずです。
 
 ```
 $ pacman -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic
 ```
 
-なお、ふつうにx86向けのMeCabをインストーラで導入済みでも、共存できるはずなので問題ないです。
+この方法でインストールしたmecabを利用する場合、`%RTOOLS42_HOME\ucrt64\bin`にパスを通しておいてください。なお、ふつうにx86向けのMeCabをインストーラで導入済みでも、共存できるはずなので問題ないです。インストーラでMeCabを導入済みであれば、とくに`sys_dic`引数を指定しないかぎり、辞書はおそらくインストーラで入れたものが優先して使用されます。
 
 gibasaについては、CRANリリースはとりあえず考えていません。RcppMeCabがCRANに登録されている前例がありますし、gibasaについてはWindows向けに静的ライブラリを用いたビルドが実現できたため、技術的にはCRANにも登録できそうなのですが、めんどくさそうなのでやらないと思います。がんばってソースパッケージからインストールしてください。
 

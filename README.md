@@ -13,7 +13,7 @@ version](https://img.shields.io/github/r-package/v/paithiov909/gibasa)
 
 ## Overview
 
-Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and
+Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and
 morphological analysis tool.
 
 The main goal of gibasa package is to provide an alternative to

@@ -24,7 +24,7 @@ require(gibasa)
 
 ## Overview
 
-Gibasa is a plain 'Rcpp' interface to 'MeCab', a CJK tokenizer and morphological analysis tool.
+Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK tokenizer and morphological analysis tool.
 
 The main goal of gibasa package is to provide an alternative to `tidytext::unnest_tokens` for CJK text data.
 For analyzing CJK text data, it usually requires part-of-speech tagging,
