@@ -49,6 +49,7 @@ jobs:
             any::quanteda.textplots
             any::quanteda.textstats
             any::reactable
+            any::rtweet
             any::textmineR
             any::textrecipes
             any::tidymodels
