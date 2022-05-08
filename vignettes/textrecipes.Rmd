@@ -31,7 +31,7 @@ tidymodels::tidymodels_prefer()
 
 ## データの準備
 
-[livedoorニュースコーパス](https://www.rondhuit.com/download.html#ldcc)を使います。テキストの特徴量をもとに以下の9カテゴリの分類をします。
+[livedoorニュースコーパス](https://www.rondhuit.com/download.html#ldcc)を使います。このコーパスのカテゴリ分類はかなり易しいタスクであることが知られている（というか、一部のカテゴリではそのカテゴリを同定できる単語が本文に含まれてしまっている）ので、機械学習を手軽に試すのに便利です。テキストの特徴量をもとに以下の9カテゴリの分類をします。
 
 - トピックニュース
 - Sports Watch
@@ -165,10 +165,6 @@ dplyr::select(corpus_test, category) |>
   dplyr::bind_cols(predict(corpus_fit, corpus_test)) |>
   yardstick::f_meas(truth = category, estimate = .pred_class)
 ```
-
-## 所感
-
-このコーパスのカテゴリ分類はかなり易しいタスクであることが知られている（というか、一部のカテゴリではそのカテゴリを同定できる単語が本文に含まれてしまっている）ので相性もあるのでしょうが、簡単に機械学習できる点は気持ちよいです。
 
 ## セッション情報
 

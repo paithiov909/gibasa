@@ -261,16 +261,6 @@ if (getRversion() < "4.2.0") {
 }
 ```
 
-```{r copy_ldavis_dir, eval=FALSE}
-files <- list.files(file.path("cache/ldavis"), full.names = TRUE)
-for (file in files) {
-  file.copy(
-    from = file,
-    to = file.path(getwd(), "/ldavis")
-  )
-}
-```
-
 > [LDAvis](https://paithiov909.github.io/shiryo/ldavis/index.html)
 
 ## GloVe
