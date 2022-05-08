@@ -8,3 +8,5 @@
 ^mecab$
 ^pkgdown$
 ^windows$
+^vignettes$
+

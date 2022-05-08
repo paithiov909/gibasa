@@ -1,0 +1,177 @@
+---
+title: "Supervised Learning Using tidymodels and gibasa"
+description: "RとMeCabによる自然言語処理（gibasa, textrecipes, XGBoost）"
+author: "paithiov909"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Supervised Learning Using tidymodels and gibasa}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = "styler",
+  collapse = TRUE,
+  comment = "#>"
+)
+
+if (requreNamespaace("ldccr", quietly = TRUE)) {
+  options(repos = c(
+    ropensci = "https://paithiov909.r-universe.dev",
+    CRAN = "https://cloud.r-project.org"))
+
+  install.packages("ldccr")
+}
+
+require(tidymodels)
+tidymodels::tidymodels_prefer()
+```
+
+## データの準備
+
+[livedoorニュースコーパス](https://www.rondhuit.com/download.html#ldcc)を使います。テキストの特徴量をもとに以下の9カテゴリの分類をします。
+
+- トピックニュース
+- Sports Watch
+- ITライフハック
+- 家電チャンネル
+- MOVIE ENTER
+- 独女通信
+- エスマックス
+- livedoor HOMME
+- Peachy
+
+[ldccr](https://github.com/paithiov909/ldccr)でデータフレームにします。
+
+```{r prep_corpus_1}
+tbl <- ldccr::read_ldnws() |>
+  dplyr::mutate(doc_id = as.character(dplyr::row_number()))
+```
+
+ここでは、未知語でない語で、かつ、名詞・形容詞・動詞である語についてのみ抽出し、IPA辞書に収録されている原形の分かち書きにします。
+
+```{r prep_corpus_2}
+corpus <- tbl |>
+  dplyr::mutate(
+    text = audubon::strj_normalize(body),
+    chunk = dplyr::ntile(doc_id, 10)
+  ) |>
+  dplyr::group_by(chunk) |>
+  dplyr::group_map(function(df, idx) {
+    data.frame(
+      doc_id = df$doc_id,
+      text = df$text
+    ) |>
+      gibasa::tokenize(split = TRUE) |>
+      gibasa::prettify(col_select = c("POS1", "Original")) |>
+      dplyr::filter(
+        POS1 %in% c("名詞", "形容詞", "動詞"),
+        !is.na(Original)
+      ) |>
+      gibasa::pack(Original)
+  }) |>
+  purrr::map_dfr(~.) |>
+  dplyr::left_join(dplyr::select(tbl, doc_id, category), by = "doc_id")
+```
+
+## モデルの学習
+
+データを分割します。
+
+```{r prep_data}
+corpus_split <- rsample::initial_split(corpus, prop = .8, strata = "category")
+corpus_train <- rsample::training(corpus_split)
+corpus_test <- rsample::testing(corpus_split)
+```
+
+以下のレシピとモデルで学習します。ここでは、ハッシュトリックを使っています。デフォルトだとパラメータは[ここに書かれている感じ](https://parsnip.tidymodels.org/reference/boost_tree.html)になります。
+
+なお、tidymodelsの枠組みの外であらかじめ分かち書きを済ませましたが、`textrecipes::step_tokenize`の`custom_token`引数に独自にトークナイザを指定することで、一つのstepとして分かち書きすることもできます。
+
+```{r prep_model}
+corpus_spec <-
+  parsnip::boost_tree(
+    sample_size = tune::tune(),
+    loss_reduction = tune::tune(),
+    tree_depth = tune::tune()
+  ) |>
+  parsnip::set_engine("xgboost") |>
+  parsnip::set_mode("classification")
+
+space_tokenizer <- function(x) {
+  strsplit(x, " +")
+}
+
+corpus_rec <-
+  recipes::recipe(
+    category ~ text,
+    data = corpus_train
+  ) |>
+    textrecipes::step_tokenize(text, custom_token = space_tokenizer) |>
+    textrecipes::step_tokenfilter(text, min_times = 30L, max_tokens = 200L) |>
+    textrecipes::step_texthash(text, num_terms = 200L)
+```
+
+```{r workflow}
+corpus_wflow <-
+  workflows::workflow() |>
+  workflows::add_model(corpus_spec) |>
+  workflows::add_recipe(corpus_rec)
+```
+
+F値をメトリクスにして学習します。3分割CVで、簡単にですが、ハイパーパラメータ探索をします。
+
+```{r tune_wl}
+#doParallel::registerDoParallel(cores = parallel::detectCores() - 1)
+
+corpus_tune_res <-
+  corpus_wflow |>
+  tune::tune_grid(
+    resamples = rsample::vfold_cv(corpus_train, v = 3L),
+    grid = dials::grid_latin_hypercube(
+      dials::sample_prop(),
+      dials::loss_reduction(),
+      dials::tree_depth(),
+      size = 5L
+    ),
+    metrics = yardstick::metric_set(yardstick::f_meas),
+    control = tune::control_grid(save_pred = TRUE)
+  )
+
+#doParallel::stopImplicitCluster()
+```
+
+ハイパラ探索の要約を確認します。
+
+```{r autoplot}
+ggplot2::autoplot(corpus_tune_res)
+```
+
+`fit`します。
+
+```{r fit_wl}
+corpus_wflow <-
+  tune::finalize_workflow(corpus_wflow, tune::select_best(corpus_tune_res, metric = "f_meas"))
+
+corpus_fit <- parsnip::fit(corpus_wflow, corpus_train)
+```
+
+学習したモデルの精度を見てみます。
+
+```{r pred_wl}
+dplyr::select(corpus_test, category) |>
+  dplyr::bind_cols(predict(corpus_fit, corpus_test)) |>
+  yardstick::f_meas(truth = category, estimate = .pred_class)
+```
+
+## 所感
+
+このコーパスのカテゴリ分類はかなり易しいタスクであることが知られている（というか、一部のカテゴリではそのカテゴリを同定できる単語が本文に含まれてしまっている）ので相性もあるのでしょうが、簡単に機械学習できる点は気持ちよいです。
+
+## セッション情報
+
+```{r session_info}
+sessioninfo::session_info()
+```

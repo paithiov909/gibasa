@@ -1,0 +1,347 @@
+---
+title: "Text Mining with quanteda and gibasa"
+description: "R（quanteda）によるテキスト解析"
+author: "paithiov909"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Text Mining with quanteda and gibasa}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = "styler",
+  collapse = TRUE,
+  comment = "#>"
+  #, fig.keep = "none" ## Run all chunks but never save new figures.
+)
+set.seed(3179)
+
+if (requreNamespaace("ldccr", quietly = TRUE)) {
+  options(repos = c(
+    ropensci = "https://paithiov909.r-universe.dev",
+    CRAN = "https://cloud.r-project.org"))
+
+  install.packages("ldccr")
+}
+require("ggplot2", quietly = TRUE)
+```
+
+## はじめに
+
+[quanteda](https://github.com/quanteda/quanteda)と[gibasa](https://paithiov909.github.io/gibasa/)を用いたテキストマイニングの例です。
+
+なお、以下のパッケージについては、ここではGitHubからインストールできるものを使っています。
+
+- [paithiov909/audubon](https://github.com/paithiov909/audubon)
+- [paithiov909/ldccr](https://github.com/paithiov909/ldccr)
+
+これらは、次のような感じでインストールできます。
+
+```r
+# Enable repository from paithiov909
+options(repos = c(
+  ropensci = "https://paithiov909.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"))
+
+# Download and install ldccr in R
+install.packages("ldccr")
+```
+
+この記事は、こういう使い方ができるというメモのようなもので、やっていることの意味についての説明はしていません。また、quantedaは[tokenizers](https://github.com/ropensci/tokenizers)をラップした関数によって日本語の文書でも分かち書きできるので、手元の辞書に収録されている表現どおりに分かち書きしたい場合や、品詞情報が欲しい場合でないかぎりは、形態素解析器を使うメリットはあまりないかもしれません。tokenizers（内部的にはstringi）が利用しているICUの[Boundary Analysis](https://unicode-org.github.io/icu/userguide/boundaryanalysis/)の仕様については、[UAX#29](https://www.unicode.org/reports/tr29/#Word_Boundaries)などを参照してください。
+
+---
+
+## データの準備
+
+テキストデータとして[livedoorニュースコーパス](https://www.rondhuit.com/download.html#ldcc)を使います。以下の9カテゴリです。
+
+- トピックニュース
+- Sports Watch
+- ITライフハック
+- 家電チャンネル
+- MOVIE ENTER
+- 独女通信
+- エスマックス
+- livedoor HOMME
+- Peachy
+
+[ldccr](https://github.com/paithiov909/ldccr)でデータフレームにします。
+
+```{r tidy_data_1}
+data <- ldccr::read_ldnws()
+```
+
+このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。このとき、あらかじめ`■`という文字だけ取り除いておきます。
+
+```{r tidy_data_2}
+corp <- data |>
+  dplyr::select(category, body) |>
+  dplyr::mutate(doc_id = as.factor((dplyr::row_number()))) |>
+  dplyr::slice_sample(prop = .2)
+
+corp <- corp |>
+  dplyr::mutate(body = stringr::str_remove_all(body, "[\u25a0]+"),
+                body = audubon::strj_normalize(body)) |>
+  gibasa::tokenize(body) |>
+  tidyr::drop_na() |>
+  gibasa::pack() |>
+  dplyr::left_join(corp, by = "doc_id") |>
+  quanteda::corpus()
+```
+
+## ワードクラウド
+
+ストップワードとして`rtweet::stopwordslangs`を利用しています。
+
+```{r wordcloud}
+stopwords <- rtweet::stopwordslangs |>
+  dplyr::filter(lang == "ja") |>
+  dplyr::filter(p >= .98) |>
+  dplyr::pull(word)
+
+corp |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_group(groups = category) |>
+  quanteda::dfm_trim(min_termfreq = 10L) |>
+  quanteda.textplots::textplot_wordcloud(color = viridisLite::cividis(8L))
+```
+
+## 出現頻度の集計
+
+```{r stats}
+corp |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_weight("prop") |>
+  quanteda.textstats::textstat_frequency(groups = category) |>
+  dplyr::top_n(-30L, rank) |>
+  ggpubr::ggdotchart(
+    x = "feature",
+    y = "frequency",
+    group = "group",
+    color = "group",
+    rotate = TRUE
+  ) +
+  ggplot2::theme_bw()
+```
+
+## Keyness
+
+ITライフハック（`it-life-hack`）グループの文書とその他の対照を見ています。
+
+```{r keyness}
+corp |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_group(groups = category) |>
+  quanteda.textstats::textstat_keyness(target = "it-life-hack") |>
+  quanteda.textplots::textplot_keyness()
+```
+
+## 対応分析
+
+全部をプロットすると潰れて見えないので一部だけを抽出しています。
+
+```{r ca}
+corp_sample <- quanteda::corpus_sample(corp, size = 32L)
+corp_sample |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_weight(scheme = "prop") |>
+  quanteda.textmodels::textmodel_ca() |>
+  quanteda.textplots::textplot_scale1d(
+    margin = "documents",
+    groups = quanteda::docvars(corp_sample, "category")
+  )
+```
+
+## 共起ネットワーク
+
+共起ネットワークもあまり大きな文書集合だと潰れて見えないので、対応分析と同じコーパスについて描画してみます。
+
+```{r network}
+corp_sample |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_group(groups = category) |>
+  quanteda::dfm_trim(min_termfreq = 15L) |>
+  quanteda::fcm() |>
+  quanteda.textplots::textplot_network()
+```
+
+## クラスタリング
+
+マンハッタン距離、ward法（ward.D2）です。ここでも一部だけを抽出しています。
+
+```{r clust}
+d <- corp_sample |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_weight(scheme = "prop") |>
+  quanteda.textstats::textstat_dist(method = "manhattan") |>
+  as.dist() |>
+  hclust(method = "ward.D2") |>
+  ggdendro::dendro_data(type = "rectangle") |>
+  (function(x){
+    purrr::list_modify(
+      x,
+      labels = dplyr::bind_cols(
+        x$labels,
+        names = names(corp_sample),
+        category = quanteda::docvars(corp_sample, "category")
+      )
+    )
+  })()
+
+ggplot2::ggplot(ggdendro::segment(d)) +
+  ggplot2::geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
+  ggplot2::geom_text(ggdendro::label(d), mapping = aes(x, y, label = names, colour = category, hjust = 0), size = 3) +
+  ggplot2::coord_flip() +
+  ggplot2::scale_y_reverse(expand = c(.2, 0)) +
+  ggdendro::theme_dendro()
+```
+
+## LDA（Latent Dirichlet Allocation）
+
+LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に直接渡すこともできます。公式の[クイックスタートガイド](https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models)も参考にしてください。weighted LDAなどの実装を含む[keyATM](https://github.com/keyATM/keyATM)といった選択肢もあります。
+
+なお、トピック数は9に決め打ちしています。トピック数含めパラメタの探索をしたい場合には、[ldatuning](https://github.com/nikita-moor/ldatuning)や[stm](https://github.com/bstewart/stm)などを利用したほうがよいです。
+
+```{r lda_1}
+dtm <- corp |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::dfm_tfidf()
+
+features <- corp |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
+  quanteda::dfm() |>
+  quanteda::ntoken()
+
+m <- dtm |>
+  as("dgCMatrix") |>
+  textmineR::FitLdaModel(k = 9, iterations = 200, burnin = 175)
+
+m$phi |>
+  textmineR::GetTopTerms(15L) |>
+  reactable::reactable(compact = TRUE)
+```
+
+LDAvisで可視化してみます（デフォルトエンコーディングがCP932であるWindows環境の場合、`LDAvis::createJSON`で書き出されるラベル（vocab）のエンコーディングがそっちに引きずられてCP932になってしまうため、ブラウザで表示したときにラベルが文字化けします。書き出されたlda.jsonをUTF-8に変換すれば文字化けは解消されるので、その場合は、あとから変換して上書きするとよいです）。
+
+```r
+suppressWarnings({
+  LDAvis::createJSON(
+    phi = m$phi,
+    theta = m$theta,
+    doc.length = features,
+    vocab = stringi::stri_enc_toutf8(dtm@Dimnames$features),
+    term.frequency = quanteda::colSums(dtm)
+  ) |>
+    LDAvis::serVis(open.browser = FALSE, out.dir = file.path(getwd(), "cache/ldavis"))
+})
+
+if (getRversion() < "4.2.0") {
+  readr::read_lines_raw(file.path(getwd(), "cache/ldavis", "lda.json")) %>%
+    iconv(from = "CP932", to = "UTF-8") %>%
+    jsonlite::parse_json(simplifyVector = TRUE) %>%
+    jsonlite::write_json(file.path(getwd(), "cache/ldavis", "lda.json"), dataframe = "columns", auto_unbox = TRUE)
+}
+```
+
+```{r copy_ldavis_dir, eval=FALSE}
+files <- list.files(file.path("cache/ldavis"), full.names = TRUE)
+for (file in files) {
+  file.copy(
+    from = file,
+    to = file.path(getwd(), "/ldavis")
+  )
+}
+```
+
+> [LDAvis](https://paithiov909.github.io/shiryo/ldavis/index.html)
+
+## GloVe
+
+ここでは50次元の埋め込みを得ます。
+
+```{r glove}
+toks <- corp |>
+  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  as.list() |>
+  text2vec::itoken()
+
+vocab <- toks |>
+  text2vec::create_vocabulary() |>
+  text2vec::prune_vocabulary(term_count_min = 10L)
+
+vectorize <- text2vec::vocab_vectorizer(vocab)
+
+tcm <- text2vec::create_tcm(
+  it = toks,
+  vectorizer = vectorize,
+  skip_grams_window = 5L
+)
+
+glove <- text2vec::GlobalVectors$new(
+  rank = 50,
+  x_max = 15L
+)
+wv_main <- glove$fit_transform(
+  x = tcm,
+  n_iter = 10L
+)
+
+wv <- (wv_main + t(glove$components)) |>
+  as.data.frame(stringsAsFactors = FALSE) |>
+  tibble::as_tibble(.name_repair = "minimal", rownames = NA)
+```
+
+[uwot](https://github.com/jlmelville/uwot)で次元を減らして可視化します。色は`stats::kmeans`でクラスタリング（コサイン距離）して付けています。
+
+```{r umap}
+vec <- vocab |>
+  dplyr::anti_join(
+    y = tibble::tibble(words = stopwords),
+    by = c("term" = "words")
+  ) |>
+  dplyr::arrange(desc(term_count)) |>
+  dplyr::slice_head(n = 100L) |>
+  dplyr::left_join(tibble::rownames_to_column(wv), by = c("term" = "rowname")) |>
+  dplyr::select(!c("term_count", "doc_count"))
+
+labs <- vec$term
+vec <- dplyr::select(vec, !term)
+
+dist <- 1 - proxyC::simil(as(as.matrix(vec), "dgCMatrix"), method = "cosine")
+clust <- kmeans(x = dist, centers = 9)
+
+vec <- uwot::umap(vec) |>
+  as.data.frame() |>
+  dplyr::mutate(rowname = labs, cluster = as.factor(clust$cluster))
+
+vec |>
+  ggplot2::ggplot(aes(x = V1, y = V2, colour = cluster)) +
+  ggplot2::geom_point() +
+  ggrepel::geom_text_repel(aes(label = rowname)) +
+  ggplot2::theme_light()
+```
+
+## セッション情報
+
+```{r sessioninfo}
+sessioninfo::session_info()
+```
+

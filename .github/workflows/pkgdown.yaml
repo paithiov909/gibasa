@@ -40,11 +40,21 @@ jobs:
         with:
           extra-packages: |
             any::pkgdown
-            any::quanteda
-            any::reactable
-            any::topicmodels
             any::sessioninfo
             any::styler
+            any::ggdendro
+            any::ggpubr
+            any::quanteda
+            any::quanteda.textmodels
+            any::quanteda.textplots
+            any::quanteda.textstats
+            any::reactable
+            any::textmineR
+            any::textrecipes
+            any::tidymodels
+            any::topicmodels
+            any::uwot
+            any::xgboost
           needs: website
 
       - name: Deploy package
