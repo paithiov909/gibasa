@@ -37,7 +37,7 @@ jobs:
           cd ../../
 
       - name: Japanese fonts
-        run: suso apt install fonts-ipafont fonts-ipaexfont
+        run: sudo apt install fonts-ipafont fonts-ipaexfont
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
