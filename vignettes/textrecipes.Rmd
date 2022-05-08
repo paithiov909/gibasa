@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-if (requreNamespaace("ldccr", quietly = TRUE)) {
+if (requireNamespace("ldccr", quietly = TRUE)) {
   options(repos = c(
     ropensci = "https://paithiov909.r-universe.dev",
     CRAN = "https://cloud.r-project.org"))

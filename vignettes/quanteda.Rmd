@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 )
 set.seed(3179)
 
-if (requreNamespaace("ldccr", quietly = TRUE)) {
+if (requireNamespace("ldccr", quietly = TRUE)) {
   options(repos = c(
     ropensci = "https://paithiov909.r-universe.dev",
     CRAN = "https://cloud.r-project.org"))
