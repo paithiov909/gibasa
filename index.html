@@ -50,6 +50,13 @@
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/quanteda.html">Text Mining with quanteda and gibasa</a>
+    <a class="dropdown-item" href="articles/textrecipes.html">Supervised Learning Using tidymodels and gibasa</a>
+  </div>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
@@ -80,7 +87,7 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and morphological analysis tool.</p>
-<p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code>tokenizers::tokenize_words</code> sometimes splits them into erroneous tokens.</p>
+<p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code><a href="https://lincolnmullen.com/software/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> sometimes splits them into erroneous tokens.</p>
 <p>Gibasa provides 3 main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
 <div class="figure">
 <img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt=""><p class="caption">image</p>
@@ -98,7 +105,7 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"paithiov909/gibasa"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"paithiov909/gibasa"</span><span class="op">)</span></code></pre></div>
 <p>To install gibasa from source package requires the <a href="https://taku910.github.io/mecab/" class="external-link">MeCab</a> library installed and available.</p>
 <p>In case using Linux or OSX, you can install that with their package managers, or build and install from the source by yourself.</p>
 <p>In case using Windows, launch msys2 console of the rtools, then install MeCab and its dictionary with pacman before your installing package (currently being tested on <a href="https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html" class="external-link">rtools42</a>). Note that you may have to add <code>%RTOOLS42_HOME%\ucrt64\bin</code> directory to the PATH environment variable.</p>
