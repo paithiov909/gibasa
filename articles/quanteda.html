@@ -322,14 +322,6 @@
     <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">parse_json</a></span><span class="op">(</span>simplifyVector <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span>, <span class="st">"lda.json"</span><span class="op">)</span>, dataframe <span class="op">=</span> <span class="st">"columns"</span>, auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"cache/ldavis"</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">file</span> <span class="kw">in</span> <span class="va">files</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span>
-    from <span class="op">=</span> <span class="va">file</span>,
-    to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/ldavis"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span></code></pre></div>
 <blockquote>
 <p><a href="https://paithiov909.github.io/shiryo/ldavis/index.html" class="external-link">LDAvis</a></p>
 </blockquote>
@@ -338,7 +330,7 @@
 <h2 id="glove">GloVe<a class="anchor" aria-label="anchor" href="#glove"></a>
 </h2>
 <p>ここでは50次元の埋め込みを得ます。</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">toks</span> <span class="op">&lt;-</span> <span class="va">corp</span> |&gt;
   <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
   <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">)</span> |&gt;
@@ -364,22 +356,22 @@
   x <span class="op">=</span> <span class="va">tcm</span>,
   n_iter <span class="op">=</span> <span class="fl">10L</span>
 <span class="op">)</span>
-<span class="co">#&gt; INFO  [04:41:57.571] epoch 1, loss 0.1707 </span>
-<span class="co">#&gt; INFO  [04:41:58.264] epoch 2, loss 0.1018 </span>
-<span class="co">#&gt; INFO  [04:41:58.937] epoch 3, loss 0.0851 </span>
-<span class="co">#&gt; INFO  [04:41:59.598] epoch 4, loss 0.0751 </span>
-<span class="co">#&gt; INFO  [04:42:00.260] epoch 5, loss 0.0683 </span>
-<span class="co">#&gt; INFO  [04:42:00.923] epoch 6, loss 0.0634 </span>
-<span class="co">#&gt; INFO  [04:42:01.582] epoch 7, loss 0.0596 </span>
-<span class="co">#&gt; INFO  [04:42:02.244] epoch 8, loss 0.0566 </span>
-<span class="co">#&gt; INFO  [04:42:02.904] epoch 9, loss 0.0541 </span>
-<span class="co">#&gt; INFO  [04:42:03.565] epoch 10, loss 0.0520</span>
+<span class="co">#&gt; INFO  [05:23:25.322] epoch 1, loss 0.1707 </span>
+<span class="co">#&gt; INFO  [05:23:25.990] epoch 2, loss 0.1018 </span>
+<span class="co">#&gt; INFO  [05:23:26.632] epoch 3, loss 0.0851 </span>
+<span class="co">#&gt; INFO  [05:23:27.268] epoch 4, loss 0.0751 </span>
+<span class="co">#&gt; INFO  [05:23:27.902] epoch 5, loss 0.0683 </span>
+<span class="co">#&gt; INFO  [05:23:28.538] epoch 6, loss 0.0634 </span>
+<span class="co">#&gt; INFO  [05:23:29.172] epoch 7, loss 0.0596 </span>
+<span class="co">#&gt; INFO  [05:23:29.807] epoch 8, loss 0.0566 </span>
+<span class="co">#&gt; INFO  [05:23:30.443] epoch 9, loss 0.0541 </span>
+<span class="co">#&gt; INFO  [05:23:31.081] epoch 10, loss 0.0520</span>
 
 <span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> |&gt;
   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> |&gt;
   <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span>, rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
 <p><a href="https://github.com/jlmelville/uwot" class="external-link">uwot</a>で次元を減らして可視化します。色は<code><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">stats::kmeans</a></code>でクラスタリング（コサイン距離）して付けています。</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">vec</span> <span class="op">&lt;-</span> <span class="va">vocab</span> |&gt;
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html" class="external-link">anti_join</a></span><span class="op">(</span>
     y <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>words <span class="op">=</span> <span class="va">stopwords</span><span class="op">)</span>,
@@ -410,7 +402,7 @@
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
 </h2>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span>
 <span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
@@ -549,7 +541,7 @@
 <span class="co">#&gt;  xfun                  0.30       <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  yaml                  2.3.5      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp9C1pY5/temp_libpath587073f86159</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpvRM1zw/temp_libpath4cc84c5cb66d</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.0/lib/R/library</span></span>
 <span class="co">#&gt; </span>

@@ -94,7 +94,7 @@
 <div class="section level2">
 <h2 id="データの準備">データの準備<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%BA%96%E5%82%99"></a>
 </h2>
-<p><a href="https://www.rondhuit.com/download.html#ldcc" class="external-link">livedoorニュースコーパス</a>を使います。テキストの特徴量をもとに以下の9カテゴリの分類をします。</p>
+<p><a href="https://www.rondhuit.com/download.html#ldcc" class="external-link">livedoorニュースコーパス</a>を使います。このコーパスのカテゴリ分類はかなり易しいタスクであることが知られている（というか、一部のカテゴリではそのカテゴリを同定できる単語が本文に含まれてしまっている）ので、機械学習を手軽に試すのに便利です。テキストの特徴量をもとに以下の9カテゴリの分類をします。</p>
 <ul>
 <li>トピックニュース</li>
 <li>Sports Watch</li>
@@ -218,12 +218,7 @@
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="co">#&gt;   .metric .estimator .estimate</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> f_meas  macro          0.831</span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="所感">所感<a class="anchor" aria-label="anchor" href="#%E6%89%80%E6%84%9F"></a>
-</h2>
-<p>このコーパスのカテゴリ分類はかなり易しいタスクであることが知られている（というか、一部のカテゴリではそのカテゴリを同定できる単語が本文に含まれてしまっている）ので相性もあるのでしょうが、簡単に機械学習できる点は気持ちよいです。</p>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> f_meas  macro          0.846</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
@@ -369,7 +364,7 @@
 <span class="co">#&gt;  yaml           2.3.5      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  yardstick    * 0.0.9      <span style="color: #555555;">2021-11-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp9C1pY5/temp_libpath587073f86159</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpvRM1zw/temp_libpath4cc84c5cb66d</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.0/lib/R/library</span></span>
 <span class="co">#&gt; </span>
