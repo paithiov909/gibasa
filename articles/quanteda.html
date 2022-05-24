@@ -82,7 +82,7 @@
       <img src="" class="logo" alt=""><h1>Text Mining with quanteda and gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2022-05-08</h4>
+            <h4 data-toc-skip class="date">2022-05-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/quanteda.Rmd" class="external-link"><code>vignettes/quanteda.Rmd</code></a></small>
       <div class="d-none name"><code>quanteda.Rmd</code></div>
@@ -356,16 +356,16 @@
   x <span class="op">=</span> <span class="va">tcm</span>,
   n_iter <span class="op">=</span> <span class="fl">10L</span>
 <span class="op">)</span>
-<span class="co">#&gt; INFO  [05:23:25.322] epoch 1, loss 0.1707 </span>
-<span class="co">#&gt; INFO  [05:23:25.990] epoch 2, loss 0.1018 </span>
-<span class="co">#&gt; INFO  [05:23:26.632] epoch 3, loss 0.0851 </span>
-<span class="co">#&gt; INFO  [05:23:27.268] epoch 4, loss 0.0751 </span>
-<span class="co">#&gt; INFO  [05:23:27.902] epoch 5, loss 0.0683 </span>
-<span class="co">#&gt; INFO  [05:23:28.538] epoch 6, loss 0.0634 </span>
-<span class="co">#&gt; INFO  [05:23:29.172] epoch 7, loss 0.0596 </span>
-<span class="co">#&gt; INFO  [05:23:29.807] epoch 8, loss 0.0566 </span>
-<span class="co">#&gt; INFO  [05:23:30.443] epoch 9, loss 0.0541 </span>
-<span class="co">#&gt; INFO  [05:23:31.081] epoch 10, loss 0.0520</span>
+<span class="co">#&gt; INFO  [01:29:08.377] epoch 1, loss 0.1707 </span>
+<span class="co">#&gt; INFO  [01:29:09.056] epoch 2, loss 0.1018 </span>
+<span class="co">#&gt; INFO  [01:29:09.713] epoch 3, loss 0.0851 </span>
+<span class="co">#&gt; INFO  [01:29:10.347] epoch 4, loss 0.0751 </span>
+<span class="co">#&gt; INFO  [01:29:10.985] epoch 5, loss 0.0683 </span>
+<span class="co">#&gt; INFO  [01:29:11.629] epoch 6, loss 0.0634 </span>
+<span class="co">#&gt; INFO  [01:29:12.267] epoch 7, loss 0.0596 </span>
+<span class="co">#&gt; INFO  [01:29:12.901] epoch 8, loss 0.0566 </span>
+<span class="co">#&gt; INFO  [01:29:13.537] epoch 9, loss 0.0541 </span>
+<span class="co">#&gt; INFO  [01:29:14.171] epoch 10, loss 0.0520</span>
 
 <span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> |&gt;
   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> |&gt;
@@ -414,7 +414,7 @@
 <span class="co">#&gt;  collate  C.UTF-8</span>
 <span class="co">#&gt;  ctype    C.UTF-8</span>
 <span class="co">#&gt;  tz       UTC</span>
-<span class="co">#&gt;  date     2022-05-08</span>
+<span class="co">#&gt;  date     2022-05-24</span>
 <span class="co">#&gt;  pandoc   2.14.2 @ /usr/bin/ (via rmarkdown)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span>
@@ -455,7 +455,7 @@
 <span class="co">#&gt;  ggpubr                0.4.0      <span style="color: #555555;">2020-06-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.4.0)</span></span>
 <span class="co">#&gt;  ggrepel               0.9.1      <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  ggsignif              0.6.3      <span style="color: #555555;">2021-09-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  gibasa                0.3.0      <span style="color: #555555;">2022-05-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span>
+<span class="co">#&gt;  gibasa                0.3.0      <span style="color: #555555;">2022-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span>
 <span class="co">#&gt;  glmnet                4.1-4      <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  glue                  1.6.2      <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  gtable                0.3.0      <span style="color: #555555;">2019-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
@@ -470,7 +470,7 @@
 <span class="co">#&gt;  knitr                 1.39       <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  labeling              0.4.2      <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  lattice               0.20-45    <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
-<span class="co">#&gt;  ldccr                 0.0.9      <span style="color: #555555;">2022-05-08</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">https://paithiov909.r-universe.dev (R 4.2.0)</span></span>
+<span class="co">#&gt;  ldccr                 0.0.9      <span style="color: #555555;">2022-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">https://paithiov909.r-universe.dev (R 4.2.0)</span></span>
 <span class="co">#&gt;  lgr                   0.4.3      <span style="color: #555555;">2021-09-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  LiblineaR             2.10-12    <span style="color: #555555;">2021-03-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  lifecycle             1.0.1      <span style="color: #555555;">2021-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
@@ -480,7 +480,7 @@
 <span class="co">#&gt;  memoise               2.0.1      <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  mlapi                 0.1.1      <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  munsell               0.5.0      <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  network               1.17.1     <span style="color: #555555;">2021-06-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
+<span class="co">#&gt;  network               1.17.2     <span style="color: #555555;">2022-05-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  nsyllable             1.0.1      <span style="color: #555555;">2022-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  pillar                1.7.0      <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  pkgconfig             2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
@@ -533,15 +533,15 @@
 <span class="co">#&gt;  tzdb                  0.3.0      <span style="color: #555555;">2022-03-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  utf8                  1.2.2      <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  uwot                  0.1.11     <span style="color: #555555;">2021-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.1.11)</span></span>
-<span class="co">#&gt;  V8                    4.1.0      <span style="color: #555555;">2022-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
+<span class="co">#&gt;  V8                    4.2.0      <span style="color: #555555;">2022-05-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  vctrs                 0.4.1      <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  viridisLite           0.4.0      <span style="color: #555555;">2021-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  vroom                 1.5.7      <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  withr                 2.5.0      <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  xfun                  0.30       <span style="color: #555555;">2022-03-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
+<span class="co">#&gt;  xfun                  0.31       <span style="color: #555555;">2022-05-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt;  yaml                  2.3.5      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpvRM1zw/temp_libpath4cc84c5cb66d</span></span>
+<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpHBZhHG/temp_libpath623b14546163</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span>
 <span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.0/lib/R/library</span></span>
 <span class="co">#&gt; </span>
