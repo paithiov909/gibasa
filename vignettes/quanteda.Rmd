@@ -88,22 +88,17 @@ corp <- corp |>
   dplyr::mutate(body = stringr::str_remove_all(body, "[\u25a0]+"),
                 body = audubon::strj_normalize(body)) |>
   gibasa::tokenize(body) |>
+  gibasa::prettify(col_select = c("POS1", "Original")) |>
+  dplyr::filter(!POS1 %in% c("助詞", "助動詞")) |>
   tidyr::drop_na() |>
-  gibasa::pack() |>
+  gibasa::pack(Original) |>
   dplyr::left_join(corp, by = "doc_id") |>
   quanteda::corpus()
 ```
 
 ## ワードクラウド
 
-ストップワードとして`rtweet::stopwordslangs`を利用しています。
-
 ```{r wordcloud}
-stopwords <- rtweet::stopwordslangs |>
-  dplyr::filter(lang == "ja") |>
-  dplyr::filter(p >= .98) |>
-  dplyr::pull(word)
-
 corp |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
   quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
@@ -150,6 +145,8 @@ corp |>
 ## 対応分析
 
 全部をプロットすると潰れて見えないので一部だけを抽出しています。
+
+ちなみに、`require(ca)`としてから`quatenda.textmodels::textmodel_ca`の結果を`plot`に渡すと、バイプロットを出力することもできます。
 
 ```{r ca}
 corp_sample <- quanteda::corpus_sample(corp, size = 32L)
