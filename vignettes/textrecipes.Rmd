@@ -46,8 +46,10 @@ tidymodels::tidymodels_prefer()
 [ldccr](https://github.com/paithiov909/ldccr)でデータフレームにします。
 
 ```{r prep_corpus_1}
-tbl <- ldccr::read_ldnws() |>
-  dplyr::mutate(doc_id = as.character(dplyr::row_number()))
+if (requireNamespace("ldccr", quietly = TRUE)) {
+  tbl <- ldccr::read_ldnws() |>
+    dplyr::mutate(doc_id = as.character(dplyr::row_number()))
+}
 ```
 
 ここでは、未知語でない語で、かつ、名詞・形容詞・動詞である語についてのみ抽出し、IPA辞書に収録されている原形の分かち書きにします。

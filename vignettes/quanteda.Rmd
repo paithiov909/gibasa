@@ -71,7 +71,9 @@ install.packages("ldccr")
 [ldccr](https://github.com/paithiov909/ldccr)でデータフレームにします。
 
 ```{r tidy_data_1}
-data <- ldccr::read_ldnws()
+if (requireNamespace("ldccr", quietly = TRUE)) {
+  data <- ldccr::read_ldnws()
+}
 ```
 
 このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。このとき、あらかじめ「■」という文字だけ取り除いておきます。
