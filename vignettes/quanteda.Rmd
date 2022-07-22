@@ -149,8 +149,6 @@ corp |>
 
 全部をプロットすると潰れて見えないので一部だけを抽出しています。
 
-ちなみに、`require(ca)`としてから`quanteda.textmodels::textmodel_ca`の結果を`plot`に渡すと、バイプロットを出力することもできます。
-
 ```{r ca}
 corp_sample <- quanteda::corpus_sample(corp, size = 32L)
 corp_sample |>
