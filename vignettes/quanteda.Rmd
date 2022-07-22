@@ -287,10 +287,6 @@ wv <- (wv_main + t(glove$components)) |>
 
 ```{r umap}
 vec <- vocab |>
-  dplyr::anti_join(
-    y = tibble::tibble(words = stopwords),
-    by = c("term" = "words")
-  ) |>
   dplyr::arrange(desc(term_count)) |>
   dplyr::slice_head(n = 100L) |>
   dplyr::left_join(tibble::rownames_to_column(wv), by = c("term" = "rowname")) |>
