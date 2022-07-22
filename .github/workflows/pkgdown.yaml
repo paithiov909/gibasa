@@ -52,6 +52,7 @@ jobs:
             any::quanteda.textmodels
             any::quanteda.textplots
             any::quanteda.textstats
+            any::RcppSimdJson
             any::reactable
             any::textmineR
             any::textrecipes
