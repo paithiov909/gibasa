@@ -53,7 +53,6 @@ jobs:
             any::quanteda.textplots
             any::quanteda.textstats
             any::reactable
-            any::rtweet
             any::textmineR
             any::textrecipes
             any::tidymodels
@@ -66,4 +65,5 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          Rscript -e 'install.packages("ldccr", repos = "https://paithiov909.r-universe.dev")'
           Rscript -e 'pkgdown::deploy_to_branch(install = TRUE)'

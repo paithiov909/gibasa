@@ -16,15 +16,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-if (!requireNamespace("ldccr", quietly = TRUE)) {
-  options(repos = c(
-    ropensci = "https://paithiov909.r-universe.dev",
-    CRAN = "https://cloud.r-project.org"))
-
-  install.packages("ldccr")
-}
-
 require(tidymodels, quietly = TRUE)
 tidymodels::tidymodels_prefer()
 ```
