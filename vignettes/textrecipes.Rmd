@@ -162,8 +162,7 @@ corpus_fit <- tune::last_fit(corpus_wflow, corpus_split)
 
 ```{r pred_wl}
 corpus_fit |>
-  dplyr::select(.predictions) |> 
-  tidyr::unnest(.predictions) |>
+  tune::collect_predictions() |>
   yardstick::f_meas(truth = category, estimate = .pred_class)
 ```
 
