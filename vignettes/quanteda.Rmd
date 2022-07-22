@@ -211,7 +211,6 @@ dtm <- corp |>
 
 features <- corp |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::ntoken()
 
