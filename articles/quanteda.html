@@ -8,8 +8,8 @@
 <meta name="description" content="R（quanteda）によるテキスト解析">
 <title>Text Mining with quanteda and gibasa • gibasa</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Text Mining with quanteda and gibasa">
 <meta property="og:description" content="R（quanteda）によるテキスト解析">
@@ -77,12 +77,12 @@
 
 
 
-<script src="quanteda_files/core-js-2.5.3/shim.min.js"></script><script src="quanteda_files/react-17.0.0/react.min.js"></script><script src="quanteda_files/react-17.0.0/react-dom.min.js"></script><script src="quanteda_files/reactwidget-1.0.0/react-tools.js"></script><script src="quanteda_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="quanteda_files/reactable-binding-0.2.3/reactable.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+<script src="quanteda_files/core-js-2.5.3/shim.min.js"></script><script src="quanteda_files/react-17.0.0/react.min.js"></script><script src="quanteda_files/react-17.0.0/react-dom.min.js"></script><script src="quanteda_files/reactwidget-1.0.0/react-tools.js"></script><script src="quanteda_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="quanteda_files/reactable-binding-0.3.0/reactable.js"></script><div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Text Mining with quanteda and gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2022-05-24</h4>
+            <h4 data-toc-skip class="date">2022-07-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/quanteda.Rmd" class="external-link"><code>vignettes/quanteda.Rmd</code></a></small>
       <div class="d-none name"><code>quanteda.Rmd</code></div>
@@ -101,13 +101,13 @@
 </ul>
 <p>これらは、次のような感じでインストールできます。</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Enable repository from paithiov909</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  ropensci <span class="op">=</span> <span class="st">"https://paithiov909.r-universe.dev"</span>,
-  CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Download and install ldccr in R</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ldccr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Enable repository from paithiov909</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  ropensci <span class="op">=</span> <span class="st">"https://paithiov909.r-universe.dev"</span>,</span>
+<span>  CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Download and install ldccr in R</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ldccr"</span><span class="op">)</span></span></code></pre></div>
 <p>この記事は、こういう使い方ができるというメモのようなもので、やっていることの意味についての説明はしていません。また、quantedaは<a href="https://github.com/ropensci/tokenizers" class="external-link">tokenizers</a>をラップした関数によって日本語の文書でも分かち書きできるので、手元の辞書に収録されている表現どおりに分かち書きしたい場合や、品詞情報が欲しい場合でないかぎりは、形態素解析器を使うメリットはあまりないかもしれません。tokenizers（内部的にはstringi）が利用しているICUの<a href="https://unicode-org.github.io/icu/userguide/boundaryanalysis/" class="external-link">Boundary Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/tr29/#Word_Boundaries" class="external-link">UAX#29</a>などを参照してください。</p>
 <hr>
 </div>
@@ -128,73 +128,69 @@
 </ul>
 <p><a href="https://github.com/paithiov909/ldccr" class="external-link">ldccr</a>でデータフレームにします。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">ldccr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ldccr/man/read_ldnws.html" class="external-link">read_ldnws</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Parsing dokujo-tsushin...</span>
-<span class="co">#&gt; Parsing it-life-hack...</span>
-<span class="co">#&gt; Parsing kaden-channel...</span>
-<span class="co">#&gt; Parsing livedoor-homme...</span>
-<span class="co">#&gt; Parsing movie-enter...</span>
-<span class="co">#&gt; Parsing peachy...</span>
-<span class="co">#&gt; Parsing smax...</span>
-<span class="co">#&gt; Parsing sports-watch...</span>
-<span class="co">#&gt; Parsing topic-news...</span>
-<span class="co">#&gt; Done.</span></code></pre></div>
-<p>このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。このとき、あらかじめ<code>■</code>という文字だけ取り除いておきます。</p>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ldccr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">ldccr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ldccr/man/read_ldnws.html" class="external-link">read_ldnws</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; Parsing dokujo-tsushin...</span></span>
+<span><span class="co">#&gt; Parsing it-life-hack...</span></span>
+<span><span class="co">#&gt; Parsing kaden-channel...</span></span>
+<span><span class="co">#&gt; Parsing livedoor-homme...</span></span>
+<span><span class="co">#&gt; Parsing movie-enter...</span></span>
+<span><span class="co">#&gt; Parsing peachy...</span></span>
+<span><span class="co">#&gt; Parsing smax...</span></span>
+<span><span class="co">#&gt; Parsing sports-watch...</span></span>
+<span><span class="co">#&gt; Parsing topic-news...</span></span>
+<span><span class="co">#&gt; Done.</span></span></code></pre></div>
+<p>このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。このとき、あらかじめ「■」という文字だけ取り除いておきます。</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">data</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">category</span>, <span class="va">body</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span>
-
-<span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">corp</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    body <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove_all</a></span><span class="op">(</span><span class="va">body</span>, <span class="st">"[\u25a0]+"</span><span class="op">)</span>,
-    body <span class="op">=</span> <span class="fu">audubon</span><span class="fu">::</span><span class="fu"><a href="https://paithiov909.github.io/audubon/reference/strj_normalize.html" class="external-link">strj_normalize</a></span><span class="op">(</span><span class="va">body</span><span class="op">)</span>
-  <span class="op">)</span> |&gt;
-  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="va">body</span><span class="op">)</span> |&gt;
-  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/pack.html">pack</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">corp</span>, by <span class="op">=</span> <span class="st">"doc_id"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus.html" class="external-link">corpus</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">category</span>, <span class="va">body</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    body <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html" class="external-link">str_remove_all</a></span><span class="op">(</span><span class="va">body</span>, <span class="st">"[\u25a0]+"</span><span class="op">)</span>,</span>
+<span>    body <span class="op">=</span> <span class="fu">audubon</span><span class="fu">::</span><span class="fu"><a href="https://paithiov909.github.io/audubon/reference/strj_normalize.html" class="external-link">strj_normalize</a></span><span class="op">(</span><span class="va">body</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="va">body</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/prettify.html">prettify</a></span><span class="op">(</span>col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">POS1</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"助詞"</span>, <span class="st">"助動詞"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/pack.html">pack</a></span><span class="op">(</span><span class="va">Original</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">corp</span>, by <span class="op">=</span> <span class="st">"doc_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus.html" class="external-link">corpus</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="ワードクラウド">ワードクラウド<a class="anchor" aria-label="anchor" href="#%E3%83%AF%E3%83%BC%E3%83%89%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89"></a>
 </h2>
-<p>ストップワードとして<code><a href="https://rdrr.io/pkg/rtweet/man/stopwordslangs.html" class="external-link">rtweet::stopwordslangs</a></code>を利用しています。</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stopwords</span> <span class="op">&lt;-</span> <span class="fu">rtweet</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/rtweet/man/stopwordslangs.html" class="external-link">stopwordslangs</a></span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">lang</span> <span class="op">==</span> <span class="st">"ja"</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">p</span> <span class="op">&gt;=</span> <span class="fl">.98</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">word</span><span class="op">)</span>
-
-<span class="va">corp</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html" class="external-link">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_wordcloud.html" class="external-link">textplot_wordcloud</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">cividis</a></span><span class="op">(</span><span class="fl">8L</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html" class="external-link">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_wordcloud.html" class="external-link">textplot_wordcloud</a></span><span class="op">(</span>color <span class="op">=</span> <span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">cividis</a></span><span class="op">(</span><span class="fl">8L</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/wordcloud-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="出現頻度の集計">出現頻度の集計<a class="anchor" aria-label="anchor" href="#%E5%87%BA%E7%8F%BE%E9%A0%BB%E5%BA%A6%E3%81%AE%E9%9B%86%E8%A8%88"></a>
 </h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span><span class="st">"prop"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_frequency.html" class="external-link">textstat_frequency</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html" class="external-link">top_n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30L</span>, <span class="va">rank</span><span class="op">)</span> |&gt;
-  <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggdotchart.html" class="external-link">ggdotchart</a></span><span class="op">(</span>
-    x <span class="op">=</span> <span class="st">"feature"</span>,
-    y <span class="op">=</span> <span class="st">"frequency"</span>,
-    group <span class="op">=</span> <span class="st">"group"</span>,
-    color <span class="op">=</span> <span class="st">"group"</span>,
-    rotate <span class="op">=</span> <span class="cn">TRUE</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span><span class="st">"prop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_frequency.html" class="external-link">textstat_frequency</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html" class="external-link">top_n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">30L</span>, <span class="va">rank</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggpubr</span><span class="fu">::</span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggdotchart.html" class="external-link">ggdotchart</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="st">"feature"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"frequency"</span>,</span>
+<span>    group <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>    rotate <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/stats-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -202,31 +198,30 @@
 </h2>
 <p>ITライフハック（<code>it-life-hack</code>）グループの文書とその他の対照を見ています。</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html" class="external-link">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_keyness.html" class="external-link">textstat_keyness</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"it-life-hack"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_keyness.html" class="external-link">textplot_keyness</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html" class="external-link">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_keyness.html" class="external-link">textstat_keyness</a></span><span class="op">(</span>target <span class="op">=</span> <span class="st">"it-life-hack"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_keyness.html" class="external-link">textplot_keyness</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/keyness-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="対応分析">対応分析<a class="anchor" aria-label="anchor" href="#%E5%AF%BE%E5%BF%9C%E5%88%86%E6%9E%90"></a>
 </h2>
 <p>全部をプロットすると潰れて見えないので一部だけを抽出しています。</p>
+<p>ちなみに、<code><a href="http://www.carme-n.org/" class="external-link">require(ca)</a></code>としてから<code>quatenda.textmodels::textmodel_ca</code>の結果を<code>plot</code>に渡すと、バイプロットを出力することもできます。</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp_sample</span> <span class="op">&lt;-</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus_sample.html" class="external-link">corpus_sample</a></span><span class="op">(</span><span class="va">corp</span>, size <span class="op">=</span> <span class="fl">32L</span><span class="op">)</span>
-<span class="va">corp_sample</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textmodels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">textmodel_ca</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_scale1d.html" class="external-link">textplot_scale1d</a></span><span class="op">(</span>
-    margin <span class="op">=</span> <span class="st">"documents"</span>,
-    groups <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/docvars.html" class="external-link">docvars</a></span><span class="op">(</span><span class="va">corp_sample</span>, <span class="st">"category"</span><span class="op">)</span>
-  <span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp_sample</span> <span class="op">&lt;-</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus_sample.html" class="external-link">corpus_sample</a></span><span class="op">(</span><span class="va">corp</span>, size <span class="op">=</span> <span class="fl">32L</span><span class="op">)</span></span>
+<span><span class="va">corp_sample</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textmodels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">textmodel_ca</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_scale1d.html" class="external-link">textplot_scale1d</a></span><span class="op">(</span></span>
+<span>    margin <span class="op">=</span> <span class="st">"documents"</span>,</span>
+<span>    groups <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/docvars.html" class="external-link">docvars</a></span><span class="op">(</span><span class="va">corp_sample</span>, <span class="st">"category"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/ca-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -234,14 +229,15 @@
 </h2>
 <p>共起ネットワークもあまり大きな文書集合だと潰れて見えないので、対応分析と同じコーパスについて描画してみます。</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corp_sample</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html" class="external-link">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">15L</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/fcm.html" class="external-link">fcm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_network.html" class="external-link">textplot_network</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corp_sample</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_group.html" class="external-link">dfm_group</a></span><span class="op">(</span>groups <span class="op">=</span> <span class="va">category</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">15L</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/fcm.html" class="external-link">fcm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textplots</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textplots/man/textplot_network.html" class="external-link">textplot_network</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: ggrepel: 1 unlabeled data points (too many overlaps). Consider</span></span>
+<span><span class="co">#&gt; increasing max.overlaps</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/network-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -249,32 +245,31 @@
 </h2>
 <p>マンハッタン距離、ward法（ward.D2）です。ここでも一部だけを抽出しています。</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">corp_sample</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_simil.html" class="external-link">textstat_dist</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"ward.D2"</span><span class="op">)</span> |&gt;
-  <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/dendro_data.html" class="external-link">dendro_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rectangle"</span><span class="op">)</span> |&gt;
-  <span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_modify.html" class="external-link">list_modify</a></span><span class="op">(</span>
-      <span class="va">x</span>,
-      labels <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span>
-        <span class="va">x</span><span class="op">$</span><span class="va">labels</span>,
-        names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">corp_sample</span><span class="op">)</span>,
-        category <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/docvars.html" class="external-link">docvars</a></span><span class="op">(</span><span class="va">corp_sample</span>, <span class="st">"category"</span><span class="op">)</span>
-      <span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/segment.html" class="external-link">segment</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, xend <span class="op">=</span> <span class="va">xend</span>, yend <span class="op">=</span> <span class="va">yend</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/segment.html" class="external-link">label</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, label <span class="op">=</span> <span class="va">names</span>, colour <span class="op">=</span> <span class="va">category</span>, hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/theme_dendro.html" class="external-link">theme_dendro</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">corp_sample</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"prop"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_simil.html" class="external-link">textstat_dist</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"manhattan"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"ward.D2"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/dendro_data.html" class="external-link">dendro_data</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rectangle"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_modify.html" class="external-link">list_modify</a></span><span class="op">(</span></span>
+<span>      <span class="va">x</span>,</span>
+<span>      labels <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span></span>
+<span>        <span class="va">x</span><span class="op">$</span><span class="va">labels</span>,</span>
+<span>        names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">corp_sample</span><span class="op">)</span>,</span>
+<span>        category <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/docvars.html" class="external-link">docvars</a></span><span class="op">(</span><span class="va">corp_sample</span>, <span class="st">"category"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/segment.html" class="external-link">segment</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, xend <span class="op">=</span> <span class="va">xend</span>, yend <span class="op">=</span> <span class="va">yend</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/segment.html" class="external-link">label</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span>, mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, label <span class="op">=</span> <span class="va">names</span>, colour <span class="op">=</span> <span class="va">category</span>, hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggdendro</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggdendro/man/theme_dendro.html" class="external-link">theme_dendro</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/clust-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -283,45 +278,43 @@
 <p>LDAについては<code><a href="https://quanteda.io/reference/convert.html" class="external-link">quanteda::convert</a></code>でdfmを変換して<code><a href="https://rdrr.io/pkg/topicmodels/man/lda.html" class="external-link">topicmodels::LDA</a></code>に直接渡すこともできます。公式の<a href="https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models" class="external-link">クイックスタートガイド</a>も参考にしてください。weighted LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="external-link">keyATM</a>といった選択肢もあります。</p>
 <p>なお、トピック数は9に決め打ちしています。トピック数含めパラメタの探索をしたい場合には、<a href="https://github.com/nikita-moor/ldatuning" class="external-link">ldatuning</a>や<a href="https://github.com/bstewart/stm" class="external-link">stm</a>などを利用したほうがよいです。</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dtm</span> <span class="op">&lt;-</span> <span class="va">corp</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_tfidf.html" class="external-link">dfm_tfidf</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">features</span> <span class="op">&lt;-</span> <span class="va">corp</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens_select.html" class="external-link">tokens_remove</a></span><span class="op">(</span><span class="va">stopwords</span>, valuetype <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/ntoken.html" class="external-link">ntoken</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="va">dtm</span> |&gt;
-  <span class="fu">as</span><span class="op">(</span><span class="st">"dgCMatrix"</span><span class="op">)</span> |&gt;
-  <span class="fu">textmineR</span><span class="fu">::</span><span class="fu"><a href="https://www.rtextmineR.com/reference/FitLdaModel.html" class="external-link">FitLdaModel</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">9</span>, iterations <span class="op">=</span> <span class="fl">200</span>, burnin <span class="op">=</span> <span class="fl">175</span><span class="op">)</span>
-
-<span class="va">m</span><span class="op">$</span><span class="va">phi</span> |&gt;
-  <span class="fu">textmineR</span><span class="fu">::</span><span class="fu"><a href="https://www.rtextmineR.com/reference/GetTopTerms.html" class="external-link">GetTopTerms</a></span><span class="op">(</span><span class="fl">15L</span><span class="op">)</span> |&gt;
-  <span class="fu">reactable</span><span class="fu">::</span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span>compact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-25b2f15c36f65e6c07db" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-25b2f15c36f65e6c07db">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"t_1":["ゴルフ","選手","試合","サッカー","トレーニング","akb","五輪","代表","練習","監督","番組","ゴルファー","48","野村","sports"],"t_2":["転職","韓国","孫","年収","社長","求人","livedoor","企業","掲示板","td","ビジネス","発言","竹島","1000","採用"],"t_3":["通","デジ","機能","サービス","デジタル","ノート","話題","タブレット","パソコン","mac","家電","電力","音声","ipad","機器"],"t_4":["独","男性","デート","自転車","まし","モテ","占い","夫","母","すごく","婚","活","くれ","○","メール"],"t_5":["監督","賞","役","演じる","祭","カーター","ジョン","篇","主演","猿","主人公","演じ","劇場","ムカデ","上映"],"t_6":["肌","料理","野菜","ケア","ロゴ","香り","クリスマス","浴衣","食べ","効果","きのこ","お気に入り","柄","スーツ","メイク"],"t_7":["ソフトウェア","galaxy","android","画面","設定","対応","ドコモ","s","htc","表示","max","スマート","wi","fi","フォン"],"t_8":["当選","google","iphone","展","eos","play","賞品","com","android","ビデオ","東口","タップ","発送","://","http"],"t_9":["紺","ssd","ビューアー","usb","ねこ","gtx","ワイルド","カバー","ケーブル","mini","ar","ぉっくす","ultrabook","スピーカー","忍者"]},"columns":[{"accessor":"t_1","name":"t_1","type":"character"},{"accessor":"t_2","name":"t_2","type":"character"},{"accessor":"t_3","name":"t_3","type":"character"},{"accessor":"t_4","name":"t_4","type":"character"},{"accessor":"t_5","name":"t_5","type":"character"},{"accessor":"t_6","name":"t_6","type":"character"},{"accessor":"t_7","name":"t_7","type":"character"},{"accessor":"t_8","name":"t_8","type":"character"},{"accessor":"t_9","name":"t_9","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"compact":true,"dataKey":"87751d65e149c19f70170a0ca6b56969","key":"87751d65e149c19f70170a0ca6b56969"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script><p>LDAvisで可視化してみます（デフォルトエンコーディングがCP932であるWindows環境の場合、<code>LDAvis::createJSON</code>で書き出されるラベル（vocab）のエンコーディングがそっちに引きずられてCP932になってしまうため、ブラウザで表示したときにラベルが文字化けします。書き出されたlda.jsonをUTF-8に変換すれば文字化けは解消されるので、その場合は、あとから変換して上書きするとよいです）。</p>
+<code class="sourceCode R"><span><span class="va">dtm</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_tfidf.html" class="external-link">dfm_tfidf</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">features</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/ntoken.html" class="external-link">ntoken</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="va">dtm</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">as</span><span class="op">(</span><span class="st">"dgCMatrix"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">textmineR</span><span class="fu">::</span><span class="fu"><a href="https://www.rtextmineR.com/reference/FitLdaModel.html" class="external-link">FitLdaModel</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">9</span>, iterations <span class="op">=</span> <span class="fl">200</span>, burnin <span class="op">=</span> <span class="fl">175</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">m</span><span class="op">$</span><span class="va">phi</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">textmineR</span><span class="fu">::</span><span class="fu"><a href="https://www.rtextmineR.com/reference/GetTopTerms.html" class="external-link">GetTopTerms</a></span><span class="op">(</span><span class="fl">15L</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">reactable</span><span class="fu">::</span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span>compact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div id="htmlwidget-acb4f799421e369371ce" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-acb4f799421e369371ce">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"t_1":["選手","試合","野球","紺","戦","サッカー","氏","五輪","代表","監督","野村","日本","子","放送","なでしこ"],"t_2":["更新","ソフトウェア","表示","設定","画面","アップデート","ご","利用","タップ","場合","ダウンロード","無料","サービス","通","データ"],"t_3":["肌","料理","食べる","トレーニング","ロゴ","ケア","体","髪","効果","美容","きのこ","香り","弁当","ダイエット","スープ"],"t_4":["転職","年収","企業","翻訳","求人","ビジネス","万","ねこ","円","位","会社","採用","社員","市場","情報"],"t_5":["搭載","スマート","対応","フォン","モデル","機能","動画","タブレット","充電","製品","×","機種","カメラ","撮影","ドコモ"],"t_6":["さん","結婚","女","歳","ん","恋愛","私","女性","男性","彼","独","笑","言う","デート","思う"],"t_7":["ゴルフ","写真","クリスマス","店","コース","ファッション","レッスン","クラブ","浴衣","ゴルファー","プレゼント","円","展","柄","スーツ"],"t_8":["韓国","自転車","孫","ネット","社長","ムカデ","韓","ニコニコ","ワイルド","ミッション","掲示板","話題","氏","竹島","日本"],"t_9":["映画","作","公開","ドラマ","監督","演じる","作品","描く","賞","本","役","シーン","主演","祭","上映"]},"columns":[{"accessor":"t_1","name":"t_1","type":"character"},{"accessor":"t_2","name":"t_2","type":"character"},{"accessor":"t_3","name":"t_3","type":"character"},{"accessor":"t_4","name":"t_4","type":"character"},{"accessor":"t_5","name":"t_5","type":"character"},{"accessor":"t_6","name":"t_6","type":"character"},{"accessor":"t_7","name":"t_7","type":"character"},{"accessor":"t_8","name":"t_8","type":"character"},{"accessor":"t_9","name":"t_9","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"compact":true,"dataKey":"af14ee56e745f4b5af4bab15b47db0f2"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script><p>LDAvisで可視化してみます（デフォルトエンコーディングがCP932であるWindows環境の場合、<code>LDAvis::createJSON</code>で書き出されるラベル（vocab）のエンコーディングがそっちに引きずられてCP932になってしまうため、ブラウザで表示したときにラベルが文字化けします。書き出されたlda.jsonをUTF-8に変換すれば文字化けは解消されるので、その場合は、あとから変換して上書きするとよいです）。</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="fu">LDAvis</span><span class="fu">::</span><span class="fu">createJSON</span><span class="op">(</span>
-    phi <span class="op">=</span> <span class="va">m</span><span class="op">$</span><span class="va">phi</span>,
-    theta <span class="op">=</span> <span class="va">m</span><span class="op">$</span><span class="va">theta</span>,
-    doc.length <span class="op">=</span> <span class="va">features</span>,
-    vocab <span class="op">=</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_enc_toutf8.html" class="external-link">stri_enc_toutf8</a></span><span class="op">(</span><span class="va">dtm</span><span class="op">@</span><span class="va">Dimnames</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>,
-    term.frequency <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu">colSums</span><span class="op">(</span><span class="va">dtm</span><span class="op">)</span>
-  <span class="op">)</span> |&gt;
-    <span class="fu">LDAvis</span><span class="fu">::</span><span class="fu">serVis</span><span class="op">(</span>open.browser <span class="op">=</span> <span class="cn">FALSE</span>, out.dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-
-<span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">getRversion</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"4.2.0"</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_lines.html" class="external-link">read_lines_raw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span>, <span class="st">"lda.json"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconv</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"CP932"</span>, to <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">parse_json</a></span><span class="op">(</span>simplifyVector <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span>, <span class="st">"lda.json"</span><span class="op">)</span>, dataframe <span class="op">=</span> <span class="st">"columns"</span>, auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu">LDAvis</span><span class="fu">::</span><span class="fu">createJSON</span><span class="op">(</span></span>
+<span>    phi <span class="op">=</span> <span class="va">m</span><span class="op">$</span><span class="va">phi</span>,</span>
+<span>    theta <span class="op">=</span> <span class="va">m</span><span class="op">$</span><span class="va">theta</span>,</span>
+<span>    doc.length <span class="op">=</span> <span class="va">features</span>,</span>
+<span>    vocab <span class="op">=</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_enc_toutf8.html" class="external-link">stri_enc_toutf8</a></span><span class="op">(</span><span class="va">dtm</span><span class="op">@</span><span class="va">Dimnames</span><span class="op">$</span><span class="va">features</span><span class="op">)</span>,</span>
+<span>    term.frequency <span class="op">=</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu">colSums</span><span class="op">(</span><span class="va">dtm</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">LDAvis</span><span class="fu">::</span><span class="fu">serVis</span><span class="op">(</span>open.browser <span class="op">=</span> <span class="cn">FALSE</span>, out.dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">getRversion</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;</span> <span class="st">"4.2.0"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_lines.html" class="external-link">read_lines_raw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span>, <span class="st">"lda.json"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/iconv.html" class="external-link">iconv</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"CP932"</span>, to <span class="op">=</span> <span class="st">"UTF-8"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">parse_json</a></span><span class="op">(</span>simplifyVector <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">write_json</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"cache/ldavis"</span>, <span class="st">"lda.json"</span><span class="op">)</span>, dataframe <span class="op">=</span> <span class="st">"columns"</span>, auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <blockquote>
 <p><a href="https://paithiov909.github.io/shiryo/ldavis/index.html" class="external-link">LDAvis</a></p>
 </blockquote>
@@ -331,221 +324,215 @@
 </h2>
 <p>ここでは50次元の埋め込みを得ます。</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">toks</span> <span class="op">&lt;-</span> <span class="va">corp</span> |&gt;
-  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/itoken.html" class="external-link">itoken</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="va">vocab</span> <span class="op">&lt;-</span> <span class="va">toks</span> |&gt;
-  <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/create_vocabulary.html" class="external-link">create_vocabulary</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/prune_vocabulary.html" class="external-link">prune_vocabulary</a></span><span class="op">(</span>term_count_min <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span>
-
-<span class="va">vectorize</span> <span class="op">&lt;-</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/vectorizers.html" class="external-link">vocab_vectorizer</a></span><span class="op">(</span><span class="va">vocab</span><span class="op">)</span>
-
-<span class="va">tcm</span> <span class="op">&lt;-</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/create_tcm.html" class="external-link">create_tcm</a></span><span class="op">(</span>
-  it <span class="op">=</span> <span class="va">toks</span>,
-  vectorizer <span class="op">=</span> <span class="va">vectorize</span>,
-  skip_grams_window <span class="op">=</span> <span class="fl">5L</span>
-<span class="op">)</span>
-
-<span class="va">glove</span> <span class="op">&lt;-</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/text2vec/man/GloVe.html" class="external-link">GlobalVectors</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>
-  rank <span class="op">=</span> <span class="fl">50</span>,
-  x_max <span class="op">=</span> <span class="fl">15L</span>
-<span class="op">)</span>
-<span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span>
-  x <span class="op">=</span> <span class="va">tcm</span>,
-  n_iter <span class="op">=</span> <span class="fl">10L</span>
-<span class="op">)</span>
-<span class="co">#&gt; INFO  [01:29:08.377] epoch 1, loss 0.1707 </span>
-<span class="co">#&gt; INFO  [01:29:09.056] epoch 2, loss 0.1018 </span>
-<span class="co">#&gt; INFO  [01:29:09.713] epoch 3, loss 0.0851 </span>
-<span class="co">#&gt; INFO  [01:29:10.347] epoch 4, loss 0.0751 </span>
-<span class="co">#&gt; INFO  [01:29:10.985] epoch 5, loss 0.0683 </span>
-<span class="co">#&gt; INFO  [01:29:11.629] epoch 6, loss 0.0634 </span>
-<span class="co">#&gt; INFO  [01:29:12.267] epoch 7, loss 0.0596 </span>
-<span class="co">#&gt; INFO  [01:29:12.901] epoch 8, loss 0.0566 </span>
-<span class="co">#&gt; INFO  [01:29:13.537] epoch 9, loss 0.0541 </span>
-<span class="co">#&gt; INFO  [01:29:14.171] epoch 10, loss 0.0520</span>
-
-<span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> |&gt;
-  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span>, rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">toks</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span>, remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/itoken.html" class="external-link">itoken</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vocab</span> <span class="op">&lt;-</span> <span class="va">toks</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/create_vocabulary.html" class="external-link">create_vocabulary</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/prune_vocabulary.html" class="external-link">prune_vocabulary</a></span><span class="op">(</span>term_count_min <span class="op">=</span> <span class="fl">10L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vectorize</span> <span class="op">&lt;-</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/vectorizers.html" class="external-link">vocab_vectorizer</a></span><span class="op">(</span><span class="va">vocab</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tcm</span> <span class="op">&lt;-</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/text2vec/man/create_tcm.html" class="external-link">create_tcm</a></span><span class="op">(</span></span>
+<span>  it <span class="op">=</span> <span class="va">toks</span>,</span>
+<span>  vectorizer <span class="op">=</span> <span class="va">vectorize</span>,</span>
+<span>  skip_grams_window <span class="op">=</span> <span class="fl">5L</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">glove</span> <span class="op">&lt;-</span> <span class="fu">text2vec</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/text2vec/man/GloVe.html" class="external-link">GlobalVectors</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
+<span>  rank <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  x_max <span class="op">=</span> <span class="fl">15L</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">wv_main</span> <span class="op">&lt;-</span> <span class="va">glove</span><span class="op">$</span><span class="fu">fit_transform</span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="va">tcm</span>,</span>
+<span>  n_iter <span class="op">=</span> <span class="fl">10L</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; INFO  [11:36:53.731] epoch 1, loss 0.1360 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:54.447] epoch 2, loss 0.0844 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:55.145] epoch 3, loss 0.0719 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:55.824] epoch 4, loss 0.0646 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:56.499] epoch 5, loss 0.0596 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:57.190] epoch 6, loss 0.0560 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:57.875] epoch 7, loss 0.0532 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:58.583] epoch 8, loss 0.0510 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:59.272] epoch 9, loss 0.0491 </span></span>
+<span><span class="co">#&gt; INFO  [11:36:59.944] epoch 10, loss 0.0476</span></span>
+<span></span>
+<span><span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>.name_repair <span class="op">=</span> <span class="st">"minimal"</span>, rownames <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span></code></pre></div>
 <p><a href="https://github.com/jlmelville/uwot" class="external-link">uwot</a>で次元を減らして可視化します。色は<code><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">stats::kmeans</a></code>でクラスタリング（コサイン距離）して付けています。</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vec</span> <span class="op">&lt;-</span> <span class="va">vocab</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html" class="external-link">anti_join</a></span><span class="op">(</span>
-    y <span class="op">=</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>words <span class="op">=</span> <span class="va">stopwords</span><span class="op">)</span>,
-    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"term"</span> <span class="op">=</span> <span class="st">"words"</span><span class="op">)</span>
-  <span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">term_count</span><span class="op">)</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="va">wv</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"term"</span> <span class="op">=</span> <span class="st">"rowname"</span><span class="op">)</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"term_count"</span>, <span class="st">"doc_count"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">labs</span> <span class="op">&lt;-</span> <span class="va">vec</span><span class="op">$</span><span class="va">term</span>
-<span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">vec</span>, <span class="op">!</span><span class="va">term</span><span class="op">)</span>
-
-<span class="va">dist</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu">proxyC</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/proxyC/man/simil.html" class="external-link">simil</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span>, <span class="st">"dgCMatrix"</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span>
-<span class="va">clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">kmeans</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dist</span>, centers <span class="op">=</span> <span class="fl">9</span><span class="op">)</span>
-
-<span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">uwot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/uwot/man/umap.html" class="external-link">umap</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span> |&gt;
-  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> |&gt;
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rowname <span class="op">=</span> <span class="va">labs</span>, cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">clust</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">vec</span> |&gt;
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">V1</span>, y <span class="op">=</span> <span class="va">V2</span>, colour <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggrepel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">rowname</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="va">vocab</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">term_count</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html" class="external-link">rownames_to_column</a></span><span class="op">(</span><span class="va">wv</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"term"</span> <span class="op">=</span> <span class="st">"rowname"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"term_count"</span>, <span class="st">"doc_count"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">labs</span> <span class="op">&lt;-</span> <span class="va">vec</span><span class="op">$</span><span class="va">term</span></span>
+<span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">vec</span>, <span class="op">!</span><span class="va">term</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dist</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu">proxyC</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/proxyC/man/simil.html" class="external-link">simil</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span>, <span class="st">"dgCMatrix"</span><span class="op">)</span>, method <span class="op">=</span> <span class="st">"cosine"</span><span class="op">)</span></span>
+<span><span class="va">clust</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html" class="external-link">kmeans</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dist</span>, centers <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu">uwot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/uwot/man/umap.html" class="external-link">umap</a></span><span class="op">(</span><span class="va">vec</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rowname <span class="op">=</span> <span class="va">labs</span>, cluster <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">clust</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">V1</span>, y <span class="op">=</span> <span class="va">V2</span>, colour <span class="op">=</span> <span class="va">cluster</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggrepel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">rowname</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/umap-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
 </h2>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span>
-<span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span>
-<span class="co">#&gt;  version  R version 4.2.0 (2022-04-22)</span>
-<span class="co">#&gt;  os       Ubuntu 20.04.4 LTS</span>
-<span class="co">#&gt;  system   x86_64, linux-gnu</span>
-<span class="co">#&gt;  ui       X11</span>
-<span class="co">#&gt;  language en</span>
-<span class="co">#&gt;  collate  C.UTF-8</span>
-<span class="co">#&gt;  ctype    C.UTF-8</span>
-<span class="co">#&gt;  tz       UTC</span>
-<span class="co">#&gt;  date     2022-05-24</span>
-<span class="co">#&gt;  pandoc   2.14.2 @ /usr/bin/ (via rmarkdown)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span>
-<span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package            </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span>
-<span class="co">#&gt;  abind                 1.4-5      <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  audubon               0.1.2      <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  backports             1.4.1      <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  bit                   4.0.4      <span style="color: #555555;">2020-08-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  bit64                 4.0.5      <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  broom                 0.8.0      <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  bslib                 0.3.1      <span style="color: #555555;">2021-10-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  cachem                1.0.6      <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  car                   3.0-13     <span style="color: #555555;">2022-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  carData               3.0-5      <span style="color: #555555;">2022-01-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  cli                   3.3.0      <span style="color: #555555;">2022-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  coda                  0.19-4     <span style="color: #555555;">2020-09-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  codetools             0.2-18     <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
-<span class="co">#&gt;  colorspace            2.0-3      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  crayon                1.5.1      <span style="color: #555555;">2022-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  curl                  4.3.2      <span style="color: #555555;">2021-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  data.table            1.14.2     <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  desc                  1.4.1      <span style="color: #555555;">2022-03-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  digest                0.6.29     <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  dplyr                 1.0.9      <span style="color: #555555;">2022-04-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  ellipsis              0.3.2      <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  evaluate              0.15       <span style="color: #555555;">2022-02-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  fansi                 1.0.3      <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  farver                2.1.0      <span style="color: #555555;">2021-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  fastmap               1.1.0      <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  fastmatch             1.1-3      <span style="color: #555555;">2021-07-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  float                 0.3-0      <span style="color: #555555;">2022-04-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  FNN                   1.1.3      <span style="color: #555555;">2019-02-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  foreach               1.5.2      <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  fs                    1.5.2      <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  generics              0.1.2      <span style="color: #555555;">2022-01-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  ggdendro              0.1.23     <span style="color: #555555;">2022-02-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.1.23)</span></span>
-<span class="co">#&gt;  ggplot2             * 3.3.6      <span style="color: #555555;">2022-05-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  ggpubr                0.4.0      <span style="color: #555555;">2020-06-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.4.0)</span></span>
-<span class="co">#&gt;  ggrepel               0.9.1      <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  ggsignif              0.6.3      <span style="color: #555555;">2021-09-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  gibasa                0.3.0      <span style="color: #555555;">2022-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span>
-<span class="co">#&gt;  glmnet                4.1-4      <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  glue                  1.6.2      <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  gtable                0.3.0      <span style="color: #555555;">2019-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  highr                 0.9        <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  hms                   1.1.1      <span style="color: #555555;">2021-09-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  htmltools             0.5.2      <span style="color: #555555;">2021-08-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  htmlwidgets           1.5.4      <span style="color: #555555;">2021-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  httr                  1.4.3      <span style="color: #555555;">2022-05-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  iterators             1.0.14     <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  jquerylib             0.1.4      <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  jsonlite              1.8.0      <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  knitr                 1.39       <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  labeling              0.4.2      <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  lattice               0.20-45    <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
-<span class="co">#&gt;  ldccr                 0.0.9      <span style="color: #555555;">2022-05-24</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">https://paithiov909.r-universe.dev (R 4.2.0)</span></span>
-<span class="co">#&gt;  lgr                   0.4.3      <span style="color: #555555;">2021-09-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  LiblineaR             2.10-12    <span style="color: #555555;">2021-03-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  lifecycle             1.0.1      <span style="color: #555555;">2021-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  magrittr              2.0.3      <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  MASS                  7.3-56     <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
-<span class="co">#&gt;  Matrix                1.4-1      <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
-<span class="co">#&gt;  memoise               2.0.1      <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  mlapi                 0.1.1      <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  munsell               0.5.0      <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  network               1.17.2     <span style="color: #555555;">2022-05-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  nsyllable             1.0.1      <span style="color: #555555;">2022-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  pillar                1.7.0      <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  pkgconfig             2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  pkgdown               2.0.3      <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.0.3)</span></span>
-<span class="co">#&gt;  proxyC                0.2.4      <span style="color: #555555;">2021-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  purrr                 0.3.4      <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  quanteda              3.2.1      <span style="color: #555555;">2022-03-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  quanteda.textmodels   0.9.4      <span style="color: #555555;">2021-04-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.9.4)</span></span>
-<span class="co">#&gt;  quanteda.textplots    0.94.1     <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.94.1)</span></span>
-<span class="co">#&gt;  quanteda.textstats    0.95       <span style="color: #555555;">2021-11-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.95)</span></span>
-<span class="co">#&gt;  R.cache               0.15.0     <span style="color: #555555;">2021-04-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  R.methodsS3           1.8.1      <span style="color: #555555;">2020-08-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  R.oo                  1.24.0     <span style="color: #555555;">2020-08-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  R.utils               2.11.0     <span style="color: #555555;">2021-09-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  R6                    2.5.1      <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  ragg                  1.2.2      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  Rcpp                  1.0.8.3    <span style="color: #555555;">2022-03-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  RcppParallel          5.1.5      <span style="color: #555555;">2022-01-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  RcppProgress          0.4.2      <span style="color: #555555;">2020-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  reactable             0.2.3      <span style="color: #555555;">2020-10-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.2.3)</span></span>
-<span class="co">#&gt;  reactR                0.4.4      <span style="color: #555555;">2021-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  readr                 2.1.2      <span style="color: #555555;">2022-01-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  RhpcBLASctl           0.21-247.1 <span style="color: #555555;">2021-11-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  rlang                 1.0.2      <span style="color: #555555;">2022-03-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  rmarkdown             2.14       <span style="color: #555555;">2022-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  rprojroot             2.0.3      <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  rsparse               0.5.0      <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  RSpectra              0.16-1     <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  rstatix               0.7.0      <span style="color: #555555;">2021-02-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  rtweet                0.7.0      <span style="color: #555555;">2020-01-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.7.0)</span></span>
-<span class="co">#&gt;  sass                  0.4.1      <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  scales                1.2.0      <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  sessioninfo           1.2.2      <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.2)</span></span>
-<span class="co">#&gt;  shape                 1.4.6      <span style="color: #555555;">2021-05-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  sna                   2.6        <span style="color: #555555;">2020-10-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  SparseM               1.81       <span style="color: #555555;">2021-02-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  statnet.common        4.6.0      <span style="color: #555555;">2022-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  stopwords             2.3        <span style="color: #555555;">2021-10-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  stringi               1.7.6      <span style="color: #555555;">2021-11-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  stringr               1.4.0      <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  styler                1.7.0      <span style="color: #555555;">2022-03-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.7.0)</span></span>
-<span class="co">#&gt;  survival              3.3-1      <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span>
-<span class="co">#&gt;  systemfonts           1.0.4      <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  text2vec              0.6.1      <span style="color: #555555;">2022-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  textmineR             3.0.5      <span style="color: #555555;">2021-06-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@3.0.5)</span></span>
-<span class="co">#&gt;  textshaping           0.3.6      <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  tibble                3.1.7      <span style="color: #555555;">2022-05-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  tidyr                 1.2.0      <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  tidyselect            1.1.2      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  tzdb                  0.3.0      <span style="color: #555555;">2022-03-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  utf8                  1.2.2      <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  uwot                  0.1.11     <span style="color: #555555;">2021-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.1.11)</span></span>
-<span class="co">#&gt;  V8                    4.2.0      <span style="color: #555555;">2022-05-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  vctrs                 0.4.1      <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  viridisLite           0.4.0      <span style="color: #555555;">2021-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  vroom                 1.5.7      <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  withr                 2.5.0      <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  xfun                  0.31       <span style="color: #555555;">2022-05-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt;  yaml                  2.3.5      <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpHBZhHG/temp_libpath623b14546163</span></span>
-<span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span>
-<span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.0/lib/R/library</span></span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
+<span><span class="co">#&gt;  version  R version 4.2.0 (2022-04-22)</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 20.04.4 LTS</span></span>
+<span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
+<span><span class="co">#&gt;  ui       X11</span></span>
+<span><span class="co">#&gt;  language en</span></span>
+<span><span class="co">#&gt;  collate  C.UTF-8</span></span>
+<span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
+<span><span class="co">#&gt;  tz       UTC</span></span>
+<span><span class="co">#&gt;  date     2022-07-22</span></span>
+<span><span class="co">#&gt;  pandoc   2.14.2 @ /usr/bin/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package            </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version       </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
+<span><span class="co">#&gt;  abind                 1.4-5          <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  audubon               0.2.0          <span style="color: #555555;">2022-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  backports             1.4.1          <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bit                   4.0.4          <span style="color: #555555;">2020-08-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bit64                 4.0.5          <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  broom                 1.0.0          <span style="color: #555555;">2022-07-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bslib                 0.4.0          <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  cachem                1.0.6          <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  car                   3.1-0          <span style="color: #555555;">2022-06-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  carData               3.0-5          <span style="color: #555555;">2022-01-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  cli                   3.3.0          <span style="color: #555555;">2022-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  coda                  0.19-4         <span style="color: #555555;">2020-09-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  codetools             0.2-18         <span style="color: #555555;">2020-11-04</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  colorspace            2.0-3          <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  crayon                1.5.1          <span style="color: #555555;">2022-03-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  curl                  4.3.2          <span style="color: #555555;">2021-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  data.table            1.14.2         <span style="color: #555555;">2021-09-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  desc                  1.4.1          <span style="color: #555555;">2022-03-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  digest                0.6.29         <span style="color: #555555;">2021-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  dplyr                 1.0.9          <span style="color: #555555;">2022-04-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ellipsis              0.3.2          <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  evaluate              0.15           <span style="color: #555555;">2022-02-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  fansi                 1.0.3          <span style="color: #555555;">2022-03-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  farver                2.1.1          <span style="color: #555555;">2022-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  fastmap               1.1.0          <span style="color: #555555;">2021-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  fastmatch             1.1-3          <span style="color: #555555;">2021-07-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  float                 0.3-0          <span style="color: #555555;">2022-04-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  FNN                   1.1.3.1        <span style="color: #555555;">2022-05-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  foreach               1.5.2          <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  fs                    1.5.2          <span style="color: #555555;">2021-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  generics              0.1.3          <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ggdendro              0.1.23         <span style="color: #555555;">2022-02-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.1.23)</span></span></span>
+<span><span class="co">#&gt;  ggplot2             * 3.3.6          <span style="color: #555555;">2022-05-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ggpubr                0.4.0          <span style="color: #555555;">2020-06-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.4.0)</span></span></span>
+<span><span class="co">#&gt;  ggrepel               0.9.1          <span style="color: #555555;">2021-01-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ggsignif              0.6.3          <span style="color: #555555;">2021-09-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  gibasa                0.3.0          <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;  glmnet                4.1-4          <span style="color: #555555;">2022-04-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  glue                  1.6.2          <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  gtable                0.3.0          <span style="color: #555555;">2019-03-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  highr                 0.9            <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  hms                   1.1.1          <span style="color: #555555;">2021-09-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  htmltools             0.5.3          <span style="color: #555555;">2022-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  htmlwidgets           1.5.4          <span style="color: #555555;">2021-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  iterators             1.0.14         <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  jquerylib             0.1.4          <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  jsonlite              1.8.0          <span style="color: #555555;">2022-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  knitr                 1.39           <span style="color: #555555;">2022-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  labeling              0.4.2          <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  lattice               0.20-45        <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">0.0.9.20220709</span> <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">https://paithiov909.r-universe.dev (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  lgr                   0.4.3          <span style="color: #555555;">2021-09-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  LiblineaR             2.10-12        <span style="color: #555555;">2021-03-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  lifecycle             1.0.1          <span style="color: #555555;">2021-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  magrittr              2.0.3          <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  MASS                  7.3-56         <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  Matrix                1.4-1          <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  memoise               2.0.1          <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  mlapi                 0.1.1          <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  munsell               0.5.0          <span style="color: #555555;">2018-06-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  network               1.17.2         <span style="color: #555555;">2022-05-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  nsyllable             1.0.1          <span style="color: #555555;">2022-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  pillar                1.8.0          <span style="color: #555555;">2022-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  pkgconfig             2.0.3          <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  pkgdown               2.0.6          <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.0.6)</span></span></span>
+<span><span class="co">#&gt;  proxyC                0.2.4          <span style="color: #555555;">2021-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  purrr                 0.3.4          <span style="color: #555555;">2020-04-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda              3.2.1          <span style="color: #555555;">2022-03-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda.textmodels   0.9.4          <span style="color: #555555;">2021-04-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.9.4)</span></span></span>
+<span><span class="co">#&gt;  quanteda.textplots    0.94.1         <span style="color: #555555;">2022-03-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.94.1)</span></span></span>
+<span><span class="co">#&gt;  quanteda.textstats    0.95           <span style="color: #555555;">2021-11-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.95)</span></span></span>
+<span><span class="co">#&gt;  R.cache               0.15.0         <span style="color: #555555;">2021-04-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  R.methodsS3           1.8.2          <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  R.oo                  1.25.0         <span style="color: #555555;">2022-06-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  R.utils               2.12.0         <span style="color: #555555;">2022-06-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  R6                    2.5.1          <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ragg                  1.2.2          <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  Rcpp                  1.0.9          <span style="color: #555555;">2022-07-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RcppParallel          5.1.5          <span style="color: #555555;">2022-01-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RcppProgress          0.4.2          <span style="color: #555555;">2020-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  reactable             0.3.0          <span style="color: #555555;">2022-05-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.3.0)</span></span></span>
+<span><span class="co">#&gt;  reactR                0.4.4          <span style="color: #555555;">2021-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  readr                 2.1.2          <span style="color: #555555;">2022-01-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RhpcBLASctl           0.21-247.1     <span style="color: #555555;">2021-11-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rlang                 1.0.4          <span style="color: #555555;">2022-07-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rmarkdown             2.14           <span style="color: #555555;">2022-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rprojroot             2.0.3          <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rsparse               0.5.0          <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RSpectra              0.16-1         <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rstatix               0.7.0          <span style="color: #555555;">2021-02-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  sass                  0.4.2          <span style="color: #555555;">2022-07-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  scales                1.2.0          <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  sessioninfo           1.2.2          <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.2)</span></span></span>
+<span><span class="co">#&gt;  shape                 1.4.6          <span style="color: #555555;">2021-05-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  sna                   2.7            <span style="color: #555555;">2022-06-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  SparseM               1.81           <span style="color: #555555;">2021-02-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  statnet.common        4.6.0          <span style="color: #555555;">2022-05-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  stopwords             2.3            <span style="color: #555555;">2021-10-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  stringi               1.7.8          <span style="color: #555555;">2022-07-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  stringr               1.4.0          <span style="color: #555555;">2019-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  styler                1.7.0          <span style="color: #555555;">2022-03-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.7.0)</span></span></span>
+<span><span class="co">#&gt;  survival              3.3-1          <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[3]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  systemfonts           1.0.4          <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  text2vec              0.6.1          <span style="color: #555555;">2022-04-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  textmineR             3.0.5          <span style="color: #555555;">2021-06-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@3.0.5)</span></span></span>
+<span><span class="co">#&gt;  textshaping           0.3.6          <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  tibble                3.1.8          <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.0)</span></span></span>
+<span><span class="co">#&gt;  tidyr                 1.2.0          <span style="color: #555555;">2022-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  tidyselect            1.1.2          <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  tzdb                  0.3.0          <span style="color: #555555;">2022-03-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  utf8                  1.2.2          <span style="color: #555555;">2021-07-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  uwot                  0.1.11         <span style="color: #555555;">2021-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@0.1.11)</span></span></span>
+<span><span class="co">#&gt;  V8                    4.2.0          <span style="color: #555555;">2022-05-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  vctrs                 0.4.1          <span style="color: #555555;">2022-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  viridisLite           0.4.0          <span style="color: #555555;">2021-04-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  vroom                 1.5.7          <span style="color: #555555;">2021-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  withr                 2.5.0          <span style="color: #555555;">2022-03-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  xfun                  0.31           <span style="color: #555555;">2022-05-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  yaml                  2.3.5          <span style="color: #555555;">2022-02-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpuzpJzm/temp_libpath5ec06356b96b</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.0/lib/R/library</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -560,7 +547,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
