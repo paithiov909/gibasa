@@ -25,7 +25,7 @@ if (!requireNamespace("ldccr", quietly = TRUE)) {
   install.packages("ldccr")
 }
 
-require(tidymodels)
+require(tidymodels, quietly = TRUE)
 tidymodels::tidymodels_prefer()
 ```
 
@@ -129,7 +129,7 @@ F値をメトリクスにして学習します。3分割CVで、簡単にです�
 corpus_tune_res <-
   corpus_wflow |>
   tune::tune_grid(
-    resamples = rsample::vfold_cv(corpus_train, v = 3L),
+    resamples = rsample::vfold_cv(corpus_train, strata = category, v = 3L),
     grid = dials::grid_latin_hypercube(
       dials::sample_prop(),
       dials::loss_reduction(),
@@ -139,8 +139,6 @@ corpus_tune_res <-
     metrics = yardstick::metric_set(yardstick::f_meas),
     control = tune::control_grid(save_pred = TRUE)
   )
-
-#doParallel::stopImplicitCluster()
 ```
 
 ハイパラ探索の要約を確認します。
@@ -155,14 +153,17 @@ ggplot2::autoplot(corpus_tune_res)
 corpus_wflow <-
   tune::finalize_workflow(corpus_wflow, tune::select_best(corpus_tune_res, metric = "f_meas"))
 
-corpus_fit <- parsnip::fit(corpus_wflow, corpus_train)
+corpus_fit <- tune::last_fit(corpus_wflow, corpus_split)
+
+#doParallel::stopImplicitCluster()
 ```
 
 学習したモデルの精度を見てみます。
 
 ```{r pred_wl}
-dplyr::select(corpus_test, category) |>
-  dplyr::bind_cols(predict(corpus_fit, corpus_test)) |>
+corpus_fit |>
+  dplyr::select(.predictions) |> 
+  tidyr::unnest(.predictions) |>
   yardstick::f_meas(truth = category, estimate = .pred_class)
 ```
 
