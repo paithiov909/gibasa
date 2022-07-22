@@ -94,7 +94,6 @@ corp <- corp |>
 ```{r wordcloud}
 corp |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_group(groups = category) |>
   quanteda::dfm_trim(min_termfreq = 10L) |>
@@ -106,7 +105,6 @@ corp |>
 ```{r stats}
 corp |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_weight("prop") |>
   quanteda.textstats::textstat_frequency(groups = category) |>
@@ -128,7 +126,6 @@ ITライフハック（`it-life-hack`）グループの文書とその他の対�
 ```{r keyness}
 corp |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_group(groups = category) |>
   quanteda.textstats::textstat_keyness(target = "it-life-hack") |>
@@ -145,7 +142,6 @@ corp |>
 corp_sample <- quanteda::corpus_sample(corp, size = 32L)
 corp_sample |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_weight(scheme = "prop") |>
   quanteda.textmodels::textmodel_ca() |>
@@ -162,7 +158,6 @@ corp_sample |>
 ```{r network}
 corp_sample |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_group(groups = category) |>
   quanteda::dfm_trim(min_termfreq = 15L) |>
@@ -177,7 +172,6 @@ corp_sample |>
 ```{r clust}
 d <- corp_sample |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_weight(scheme = "prop") |>
   quanteda.textstats::textstat_dist(method = "manhattan") |>
@@ -212,7 +206,6 @@ LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に�
 ```{r lda_1}
 dtm <- corp |>
   quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
-  quanteda::tokens_remove(stopwords, valuetype = "fixed") |>
   quanteda::dfm() |>
   quanteda::dfm_tfidf()
 
