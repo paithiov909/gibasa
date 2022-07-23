@@ -1,3 +1,7 @@
+# gibasa 0.3.1
+
+* Updated dependencies.
+
 # gibasa 0.3.0
 
 * Changed build process on Windows.

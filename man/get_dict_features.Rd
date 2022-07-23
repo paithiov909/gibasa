@@ -5,12 +5,13 @@
 \title{Get dictionary's features}
 \usage{
 get_dict_features(
-  dict = c("ipa", "unidic17", "unidic26", "unidic29", "cc-cedict", "ko-dic", "naist11")
+  dict = c("ipa", "unidic17", "unidic26", "unidic29", "cc-cedict", "ko-dic", "naist11",
+    "sudachi")
 )
 }
 \arguments{
 \item{dict}{Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
-"cc-cedict", "ko-dic", or "naist11".}
+"cc-cedict", "ko-dic", "naist11", or "sudachi".}
 }
 \value{
 A character vector.
@@ -19,11 +20,10 @@ A character vector.
 Returns dictionary's features.
 Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
 "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
-"naist11", and "ipa".
+"naist11", "sudachi", and "ipa".
 }
 \seealso{
 See also
-\href{https://ccd.ninjal.ac.jp/unidic/}{UniDic},
-\href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{CC-CEDICT-MeCab},
-and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{mecab-ko-dic}.
+\href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{'CC-CEDICT-MeCab'},
+and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{'mecab-ko-dic'}.
 }
