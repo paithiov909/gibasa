@@ -42,9 +42,9 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
-            any:pkgdown,
-            any:sessioninfo,
-            any:styler
+            any::pkgdown,
+            any::sessioninfo,
+            any::styler
           needs: website
 
       - name: Deploy package
