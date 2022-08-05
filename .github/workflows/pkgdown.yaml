@@ -42,29 +42,13 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
-            any::pkgdown
-            any::sessioninfo
-            any::stringr
-            any::styler
-            any::ggdendro
-            any::ggpubr
-            any::quanteda
-            any::quanteda.textmodels
-            any::quanteda.textplots
-            any::quanteda.textstats
-            any::RcppSimdJson
-            any::reactable
-            any::textmineR
-            any::textrecipes
-            any::tidymodels
-            any::topicmodels
-            any::uwot
-            any::xgboost
+            any:pkgdown,
+            any:sessioninfo,
+            any:styler
           needs: website
 
       - name: Deploy package
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          Rscript -e 'install.packages("ldccr", repos = "https://paithiov909.r-universe.dev")'
           Rscript -e 'pkgdown::deploy_to_branch(install = TRUE)'

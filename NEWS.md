@@ -1,3 +1,7 @@
+# gibasa 0.4.0
+
+* Added `bind_tf_idf2` function and `is_blank` function.
+
 # gibasa 0.3.1
 
 * Updated dependencies.

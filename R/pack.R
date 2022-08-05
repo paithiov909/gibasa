@@ -5,6 +5,6 @@
 #' @importFrom audubon pack
 #' @export
 pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
-  pull <- rlang::ensym(pull)
+  pull <- ensym(pull)
   audubon::pack(tbl, pull, n = n, sep = sep, .collapse = .collapse)
 }

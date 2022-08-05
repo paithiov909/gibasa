@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.3.2
+Version: 0.4.0
 Authors@R: 
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Maintainer: Akiru Kato <paithiov909@gmail.com>
@@ -14,6 +14,7 @@ BugReports: https://github.com/paithiov909/gibasa/issues
 Imports: 
     audubon (>= 0.3.0),
     dplyr,
+    Matrix,
     purrr,
     Rcpp,
     RcppParallel,
@@ -27,6 +28,9 @@ LinkingTo:
     BH,
     Rcpp,
     RcppParallel
+Config/Needs/website: ggdendro, ggpubr, quanteda, quanteda.textmodels,
+    quanteda.textplots, quanteda.textstats, reactable, stringr, textmineR,
+    textrecipes, tidymodels, topicmodels, uwot, xgboost, paithiov909/ldccr
 Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.2.1

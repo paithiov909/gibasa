@@ -64,8 +64,8 @@ tokenize <- function(tbl,
                      sys_dic = "",
                      user_dic = "",
                      split = FALSE) {
-  text_field <- rlang::enquo(text_field)
-  docid_field <- rlang::enquo(docid_field)
+  text_field <- enquo(text_field)
+  docid_field <- enquo(docid_field)
 
   sentence <-
     purrr::set_names(
