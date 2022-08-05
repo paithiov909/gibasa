@@ -59,12 +59,12 @@ global_idf <- function(sp) {
   purrr::set_names(log2(nrow(sp) / count_nnzero(sp)) + 1, colnames(sp))
 }
 
-# global frequency * inverse document frequency
+# global frequency idf
 global_idf2 <- function(sp) {
   Matrix::colSums(sp, na.rm = TRUE) / count_nnzero(sp)
 }
 
-# probabilistic inverse document frequency
+# probabilistic idf
 global_idf3 <- function(sp) {
   df <- count_nnzero(sp)
   purrr::set_names(log2(nrow(sp - df) / df), colnames(sp))
