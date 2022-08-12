@@ -1,5 +1,5 @@
 // [[Rcpp::plugins(cpp11)]]
-// [[Rcpp::depends(RcppParallel, BH)]]
+// [[Rcpp::depends(RcppParallel)]]
 
 #define R_NO_REMAP
 
@@ -7,8 +7,6 @@
 #include <sstream>
 #include <Rcpp.h>
 #include <RcppParallel.h>
-#include <boost/algorithm/string.hpp>
-#include <boost/tuple/tuple.hpp>
 #include "../inst/include/mecab.h"
 
 // structs for using in tbb::parallel_for
@@ -16,7 +14,7 @@ namespace TextParser {
 
 struct TextParse
 {
-  TextParse(const std::vector<std::string>* sentences, std::vector< std::vector< boost::tuple< std::string, std::string > > >& results, mecab_model_t* model)
+  TextParse(const std::vector<std::string>* sentences, std::vector<std::vector<std::tuple<std::string, std::string>>>& results, mecab_model_t* model)
     : sentences_(sentences), results_(results), model_(model)
   {}
 
@@ -27,7 +25,7 @@ struct TextParse
     const mecab_node_t* node;
 
     for (size_t i = range.begin(); i < range.end(); ++i) {
-      std::vector< boost::tuple< std::string, std::string > > parsed;
+      std::vector< std::tuple< std::string, std::string > > parsed;
 
       mecab_lattice_set_sentence(lattice, (*sentences_)[i].c_str());
       mecab_parse_lattice(tagger, lattice);
@@ -45,9 +43,7 @@ struct TextParse
         else {
           std::string morph = std::string(node->surface).substr(0, node->length);
           std::string features = std::string(node->feature);
-          parsed.push_back(boost::make_tuple(
-              morph,
-              features));
+          parsed.push_back(std::make_tuple(morph, features));
         }
       }
       results_[i] = parsed; // mutex is not needed
@@ -57,7 +53,7 @@ struct TextParse
   }
 
   const std::vector<std::string>* sentences_;
-  std::vector< std::vector< boost::tuple< std::string, std::string > > >& results_;
+  std::vector<std::vector<std::tuple<std::string, std::string>>>& results_;
   mecab_model_t* model_;
 };
 
@@ -107,11 +103,11 @@ Rcpp::DataFrame posParallelRcpp( std::vector<std::string> text, std::string sys_
     return R_NilValue;
   }
 
-  std::vector< std::vector< boost::tuple< std::string, std::string > > > results(text.size());
-  std::vector< int > sentence_id;
-  std::vector< int > token_id;
-  std::vector< std::string > token;
-  std::vector< std::string > pos;
+  std::vector<std::vector<std::tuple<std::string, std::string>>> results(text.size());
+  std::vector<int> sentence_id;
+  std::vector<int> token_id;
+  std::vector<std::string> token;
+  std::vector<std::string> pos;
 
   int sentence_number = 0;
   int token_number = 1;
@@ -129,11 +125,11 @@ Rcpp::DataFrame posParallelRcpp( std::vector<std::string> text, std::string sys_
     // check user interrupt (Ctrl+C).
     if (k % 1000 == 0) checkUserInterrupt();
 
-    std::vector < boost::tuple< std::string, std::string > >::const_iterator l;
+    std::vector<std::tuple<std::string, std::string>>::const_iterator l;
     for (l = results[k].begin(); l != results[k].end(); ++l) {
 
-      token.push_back(boost::tuples::get<0>(*l));
-      pos.push_back(boost::tuples::get<1>(*l));
+      token.push_back(std::get<0>(*l));
+      pos.push_back(std::get<1>(*l));
 
       token_id.push_back(token_number);
       token_number++;

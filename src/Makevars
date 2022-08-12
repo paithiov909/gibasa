@@ -1,5 +1,4 @@
 CXX_STD=CXX11
-PKG_CPPFLAGS=-DBOOST_NO_AUTO_PTR
 PKG_CXXFLAGS=$(shell mecab-config --cflags)
 PKG_LIBS=-L$(shell mecab-config --libs-only-L) -lmecab \
 	$(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
