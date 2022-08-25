@@ -1,3 +1,7 @@
+# gibasa 0.4.1
+
+* `tokenize` now preserves the original order of `docid_field`.
+
 # gibasa 0.4.0
 
 * Added `bind_tf_idf2` function and `is_blank` function.

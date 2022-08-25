@@ -77,9 +77,17 @@ tokenize <- function(tbl,
 
   result <- tagger_impl(sentence, sys_dic, user_dic, split)
 
+  # if it's a factor, preserve ordering
+  col_names <- rlang::as_name(docid_field)
+  if (is.factor(tbl[[col_names]])) {
+    col_u <- levels(tbl[[col_names]])
+  } else {
+    col_u <- unique(tbl[[col_names]])
+  }
+
   tbl %>%
     dplyr::select(-!!text_field) %>%
-    dplyr::mutate(dplyr::across(!!docid_field, ~ as.factor(.))) %>%
+    dplyr::mutate(dplyr::across(!!docid_field, ~ factor(., col_u))) %>%
     dplyr::rename(doc_id = {{ docid_field }}) %>%
     dplyr::left_join(
       result,
@@ -113,7 +121,7 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split) {
   }
   res %>%
     dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%
-    dplyr::mutate(doc_id = as.factor(.data$doc_id))
+    dplyr::mutate(doc_id = factor(.data$doc_id, unique(.data$doc_id)))
 }
 
 #' @noRd
