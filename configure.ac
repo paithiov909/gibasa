@@ -29,6 +29,19 @@ DIC_VERSION="102"
 LTVERSION="2:1:0"
 AC_SUBST(LTVERSION)
 
+# Find the compiler and compiler flags used by R.
+: ${R_HOME=`R RHOME`}
+if test -z "${R_HOME}"; then
+  echo "could not determine R_HOME"
+  exit 1
+fi
+CXX=`"${R_HOME}/bin/R" CMD config CXX`
+CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
+CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+
+AC_SUBST([PKG_CPPFLAGS], ["${PKG_CPPFLAGS}"])
+AC_SUBST([PKG_LIBS], ["${LIBS} ${PKG_LIBS}"])
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX

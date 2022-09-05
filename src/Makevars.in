@@ -1,8 +1,9 @@
 CXX_STD=CXX11
+PKG_CPPFLAGS=-I. @PKG_CPPFLAGS@
 PKG_CXXFLAGS=-DDIC_VERSION=$(DIC_VERSION) \
 	$(MECAB_NO_TLS) $(MECAB_USE_UTF8_ONLY) \
 	-DMECAB_DEFAULT_RC="\"$(MECAB_DEFAULT_RC)\""
-PKG_LIBS=$(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
+PKG_LIBS=@PKG_LIBS@ $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()")
 
 OBJ = feature_index.o param.o learner.o string_buffer.o \
 	char_property.o         learner_tagger.o    tagger.o \
