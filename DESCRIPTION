@@ -1,9 +1,12 @@
 Type: Package
 Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.4.1
+Version: 0.4.1.9000
 Authors@R: 
-    person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
+    c(person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
+      person("Shogo", "Ichinose", , role = "aut"),
+      person("Taku", "Kudo", , role = "aut"),
+      person("Nippon Telegraph", "and Telephone Corporation", , role = "cph"))
 Maintainer: Akiru Kato <paithiov909@gmail.com>
 Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', a CJK
     tokenizer and morphological analysis tool. The main goal of gibasa
