@@ -1,5 +1,7 @@
 ### prettify ----
 test_that("prettify works", {
+  skip_on_cran()
+
   df <- gbs_tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
   expect_error(prettify(df, col_select = c(1, 10)))
   expect_equal(ncol(prettify(df)), 13L)
