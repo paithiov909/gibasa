@@ -1,3 +1,5 @@
+skip_on_cran()
+
 ### gbs_tokenize ----
 test_that("gbs_tokenize works", {
   df <- gbs_tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))

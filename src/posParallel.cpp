@@ -7,7 +7,8 @@
 #include <sstream>
 #include <Rcpp.h>
 #include <RcppParallel.h>
-#include "../inst/include/mecab.h"
+
+#include "mecab.h"
 
 // structs for using in tbb::parallel_for
 namespace TextParser {
