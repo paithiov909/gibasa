@@ -36,6 +36,7 @@ data.frame.
 Tokenize sentence for data.frame
 }
 \examples{
+\dontrun{
 df <- tokenize(
   data.frame(
     doc_id = seq_len(length(audubon::polano[5:8])),
@@ -43,4 +44,5 @@ df <- tokenize(
   )
 )
 head(df)
+}
 }
