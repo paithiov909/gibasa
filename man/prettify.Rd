@@ -23,8 +23,10 @@ Turns a single character column into features
 separating with delimiter.
 }
 \examples{
+\dontrun{
 df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
 prettify(df, col_select = 1:3)
 prettify(df, col_select = c(1, 3, 6))
 prettify(df, col_select = c("POS1", "Original"))
+}
 }

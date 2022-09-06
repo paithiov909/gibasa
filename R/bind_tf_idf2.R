@@ -88,7 +88,14 @@ global_entropy <- function(sp) {
 #' @param norm Logical; If true, the raw term frequencies are nomalized
 #' as divided with L2 norms before computing values.
 #' @return data.frame.
-#'
+#' @examples
+#' \dontrun{
+#' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+#' df <- dplyr::group_by(df, doc_id) |>
+#'   dplyr::count(token) |>
+#'   dplyr::ungroup()
+#' bind_tf_idf2(df)
+#' }
 #' @export
 bind_tf_idf2 <- function(tbl,
                          term = "token",

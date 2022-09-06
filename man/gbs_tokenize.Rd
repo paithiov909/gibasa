@@ -33,6 +33,8 @@ data.frame or named list.
 Tokenize sentence for character vector
 }
 \examples{
+\dontrun{
 df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
 head(df)
+}
 }

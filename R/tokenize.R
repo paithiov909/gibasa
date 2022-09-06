@@ -11,8 +11,10 @@
 #' @return data.frame or named list.
 #' @export
 #' @examples
+#'\dontrun{
 #' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
 #' head(df)
+#' }
 gbs_tokenize <- function(sentence,
                          sys_dic = "",
                          user_dic = "",
