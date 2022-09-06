@@ -11,8 +11,10 @@
 #' @return data.frame or named list.
 #' @export
 #' @examples
+#'\dontrun{
 #' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
 #' head(df)
+#' }
 gbs_tokenize <- function(sentence,
                          sys_dic = "",
                          user_dic = "",
@@ -51,6 +53,7 @@ gbs_tokenize <- function(sentence,
 #' @return data.frame.
 #' @export
 #' @examples
+#' \dontrun{
 #' df <- tokenize(
 #'   data.frame(
 #'     doc_id = seq_len(length(audubon::polano[5:8])),
@@ -58,6 +61,7 @@ gbs_tokenize <- function(sentence,
 #'   )
 #' )
 #' head(df)
+#' }
 tokenize <- function(tbl,
                      text_field = "text",
                      docid_field = "doc_id",

@@ -36,3 +36,12 @@ data.frame.
 \description{
 Bind the term frequency and inverse document frequency
 }
+\examples{
+\dontrun{
+df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+df <- dplyr::group_by(df, doc_id) |>
+  dplyr::count(token) |>
+  dplyr::ungroup()
+bind_tf_idf2(df)
+}
+}

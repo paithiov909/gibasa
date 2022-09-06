@@ -9,10 +9,12 @@
 #' @importFrom audubon prettify
 #' @export
 #' @examples
+#' \dontrun{
 #' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
 #' prettify(df, col_select = 1:3)
 #' prettify(df, col_select = c(1, 3, 6))
 #' prettify(df, col_select = c("POS1", "Original"))
+#' }
 prettify <- function(df,
                      into = get_dict_features("ipa"),
                      col_select = seq_along(into)) {

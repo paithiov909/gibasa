@@ -1,14 +1,33 @@
-VERSION=0.996-5
-RWINLIB=../windows/libmecab-$(VERSION)
-CXX_STD=CXX11
-PKG_CXXFLAGS=-DRCPP_PARALLEL_USE_TBB=1
-PKG_LIBS=-L${RWINLIB}/lib${R_ARCH}${CRT} -lmecab \
-	$(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
+VERSION = 0.996-6
+DIC_VERSION = 102
 
-all: clean winlibs
+ifeq "$(MECAB_DEFAULT_RC)" ""
+MECAB_DEFAULT_RC = c:\\Program Files\\mecab\\etc\\mecabrc
+endif
+
+CXX_STD = CXX17
+PKG_CXXFLAGS = -DRCPP_PARALLEL_USE_TBB=1 -DSTRICT_R_HEADERS \
+	-DMECAB_USE_UTF8_ONLY \
+	-D_CRT_SECURE_NO_DEPRECATE -DMECAB_USE_THREAD \
+	-DDLL_EXPORT -DHAVE_GETENV -DHAVE_WINDOWS_H -DDIC_VERSION="$(DIC_VERSION)" \
+	-DVERSION="\"$(VERSION)\"" -DPACKAGE="\"mecab\"" \
+	-DUNICODE -D_UNICODE \
+	-DMECAB_DEFAULT_RC="\"$(MECAB_DEFAULT_RC)\""
+PKG_LIBS = $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
+
+OBJ = feature_index.o param.o learner.o string_buffer.o \
+	char_property.o         learner_tagger.o    tagger.o \
+	connector.o             tokenizer.o \
+	context_id.o            dictionary.o  utils.o \
+	dictionary_compiler.o   viterbi.o \
+	dictionary_generator.o  writer.o iconv_utils.o \
+	dictionary_rewriter.o   lbfgs.o eval.o nbest_generator.o
+
+.PHONY: all
+
+all: $(SHLIB)
+
+$(SHLIB): $(OBJECTS) $(OBJ) libmecab.o
 
 clean:
-	rm -f $(OBJECT) $(SHLIB)
-
-winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" $(VERSION)
+	rm -f $(OBJECT) $(OBJ) $(SHLIB)

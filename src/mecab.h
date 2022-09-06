@@ -336,11 +336,9 @@ extern "C" {
 #endif
 
 #ifdef _WIN32
-// Taken from http://tolstoy.newcastle.edu.au/R/e2/devel/06/11/1242.html
-// Undefine the Realloc macro, which is defined by both R and by Windows stuff
-#undef Realloc
-// Also need to undefine the Free macro
-#undef Free
+#ifndef NOMINMAX
+#define NOMINMAX 1
+#endif
 #include <windows.h>
 #  ifdef DLL_EXPORT
 #    define MECAB_DLL_EXTERN  __declspec(dllexport)
@@ -1078,8 +1076,8 @@ public:
   virtual const DictionaryInfo *dictionary_info() const = 0;
 
   /**
-   * Return transtion cost from rcAttr to lcAttr.
-   * @return transtion cost
+   * Return transition cost from rcAttr to lcAttr.
+   * @return transition cost
    */
   virtual int transition_cost(unsigned short rcAttr,
                               unsigned short lcAttr) const = 0;
@@ -1113,7 +1111,7 @@ public:
    * return true if new model is swapped successfully.
    * This method is thread safe. All taggers created by
    * Model::createTagger() method will also be updated asynchronously.
-   * No need to stop the parsing thread excplicitly before swapping model object.
+   * No need to stop the parsing thread explicitly before swapping model object.
    * @return boolean
    * @param model new model which is going to be swapped with the current model.
    */
@@ -1127,7 +1125,7 @@ public:
 
   virtual ~Model() {}
 
-#ifndef SIWG
+#ifndef SWIG
   /**
    * Factory method to create a new Model with a specified main's argc/argv-style parameters.
    * Return NULL if new model cannot be initialized. Use MeCab::getLastError() to obtain the
@@ -1161,7 +1159,7 @@ public:
    * This function is equivalent to
    * {
    *   Tagger *tagger = model.createModel();
-   *   cosnt bool result = tagger->parse(lattice);
+   *   const bool result = tagger->parse(lattice);
    *   delete tagger;
    *   return result;
    * }
@@ -1416,7 +1414,7 @@ public:
 
   virtual ~Tagger() {}
 
-#ifndef SIWG
+#ifndef SWIG
   /**
    * Factory method to create a new Tagger with a specified main's argc/argv-style parameters.
    * Return NULL if new model cannot be initialized. Use MeCab::getLastError() to obtain the
