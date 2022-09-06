@@ -2,7 +2,7 @@ VERSION = 0.996-6
 DIC_VERSION = 102
 
 ifeq "$(MECAB_DEFAULT_RC)" ""
-MECAB_DEFAULT_RC = c:\\Program Files\\mecab\\etc\\mecabrc\
+MECAB_DEFAULT_RC = c:\\Program Files\\mecab\\etc\\mecabrc
 endif
 
 CXX_STD = CXX17
