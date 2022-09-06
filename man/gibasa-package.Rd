@@ -19,5 +19,16 @@ Useful links:
 \author{
 \strong{Maintainer}: Akiru Kato \email{paithiov909@gmail.com}
 
+Authors:
+\itemize{
+  \item Shogo Ichinose
+  \item Taku Kudo
+}
+
+Other contributors:
+\itemize{
+  \item Nippon Telegraph and Telephone Corporation [copyright holder]
+}
+
 }
 \keyword{internal}

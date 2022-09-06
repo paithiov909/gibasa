@@ -2,18 +2,19 @@ VERSION = 0.996-6
 DIC_VERSION = 102
 
 ifeq "$(MECAB_DEFAULT_RC)" ""
-MECAB_DEFAULT_RC = c:\\Program Files\\mecab\\etc\\mecabrc\
+MECAB_DEFAULT_RC = /etc/mecabrc
 endif
 
 CXX_STD = CXX17
-PKG_CXXFLAGS = -DRCPP_PARALLEL_USE_TBB=1 -DSTRICT_R_HEADERS \
+PKG_CXXFLAGS = -DSTRICT_R_HEADERS \
+	-DHAVE_STDINT_H -DHAVE_UNISTD_H -DHAVE_STRING_H -DHAVE_FCNTL_H \
+	-DHAVE_SYS_STAT_H -DHAVE_SYS_TYPES_H -DHAVE_SYS_MMAN_H -DHAVE_DIRENT_H \
+	-DHAVE_CXX17_FALLTHROUGH_ATTRIBUTE \
+	-DDIC_VERSION="$(DIC_VERSION)" \
 	-DMECAB_USE_UTF8_ONLY \
-	-D_CRT_SECURE_NO_DEPRECATE -DMECAB_USE_THREAD \
-	-DDLL_EXPORT -DHAVE_GETENV -DHAVE_WINDOWS_H -DDIC_VERSION="$(DIC_VERSION)" \
 	-DVERSION="\"$(VERSION)\"" -DPACKAGE="\"mecab\"" \
-	-DUNICODE -D_UNICODE \
 	-DMECAB_DEFAULT_RC="\"$(MECAB_DEFAULT_RC)\""
-PKG_LIBS = $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript.exe" -e "RcppParallel::RcppParallelLibs()")
+PKG_LIBS = $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()") -lpthread
 
 OBJ = feature_index.o param.o learner.o string_buffer.o \
 	char_property.o         learner_tagger.o    tagger.o \
