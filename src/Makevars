@@ -2,7 +2,12 @@ VERSION = 0.996-6
 DIC_VERSION = 102
 
 ifeq "$(MECAB_DEFAULT_RC)" ""
-MECAB_DEFAULT_RC = /etc/mecabrc
+	UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)
+	MECAB_DEFAULT_RC = /usr/local/etc/mecabrc
+else
+	MECAB_DEFAULT_RC = /etc/mecabrc
+endif
 endif
 
 CXX_STD = CXX17
@@ -16,19 +21,6 @@ PKG_CXXFLAGS = -DSTRICT_R_HEADERS \
 	-DMECAB_DEFAULT_RC="\"$(MECAB_DEFAULT_RC)\""
 PKG_LIBS = $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()") -lpthread
 
-OBJ = feature_index.o param.o learner.o string_buffer.o \
-	char_property.o         learner_tagger.o    tagger.o \
-	connector.o             tokenizer.o \
-	context_id.o            dictionary.o  utils.o \
-	dictionary_compiler.o   viterbi.o \
-	dictionary_generator.o  writer.o iconv_utils.o \
-	dictionary_rewriter.o   lbfgs.o eval.o nbest_generator.o
-
 .PHONY: all
 
 all: $(SHLIB)
-
-$(SHLIB): $(OBJECTS) $(OBJ) libmecab.o
-
-clean:
-	rm -f $(OBJECT) $(OBJ) $(SHLIB)
