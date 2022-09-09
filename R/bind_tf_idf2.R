@@ -8,13 +8,13 @@ cast_sparse <- function(data, row, column, value, ...) {
   }
   data <- dplyr::ungroup(data)
   data <- dplyr::distinct(data, !!sym(row_col), !!sym(column_col), .keep_all = TRUE)
-  row_names <- data[[row_col]]
-  col_names <- data[[column_col]]
+  row_names <- dplyr::pull(data, row_col)
+  col_names <- dplyr::pull(data, column_col)
   if (is.numeric(value_col)) {
     values <- value_col
   } else {
     value_col <- as_name(value_col)
-    values <- data[[value_col]]
+    values <- dplyr::pull(data, value_col)
   }
 
   # if it's a factor, preserve ordering
@@ -116,9 +116,9 @@ bind_tf_idf2 <- function(tbl,
     sp <- Matrix::t(Matrix::t(sp) * (1 / sqrt(Matrix::rowSums((sp * sp)))))
   }
 
-  terms <- as.character(tbl[[term]])
-  documents <- as.character(tbl[[document]])
-  n <- tbl[[n_col]]
+  terms <- as.character(dplyr::pull(tbl, term))
+  documents <- as.character(dplyr::pull(tbl, document))
+  n <- dplyr::pull(tbl, n_col)
 
   doc_totals <- tapply(
     n, documents,
@@ -139,12 +139,14 @@ bind_tf_idf2 <- function(tbl,
   )
 
   if (identical(tf, "tf")) {
-    tbl$tf <- n / as.numeric(doc_totals[documents])
+    tbl <- dplyr::mutate(tbl, tf = .data$n / as.numeric(doc_totals[documents]))
   } else {
-    tbl$tf <- purrr::flatten_dbl(doc_totals)
+    tbl <- dplyr::mutate(tbl, tf = purrr::flatten_dbl(doc_totals))
   }
-  tbl$idf <- as.numeric(idf[terms])
-  tbl$tf_idf <- tbl$tf * tbl$idf
+  tbl <- dplyr::mutate(tbl,
+    idf = as.numeric(idf[terms]),
+    tf_idf = .data$tf * .data$idf
+  )
 
   tbl
 }
