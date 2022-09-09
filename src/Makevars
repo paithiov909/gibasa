@@ -3,11 +3,11 @@ DIC_VERSION = 102
 
 ifeq "$(MECAB_DEFAULT_RC)" ""
 	UNAME_S := $(shell uname -s)
-	ifeq ($(UNAME_S), Darwin)
-		MECAB_DEFAULT_RC = /usr/local/etc/mecabrc
-	else
-		MECAB_DEFAULT_RC = /etc/mecabrc
-	endif
+ifeq ($(UNAME_S), Darwin)
+	MECAB_DEFAULT_RC = /usr/local/etc/mecabrc
+else
+	MECAB_DEFAULT_RC = /etc/mecabrc
+endif
 endif
 
 CXX_STD = CXX17

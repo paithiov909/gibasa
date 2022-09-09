@@ -5,8 +5,8 @@
 
 <!-- badges: start -->
 
-![GitHub R package
-version](https://img.shields.io/github/r-package/v/paithiov909/gibasa)
+[![gibasa status
+badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-universe.dev)
 ![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
 <!-- badges: end -->
@@ -27,37 +27,45 @@ Gibasa provides 3 main functions: `gibasa::tokenize`,
 
 ![image](man/figures/tidytext_fig5_1_mod.drawio.png)
 
--   `gibasa::tokenize` retrieves a TIF-compliant data.frame of corpus,
-    returning tokens as format that known as ‘tidy text data’, so that
-    users can replace `tidytext::unnest_tokens` with it for tokenizing
-    CJK text.
--   `gibasa::prettify` turns tagged features into columns.
--   `gibasa::pack` retrieves a ‘tidy text data’, typically returning
-    space-separated corpus.
+- `gibasa::tokenize` retrieves a TIF-compliant data.frame of corpus,
+  returning tokens as format that known as ‘tidy text data’, so that
+  users can replace `tidytext::unnest_tokens` with it for tokenizing CJK
+  text.
+- `gibasa::prettify` turns tagged features into columns.
+- `gibasa::pack` retrieves a ‘tidy text data’, typically returning
+  space-separated corpus.
 
 ## Installation
 
+You can install binary package via
+[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa).
+
 ``` r
+# Enable repository from paithiov909
+options(repos = c(
+  paithiov909 = "https://paithiov909.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"))
+
+# Download and install gibasa in R
+install.packages("gibasa")
+
+# Or build from source package
+Sys.setenv(MECAB_DEFAULT_RC = "fullpath/to/your/mecabrc") # if necessary
 remotes::install_github("paithiov909/gibasa")
 ```
 
-To install gibasa from source package requires the
-[MeCab](https://taku910.github.io/mecab/) library installed and
-available.
+To use gibasa package requires the
+[MeCab](https://taku910.github.io/mecab/) library and its dictionary
+installed and available.
 
-In case using Linux or OSX, you can install that with their package
+In case using Linux or OSX, you can install them with their package
 managers, or build and install from the source by yourself.
 
-In case using Windows, launch msys2 console of the rtools, then install
-MeCab and its dictionary with pacman before your installing package
-(currently being tested on
-[rtools42](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)).
-Note that you may have to add `%RTOOLS42_HOME%\ucrt64\bin` directory to
-the PATH environment variable.
-
-``` sh
-$ pacman -Sy mingw-w64-ucrt-x86_64-mecab mingw-w64-ucrt-x86_64-mecab-naist-jdic
-```
+In case using Windows, use installer [built for
+32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc)
+or [built for
+64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2).
+Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
 ## Usage
 
@@ -68,8 +76,7 @@ res <- gibasa::tokenize(
   data.frame(
     doc_id = seq_along(audubon::polano[5:8]),
     text = audubon::polano[5:8]
-  ),
-  sys_dic = "/mecab/ipadic-utf8"
+  )
 )
 head(res)
 #>   doc_id sentence_id token_id    token
@@ -105,7 +112,7 @@ head(gibasa::prettify(res))
 #> 3        <NA>        <NA> わたくし ワタクシ ワタクシ
 #> 4        <NA>        <NA>       は       ハ       ワ
 #> 5        <NA>        <NA>       、       、       、
-#> 6        <NA>        <NA>     <NA>
+#> 6        <NA>        <NA>     <NA>     <NA>     <NA>
 head(gibasa::prettify(res, col_select = 1:3))
 #>   doc_id sentence_id token_id    token   POS1     POS2     POS3
 #> 1      1           1        1     その 連体詞     <NA>     <NA>
