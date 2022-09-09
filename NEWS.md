@@ -1,3 +1,7 @@
+# gibasa 0.5.0
+
+* gibasa now includes the MeCab source, so that users do not need to pre-install the MeCab library when building and installing the package (to use `tokenize` without specifying dictionaries, it still requires MeCab and its dictionaries installed and available).
+
 # gibasa 0.4.1
 
 * `tokenize` now preserves the original order of `docid_field`.
