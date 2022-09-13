@@ -50,7 +50,7 @@ options(repos = c(
 install.packages("gibasa")
 
 # Or build from source package
-Sys.setenv(MECAB_DEFAULT_RC = "fullpath/to/your/mecabrc") # if necessary
+Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
 remotes::install_github("paithiov909/gibasa")
 ```
 
