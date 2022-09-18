@@ -79,18 +79,42 @@ global_entropy <- function(sp) {
 
 #' Bind the term frequency and inverse document frequency
 #'
+#' Calculate and bind the term frequency, inverse document frequency,
+#' and tf-idf of the dataset.
+#' This funciton experimentally supports 3 types of term frequencies
+#' and 4 types of inverse document frequencies,
+#' that are provided in the RMeCab package's functionalities.
+#'
+#' @details
+#' Types of term frequency can be switched with `tf` argument:
+#' * `tf` is term frequency (not raw count of terms).
+#' * `tf2` is logarithmic term frequency of which base is 10.
+#' * `tf3` is binary-weighted term frequency.
+#'
+#' Types of inverse document frequencies can be switched with `idf` argument:
+#' * `idf` is inverse document frequency of which base is 2, with smoothed.
+#' 'smoothed' here means just adding 1 to raw count before logarithmizing.
+#' * `idf2` is global frequency idf.
+#' * `idf3` is probabilistic idf of which base is 2.
+#' * `idf4` is global entropy, not idf in actual.
+#'
 #' @param tbl A tidy text dataset with one-row-per-term-per-document.
 #' @param term Column containing terms as string or symbol.
 #' @param document Column containing document IDs as string or symbol.
 #' @param n Column containing document-term counts as string or symbol.
 #' @param tf Method for computing term frequency.
 #' @param idf Method for computing inverse document frequency.
-#' @param norm Logical; If true, the raw term frequencies are nomalized
-#' as divided with L2 norms before computing values.
+#' @param norm Logical; If true, the raw term frequencies are normalized
+#' being divided with L2 norms before computing values.
 #' @return data.frame.
 #' @examples
 #' \dontrun{
-#' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+#' df <- tokenize(
+#'   data.frame(
+#'     doc_id = seq_len(length(audubon::polano[5:8])),
+#'     text = audubon::polano[5:8]
+#'   )
+#' )
 #' df <- dplyr::group_by(df, doc_id) |>
 #'   dplyr::count(token) |>
 #'   dplyr::ungroup()

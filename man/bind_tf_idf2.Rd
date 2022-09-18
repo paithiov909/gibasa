@@ -27,18 +27,44 @@ bind_tf_idf2(
 
 \item{idf}{Method for computing inverse document frequency.}
 
-\item{norm}{Logical; If true, the raw term frequencies are nomalized
-as divided with L2 norms before computing values.}
+\item{norm}{Logical; If true, the raw term frequencies are normalized
+being divided with L2 norms before computing values.}
 }
 \value{
 data.frame.
 }
 \description{
-Bind the term frequency and inverse document frequency
+Calculate and bind the term frequency, inverse document frequency,
+and tf-idf of the dataset.
+This funciton experimentally supports 3 types of term frequencies
+and 4 types of inverse document frequencies,
+that are provided in the RMeCab package's functionalities.
+}
+\details{
+Types of term frequency can be switched with \code{tf} argument:
+\itemize{
+\item \code{tf} is term frequency (not raw count of terms).
+\item \code{tf2} is logarithmic term frequency of which base is 10.
+\item \code{tf3} is binary-weighted term frequency.
+}
+
+Types of inverse document frequencies can be switched with \code{idf} argument:
+\itemize{
+\item \code{idf} is inverse document frequency of which base is 2, with smoothed.
+'smoothed' here means just adding 1 to raw count before logarithmizing.
+\item \code{idf2} is global frequency idf.
+\item \code{idf3} is probabilistic idf of which base is 2.
+\item \code{idf4} is global entropy, not idf in actual.
+}
 }
 \examples{
 \dontrun{
-df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+df <- tokenize(
+  data.frame(
+    doc_id = seq_len(length(audubon::polano[5:8])),
+    text = audubon::polano[5:8]
+  )
+)
 df <- dplyr::group_by(df, doc_id) |>
   dplyr::count(token) |>
   dplyr::ungroup()

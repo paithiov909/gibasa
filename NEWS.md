@@ -1,3 +1,8 @@
+# gibasa (development version)
+
+* Added a new function `lex_deinsity` that can calculate lexical density
+for dataset.
+
 # gibasa 0.5.0
 
 * gibasa now includes the MeCab source, so that users do not need to pre-install the MeCab library when building and installing the package (to use `tokenize` without specifying dictionaries, it still requires MeCab and its dictionaries installed and available).
