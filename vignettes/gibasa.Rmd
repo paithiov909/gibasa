@@ -27,7 +27,7 @@ gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形�
 
 ### インストールの仕方
 
-[r-universe]((https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
+[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
 
 ```r
 # Enable repository from paithiov909
