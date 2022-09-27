@@ -107,11 +107,12 @@ global_entropy <- function(sp) {
 #' @param norm Logical; If true, the raw term frequencies are normalized
 #' being divided with L2 norms before computing values.
 #' @return data.frame.
+#' @export
 #' @examples
 #' \dontrun{
 #' df <- tokenize(
 #'   data.frame(
-#'     doc_id = seq_len(length(audubon::polano[5:8])),
+#'     doc_id = seq_along(audubon::polano[5:8]),
 #'     text = audubon::polano[5:8]
 #'   )
 #' )
@@ -120,7 +121,6 @@ global_entropy <- function(sp) {
 #'   dplyr::ungroup()
 #' bind_tf_idf2(df)
 #' }
-#' @export
 bind_tf_idf2 <- function(tbl,
                          term = "token",
                          document = "doc_id",

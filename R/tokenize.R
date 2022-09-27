@@ -56,7 +56,7 @@ gbs_tokenize <- function(sentence,
 #' \dontrun{
 #' df <- tokenize(
 #'   data.frame(
-#'     doc_id = seq_len(length(audubon::polano[5:8])),
+#'     doc_id = seq_along(audubon::polano[5:8]),
 #'     text = audubon::polano[5:8]
 #'   )
 #' )

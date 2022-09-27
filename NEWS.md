@@ -1,6 +1,6 @@
 # gibasa (development version)
 
-* Added a new function `lex_deinsity` that can calculate lexical density
+* Added a new function `lex_density` that can calculate lexical density
 for dataset.
 
 # gibasa 0.5.0
