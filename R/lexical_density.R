@@ -50,6 +50,6 @@ lex_density <- function(vec,
   }
   num_of_totals <- length(vec)
 
-  # FIXME: this result can be NaN (for instance, when 0 / 0).
+  # FIXME: this result may produce NaN (for instance, when 0 / 0).
   num_of_contents / num_of_totals
 }
