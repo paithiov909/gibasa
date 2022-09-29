@@ -1,18 +1,8 @@
+# skip_on_cran()
+
 expected_res <- readRDS(file.path("../testdata.rda"))
 
-tbl <-
-  data.frame(
-    doc_id = seq_along(audubon::polano[1:50]),
-    text = audubon::polano[1:50]
-  ) |>
-  gibasa::tokenize() |>
-  gibasa::prettify(col_select = c("POS1", "POS2")) |>
-  dplyr::mutate(doc_id = as.character(doc_id),
-                POS2 = dplyr::if_else(is.na(POS2), "*", POS2),
-                token = stringi::stri_c(token, POS1, POS2, sep = "/")) |>
-  dplyr::group_by(doc_id) |>
-  dplyr::count(token) |>
-  dplyr::ungroup()
+tbl <- testdata[[6]]
 
 test_that("tf*idf works", {
   res <-
