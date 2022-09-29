@@ -5,7 +5,7 @@
 #' @importFrom audubon pack
 #' @export
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' df <- tokenize(
 #'   data.frame(
 #'     doc_id = seq_along(audubon::polano[5:8]),

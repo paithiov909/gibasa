@@ -24,7 +24,12 @@ separating with delimiter.
 }
 \examples{
 \dontrun{
-df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+df <- tokenize(
+  data.frame(
+    doc_id = seq_along(audubon::polano[5:8]),
+    text = audubon::polano[5:8]
+  )
+)
 prettify(df, col_select = 1:3)
 prettify(df, col_select = c(1, 3, 6))
 prettify(df, col_select = c("POS1", "Original"))

@@ -2,6 +2,7 @@
 
 * Added a new function `lex_density` that can calculate lexical density
 for dataset.
+* Bug fix of `bind_tf_idf2` function.
 
 # gibasa 0.5.0
 

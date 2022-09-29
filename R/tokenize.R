@@ -101,7 +101,7 @@ tokenize <- function(tbl,
 
 #' @noRd
 tagger_impl <- function(sentence, sys_dic, user_dic, split) {
-  if (identical(split, TRUE)) {
+  if (isTRUE(split)) {
     res <-
       purrr::imap_dfr(sentence, function(vec, doc_id) {
         vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
