@@ -79,7 +79,7 @@ global_entropy <- function(sp) {
 
 #' Bind the term frequency and inverse document frequency
 #'
-#' Calculate and bind the term frequency, inverse document frequency,
+#' Calculates and bind the term frequency, inverse document frequency,
 #' and tf-idf of the dataset.
 #' This function experimentally supports 3 types of term frequencies
 #' and 4 types of inverse document frequencies,
@@ -93,7 +93,7 @@ global_entropy <- function(sp) {
 #'
 #' Types of inverse document frequencies can be switched with `idf` argument:
 #' * `idf` is inverse document frequency of which base is 2, with smoothed.
-#' 'smoothed' here means just adding 1 to raw counts before logarithmizing.
+#' 'smoothed' here means just adding 1 to raw counts after logarithmizing.
 #' * `idf2` is global frequency IDF.
 #' * `idf3` is probabilistic IDF of which base is 2.
 #' * `idf4` is global entropy, not IDF in actual.
@@ -104,9 +104,9 @@ global_entropy <- function(sp) {
 #' @param n Column containing document-term counts as string or symbol.
 #' @param tf Method for computing term frequency.
 #' @param idf Method for computing inverse document frequency.
-#' @param norm Logical; If true, the raw term counts are normalized
+#' @param norm Logical; If supplied `TRUE`, the raw term counts are normalized
 #' being divided with L2 norms before computing IDF values.
-#' @param rmecab_compat Logical; If true, computes values while
+#' @param rmecab_compat Logical; If supplied `TRUE`, computes values while
 #' taking care of compatibility with RMeCab.
 #' Note that RMeCab always computes IDF values using term frequency
 #' rather than raw term counts, and thus TF-IDF values may be

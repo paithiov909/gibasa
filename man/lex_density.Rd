@@ -23,7 +23,9 @@ for counting contents words or targets.}
 numeric vector.
 }
 \description{
-Calculate lexical density
+The lexical density is the proportion of content words (lexical items)
+in documents. This function is a simple helper for calculating
+the lexical density of given datasets.
 }
 \examples{
 \dontrun{
@@ -42,7 +44,8 @@ df |>
       c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e"),
       negate = c(FALSE, TRUE)
     ),
-    mvr = lex_density(POS1,
+    mvr = lex_density(
+      POS1,
       c("\u5f62\u5bb9\u8a5e", "\u526f\u8a5e", "\u9023\u4f53\u8a5e"),
       "\u52d5\u8a5e"
     ),

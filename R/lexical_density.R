@@ -1,5 +1,9 @@
 #' Calculate lexical density
 #'
+#' The lexical density is the proportion of content words (lexical items)
+#' in documents. This function is a simple helper for calculating
+#' the lexical density of given datasets.
+#'
 #' @param vec A character vector.
 #' @param contents_words A character vector containing values
 #' to be counted as contents words.
@@ -27,7 +31,8 @@
 #'       c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e"),
 #'       negate = c(FALSE, TRUE)
 #'     ),
-#'     mvr = lex_density(POS1,
+#'     mvr = lex_density(
+#'       POS1,
 #'       c("\u5f62\u5bb9\u8a5e", "\u526f\u8a5e", "\u9023\u4f53\u8a5e"),
 #'       "\u52d5\u8a5e"
 #'     ),
@@ -41,12 +46,18 @@ lex_density <- function(vec,
   if (!rlang::has_length(negate, 2L)) {
     rlang::abort("The negate must have just 2 elements.")
   }
-  num_of_contents <-
-    length(purrr::keep(vec, ~
-      ifelse(isTRUE(negate[1]), !.x %in% contents_words, .x %in% contents_words)))
+
+  if (isTRUE(negate[1])) {
+    num_of_contents <- length(purrr::discard(vec, ~ .x %in% contents_words))
+  } else {
+    num_of_contents <- length(purrr::keep(vec, ~ .x %in% contents_words))
+  }
   if (!missing(targets)) {
-    vec <- purrr::keep(vec, ~
-      ifelse(isTRUE(negate[2]), !.x %in% targets, .x %in% targets))
+    if (isTRUE(negate[2])) {
+      vec <- purrr::discard(vec, ~ .x %in% targets)
+    } else {
+      vec <- purrr::keep(vec, ~ .x %in% targets)
+    }
   }
   num_of_totals <- length(vec)
 

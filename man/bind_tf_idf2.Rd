@@ -28,10 +28,10 @@ bind_tf_idf2(
 
 \item{idf}{Method for computing inverse document frequency.}
 
-\item{norm}{Logical; If true, the raw term counts are normalized
+\item{norm}{Logical; If supplied \code{TRUE}, the raw term counts are normalized
 being divided with L2 norms before computing IDF values.}
 
-\item{rmecab_compat}{Logical; If true, computes values while
+\item{rmecab_compat}{Logical; If supplied \code{TRUE}, computes values while
 taking care of compatibility with RMeCab.
 Note that RMeCab always computes IDF values using term frequency
 rather than raw term counts, and thus TF-IDF values may be
@@ -41,7 +41,7 @@ doubly affected by term frequency.}
 data.frame.
 }
 \description{
-Calculate and bind the term frequency, inverse document frequency,
+Calculates and bind the term frequency, inverse document frequency,
 and tf-idf of the dataset.
 This function experimentally supports 3 types of term frequencies
 and 4 types of inverse document frequencies,
@@ -58,7 +58,7 @@ Types of term frequency can be switched with \code{tf} argument:
 Types of inverse document frequencies can be switched with \code{idf} argument:
 \itemize{
 \item \code{idf} is inverse document frequency of which base is 2, with smoothed.
-'smoothed' here means just adding 1 to raw counts before logarithmizing.
+'smoothed' here means just adding 1 to raw counts after logarithmizing.
 \item \code{idf2} is global frequency IDF.
 \item \code{idf3} is probabilistic IDF of which base is 2.
 \item \code{idf4} is global entropy, not IDF in actual.
