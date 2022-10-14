@@ -37,7 +37,7 @@ gbs_tokenize <- function(sentence,
 
   if (identical(mode, "wakati")) {
     result <- result %>%
-      dplyr::group_by(.data$doc_id) %>%
+      dplyr::group_by("doc_id") %>%
       dplyr::group_map(~ .x$token) %>%
       purrr::set_names(nm)
   }
@@ -121,7 +121,7 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split) {
         ),
         by = "sentence_id"
       ) %>%
-      dplyr::relocate(.data$doc_id, dplyr::everything())
+      dplyr::relocate("doc_id", dplyr::everything())
   }
   res %>%
     dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%
