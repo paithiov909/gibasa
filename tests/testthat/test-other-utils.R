@@ -16,7 +16,7 @@ test_that("is_blank works", {
 
 ### pack ----
 test_that("pack works", {
-  res <- pack(testdata[[6]])
+  res <- pack(testdata[[7]])
   expect_equal(nrow(res), 50L)
 })
 

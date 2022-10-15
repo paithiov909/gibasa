@@ -1,7 +1,9 @@
 df <- data.frame(doc_id = seq_along(audubon::polano[1:50]), audubon::polano[1:50])
 
 testdata <-
-  purrr::imap(c("tf*idf", "tf2*idf", "tf2*idf2", "tf3*idf", "tf2*idf4"), \(w, i) {
+  purrr::imap(c("tf*idf", "tf2*idf", "tf2*idf2",
+                "tf3*idf", "tf2*idf3", "tf2*idf4"),
+              \(w, i) {
     rmecab_res <- RMeCab::docDF(df, column = 2, type = 1, Genkei = 1, weight = w)
     rmecab_res |>
       tidyr::pivot_longer(cols = starts_with("Row"),
@@ -29,6 +31,6 @@ tbl <-
   dplyr::count(token) |>
   dplyr::ungroup()
 
-testdata[[6]] <- tbl
+testdata[[7]] <- tbl
 
 saveRDS(testdata, "testdata.rda")
