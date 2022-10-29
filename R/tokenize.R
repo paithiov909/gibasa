@@ -37,7 +37,7 @@ gbs_tokenize <- function(sentence,
 
   if (identical(mode, "wakati")) {
     result <- result %>%
-      dplyr::group_by("doc_id") %>%
+      dplyr::group_by(.data$doc_id) %>%
       dplyr::group_map(~ .x$token) %>%
       purrr::set_names(nm)
   }
