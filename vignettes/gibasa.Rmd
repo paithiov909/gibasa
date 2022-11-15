@@ -93,8 +93,6 @@ gibasa::pack(res, POS1)
 
 [TokyoR #98](https://tokyor.connpass.com/event/244200/)での[LTのスライド](https://paithiov909.github.io/shiryo/gibasa/#11)でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもmecabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。
 
-ただ、gibasaには形態素解析する以外の機能はないので、目的にあわせて好みで使ってください。
-
 ```r
 dat <- data.frame(
   doc_id = seq_along(audubon::polano[5:800]),

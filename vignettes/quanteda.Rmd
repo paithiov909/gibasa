@@ -28,7 +28,6 @@ require("ggplot2", quietly = TRUE)
 
 なお、以下のパッケージについては、ここではGitHubからインストールできるものを使っています。
 
-- [paithiov909/audubon](https://github.com/paithiov909/audubon)
 - [paithiov909/ldccr](https://github.com/paithiov909/ldccr)
 
 これらは、次のような感じでインストールできます。
