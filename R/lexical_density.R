@@ -48,15 +48,15 @@ lex_density <- function(vec,
   }
 
   if (isTRUE(negate[1])) {
-    num_of_contents <- length(purrr::discard(vec, ~ .x %in% contents_words))
+    num_of_contents <- length(subset(vec, !vec %in% contents_words))
   } else {
-    num_of_contents <- length(purrr::keep(vec, ~ .x %in% contents_words))
+    num_of_contents <- length(subset(vec, vec %in% contents_words))
   }
   if (!missing(targets)) {
     if (isTRUE(negate[2])) {
-      vec <- purrr::discard(vec, ~ .x %in% targets)
+      vec <- subset(vec, !vec %in% targets)
     } else {
-      vec <- purrr::keep(vec, ~ .x %in% targets)
+      vec <- subset(vec, vec %in% targets)
     }
   }
   num_of_totals <- length(vec)

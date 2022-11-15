@@ -41,7 +41,7 @@ doubly affected by term frequency.}
 data.frame.
 }
 \description{
-Calculates and bind the term frequency, inverse document frequency,
+Calculates and binds the term frequency, inverse document frequency,
 and tf-idf of the dataset.
 This function experimentally supports 3 types of term frequencies
 and 4 types of inverse document frequencies,
