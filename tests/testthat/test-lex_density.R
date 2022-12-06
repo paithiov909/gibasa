@@ -1,5 +1,6 @@
 skip_on_cran()
 
+### lex_density ----
 test_that("lex_density works", {
   res <-
     tokenize(
