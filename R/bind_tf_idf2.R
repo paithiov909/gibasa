@@ -141,6 +141,8 @@ bind_tf_idf2 <- function(tbl,
   document <- as_name(ensym(document))
   n_col <- as_name(ensym(n))
 
+  tbl <- dplyr::ungroup(tbl)
+
   terms <- as.character(dplyr::pull(tbl, term))
   documents <- as.character(dplyr::pull(tbl, document))
   n <- dplyr::pull(tbl, n_col)
