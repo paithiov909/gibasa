@@ -102,9 +102,9 @@ corpus_rec <-
     category ~ text,
     data = corpus_train
   ) |>
-    textrecipes::step_tokenize(text, custom_token = space_tokenizer) |>
-    textrecipes::step_tokenfilter(text, min_times = 30L, max_tokens = 200L) |>
-    textrecipes::step_texthash(text, num_terms = 200L)
+  textrecipes::step_tokenize(text, custom_token = space_tokenizer) |>
+  textrecipes::step_tokenfilter(text, min_times = 30L, max_tokens = 200L) |>
+  textrecipes::step_texthash(text, num_terms = 200L)
 ```
 
 ```{r workflow}
@@ -117,7 +117,7 @@ corpus_wflow <-
 F値をメトリクスにして学習します。3分割CVで、簡単にですが、ハイパーパラメータ探索をします。
 
 ```{r tune_wl}
-#doParallel::registerDoParallel(cores = parallel::detectCores() - 1)
+# doParallel::registerDoParallel(cores = parallel::detectCores() - 1)
 
 corpus_tune_res <-
   corpus_wflow |>
@@ -148,7 +148,7 @@ corpus_wflow <-
 
 corpus_fit <- tune::last_fit(corpus_wflow, corpus_split)
 
-#doParallel::stopImplicitCluster()
+# doParallel::stopImplicitCluster()
 ```
 
 学習したモデルの精度を見てみます。

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   tidy = "styler",
   collapse = TRUE,
   comment = "#>"
-  #, fig.keep = "none" ## Run all chunks but never save new figures.
+  # , fig.keep = "none" ## Run all chunks but never save new figures.
 )
 set.seed(3179)
 
@@ -77,8 +77,10 @@ corp <- data |>
   dplyr::slice_sample(prop = .2)
 
 corp <- corp |>
-  dplyr::mutate(body = stringr::str_remove_all(body, "[\u25a0]+"),
-                body = audubon::strj_normalize(body)) |>
+  dplyr::mutate(
+    body = stringr::str_remove_all(body, "[\u25a0]+"),
+    body = audubon::strj_normalize(body)
+  ) |>
   gibasa::tokenize(body) |>
   gibasa::prettify(col_select = c("POS1", "Original")) |>
   dplyr::filter(!POS1 %in% c("助詞", "助動詞")) |>
@@ -177,7 +179,7 @@ d <- corp_sample |>
   as.dist() |>
   hclust(method = "ward.D2") |>
   ggdendro::dendro_data(type = "rectangle") |>
-  (function(x){
+  (function(x) {
     purrr::list_modify(
       x,
       labels = dplyr::bind_cols(

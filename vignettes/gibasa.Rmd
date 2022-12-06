@@ -77,7 +77,7 @@ head(res)
 ```{r prettify}
 head(gibasa::prettify(res))
 head(gibasa::prettify(res, col_select = 1:3))
-head(gibasa::prettify(res, col_select = c(1,3,5)))
+head(gibasa::prettify(res, col_select = c(1, 3, 5)))
 head(gibasa::prettify(res, col_select = c("POS1", "Original")))
 ```
 
@@ -140,7 +140,7 @@ ggplot2::autoplot(bench)
 tmp <- tempfile(fileext = ".zip")
 download.file("https://github.com/paithiov909/shiryo/raw/main/data/aozora.csv.zip", tmp)
 
-tbl <- readr::read_csv(tmp, col_types = "cccf") |> 
+tbl <- readr::read_csv(tmp, col_types = "cccf") |>
   dplyr::mutate(author = as.factor(author))
 ```
 
@@ -159,12 +159,14 @@ dplyr::glimpse(tbl)
 ```{r nchar_dataset1}
 tbl |>
   dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::group_by(author) |> 
-  dplyr::summarise(nchar_mean = mean(nchar),
-                   nchar_median = median(nchar),
-                   nchar_min = min(nchar),
-                   nchar_max = max(nchar),
-                   n = dplyr::n()) |> 
+  dplyr::group_by(author) |>
+  dplyr::summarise(
+    nchar_mean = mean(nchar),
+    nchar_median = median(nchar),
+    nchar_min = min(nchar),
+    nchar_max = max(nchar),
+    n = dplyr::n()
+  ) |>
   dplyr::mutate(across(where(is.numeric), trunc))
 ```
 
@@ -177,13 +179,13 @@ dplyr::filter(tbl, title == "ファウスト") |>
 
 gbs_split_t <- function() {
   dplyr::filter(tbl, title == "ファウスト") |>
-  gibasa::tokenize(split = TRUE) |> 
-  nrow()
+    gibasa::tokenize(split = TRUE) |>
+    nrow()
 }
 gbs_split_f <- function() {
   dplyr::filter(tbl, title == "ファウスト") |>
-  gibasa::tokenize(split = FALSE) |> 
-  nrow()
+    gibasa::tokenize(split = FALSE) |>
+    nrow()
 }
 
 gbs_split_t()
@@ -208,12 +210,14 @@ ggplot2::autoplot(bench)
 tbl <- dplyr::filter(tbl, nchar(text) < 5000)
 tbl |>
   dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::group_by(author) |> 
-  dplyr::summarise(nchar_mean = mean(nchar),
-                   nchar_median = median(nchar),
-                   nchar_min = min(nchar),
-                   nchar_max = max(nchar),
-                   n = dplyr::n()) |> 
+  dplyr::group_by(author) |>
+  dplyr::summarise(
+    nchar_mean = mean(nchar),
+    nchar_median = median(nchar),
+    nchar_min = min(nchar),
+    nchar_max = max(nchar),
+    n = dplyr::n()
+  ) |>
   dplyr::mutate(across(where(is.numeric), trunc))
 ```
 
@@ -225,20 +229,24 @@ tbl |>
 
 ```{r cast_corpus}
 corp <- tbl |>
-  dplyr::mutate(text = audubon::strj_normalize(text),
-                chunk = dplyr::ntile(doc_id, 10)) |>
+  dplyr::mutate(
+    text = audubon::strj_normalize(text),
+    chunk = dplyr::ntile(doc_id, 10)
+  ) |>
   dplyr::group_by(chunk) |>
   dplyr::group_map(function(df, idx) {
     data.frame(
       doc_id = df$doc_id,
       text = df$text
-    ) |> 
-    gibasa::tokenize(split = TRUE) |> 
-    gibasa::prettify(col_select = c("POS1", "Original")) |>
-    dplyr::filter(POS1 %in% c("名詞", "形容詞", "動詞"),
-                  !is.na(Original)) |>
-    dplyr::mutate(token = stringr::str_c(Original, POS1, sep = "/")) |>
-    gibasa::pack(token)
+    ) |>
+      gibasa::tokenize(split = TRUE) |>
+      gibasa::prettify(col_select = c("POS1", "Original")) |>
+      dplyr::filter(
+        POS1 %in% c("名詞", "形容詞", "動詞"),
+        !is.na(Original)
+      ) |>
+      dplyr::mutate(token = stringr::str_c(Original, POS1, sep = "/")) |>
+      gibasa::pack(token)
   }) |>
   purrr::map_dfr(~.) |>
   dplyr::left_join(dplyr::select(tbl, doc_id, author), by = "doc_id") |>
