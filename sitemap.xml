@@ -31,6 +31,9 @@
     <loc>https://paithiov909.github.io/gibasa/reference/bind_tf_idf2.html</loc>
   </url>
   <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/collapse_tokens.html</loc>
+  </url>
+  <url>
     <loc>https://paithiov909.github.io/gibasa/reference/gbs_tokenize.html</loc>
   </url>
   <url>
@@ -47,6 +50,9 @@
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/lex_density.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/mute_tokens.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/pack.html</loc>
