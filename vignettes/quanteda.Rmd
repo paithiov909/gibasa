@@ -78,7 +78,6 @@ corp <- data |>
 
 corp <- corp |>
   dplyr::mutate(
-    doc_id = forcats::fct_drop(doc_id),
     body = audubon::strj_normalize(body),
     body = stringr::str_remove_all(body, "(https?\\://[[:alnum:]\\.\\-_/]+)"),
   ) |>
