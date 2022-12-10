@@ -14,7 +14,7 @@
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Text Mining with quanteda and gibasa">
 <meta property="og:description" content="R（quanteda）によるテキスト解析">
 <meta property="og:image" content="https://paithiov909.github.io/gibasa/reference/figures/tidytext_fig5_1_mod.drawio.png">
-<meta property="og:image:alt" content="Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, a CJK tokenizer and morphological analysis tool.">
+<meta property="og:image:alt" content="Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and morphological analysis tool for R">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@paithiov909">
 <meta name="twitter:site" content="@paithiov909">
@@ -376,16 +376,16 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span>  x <span class="op">=</span> <span class="va">tcm</span>,</span>
 <span>  n_iter <span class="op">=</span> <span class="fl">10L</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; INFO  [05:28:49.988] epoch 1, loss 0.1314</span></span>
-<span><span class="co">#&gt; INFO  [05:28:50.528] epoch 2, loss 0.0795</span></span>
-<span><span class="co">#&gt; INFO  [05:28:51.041] epoch 3, loss 0.0669</span></span>
-<span><span class="co">#&gt; INFO  [05:28:51.546] epoch 4, loss 0.0597</span></span>
-<span><span class="co">#&gt; INFO  [05:28:52.050] epoch 5, loss 0.0547</span></span>
-<span><span class="co">#&gt; INFO  [05:28:52.560] epoch 6, loss 0.0510</span></span>
-<span><span class="co">#&gt; INFO  [05:28:53.066] epoch 7, loss 0.0481</span></span>
-<span><span class="co">#&gt; INFO  [05:28:53.572] epoch 8, loss 0.0458</span></span>
-<span><span class="co">#&gt; INFO  [05:28:54.077] epoch 9, loss 0.0439</span></span>
-<span><span class="co">#&gt; INFO  [05:28:54.581] epoch 10, loss 0.0424</span></span>
+<span><span class="co">#&gt; INFO  [06:18:48.391] epoch 1, loss 0.1314</span></span>
+<span><span class="co">#&gt; INFO  [06:18:48.917] epoch 2, loss 0.0795</span></span>
+<span><span class="co">#&gt; INFO  [06:18:49.425] epoch 3, loss 0.0669</span></span>
+<span><span class="co">#&gt; INFO  [06:18:49.923] epoch 4, loss 0.0597</span></span>
+<span><span class="co">#&gt; INFO  [06:18:50.422] epoch 5, loss 0.0547</span></span>
+<span><span class="co">#&gt; INFO  [06:18:50.920] epoch 6, loss 0.0510</span></span>
+<span><span class="co">#&gt; INFO  [06:18:51.418] epoch 7, loss 0.0481</span></span>
+<span><span class="co">#&gt; INFO  [06:18:51.916] epoch 8, loss 0.0458</span></span>
+<span><span class="co">#&gt; INFO  [06:18:52.414] epoch 9, loss 0.0439</span></span>
+<span><span class="co">#&gt; INFO  [06:18:52.911] epoch 10, loss 0.0423</span></span>
 <span></span>
 <span><span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -556,7 +556,7 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span><span class="co">#&gt;  xfun                  0.35            <span style="color: #555555;">2022-11-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  yaml                  2.3.6           <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpYt1k7R/temp_libpath3b6e6813bb86</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpP4NUE9/temp_libpath399d7b58ac3</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.2/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.2.2/lib/R/library</span></span></span>
