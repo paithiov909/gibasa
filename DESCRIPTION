@@ -9,7 +9,7 @@ Authors@R: c(
     person("Nippon Telegraph", "and Telephone Corporation", role = "cph")
   )
 Maintainer: Akiru Kato <paithiov909@gmail.com>
-Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', a CJK
+Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK
     tokenizer and morphological analysis tool. The main goal of gibasa
     package is to provide an alternative to 'tidytext' for CJK text data.
 License: GPL (>= 3)
