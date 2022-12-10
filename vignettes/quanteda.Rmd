@@ -68,7 +68,7 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 }
 ```
 
-このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。このとき、あらかじめ「■」という文字だけ取り除いておきます。
+このうち一部だけをquantedaのコーパスオブジェクトとして格納し、いろいろ試していきます。
 
 ```{r tidy_data_2}
 corp <- data |>
@@ -78,14 +78,21 @@ corp <- data |>
 
 corp <- corp |>
   dplyr::mutate(
-    body = stringr::str_remove_all(body, "[\u25a0]+"),
-    body = audubon::strj_normalize(body)
+    doc_id = forcats::fct_drop(doc_id),
+    body = audubon::strj_normalize(body),
+    body = stringr::str_remove_all(body, "(https?\\://[[:alnum:]\\.\\-_/]+)"),
   ) |>
   gibasa::tokenize(body) |>
   gibasa::prettify(col_select = c("POS1", "Original")) |>
-  dplyr::filter(!POS1 %in% c("助詞", "助動詞")) |>
-  tidyr::drop_na() |>
-  gibasa::pack(Original) |>
+  dplyr::mutate(
+    token = dplyr::if_else(is.na(Original), token, Original)
+  ) |>
+  gibasa::mute_tokens(POS1 %in% c("助詞", "助動詞", "記号")) |>
+  gibasa::mute_tokens(token %in% quanteda::stopwords("ja", "marimo")) |>
+  gibasa::collapse_tokens(
+    POS1 == "名詞" & stringr::str_detect(token, "^[一-龠]+$")
+  ) |>
+  gibasa::pack() |>
   dplyr::left_join(corp, by = "doc_id") |>
   quanteda::corpus()
 ```
@@ -98,15 +105,20 @@ corp |>
   quanteda::dfm() |>
   quanteda::dfm_group(groups = category) |>
   quanteda::dfm_trim(min_termfreq = 10L) |>
-  quanteda.textplots::textplot_wordcloud(color = viridisLite::cividis(8L))
+  quanteda.textplots::textplot_wordcloud(color = viridisLite::turbo(8))
 ```
 
 ## 出現頻度の集計
 
 ```{r stats}
 corp |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
+  quanteda::dfm_trim(max_termfreq = 300L) |>
   quanteda::dfm_weight("prop") |>
   quanteda.textstats::textstat_frequency(groups = category) |>
   dplyr::top_n(-30L, rank) |>
@@ -115,6 +127,7 @@ corp |>
     y = "frequency",
     group = "group",
     color = "group",
+    palette = viridisLite::turbo(9),
     rotate = TRUE
   ) +
   ggplot2::theme_bw()
@@ -126,8 +139,13 @@ ITライフハック（`it-life-hack`）グループの文書とその他の対�
 
 ```{r keyness}
 corp |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
+  quanteda::dfm_trim(max_termfreq = 300L) |>
   quanteda::dfm_group(groups = category) |>
   quanteda.textstats::textstat_keyness(target = "it-life-hack") |>
   quanteda.textplots::textplot_keyness()
@@ -142,8 +160,13 @@ corp |>
 ```{r ca}
 corp_sample <- quanteda::corpus_sample(corp, size = 32L)
 corp_sample |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
+  quanteda::dfm_trim(max_termfreq = 300L) |>
   quanteda::dfm_weight(scheme = "prop") |>
   quanteda.textmodels::textmodel_ca() |>
   quanteda.textplots::textplot_scale1d(
@@ -158,8 +181,13 @@ corp_sample |>
 
 ```{r network}
 corp_sample |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
+  quanteda::dfm_trim(max_termfreq = 300L) |>
   quanteda::dfm_group(groups = category) |>
   quanteda::dfm_trim(min_termfreq = 15L) |>
   quanteda::fcm() |>
@@ -172,7 +200,11 @@ corp_sample |>
 
 ```{r clust}
 d <- corp_sample |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
   quanteda::dfm_weight(scheme = "prop") |>
   quanteda.textstats::textstat_dist(method = "manhattan") |>
@@ -192,10 +224,15 @@ d <- corp_sample |>
 
 ggplot2::ggplot(ggdendro::segment(d)) +
   ggplot2::geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
-  ggplot2::geom_text(ggdendro::label(d), mapping = aes(x, y, label = names, colour = category, hjust = 0), size = 3) +
+  ggplot2::geom_text(
+    ggdendro::label(d),
+    mapping = aes(x, y, label = names, colour = category, hjust = 0),
+    size = 3
+  ) +
   ggplot2::coord_flip() +
   ggplot2::scale_y_reverse(expand = c(.2, 0)) +
-  ggdendro::theme_dendro()
+  ggdendro::theme_dendro() +
+  ggplot2::scale_color_manual(values = viridisLite::turbo(9))
 ```
 
 ## LDA（Latent Dirichlet Allocation）
@@ -206,12 +243,20 @@ LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に�
 
 ```{r lda_1}
 dtm <- corp |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
   quanteda::dfm_tfidf()
 
 features <- corp |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   quanteda::dfm() |>
   quanteda::ntoken()
 
@@ -224,37 +269,17 @@ m$phi |>
   reactable::reactable(compact = TRUE)
 ```
 
-LDAvisで可視化してみます（デフォルトエンコーディングがCP932であるWindows環境の場合、`LDAvis::createJSON`で書き出されるラベル（vocab）のエンコーディングがそっちに引きずられてCP932になってしまうため、ブラウザで表示したときにラベルが文字化けします。書き出されたlda.jsonをUTF-8に変換すれば文字化けは解消されるので、その場合は、あとから変換して上書きするとよいです）。
-
-```r
-suppressWarnings({
-  LDAvis::createJSON(
-    phi = m$phi,
-    theta = m$theta,
-    doc.length = features,
-    vocab = stringi::stri_enc_toutf8(dtm@Dimnames$features),
-    term.frequency = quanteda::colSums(dtm)
-  ) |>
-    LDAvis::serVis(open.browser = FALSE, out.dir = file.path(getwd(), "cache/ldavis"))
-})
-
-if (getRversion() < "4.2.0") {
-  readr::read_lines_raw(file.path(getwd(), "cache/ldavis", "lda.json")) %>%
-    iconv(from = "CP932", to = "UTF-8") %>%
-    jsonlite::parse_json(simplifyVector = TRUE) %>%
-    jsonlite::write_json(file.path(getwd(), "cache/ldavis", "lda.json"), dataframe = "columns", auto_unbox = TRUE)
-}
-```
-
-> [LDAvis](https://paithiov909.github.io/shiryo/ldavis/index.html)
-
 ## GloVe
 
 ここでは50次元の埋め込みを得ます。
 
 ```{r glove}
 toks <- corp |>
-  quanteda::tokens(what = "fastestword", remove_punct = TRUE) |>
+  quanteda::tokens(
+    what = "fastestword",
+    remove_punct = TRUE,
+    remove_numbers = TRUE
+  ) |>
   as.list() |>
   text2vec::itoken()
 
@@ -280,8 +305,7 @@ wv_main <- glove$fit_transform(
 )
 
 wv <- (wv_main + t(glove$components)) |>
-  as.data.frame(stringsAsFactors = FALSE) |>
-  tibble::as_tibble(.name_repair = "minimal", rownames = NA)
+  as.data.frame(stringsAsFactors = FALSE)
 ```
 
 [uwot](https://github.com/jlmelville/uwot)で次元を減らして可視化します。色は`stats::kmeans`でクラスタリング（コサイン距離）して付けています。
@@ -307,7 +331,8 @@ vec |>
   ggplot2::ggplot(aes(x = V1, y = V2, colour = cluster)) +
   ggplot2::geom_point() +
   ggrepel::geom_text_repel(aes(label = rowname)) +
-  ggplot2::theme_light()
+  ggplot2::theme_light() +
+  ggplot2::scale_color_manual(values = viridisLite::turbo(9))
 ```
 
 ## セッション情報

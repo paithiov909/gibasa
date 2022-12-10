@@ -43,7 +43,7 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 }
 ```
 
-ここでは、未知語でない語で、かつ、名詞・形容詞・動詞である語についてのみ抽出し、IPA辞書に収録されている原形の分かち書きにします。
+ここでは、未知語でない語で、かつ、名詞・形容詞・動詞である語についてのみ抽出し、IPA辞書に収録されている原形の分かち書きにします。このとき、漢字だけで書かれている名詞の連続については複合名詞と見なし、ひとつのトークンとします。
 
 ```{r prep_corpus_2}
 corpus <- tbl |>
@@ -59,11 +59,16 @@ corpus <- tbl |>
     ) |>
       gibasa::tokenize(split = TRUE) |>
       gibasa::prettify(col_select = c("POS1", "Original")) |>
-      dplyr::filter(
-        POS1 %in% c("名詞", "形容詞", "動詞"),
-        !is.na(Original)
+      dplyr::mutate(
+        token = dplyr::if_else(is.na(Original), token, Original)
       ) |>
-      gibasa::pack(Original)
+      gibasa::mute_tokens(
+        !POS1 %in% c("名詞", "形容詞", "動詞")
+      ) |>
+      gibasa::collapse_tokens(
+        POS1 == "名詞" & stringr::str_detect(token, "^[一-龠]+$")
+      ) |>
+      gibasa::pack()
   }) |>
   purrr::map_dfr(~.) |>
   dplyr::left_join(dplyr::select(tbl, doc_id, category), by = "doc_id")
@@ -103,7 +108,7 @@ corpus_rec <-
     data = corpus_train
   ) |>
   textrecipes::step_tokenize(text, custom_token = space_tokenizer) |>
-  textrecipes::step_tokenfilter(text, min_times = 30L, max_tokens = 200L) |>
+  textrecipes::step_tokenfilter(text, min_times = 30L, max_tokens = 300L) |>
   textrecipes::step_texthash(text, num_terms = 200L)
 ```
 
@@ -127,7 +132,7 @@ corpus_tune_res <-
       dials::sample_prop(),
       dials::loss_reduction(),
       dials::tree_depth(),
-      size = 5L
+      size = 10L
     ),
     metrics = yardstick::metric_set(yardstick::f_meas),
     control = tune::control_grid(save_pred = TRUE)
