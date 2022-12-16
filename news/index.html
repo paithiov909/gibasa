@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,14 +55,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="gibasa-development-version">gibasa (development version)<a class="anchor" aria-label="anchor" href="#gibasa-development-version"></a></h2>
-<ul><li>Added a new function <code>lex_density</code> that can calculate lexical density for dataset.</li>
-<li>Added two new functions <code>mute_tokens</code> and <code>collapse_tokens</code> that can handle tokens in a tidy text dataset.</li>
-<li>Bug fix of <code>bind_tf_idf2</code> function.</li>
+<h2 class="pkg-version" data-toc-text="0.6.0" id="gibasa-060">gibasa 0.6.0<a class="anchor" aria-label="anchor" href="#gibasa-060"></a></h2>
+<ul><li>Functions added in version ‘0.5.1’ was moved to ‘audubon’ package (&gt;= 0.4.0).</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.5.1" id="gibasa-051">gibasa 0.5.1<a class="anchor" aria-label="anchor" href="#gibasa-051"></a></h2>
+<ul><li>Added some new functions.
+<ul><li>
+<code>bind_tf_idf2</code> can calculate and bind the term frequency, inverse document frequency, and tf-idf of the tidy text dataset.</li>
+<li>
+<code>collapse_tokens</code>, <code>mute_tokens</code>, and <code>lexical_density</code> can be used for handling a tidy text dataset of tokens.</li>
+</ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.5.0" id="gibasa-050">gibasa 0.5.0<a class="anchor" aria-label="anchor" href="#gibasa-050"></a></h2>
-<ul><li>gibasa now includes the MeCab source, so that users do not need to pre-install the MeCab library when building and installing the package (to use <code>tokenize</code> without specifying dictionaries, it still requires MeCab and its dictionaries installed and available).</li>
+<ul><li>gibasa now includes the MeCab source, so that users do not need to pre-install the MeCab library when building and installing the package (to use <code>tokenize</code>, it still requires MeCab and its dictionaries installed and available).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.1" id="gibasa-041">gibasa 0.4.1<a class="anchor" aria-label="anchor" href="#gibasa-041"></a></h2>
