@@ -51,11 +51,7 @@ options(repos = c(
 install.packages("gibasa")
 
 # Or build from source package
-<<<<<<< HEAD
-Sys.setenv(MECAB_DEFAULT_RC = "fullpath/to/your/mecabrc") # if necessary
-=======
 Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
->>>>>>> main
 remotes::install_github("paithiov909/gibasa")
 ```
 
@@ -126,7 +122,7 @@ head(gibasa::prettify(res, col_select = 1:3))
 #> 4      1           1        4       は   助詞   係助詞     <NA>
 #> 5      1           1        5       、   記号     読点     <NA>
 #> 6      1           1        6 モリーオ   名詞 固有名詞     地域
-head(gibasa::prettify(res, col_select = c(1,3,5)))
+head(gibasa::prettify(res, col_select = c(1, 3, 5)))
 #>   doc_id sentence_id token_id    token   POS1     POS3 X5StageUse1
 #> 1      1           1        1     その 連体詞     <NA>        <NA>
 #> 2      1           1        2     ころ   名詞 副詞可能        <NA>
