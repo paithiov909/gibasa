@@ -16,7 +16,7 @@ bind_tf_idf2(
 )
 }
 \arguments{
-\item{tbl}{A tidy text dataset with one-row-per-term-per-document.}
+\item{tbl}{A tidy text dataset.}
 
 \item{term}{Column containing terms as string or symbol.}
 
@@ -32,8 +32,8 @@ bind_tf_idf2(
 being divided with L2 norms before computing IDF values.}
 
 \item{rmecab_compat}{Logical; If supplied \code{TRUE}, computes values while
-taking care of compatibility with RMeCab.
-Note that RMeCab always computes IDF values using term frequency
+taking care of compatibility with 'RMeCab'.
+Note that 'RMeCab' always computes IDF values using term frequency
 rather than raw term counts, and thus TF-IDF values may be
 doubly affected by term frequency.}
 }
@@ -42,10 +42,10 @@ data.frame.
 }
 \description{
 Calculates and binds the term frequency, inverse document frequency,
-and tf-idf of the dataset.
+and TF-IDF of the dataset.
 This function experimentally supports 3 types of term frequencies
 and 4 types of inverse document frequencies,
-which are implemented as RMeCab package features.
+which are implemented in 'RMeCab' package.
 }
 \details{
 Types of term frequency can be switched with \code{tf} argument:
@@ -62,19 +62,5 @@ Types of inverse document frequencies can be switched with \code{idf} argument:
 \item \code{idf2} is global frequency IDF.
 \item \code{idf3} is probabilistic IDF of which base is 2.
 \item \code{idf4} is global entropy, not IDF in actual.
-}
-}
-\examples{
-\dontrun{
-df <- tokenize(
-  data.frame(
-    doc_id = seq_along(audubon::polano[5:8]),
-    text = audubon::polano[5:8]
-  )
-)
-df <- dplyr::group_by(df, doc_id) |>
-  dplyr::count(token) |>
-  dplyr::ungroup()
-bind_tf_idf2(df)
 }
 }

@@ -1,13 +1,16 @@
-# gibasa (development version)
+# gibasa 0.6.0
 
-* Added a new function `lex_density` that can calculate lexical density
-for dataset.
-* Added two new functions `mute_tokens` and `collapse_tokens` that can handle tokens in a tidy text dataset.
-* Bug fix of `bind_tf_idf2` function.
+* Functions added in version '0.5.1' was moved to 'audubon' package (>= 0.4.0).
+
+# gibasa 0.5.1
+
+* Added some new functions.
+  * `bind_tf_idf2` can calculate and bind the term frequency, inverse document frequency, and tf-idf of the tidy text dataset.
+  * `collapse_tokens`, `mute_tokens`, and `lexical_density` can be used for handling a tidy text dataset of tokens.
 
 # gibasa 0.5.0
 
-* gibasa now includes the MeCab source, so that users do not need to pre-install the MeCab library when building and installing the package (to use `tokenize` without specifying dictionaries, it still requires MeCab and its dictionaries installed and available).
+* gibasa now includes the MeCab source, so that users do not need to pre-install the MeCab library when building and installing the package (to use `tokenize`, it still requires MeCab and its dictionaries installed and available).
 
 # gibasa 0.4.1
 
