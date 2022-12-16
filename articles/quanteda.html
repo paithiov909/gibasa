@@ -77,7 +77,7 @@
 
 
 
-<script src="quanteda_files/core-js-2.5.3/shim.min.js"></script><script src="quanteda_files/react-17.0.0/react.min.js"></script><script src="quanteda_files/react-17.0.0/react-dom.min.js"></script><script src="quanteda_files/reactwidget-1.0.0/react-tools.js"></script><script src="quanteda_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="quanteda_files/reactable-0.4.1/reactable.css" rel="stylesheet">
+<script src="quanteda_files/core-js-2.5.3/shim.min.js"></script><script src="quanteda_files/react-17.0.0/react.min.js"></script><script src="quanteda_files/react-17.0.0/react-dom.min.js"></script><script src="quanteda_files/reactwidget-1.0.0/react-tools.js"></script><script src="quanteda_files/htmlwidgets-1.6.0/htmlwidgets.js"></script><link href="quanteda_files/reactable-0.4.1/reactable.css" rel="stylesheet">
 <script src="quanteda_files/reactable-binding-0.4.1/reactable.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Text Mining with quanteda and gibasa</h1>
@@ -339,7 +339,7 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span><span class="va">m</span><span class="op">$</span><span class="va">phi</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">textmineR</span><span class="fu">::</span><span class="fu"><a href="https://www.rtextmineR.com/reference/GetTopTerms.html" class="external-link">GetTopTerms</a></span><span class="op">(</span><span class="fl">15L</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">reactable</span><span class="fu">::</span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span>compact <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div id="htmlwidget-f768da0355ab4ddca0d8" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<div class="reactable html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f768da0355ab4ddca0d8" style="width:auto;height:auto;"></div>
 <script type="application/json" data-for="htmlwidget-f768da0355ab4ddca0d8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"t_1":["ご","食べる","プレゼント","紺子","トレーニング","お","応募","peachy","料理","香り","野菜","いただく","円","きのこ","クリスマス"],"t_2":["ゴルフ","レッスン","ゴルファー","コース","クラブ","スーツ","スイング","スピード","シャフト","パター","コーヒー","ー","ラウンド","デート","ティファニー・ティーセン"],"t_3":["さん","結婚","歳","ん","女性","女","笑","独女","男","人","ー","男性","思う","いい","恋愛"],"t_4":["ソフトウェア","更新","転職","画面","年収","表示","アプリ","設定","ケータイアップデート","クリック","得る","虎の巻","データ","ファイル","ビジネス"],"t_5":["android","d","s","galaxy","ドコモ","スマート","アプリ","フォン","max","htc","wi","対応","fi","au","sh"],"t_6":["通","pc","ultrabook","ssd","ノート","製品","windows","デジ","ロゴ","自転車","mac","パソコン","google","dropbox","lan"],"t_7":["掲示板","ネット","試合","サッカー","発言","韓国","選手","akb","日本代表","sports","ツイッター","てる","watch","なでしこ","w"],"t_8":["肌","話題","ケア","売れ筋","パナソニック","大島椿","ニキビ","家電","韓国","ジョブズ","万台","ヘア","クリーム","節電","メイク"],"t_9":["映画","ドラマ","本作","作品","演じる","公開","監督","描く","人間","シーン","観る","ジョン","dvd","特集","カーター"]},"columns":[{"id":"t_1","name":"t_1","type":"character"},{"id":"t_2","name":"t_2","type":"character"},{"id":"t_3","name":"t_3","type":"character"},{"id":"t_4","name":"t_4","type":"character"},{"id":"t_5","name":"t_5","type":"character"},{"id":"t_6","name":"t_6","type":"character"},{"id":"t_7","name":"t_7","type":"character"},{"id":"t_8","name":"t_8","type":"character"},{"id":"t_9","name":"t_9","type":"character"}],"compact":true,"dataKey":"7bbb25b4eff7a9a6d746e5009861fced"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="section level2">
@@ -376,16 +376,16 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span>  x <span class="op">=</span> <span class="va">tcm</span>,</span>
 <span>  n_iter <span class="op">=</span> <span class="fl">10L</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; INFO  [17:18:12.420] epoch 1, loss 0.1314</span></span>
-<span><span class="co">#&gt; INFO  [17:18:12.951] epoch 2, loss 0.0795</span></span>
-<span><span class="co">#&gt; INFO  [17:18:13.462] epoch 3, loss 0.0669</span></span>
-<span><span class="co">#&gt; INFO  [17:18:13.965] epoch 4, loss 0.0597</span></span>
-<span><span class="co">#&gt; INFO  [17:18:14.465] epoch 5, loss 0.0547</span></span>
-<span><span class="co">#&gt; INFO  [17:18:14.963] epoch 6, loss 0.0510</span></span>
-<span><span class="co">#&gt; INFO  [17:18:15.466] epoch 7, loss 0.0481</span></span>
-<span><span class="co">#&gt; INFO  [17:18:15.964] epoch 8, loss 0.0458</span></span>
-<span><span class="co">#&gt; INFO  [17:18:16.463] epoch 9, loss 0.0439</span></span>
-<span><span class="co">#&gt; INFO  [17:18:16.963] epoch 10, loss 0.0424</span></span>
+<span><span class="co">#&gt; INFO  [18:29:44.449] epoch 1, loss 0.1314</span></span>
+<span><span class="co">#&gt; INFO  [18:29:44.985] epoch 2, loss 0.0795</span></span>
+<span><span class="co">#&gt; INFO  [18:29:45.501] epoch 3, loss 0.0669</span></span>
+<span><span class="co">#&gt; INFO  [18:29:46.011] epoch 4, loss 0.0597</span></span>
+<span><span class="co">#&gt; INFO  [18:29:46.520] epoch 5, loss 0.0547</span></span>
+<span><span class="co">#&gt; INFO  [18:29:47.029] epoch 6, loss 0.0510</span></span>
+<span><span class="co">#&gt; INFO  [18:29:47.539] epoch 7, loss 0.0481</span></span>
+<span><span class="co">#&gt; INFO  [18:29:48.046] epoch 8, loss 0.0458</span></span>
+<span><span class="co">#&gt; INFO  [18:29:48.556] epoch 9, loss 0.0439</span></span>
+<span><span class="co">#&gt; INFO  [18:29:49.062] epoch 10, loss 0.0423</span></span>
 <span></span>
 <span><span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -436,11 +436,11 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package            </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version        </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
 <span><span class="co">#&gt;  abind                 1.4-5           <span style="color: #555555;">2016-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  audubon               0.4.0           <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
+<span><span class="co">#&gt;  audubon               0.4.0           <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  backports             1.4.1           <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  bit                   4.0.5           <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  bit64                 4.0.5           <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  broom                 1.0.2           <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
+<span><span class="co">#&gt;  broom                 1.0.2           <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  bslib                 0.4.1           <span style="color: #555555;">2022-11-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  cachem                1.0.6           <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  car                   3.1-1           <span style="color: #555555;">2022-10-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -479,7 +479,7 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span><span class="co">#&gt;  highr                 0.9             <span style="color: #555555;">2021-04-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  hms                   1.1.2           <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  htmltools             0.5.4           <span style="color: #555555;">2022-12-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  htmlwidgets           1.5.4           <span style="color: #555555;">2021-09-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  htmlwidgets           1.6.0           <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  iterators             1.0.14          <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jquerylib             0.1.4           <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jsonlite              1.8.4           <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -521,7 +521,7 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span><span class="co">#&gt;  readr                 2.1.3           <span style="color: #555555;">2022-10-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  RhpcBLASctl           0.21-247.1      <span style="color: #555555;">2021-11-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  rlang                 1.0.6           <span style="color: #555555;">2022-09-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  rmarkdown             2.18            <span style="color: #555555;">2022-11-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rmarkdown             2.19            <span style="color: #555555;">2022-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  rprojroot             2.0.3           <span style="color: #555555;">2022-04-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  rsparse               0.5.1           <span style="color: #555555;">2022-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  RSpectra              0.16-1          <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -556,7 +556,7 @@ LDAなどの実装を含む<a href="https://github.com/keyATM/keyATM" class="ext
 <span><span class="co">#&gt;  xfun                  0.35            <span style="color: #555555;">2022-11-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  yaml                  2.3.6           <span style="color: #555555;">2022-10-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpEct76f/temp_libpath3cf112a26cde</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpiDxpZ2/temp_libpath3bef4ba42449</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.2/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.2.2/lib/R/library</span></span></span>
