@@ -60,5 +60,5 @@ pack(df)
 }
 }
 \seealso{
-\url{https://github.com/ropensci/tif}
+\url{https://github.com/ropenscilabs/tif}
 }
