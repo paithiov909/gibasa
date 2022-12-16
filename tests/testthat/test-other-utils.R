@@ -1,7 +1,32 @@
+testdata <- readRDS(file.path("../testdata.rda"))
+
+### is_blank ----
+test_that("is_blank works", {
+  expect_true(is_blank(NaN))
+  expect_true(is_blank(NA_character_))
+  expect_true(is_blank(NULL))
+  expect_true(is_blank(list()))
+  expect_true(is_blank(c()))
+  expect_true(is_blank(data.frame()))
+  expect_equal(
+    c(TRUE, TRUE, TRUE, FALSE),
+    is_blank(list(NA_character_, NA_integer_, NULL, "test"))
+  )
+})
+
+### pack ----
+test_that("pack works", {
+  res <- pack(testdata[[7]])
+  expect_equal(nrow(res), 50L)
+})
+
 ### prettify ----
 test_that("prettify works", {
   skip_on_cran()
+<<<<<<< HEAD:tests/testthat/test-prettify.R
   # skip_on_os("mac")
+=======
+>>>>>>> main:tests/testthat/test-other-utils.R
 
   df <- gbs_tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
   expect_error(prettify(df, col_select = c(1, 10)))
@@ -20,4 +45,5 @@ test_that("get_dict_features works", {
   expect_equal(length(get_dict_features("cc-cedict")), 8L)
   expect_equal(length(get_dict_features("ko-dic")), 8L)
   expect_equal(length(get_dict_features("naist11")), 11L)
+  expect_equal(length(get_dict_features("sudachi")), 6L)
 })

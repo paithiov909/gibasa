@@ -5,7 +5,7 @@
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.
 #' @param user_dic Character scalar; path to the user dictionary for mecab.
-#' @param split Logical. If true, the function internally splits the sentence
+#' @param split Logical. If supplied `TRUE`, the function internally splits the sentence
 #' into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.
 #' @param mode Character scalar to switch output format.
 #' @return data.frame or named list.
@@ -56,7 +56,7 @@ gbs_tokenize <- function(sentence,
 #' \dontrun{
 #' df <- tokenize(
 #'   data.frame(
-#'     doc_id = seq_len(length(audubon::polano[5:8])),
+#'     doc_id = seq_along(audubon::polano[5:8]),
 #'     text = audubon::polano[5:8]
 #'   )
 #' )
@@ -101,7 +101,7 @@ tokenize <- function(tbl,
 
 #' @noRd
 tagger_impl <- function(sentence, sys_dic, user_dic, split) {
-  if (identical(split, TRUE)) {
+  if (isTRUE(split)) {
     res <-
       purrr::imap_dfr(sentence, function(vec, doc_id) {
         vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
@@ -121,7 +121,7 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split) {
         ),
         by = "sentence_id"
       ) %>%
-      dplyr::relocate(.data$doc_id, dplyr::everything())
+      dplyr::relocate("doc_id", dplyr::everything())
   }
   res %>%
     dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%

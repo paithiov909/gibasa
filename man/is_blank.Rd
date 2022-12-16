@@ -19,3 +19,6 @@ Logical.
 \description{
 Check if scalars are blank
 }
+\examples{
+is_blank(list(c(a = "", b = NA_character_), NULL))
+}

@@ -27,7 +27,11 @@ gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形�
 
 ### インストールの仕方
 
+<<<<<<< HEAD
 [r-universe]((https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
+=======
+[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
+>>>>>>> main
 
 ```r
 # Enable repository from paithiov909
@@ -42,7 +46,11 @@ install.packages("gibasa")
 バイナリパッケージが用意されていない環境では、ソースパッケージをビルドしてインストールします。ビルド時に`MECAB_DEFAULT_RC`という環境変数を内部的に指定するため、正しく動作させるにはmecabrcとMeCabの辞書があらかじめ適切な位置に配置されている必要があります。使っているOSのパッケージマネージャなどからインストールしておいてください。
 
 ```r
+<<<<<<< HEAD
 # Sys.setenv(MECAB_DEFAULT_RC = "fullpath/to/your/mecabrc") # if necessary
+=======
+# Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
+>>>>>>> main
 remotes::install_github("paithiov909/gibasa")
 ```
 
@@ -77,7 +85,7 @@ head(res)
 ```{r prettify}
 head(gibasa::prettify(res))
 head(gibasa::prettify(res, col_select = 1:3))
-head(gibasa::prettify(res, col_select = c(1,3,5)))
+head(gibasa::prettify(res, col_select = c(1, 3, 5)))
 head(gibasa::prettify(res, col_select = c("POS1", "Original")))
 ```
 
@@ -92,8 +100,6 @@ gibasa::pack(res, POS1)
 ### ベンチマーク
 
 [TokyoR #98](https://tokyor.connpass.com/event/244200/)での[LTのスライド](https://paithiov909.github.io/shiryo/gibasa/#11)でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもmecabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。
-
-ただ、gibasaには形態素解析する以外の機能はないので、目的にあわせて好みで使ってください。
 
 ```r
 dat <- data.frame(
@@ -142,7 +148,7 @@ ggplot2::autoplot(bench)
 tmp <- tempfile(fileext = ".zip")
 download.file("https://github.com/paithiov909/shiryo/raw/main/data/aozora.csv.zip", tmp)
 
-tbl <- readr::read_csv(tmp, col_types = "cccf") |> 
+tbl <- readr::read_csv(tmp, col_types = "cccf") |>
   dplyr::mutate(author = as.factor(author))
 ```
 
@@ -161,12 +167,14 @@ dplyr::glimpse(tbl)
 ```{r nchar_dataset1}
 tbl |>
   dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::group_by(author) |> 
-  dplyr::summarise(nchar_mean = mean(nchar),
-                   nchar_median = median(nchar),
-                   nchar_min = min(nchar),
-                   nchar_max = max(nchar),
-                   n = dplyr::n()) |> 
+  dplyr::group_by(author) |>
+  dplyr::summarise(
+    nchar_mean = mean(nchar),
+    nchar_median = median(nchar),
+    nchar_min = min(nchar),
+    nchar_max = max(nchar),
+    n = dplyr::n()
+  ) |>
   dplyr::mutate(across(where(is.numeric), trunc))
 ```
 
@@ -179,13 +187,13 @@ dplyr::filter(tbl, title == "ファウスト") |>
 
 gbs_split_t <- function() {
   dplyr::filter(tbl, title == "ファウスト") |>
-  gibasa::tokenize(split = TRUE) |> 
-  nrow()
+    gibasa::tokenize(split = TRUE) |>
+    nrow()
 }
 gbs_split_f <- function() {
   dplyr::filter(tbl, title == "ファウスト") |>
-  gibasa::tokenize(split = FALSE) |> 
-  nrow()
+    gibasa::tokenize(split = FALSE) |>
+    nrow()
 }
 
 gbs_split_t()
@@ -210,12 +218,14 @@ ggplot2::autoplot(bench)
 tbl <- dplyr::filter(tbl, nchar(text) < 5000)
 tbl |>
   dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::group_by(author) |> 
-  dplyr::summarise(nchar_mean = mean(nchar),
-                   nchar_median = median(nchar),
-                   nchar_min = min(nchar),
-                   nchar_max = max(nchar),
-                   n = dplyr::n()) |> 
+  dplyr::group_by(author) |>
+  dplyr::summarise(
+    nchar_mean = mean(nchar),
+    nchar_median = median(nchar),
+    nchar_min = min(nchar),
+    nchar_max = max(nchar),
+    n = dplyr::n()
+  ) |>
   dplyr::mutate(across(where(is.numeric), trunc))
 ```
 
@@ -227,20 +237,24 @@ tbl |>
 
 ```{r cast_corpus}
 corp <- tbl |>
-  dplyr::mutate(text = audubon::strj_normalize(text),
-                chunk = dplyr::ntile(doc_id, 10)) |>
+  dplyr::mutate(
+    text = audubon::strj_normalize(text),
+    chunk = dplyr::ntile(doc_id, 10)
+  ) |>
   dplyr::group_by(chunk) |>
   dplyr::group_map(function(df, idx) {
     data.frame(
       doc_id = df$doc_id,
       text = df$text
-    ) |> 
-    gibasa::tokenize(split = TRUE) |> 
-    gibasa::prettify(col_select = c("POS1", "Original")) |>
-    dplyr::filter(POS1 %in% c("名詞", "形容詞", "動詞"),
-                  !is.na(Original)) |>
-    dplyr::mutate(token = stringr::str_c(Original, POS1, sep = "/")) |>
-    gibasa::pack(token)
+    ) |>
+      gibasa::tokenize(split = TRUE) |>
+      gibasa::prettify(col_select = c("POS1", "Original")) |>
+      dplyr::filter(
+        POS1 %in% c("名詞", "形容詞", "動詞"),
+        !is.na(Original)
+      ) |>
+      dplyr::mutate(token = stringr::str_c(Original, POS1, sep = "/")) |>
+      gibasa::pack(token)
   }) |>
   purrr::map_dfr(~.) |>
   dplyr::left_join(dplyr::select(tbl, doc_id, author), by = "doc_id") |>

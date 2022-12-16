@@ -8,13 +8,13 @@ cast_sparse <- function(data, row, column, value, ...) {
   }
   data <- dplyr::ungroup(data)
   data <- dplyr::distinct(data, !!sym(row_col), !!sym(column_col), .keep_all = TRUE)
-  row_names <- data[[row_col]]
-  col_names <- data[[column_col]]
+  row_names <- dplyr::pull(data, row_col)
+  col_names <- dplyr::pull(data, column_col)
   if (is.numeric(value_col)) {
     values <- value_col
   } else {
     value_col <- as_name(value_col)
-    values <- data[[value_col]]
+    values <- dplyr::pull(data, value_col)
   }
 
   # if it's a factor, preserve ordering
@@ -72,12 +72,31 @@ global_idf3 <- function(sp) {
 
 # entropy
 global_entropy <- function(sp) {
-  p <- sp / Matrix::colSums(sp, na.rm = TRUE)
+  pj <- Matrix::t(sp) / Matrix::colSums(sp, na.rm = TRUE)
   ndocs <- nrow(sp)
-  1 - (-Matrix::colSums((p * log(p)) / log(ndocs), na.rm = TRUE))
+  1 + (Matrix::rowSums((pj * log(pj)), na.rm = TRUE) / log(ndocs))
 }
 
 #' Bind the term frequency and inverse document frequency
+#'
+#' Calculates and binds the term frequency, inverse document frequency,
+#' and tf-idf of the dataset.
+#' This function experimentally supports 3 types of term frequencies
+#' and 4 types of inverse document frequencies,
+#' which are implemented as RMeCab package features.
+#'
+#' @details
+#' Types of term frequency can be switched with `tf` argument:
+#' * `tf` is term frequency (not raw count of terms).
+#' * `tf2` is logarithmic term frequency of which base is 10.
+#' * `tf3` is binary-weighted term frequency.
+#'
+#' Types of inverse document frequencies can be switched with `idf` argument:
+#' * `idf` is inverse document frequency of which base is 2, with smoothed.
+#' 'smoothed' here means just adding 1 to raw counts after logarithmizing.
+#' * `idf2` is global frequency IDF.
+#' * `idf3` is probabilistic IDF of which base is 2.
+#' * `idf4` is global entropy, not IDF in actual.
 #'
 #' @param tbl A tidy text dataset with one-row-per-term-per-document.
 #' @param term Column containing terms as string or symbol.
@@ -85,25 +104,36 @@ global_entropy <- function(sp) {
 #' @param n Column containing document-term counts as string or symbol.
 #' @param tf Method for computing term frequency.
 #' @param idf Method for computing inverse document frequency.
-#' @param norm Logical; If true, the raw term frequencies are nomalized
-#' as divided with L2 norms before computing values.
+#' @param norm Logical; If supplied `TRUE`, the raw term counts are normalized
+#' being divided with L2 norms before computing IDF values.
+#' @param rmecab_compat Logical; If supplied `TRUE`, computes values while
+#' taking care of compatibility with RMeCab.
+#' Note that RMeCab always computes IDF values using term frequency
+#' rather than raw term counts, and thus TF-IDF values may be
+#' doubly affected by term frequency.
 #' @return data.frame.
+#' @export
 #' @examples
 #' \dontrun{
-#' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
+#' df <- tokenize(
+#'   data.frame(
+#'     doc_id = seq_along(audubon::polano[5:8]),
+#'     text = audubon::polano[5:8]
+#'   )
+#' )
 #' df <- dplyr::group_by(df, doc_id) |>
 #'   dplyr::count(token) |>
 #'   dplyr::ungroup()
 #' bind_tf_idf2(df)
 #' }
-#' @export
 bind_tf_idf2 <- function(tbl,
                          term = "token",
                          document = "doc_id",
                          n = "n",
                          tf = c("tf", "tf2", "tf3"),
                          idf = c("idf", "idf2", "idf3", "idf4"),
-                         norm = FALSE) {
+                         norm = FALSE,
+                         rmecab_compat = TRUE) {
   tf <- rlang::arg_match(tf)
   idf <- rlang::arg_match(idf)
 
@@ -111,14 +141,11 @@ bind_tf_idf2 <- function(tbl,
   document <- as_name(ensym(document))
   n_col <- as_name(ensym(n))
 
-  sp <- cast_sparse(tbl, !!document, !!term, !!n_col)
-  if (isTRUE(norm)) {
-    sp <- Matrix::t(Matrix::t(sp) * (1 / sqrt(Matrix::rowSums((sp * sp)))))
-  }
+  tbl <- dplyr::ungroup(tbl)
 
-  terms <- as.character(tbl[[term]])
-  documents <- as.character(tbl[[document]])
-  n <- tbl[[n_col]]
+  terms <- as.character(dplyr::pull(tbl, term))
+  documents <- as.character(dplyr::pull(tbl, document))
+  n <- dplyr::pull(tbl, n_col)
 
   doc_totals <- tapply(
     n, documents,
@@ -130,21 +157,31 @@ bind_tf_idf2 <- function(tbl,
       )
     }
   )
+  if (identical(tf, "tf")) {
+    tbl <- dplyr::mutate(tbl, tf = .data$n / as.numeric(doc_totals[documents]))
+  } else {
+    tbl <- dplyr::mutate(tbl, tf = purrr::flatten_dbl(doc_totals))
+  }
 
+  if (isTRUE(rmecab_compat)) {
+    sp <- cast_sparse(tbl, !!document, !!term, "tf")
+  } else {
+    sp <- cast_sparse(tbl, !!document, !!term, !!n_col)
+  }
+
+  if (isTRUE(norm)) {
+    sp <- Matrix::t(Matrix::t(sp) * (1 / sqrt(Matrix::rowSums((sp * sp)))))
+  }
   idf <- switch(idf,
     idf = global_idf(sp),
     idf2 = global_idf2(sp),
     idf3 = global_idf3(sp),
     idf4 = global_entropy(sp)
   )
-
-  if (identical(tf, "tf")) {
-    tbl$tf <- n / as.numeric(doc_totals[documents])
-  } else {
-    tbl$tf <- purrr::flatten_dbl(doc_totals)
-  }
-  tbl$idf <- as.numeric(idf[terms])
-  tbl$tf_idf <- tbl$tf * tbl$idf
+  tbl <- dplyr::mutate(tbl,
+    idf = as.numeric(idf[terms]),
+    tf_idf = .data$tf * .data$idf
+  )
 
   tbl
 }

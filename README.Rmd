@@ -20,11 +20,12 @@ require(gibasa)
 [![gibasa status badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-universe.dev)
 ![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
+[![codecov](https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg)](https://codecov.io/gh/paithiov909/gibasa)
 <!-- badges: end -->
 
 ## Overview
 
-Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK tokenizer and morphological analysis tool.
+Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK tokenizer and morphological analysis tool for R.
 
 The main goal of gibasa package is to provide an alternative to `tidytext::unnest_tokens` for CJK text data.
 For analyzing CJK text data, it usually requires part-of-speech tagging,
@@ -52,7 +53,11 @@ options(repos = c(
 install.packages("gibasa")
 
 # Or build from source package
+<<<<<<< HEAD
 Sys.setenv(MECAB_DEFAULT_RC = "fullpath/to/your/mecabrc") # if necessary
+=======
+Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
+>>>>>>> main
 remotes::install_github("paithiov909/gibasa")
 ```
 
@@ -82,7 +87,7 @@ head(res)
 ```{r}
 head(gibasa::prettify(res))
 head(gibasa::prettify(res, col_select = 1:3))
-head(gibasa::prettify(res, col_select = c(1,3,5)))
+head(gibasa::prettify(res, col_select = c(1, 3, 5)))
 head(gibasa::prettify(res, col_select = c("POS1", "Original")))
 ```
 
@@ -91,7 +96,14 @@ head(gibasa::prettify(res, col_select = c("POS1", "Original")))
 ```{r}
 res <- gibasa::prettify(res)
 gibasa::pack(res)
-gibasa::pack(res, POS1)
+
+dplyr::mutate(
+  res,
+  token = dplyr::if_else(is.na(Original), token, Original),
+  token = paste(token, POS1, sep = "/")
+) |>
+  gibasa::pack() |>
+  head(1L)
 ```
 
 ### Change dictionary
@@ -100,7 +112,7 @@ IPA, [UniDic](https://clrd.ninjal.ac.jp/unidic/), [CC-CEDICT-MeCab](https://gith
 
 ```r
 ## UniDic 2.1.2
-gibasa::gbs_tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/mecab/unidic-lite") |> 
+gibasa::gbs_tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/Downloads/unidic-lite") |> 
     gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
     head()
 #>   doc_id sentence_id token_id          token   POS1     POS2 POS3 POS4
@@ -112,48 +124,49 @@ gibasa::gbs_tokenize("あのイーハトーヴォのすきとおった風", sys_
 #> 6      1           1        6             風   名詞 普通名詞 一般 <NA>
 #>       cType         cForm      lForm    lemma       orth       pron   orthBase
 #> 1      <NA>          <NA>       アノ     あの       あの       アノ       あの
-#> 2      <NA>          <NA>                                                     
+#> 2      <NA>          <NA>       <NA>     <NA>       <NA>       <NA>       <NA>
 #> 3      <NA>          <NA>         ノ       の         の         ノ         の
 #> 4 五段-ラ行 連用形-促音便 スキトオル 透き通る すきとおっ スキトーッ すきとおる
 #> 5 助動詞-タ   連体形-一般         タ       た         た         タ         た
 #> 6      <NA>          <NA>       カゼ       風         風       カゼ         風
 #>     pronBase goshu iType iForm fType fForm       kana   kanaBase       form
 #> 1       アノ    和  <NA>  <NA>  <NA>  <NA>       アノ       アノ       アノ
-#> 2                                                                          
+#> 2       <NA>  <NA>  <NA>  <NA>  <NA>  <NA>       <NA>       <NA>       <NA>
 #> 3         ノ    和  <NA>  <NA>  <NA>  <NA>         ノ         ノ         ノ
 #> 4 スキトール    和  <NA>  <NA>  <NA>  <NA> スキトオッ スキトオル スキトオッ
 #> 5         タ    和  <NA>  <NA>  <NA>  <NA>         タ         タ         タ
 #> 6       カゼ    和  <NA>  <NA>  <NA>  <NA>       カゼ       カゼ       カゼ
 #>     formBase iConType fConType aType               aConType aModeType
 #> 1       アノ     <NA>     <NA>     0                   <NA>      <NA>
-#> 2                                                                    
+#> 2       <NA>     <NA>     <NA>  <NA>                   <NA>      <NA>
 #> 3         ノ     <NA>     <NA>  <NA>                名詞%F1      <NA>
 #> 4 スキトオル     <NA>     <NA>     3                     C1      <NA>
 #> 5         タ     <NA>     <NA>  <NA> 動詞%F2@1,形容詞%F4@-2      <NA>
 #> 6       カゼ     <NA>     <NA>     0                     C4      <NA>
 
+
 ## CC-CEDICT
-gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/mecab/cc-cedict") |> 
+gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |> 
     gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
-#>   doc_id sentence_id token_id            token POS1 POS2 POS3 POS4 pinyin_pron
-#> 1      1           1        1               它 <NA> <NA> <NA> <NA>         ta1
-#> 2      1           1        2             可以 <NA> <NA> <NA> <NA>     ke3 yi3
-#> 3      1           1        3       <U+8FDB>行 <NA> <NA> <NA> <NA>  jin4 xing2
-#> 4      1           1        4       日<U+8BED> <NA> <NA> <NA> <NA>     Ri4 yu3
-#> 5      1           1        5               和 <NA> <NA> <NA> <NA>         he2
-#> 6      1           1        6 <U+6C49><U+8BED> <NA> <NA> <NA> <NA>    Han4 yu3
-#> 7      1           1        7               的 <NA> <NA> <NA> <NA>         di4
-#> 8      1           1        8 <U+8BED><U+6001> <NA> <NA> <NA> <NA>    yu3 tai4
-#> 9      1           1        9             分析 <NA> <NA> <NA> <NA>    fen1 xi1
+#>   doc_id sentence_id token_id token POS1 POS2 POS3 POS4 pinyin_pron
+#> 1      1           1        1    它 <NA> <NA> <NA> <NA>         ta1
+#> 2      1           1        2  可以 <NA> <NA> <NA> <NA>     ke3 yi3
+#> 3      1           1        3  进行 <NA> <NA> <NA> <NA>  jin4 xing2
+#> 4      1           1        4  日语 <NA> <NA> <NA> <NA>     Ri4 yu3
+#> 5      1           1        5    和 <NA> <NA> <NA> <NA>         he2
+#> 6      1           1        6  汉语 <NA> <NA> <NA> <NA>    Han4 yu3
+#> 7      1           1        7    的 <NA> <NA> <NA> <NA>         di4
+#> 8      1           1        8  语态 <NA> <NA> <NA> <NA>    yu3 tai4
+#> 9      1           1        9  分析 <NA> <NA> <NA> <NA>    fen1 xi1
 #>   traditional_char_form simplified_char_form
 #> 1                    它                   它
 #> 2                  可以                 可以
-#> 3                  進行           <U+8FDB>行
-#> 4                  日語           日<U+8BED>
-#> 5              <U+9FA2>                   和
-#> 6                  漢語     <U+6C49><U+8BED>
+#> 3                  進行                 进行
+#> 4                  日語                 日语
+#> 5                    龢                   和
+#> 6                  漢語                 汉语
 #> 7                    的                   的
-#> 8                  語態     <U+8BED><U+6001>
+#> 8                  語態                 语态
 #> 9                  分析                 分析
 #>                                                                              definition
 #> 1                                                                                   it/
@@ -161,29 +174,25 @@ gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = 
 #> 3 to advance/to conduct/underway/in progress/to do/to carry out/to carry on/to execute/
 #> 4                                                                    Japanese language/
 #> 5                                                    old variant of 和[he2]/harmonious/
-#> 6                                                Chinese language/CL:門|<U+95E8>[men2]/
+#> 6                                                      Chinese language/CL:門|门[men2]/
 #> 7                                                                            aim/clear/
 #> 8                                                                      voice (grammar)/
 #> 9                                                    to analyze/analysis/CL:個|个[ge4]/
 
-## mecan-ko-dic
-gibasa::gbs_tokenize("하네다공항한정토트백", sys_dic = "/mecab/mecab-ko-dic") |> 
+
+## mecab-ko-dic
+gibasa::gbs_tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |> 
     gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
-#>   doc_id sentence_id token_id                    token POS          meaning
-#> 1      1           1        1 <U+D558><U+B124><U+B2E4> NNP <U+C778><U+BA85>
-#> 2      1           1        2         <U+ACF5><U+D56D> NNG <U+C7A5><U+C18C>
-#> 3      1           1        3         <U+D55C><U+C815> NNG             <NA>
-#> 4      1           1        4 <U+D1A0><U+D2B8><U+BC31> NNG             <NA>
-#>   presence                  reading     type first_pos last_pos
-#> 1        F <U+D558><U+B124><U+B2E4>     <NA>      <NA>     <NA>
-#> 2        T         <U+ACF5><U+D56D>     <NA>      <NA>     <NA>
-#> 3        T         <U+D55C><U+C815>     <NA>      <NA>     <NA>
-#> 4        T <U+D1A0><U+D2B8><U+BC31> Compound      <NA>     <NA>
-#>                                             expression
-#> 1                                                 <NA>
-#> 2                                                 <NA>
-#> 3                                                 <NA>
-#> 4 <U+D1A0><U+D2B8>/NNP/<U+C778><U+BA85>+<U+BC31>/NNG/*
+#>   doc_id sentence_id token_id  token POS meaning presence reading     type
+#> 1      1           1        1 하네다 NNP    인명        F  하네다     <NA>
+#> 2      1           1        2   공항 NNG    장소        T    공항     <NA>
+#> 3      1           1        3   한정 NNG    <NA>        T    한정     <NA>
+#> 4      1           1        4 토트백 NNG    <NA>        T  토트백 Compound
+#>   first_pos last_pos             expression
+#> 1      <NA>     <NA>                   <NA>
+#> 2      <NA>     <NA>                   <NA>
+#> 3      <NA>     <NA>                   <NA>
+#> 4      <NA>     <NA> 토트/NNP/인명+백/NNG/*
 ```
 
 ## License
