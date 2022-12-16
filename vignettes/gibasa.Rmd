@@ -27,11 +27,7 @@ gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形�
 
 ### インストールの仕方
 
-<<<<<<< HEAD
-[r-universe]((https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
-=======
 [r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
->>>>>>> main
 
 ```r
 # Enable repository from paithiov909
@@ -46,11 +42,7 @@ install.packages("gibasa")
 バイナリパッケージが用意されていない環境では、ソースパッケージをビルドしてインストールします。ビルド時に`MECAB_DEFAULT_RC`という環境変数を内部的に指定するため、正しく動作させるにはmecabrcとMeCabの辞書があらかじめ適切な位置に配置されている必要があります。使っているOSのパッケージマネージャなどからインストールしておいてください。
 
 ```r
-<<<<<<< HEAD
-# Sys.setenv(MECAB_DEFAULT_RC = "fullpath/to/your/mecabrc") # if necessary
-=======
 # Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
->>>>>>> main
 remotes::install_github("paithiov909/gibasa")
 ```
 

@@ -1,8 +1,4 @@
 skip_on_cran()
-<<<<<<< HEAD
-# skip_on_os("mac")
-=======
->>>>>>> main
 
 ### gbs_tokenize ----
 test_that("gbs_tokenize works", {

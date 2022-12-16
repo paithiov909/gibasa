@@ -1,4 +1,4 @@
-testdata <- readRDS(file.path("../testdata.rda"))
+testdata <- readRDS(system.file("testdata/testdata.rda", package = "audubon"))
 
 ### is_blank ----
 test_that("is_blank works", {
@@ -23,10 +23,6 @@ test_that("pack works", {
 ### prettify ----
 test_that("prettify works", {
   skip_on_cran()
-<<<<<<< HEAD:tests/testthat/test-prettify.R
-  # skip_on_os("mac")
-=======
->>>>>>> main:tests/testthat/test-other-utils.R
 
   df <- gbs_tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
   expect_error(prettify(df, col_select = c(1, 10)))
@@ -36,14 +32,4 @@ test_that("prettify works", {
   expect_equal(ncol(prettify(df, col_select = c("POS1", "POS2", "POS3"))), 7L)
 })
 
-### get_dict_features ----
-test_that("get_dict_features works", {
-  expect_equal(length(get_dict_features()), 9L)
-  expect_equal(length(get_dict_features("unidic17")), 17L)
-  expect_equal(length(get_dict_features("unidic26")), 26L)
-  expect_equal(length(get_dict_features("unidic29")), 29L)
-  expect_equal(length(get_dict_features("cc-cedict")), 8L)
-  expect_equal(length(get_dict_features("ko-dic")), 8L)
-  expect_equal(length(get_dict_features("naist11")), 11L)
-  expect_equal(length(get_dict_features("sudachi")), 6L)
-})
+
