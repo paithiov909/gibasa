@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.4.1.9000
+Version: 0.6.0
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
@@ -9,14 +9,14 @@ Authors@R: c(
     person("Nippon Telegraph", "and Telephone Corporation", role = "cph")
   )
 Maintainer: Akiru Kato <paithiov909@gmail.com>
-Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', a CJK
+Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK
     tokenizer and morphological analysis tool. The main goal of gibasa
     package is to provide an alternative to 'tidytext' for CJK text data.
 License: GPL (>= 3)
 URL: https://paithiov909.github.io/gibasa/
 BugReports: https://github.com/paithiov909/gibasa/issues
 Imports: 
-    audubon (>= 0.3.0),
+    audubon (>= 0.4.0),
     dplyr,
     Matrix,
     purrr,
@@ -36,5 +36,6 @@ Config/Needs/website: ggdendro, ggpubr, quanteda, quanteda.textmodels,
     textrecipes, tidymodels, topicmodels, uwot, xgboost, paithiov909/ldccr
 Config/testthat/edition: 3
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
 SystemRequirements: GNU make, MeCab

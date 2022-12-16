@@ -4,9 +4,8 @@
 ^LICENSE\.md$
 ^\.github$
 ^_pkgdown\.yml$
+^codecov\.yml$
 ^docs$
 ^mecab$
 ^pkgdown$
-^windows$
 ^vignettes$
-

@@ -1,0 +1,17 @@
+comment: false
+
+ignore:
+  - "src"
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+        informational: true
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+        informational: true

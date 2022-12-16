@@ -26,7 +26,7 @@ not Shift-JIS or other encodings.}
 
 \item{user_dic}{Character scalar; path to the user dictionary for mecab.}
 
-\item{split}{Logical. If true, the function internally splits the sentence
+\item{split}{Logical. If supplied \code{TRUE}, the function internally splits the sentence
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
 }
 \value{
@@ -39,7 +39,7 @@ Tokenize sentence for data.frame
 \dontrun{
 df <- tokenize(
   data.frame(
-    doc_id = seq_len(length(audubon::polano[5:8])),
+    doc_id = seq_along(audubon::polano[5:8]),
     text = audubon::polano[5:8]
   )
 )

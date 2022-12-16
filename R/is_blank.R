@@ -5,8 +5,9 @@
 #' @param ... Additional arguments for \code{base::sapply()}.
 #'
 #' @return Logical.
-#'
 #' @export
+#' @examples
+#' is_blank(list(c(a = "", b = NA_character_), NULL))
 is_blank <- function(x, trim = TRUE, ...) {
   if (!is.list(x) && length(x) <= 1) {
     if (is.null(x)) {
