@@ -248,7 +248,7 @@ corp <- tbl |>
       dplyr::mutate(token = stringr::str_c(Original, POS1, sep = "/")) |>
       gibasa::pack(token)
   }) |>
-  purrr::map_dfr(~.) |>
+  purrr::list_rbind() |>
   dplyr::left_join(dplyr::select(tbl, doc_id, author), by = "doc_id") |>
   quanteda::corpus()
 

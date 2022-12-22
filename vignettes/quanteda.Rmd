@@ -89,7 +89,7 @@ corp <- corp |>
   gibasa::mute_tokens(POS1 %in% c("助詞", "助動詞", "記号")) |>
   gibasa::mute_tokens(token %in% quanteda::stopwords("ja", "marimo")) |>
   gibasa::collapse_tokens(
-    POS1 == "名詞" & stringr::str_detect(token, "^[一-龠]+$")
+    POS1 == "名詞" & stringr::str_detect(token, "^[\\p{Han}]+$")
   ) |>
   gibasa::pack() |>
   dplyr::left_join(corp, by = "doc_id") |>

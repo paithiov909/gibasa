@@ -25,3 +25,19 @@ Note that this function drops all columns except but 'token'
 and columns for grouping sequences. So, the returned data.frame
 has only 'doc_id', 'sentence_id', 'token_id', and 'token' columns.
 }
+\examples{
+\dontrun{
+df <- tokenize(
+  data.frame(
+    doc_id = seq_along(audubon::polano[5:8]),
+    text = audubon::polano[5:8]
+  )
+) |>
+  prettify(col_select = "POS1")
+
+head(collapse_tokens(
+  df,
+  POS1 == "\u540d\u8a5e" & stringr::str_detect(token, "^[\\\\p{Han}]+$")
+ ))
+}
+}
