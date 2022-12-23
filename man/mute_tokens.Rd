@@ -22,3 +22,16 @@ data.frame.
 Permutes tokens in the tidy text dataset with a string scalar
 only if they are matched to an expression.
 }
+\examples{
+\dontrun{
+df <- tokenize(
+  data.frame(
+    doc_id = seq_along(audubon::polano[5:8]),
+    text = audubon::polano[5:8]
+  )
+) |>
+  prettify(col_select = "POS1")
+
+head(mute_tokens(df, POS1 \%in\% c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e")))
+}
+}

@@ -64,3 +64,17 @@ Types of inverse document frequencies can be switched with \code{idf} argument:
 \item \code{idf4} is global entropy, not IDF in actual.
 }
 }
+\examples{
+\dontrun{
+df <- tokenize(
+  data.frame(
+    doc_id = seq_along(audubon::polano[5:8]),
+    text = audubon::polano[5:8]
+  )
+) |>
+  dplyr::group_by(doc_id) |>
+  dplyr::count(token) |>
+  dplyr::ungroup()
+bind_tf_idf2(df)
+}
+}

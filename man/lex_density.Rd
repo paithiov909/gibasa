@@ -27,3 +27,29 @@ The lexical density is the proportion of content words (lexical items)
 in documents. This function is a simple helper for calculating
 the lexical density of given datasets.
 }
+\examples{
+\dontrun{
+df <- tokenize(
+  data.frame(
+    doc_id = seq_along(audubon::polano[5:8]),
+    text = audubon::polano[5:8]
+  )
+)
+df |>
+  prettify(col_select = "POS1") |>
+  dplyr::group_by(doc_id) |>
+  dplyr::summarise(
+    noun_ratio = lex_density(POS1,
+      "\u540d\u8a5e",
+      c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e"),
+      negate = c(FALSE, TRUE)
+    ),
+    mvr = lex_density(
+      POS1,
+      c("\u5f62\u5bb9\u8a5e", "\u526f\u8a5e", "\u9023\u4f53\u8a5e"),
+      "\u52d5\u8a5e"
+    ),
+    vnr = lex_density(POS1, "\u52d5\u8a5e", "\u540d\u8a5e")
+  )
+}
+}

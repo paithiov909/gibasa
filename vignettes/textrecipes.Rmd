@@ -66,11 +66,11 @@ corpus <- tbl |>
         !POS1 %in% c("名詞", "形容詞", "動詞")
       ) |>
       gibasa::collapse_tokens(
-        POS1 == "名詞" & stringr::str_detect(token, "^[一-龠]+$")
+        POS1 == "名詞" & stringr::str_detect(token, "^[\\p{Han}]+$")
       ) |>
       gibasa::pack()
   }) |>
-  purrr::map_dfr(~.) |>
+  purrr::list_rbind() |>
   dplyr::left_join(dplyr::select(tbl, doc_id, category), by = "doc_id")
 ```
 

@@ -9,6 +9,21 @@ NULL
 #' @inheritParams audubon::collapse_tokens
 #' @importFrom audubon collapse_tokens
 #' @export
+#' @examples
+#' \dontrun{
+#' df <- tokenize(
+#'   data.frame(
+#'     doc_id = seq_along(audubon::polano[5:8]),
+#'     text = audubon::polano[5:8]
+#'   )
+#' ) |>
+#'   prettify(col_select = "POS1")
+#'
+#' head(collapse_tokens(
+#'   df,
+#'   POS1 == "\u540d\u8a5e" & stringr::str_detect(token, "^[\\p{Han}]+$")
+#'  ))
+#' }
 collapse_tokens <- audubon::collapse_tokens
 
 #' Mute tokens by condition
@@ -17,6 +32,18 @@ collapse_tokens <- audubon::collapse_tokens
 #' @inheritParams audubon::mute_tokens
 #' @importFrom audubon mute_tokens
 #' @export
+#' @examples
+#' \dontrun{
+#' df <- tokenize(
+#'   data.frame(
+#'     doc_id = seq_along(audubon::polano[5:8]),
+#'     text = audubon::polano[5:8]
+#'   )
+#' ) |>
+#'   prettify(col_select = "POS1")
+#'
+#' head(mute_tokens(df, POS1 %in% c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e")))
+#' }
 mute_tokens <- audubon::mute_tokens
 
 #' Calculate lexical density
@@ -25,4 +52,29 @@ mute_tokens <- audubon::mute_tokens
 #' @inheritParams audubon::lex_density
 #' @importFrom audubon lex_density
 #' @export
+#' @examples
+#' \dontrun{
+#' df <- tokenize(
+#'   data.frame(
+#'     doc_id = seq_along(audubon::polano[5:8]),
+#'     text = audubon::polano[5:8]
+#'   )
+#' )
+#' df |>
+#'   prettify(col_select = "POS1") |>
+#'   dplyr::group_by(doc_id) |>
+#'   dplyr::summarise(
+#'     noun_ratio = lex_density(POS1,
+#'       "\u540d\u8a5e",
+#'       c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e"),
+#'       negate = c(FALSE, TRUE)
+#'     ),
+#'     mvr = lex_density(
+#'       POS1,
+#'       c("\u5f62\u5bb9\u8a5e", "\u526f\u8a5e", "\u9023\u4f53\u8a5e"),
+#'       "\u52d5\u8a5e"
+#'     ),
+#'     vnr = lex_density(POS1, "\u52d5\u8a5e", "\u540d\u8a5e")
+#'   )
+#' }
 lex_density <- audubon::lex_density
