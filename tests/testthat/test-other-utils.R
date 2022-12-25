@@ -14,6 +14,24 @@ test_that("is_blank works", {
   )
 })
 
+### dictionary_info ----
+test_that("dictionary_info works", {
+  skip_on_cran()
+
+  res <- dictionary_info()
+  expect_s3_class(res, "data.frame")
+  expect_equal(ncol(res), 7L)
+})
+
+### transition_cost ----
+test_that("transition_cost works", {
+  skip_on_cran()
+
+  expect_type(get_transition_cost(0, 0), "integer")
+  expect_error(get_transition_cost(-1, 0))
+  expect_error(get_transition_cost(1318, 0))
+})
+
 ### pack ----
 test_that("pack works", {
   res <- pack(testdata[[7]])
@@ -31,5 +49,3 @@ test_that("prettify works", {
   expect_equal(ncol(prettify(df, col_select = 1:3)), 7L)
   expect_equal(ncol(prettify(df, col_select = c("POS1", "POS2", "POS3"))), 7L)
 })
-
-

@@ -25,7 +25,7 @@ struct TextParse
     const mecab_node_t* node;
 
     for (size_t i = range.begin(); i < range.end(); ++i) {
-      std::vector< std::tuple< std::string, std::string > > parsed;
+      std::vector<std::tuple<std::string, std::string>> parsed;
 
       mecab_lattice_set_sentence(lattice, (*sentences_)[i].c_str());
       mecab_parse_lattice(tagger, lattice);
@@ -75,9 +75,9 @@ using namespace TextParser;
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::DataFrame posParallelRcpp( std::vector<std::string> text, std::string sys_dic, std::string user_dic ) {
-
-  // args
+Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
+                                std::string sys_dic = "",
+                                std::string user_dic = "") {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -99,7 +99,8 @@ Rcpp::DataFrame posParallelRcpp( std::vector<std::string> text, std::string sys_
   // create model
   model = mecab_model_new2(argv.c_str());
   if (!model) {
-    Rcerr << "model is NULL" << std::endl;
+    Rcerr << "failed to create mecab_model_t: maybe provided an invalid dictionary?" << std::endl;
+    mecab_model_destroy(model);
     return R_NilValue;
   }
 
@@ -145,5 +146,6 @@ Rcpp::DataFrame posParallelRcpp( std::vector<std::string> text, std::string sys_
     _["token_id"] = token_id,
     _["token"] = token,
     _["feature"] = pos,
-    _["stringsAsFactors"] = false);
+    _["stringsAsFactors"] = false
+  );
 }

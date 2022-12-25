@@ -24,7 +24,70 @@ namespace gibasa {
         }
     }
 
-    inline Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic, std::string user_dic) {
+    inline Rcpp::DataFrame dictionary_info(std::string sys_dic = "", std::string user_dic = "") {
+        typedef SEXP(*Ptr_dictionary_info)(SEXP,SEXP);
+        static Ptr_dictionary_info p_dictionary_info = NULL;
+        if (p_dictionary_info == NULL) {
+            validateSignature("Rcpp::DataFrame(*dictionary_info)(std::string,std::string)");
+            p_dictionary_info = (Ptr_dictionary_info)R_GetCCallable("gibasa", "_gibasa_dictionary_info");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dictionary_info(Shield<SEXP>(Rcpp::wrap(sys_dic)), Shield<SEXP>(Rcpp::wrap(user_dic)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::DataFrame >(rcpp_result_gen);
+    }
+
+    inline int transition_cost(unsigned short rcAttr, unsigned short lcAttr, std::string sys_dic = "", std::string user_dic = "") {
+        typedef SEXP(*Ptr_transition_cost)(SEXP,SEXP,SEXP,SEXP);
+        static Ptr_transition_cost p_transition_cost = NULL;
+        if (p_transition_cost == NULL) {
+            validateSignature("int(*transition_cost)(unsigned short,unsigned short,std::string,std::string)");
+            p_transition_cost = (Ptr_transition_cost)R_GetCCallable("gibasa", "_gibasa_transition_cost");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_transition_cost(Shield<SEXP>(Rcpp::wrap(rcAttr)), Shield<SEXP>(Rcpp::wrap(lcAttr)), Shield<SEXP>(Rcpp::wrap(sys_dic)), Shield<SEXP>(Rcpp::wrap(user_dic)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<int >(rcpp_result_gen);
+    }
+
+    inline Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text, std::string sys_dic = "", std::string user_dic = "") {
+        typedef SEXP(*Ptr_posDebugRcpp)(SEXP,SEXP,SEXP);
+        static Ptr_posDebugRcpp p_posDebugRcpp = NULL;
+        if (p_posDebugRcpp == NULL) {
+            validateSignature("Rcpp::DataFrame(*posDebugRcpp)(std::vector<std::string>,std::string,std::string)");
+            p_posDebugRcpp = (Ptr_posDebugRcpp)R_GetCCallable("gibasa", "_gibasa_posDebugRcpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_posDebugRcpp(Shield<SEXP>(Rcpp::wrap(text)), Shield<SEXP>(Rcpp::wrap(sys_dic)), Shield<SEXP>(Rcpp::wrap(user_dic)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::DataFrame >(rcpp_result_gen);
+    }
+
+    inline Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic = "", std::string user_dic = "") {
         typedef SEXP(*Ptr_posParallelRcpp)(SEXP,SEXP,SEXP);
         static Ptr_posParallelRcpp p_posParallelRcpp = NULL;
         if (p_posParallelRcpp == NULL) {

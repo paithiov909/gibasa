@@ -22,7 +22,7 @@ NULL
 #' head(collapse_tokens(
 #'   df,
 #'   POS1 == "\u540d\u8a5e" & stringr::str_detect(token, "^[\\p{Han}]+$")
-#'  ))
+#' ))
 #' }
 collapse_tokens <- audubon::collapse_tokens
 
