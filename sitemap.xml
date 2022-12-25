@@ -34,10 +34,16 @@
     <loc>https://paithiov909.github.io/gibasa/reference/collapse_tokens.html</loc>
   </url>
   <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/dictionary_info.html</loc>
+  </url>
+  <url>
     <loc>https://paithiov909.github.io/gibasa/reference/gbs_tokenize.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/get_dict_features.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/get_transition_cost.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/gibasa-package.html</loc>
@@ -58,6 +64,9 @@
     <loc>https://paithiov909.github.io/gibasa/reference/pack.html</loc>
   </url>
   <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/posDebugRcpp.html</loc>
+  </url>
+  <url>
     <loc>https://paithiov909.github.io/gibasa/reference/posParallelRcpp.html</loc>
   </url>
   <url>
@@ -65,5 +74,8 @@
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/tokenize.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/transition_cost.html</loc>
   </url>
 </urlset>
