@@ -30,9 +30,6 @@ gbs_tokenize <- function(sentence,
   sentence <- stringi::stri_enc_toutf8(sentence) %>%
     purrr::set_names(nm)
 
-  sys_dic <- paste0(sys_dic, collapse = "")
-  user_dic <- paste0(user_dic, collapse = "")
-
   result <- tagger_impl(sentence, sys_dic, user_dic, split)
 
   if (identical(mode, "wakati")) {
@@ -76,8 +73,6 @@ tokenize <- function(tbl,
       dplyr::pull(tbl, {{ text_field }}) %>% stringi::stri_enc_toutf8(),
       dplyr::pull(tbl, {{ docid_field }})
     )
-  sys_dic <- paste0(sys_dic, collapse = "")
-  user_dic <- paste0(user_dic, collapse = "")
 
   result <- tagger_impl(sentence, sys_dic, user_dic, split)
 
@@ -101,6 +96,14 @@ tokenize <- function(tbl,
 
 #' @noRd
 tagger_impl <- function(sentence, sys_dic, user_dic, split) {
+
+  # check if dictionaries are available?
+  sys_dic <- paste0(sys_dic, collapse = "")
+  user_dic <- paste0(user_dic, collapse = "")
+  if (rlang::is_empty(dictionary_info(sys_dic, user_dic))) {
+    rlang::abort(class = "gbs_missing_dict")
+  }
+
   if (isTRUE(split)) {
     res <-
       purrr::imap_dfr(sentence, function(vec, doc_id) {

@@ -1,3 +1,12 @@
+# gibasa 0.6.2
+
+* More friendly errors are returned when invalid dictionary path was provided.
+* Added new `posDebugRcpp` function.
+
+# gibasa 0.6.1
+
+* Revert some missing examples.
+
 # gibasa 0.6.0
 
 * Functions added in version '0.5.1' was moved to 'audubon' package (>= 0.4.0).

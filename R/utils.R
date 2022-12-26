@@ -39,14 +39,13 @@ get_transition_cost <- function(rcAttr,
                                 user_dic = "") {
   dict <- dictionary_info(sys_dic, user_dic)
   if (rlang::is_empty(dict)) {
-    return(dict)
-  } else {
-    rcAttr <- as.integer(rcAttr)
-    lcAttr <- as.integer(lcAttr)
-    size <- min(dict[["lsize"]], dict[["rsize"]])
-    if (min(rcAttr, lcAttr) < 0 || rcAttr > size || lcAttr > size) {
-      rlang::abort("rcAttr and/or lcAttr is invalid.")
-    }
-    transition_cost(rcAttr, lcAttr, sys_dic, user_dic)
+    rlang::abort(class = "gbs_missing_dict")
   }
+  rcAttr <- as.integer(rcAttr)
+  lcAttr <- as.integer(lcAttr)
+  size <- min(dict[["lsize"]], dict[["rsize"]])
+  if (min(rcAttr, lcAttr) < 0 || rcAttr > size || lcAttr > size) {
+    rlang::abort("rcAttr and/or lcAttr is invalid.")
+  }
+  transition_cost(rcAttr, lcAttr, sys_dic, user_dic)
 }

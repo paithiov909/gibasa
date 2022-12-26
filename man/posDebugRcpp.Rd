@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{posDebugRcpp}
 \alias{posDebugRcpp}
-\title{Tokenizer for debug usage}
+\title{Tokenizer for debug use}
 \arguments{
 \item{text}{String.}
 

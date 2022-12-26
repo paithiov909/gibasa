@@ -123,7 +123,7 @@ int transition_cost(unsigned short rcAttr,
   return t_cost;
 }
 
-//' Tokenizer for debug usage
+//' Tokenizer for debug use
 //'
 //' Tokenizes a character vector
 //' and returns all possible results out of the tokenization process.
