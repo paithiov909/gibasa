@@ -9,6 +9,8 @@
 \item{sys_dic}{String scalar.}
 
 \item{user_dic}{String scalar.}
+
+\item{partial}{Logical.}
 }
 \value{
 data.frame.

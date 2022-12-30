@@ -14,8 +14,8 @@ namespace TextParser {
 
 struct TextParse
 {
-  TextParse(const std::vector<std::string>* sentences, std::vector<std::vector<std::tuple<std::string, std::string>>>& results, mecab_model_t* model)
-    : sentences_(sentences), results_(results), model_(model)
+  TextParse(const std::vector<std::string>* sentences, std::vector<std::vector<std::tuple<std::string, std::string>>>& results, mecab_model_t* model, const bool* is_partial_mode)
+    : sentences_(sentences), results_(results), model_(model), partial_(is_partial_mode)
   {}
 
   void operator()(const tbb::blocked_range<size_t>& range) const
@@ -24,10 +24,17 @@ struct TextParse
     mecab_lattice_t* lattice = mecab_model_new_lattice(model_);
     const mecab_node_t* node;
 
+    if (*partial_) {
+      mecab_lattice_add_request_type(lattice, MECAB_PARTIAL);
+    }
+
     for (size_t i = range.begin(); i < range.end(); ++i) {
       std::vector<std::tuple<std::string, std::string>> parsed;
-
-      mecab_lattice_set_sentence(lattice, (*sentences_)[i].c_str());
+      if (*partial_) {
+        mecab_lattice_set_sentence(lattice, ((*sentences_)[i] + "\nEOS").c_str());
+      } else {
+        mecab_lattice_set_sentence(lattice, (*sentences_)[i].c_str());
+      }
       mecab_parse_lattice(tagger, lattice);
 
       const size_t len = mecab_lattice_get_size(lattice);
@@ -55,6 +62,7 @@ struct TextParse
   const std::vector<std::string>* sentences_;
   std::vector<std::vector<std::tuple<std::string, std::string>>>& results_;
   mecab_model_t* model_;
+  const bool* partial_;
 };
 
 }
@@ -67,6 +75,7 @@ using namespace TextParser;
 //' @param text Character vector.
 //' @param sys_dic String scalar.
 //' @param user_dic String scalar.
+//' @param partial Logical.
 //' @return data.frame.
 //'
 //' @name posParallelRcpp
@@ -77,7 +86,8 @@ using namespace TextParser;
 // [[Rcpp::export]]
 Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
                                 std::string sys_dic = "",
-                                std::string user_dic = "") {
+                                std::string user_dic = "",
+                                Rcpp::LogicalVector partial = 0) {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -113,9 +123,12 @@ Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
   int sentence_number = 0;
   int token_number = 1;
 
+  bool is_partial_mode = false;
+  if (is_true(all(partial))) { is_partial_mode = true; }
+
   // parallel argorithm with Intell TBB
   // RcppParallel doesn't get CharacterVector as input and output
-  TextParse func = TextParse(&text, results, model);
+  TextParse func = TextParse(&text, results, model, &is_partial_mode);
   tbb::parallel_for(tbb::blocked_range<size_t>(0, text.size()), func);
 
   // clean

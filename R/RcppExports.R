@@ -32,6 +32,7 @@ NULL
 #' @param text String.
 #' @param sys_dic String.
 #' @param user_dic String.
+#' @param partial Logical.
 #' @return data.frame.
 #'
 #' @name posDebugRcpp
@@ -47,8 +48,8 @@ transition_cost <- function(rcAttr, lcAttr, sys_dic = "", user_dic = "") {
     .Call(`_gibasa_transition_cost`, rcAttr, lcAttr, sys_dic, user_dic)
 }
 
-posDebugRcpp <- function(text, sys_dic = "", user_dic = "") {
-    .Call(`_gibasa_posDebugRcpp`, text, sys_dic, user_dic)
+posDebugRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L) {
+    .Call(`_gibasa_posDebugRcpp`, text, sys_dic, user_dic, partial)
 }
 
 #' Call tagger inside 'tbb::parallel_for' and return a data.frame.
@@ -56,6 +57,7 @@ posDebugRcpp <- function(text, sys_dic = "", user_dic = "") {
 #' @param text Character vector.
 #' @param sys_dic String scalar.
 #' @param user_dic String scalar.
+#' @param partial Logical.
 #' @return data.frame.
 #'
 #' @name posParallelRcpp
@@ -63,8 +65,8 @@ posDebugRcpp <- function(text, sys_dic = "", user_dic = "") {
 #' @export
 NULL
 
-posParallelRcpp <- function(text, sys_dic = "", user_dic = "") {
-    .Call(`_gibasa_posParallelRcpp`, text, sys_dic, user_dic)
+posParallelRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L) {
+    .Call(`_gibasa_posParallelRcpp`, text, sys_dic, user_dic, partial)
 }
 
 # Register entry points for exported C++ functions

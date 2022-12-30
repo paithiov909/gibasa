@@ -132,6 +132,7 @@ int transition_cost(unsigned short rcAttr,
 //' @param text String.
 //' @param sys_dic String.
 //' @param user_dic String.
+//' @param partial Logical.
 //' @return data.frame.
 //'
 //' @name posDebugRcpp
@@ -142,7 +143,8 @@ int transition_cost(unsigned short rcAttr,
 // [[Rcpp::export]]
 Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
                              std::string sys_dic = "",
-                             std::string user_dic = "") {
+                             std::string user_dic = "",
+                             Rcpp::LogicalVector partial = 0) {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -165,6 +167,7 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
     return R_NilValue;
   }
 
+  std::vector<int> docids;
   std::vector<unsigned short> posids;
   std::vector<std::string> surfaces;
   std::vector<std::string> features;
@@ -182,13 +185,20 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
   mecab_lattice_t* lattice = mecab_model_new_lattice(model);
   const mecab_node_t* node;
 
-  mecab_lattice_add_request_type(lattice, MECAB_ALL_MORPHS);
+  if (is_true(all(partial))) {
+    mecab_lattice_add_request_type(lattice, MECAB_PARTIAL);
+  } else {
+    mecab_lattice_add_request_type(lattice, MECAB_ALL_MORPHS);
+  }
   mecab_lattice_add_request_type(lattice, MECAB_MARGINAL_PROB);
 
   for (size_t i = 0; i < text.size(); ++i) {
     if (i % 100 == 0) checkUserInterrupt();
 
-    mecab_lattice_set_sentence(lattice, text[i].c_str());
+    std::string input = text[i];
+    if (is_true(all(partial))) input += "\nEOS";
+
+    mecab_lattice_set_sentence(lattice, input.c_str());
     mecab_parse_lattice(tagger, lattice);
     node = mecab_lattice_get_bos_node(lattice);
 
@@ -199,6 +209,7 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
       surface = std::string(node->surface).substr(0, node->length);
       feature = std::string(node->feature);
 
+      docids.push_back(i + 1);
       posids.push_back(node->posid);
       surfaces.push_back(surface);
       features.push_back(feature);
@@ -217,6 +228,7 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
   mecab_model_destroy(model);
 
   return DataFrame::create(
+    _["doc_id"] = docids,
     _["pos_id"] = posids,
     _["surface"] = surfaces,
     _["feature"] = features,

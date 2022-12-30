@@ -10,7 +10,8 @@ tokenize(
   docid_field = "doc_id",
   sys_dic = "",
   user_dic = "",
-  split = FALSE
+  split = FALSE,
+  partial = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,11 @@ not Shift-JIS or other encodings.}
 
 \item{split}{Logical. If supplied \code{TRUE}, the function internally splits the sentence
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
+
+\item{partial}{Logical. If supplied \code{TRUE}, activates partial parsing mode.
+To activate this feature, remember that all spaces at the start and end of
+the input chunks are already squashed. In particular, trailing spaces
+of chunks sometimes cause fatal errors.}
 }
 \value{
 data.frame.

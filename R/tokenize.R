@@ -7,6 +7,10 @@
 #' @param user_dic Character scalar; path to the user dictionary for mecab.
 #' @param split Logical. If supplied `TRUE`, the function internally splits the sentence
 #' into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.
+#' @param partial Logical. If supplied `TRUE`, activates partial parsing mode.
+#' To activate this feature, remember that all spaces at the start and end of
+#' the input chunks are already squashed. In particular, trailing spaces
+#' of chunks sometimes cause fatal errors.
 #' @param mode Character scalar to switch output format.
 #' @return data.frame or named list.
 #' @export
@@ -19,6 +23,7 @@ gbs_tokenize <- function(sentence,
                          sys_dic = "",
                          user_dic = "",
                          split = FALSE,
+                         partial = FALSE,
                          mode = c("parse", "wakati")) {
   mode <- rlang::arg_match(mode, c("parse", "wakati"))
 
@@ -30,7 +35,7 @@ gbs_tokenize <- function(sentence,
   sentence <- stringi::stri_enc_toutf8(sentence) %>%
     purrr::set_names(nm)
 
-  result <- tagger_impl(sentence, sys_dic, user_dic, split)
+  result <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
 
   if (identical(mode, "wakati")) {
     result <- result %>%
@@ -64,7 +69,8 @@ tokenize <- function(tbl,
                      docid_field = "doc_id",
                      sys_dic = "",
                      user_dic = "",
-                     split = FALSE) {
+                     split = FALSE,
+                     partial = FALSE) {
   text_field <- enquo(text_field)
   docid_field <- enquo(docid_field)
 
@@ -74,7 +80,7 @@ tokenize <- function(tbl,
       dplyr::pull(tbl, {{ docid_field }})
     )
 
-  result <- tagger_impl(sentence, sys_dic, user_dic, split)
+  result <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
 
   # if it's a factor, preserve ordering
   col_names <- rlang::as_name(docid_field)
@@ -95,7 +101,7 @@ tokenize <- function(tbl,
 }
 
 #' @noRd
-tagger_impl <- function(sentence, sys_dic, user_dic, split) {
+tagger_impl <- function(sentence, sys_dic, user_dic, split, partial) {
 
   # check if dictionaries are available?
   sys_dic <- paste0(sys_dic, collapse = "")
@@ -111,12 +117,12 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split) {
           unlist()
         dplyr::bind_cols(
           data.frame(doc_id = doc_id),
-          posParallelRcpp(vec, sys_dic, user_dic)
+          posParallelRcpp(vec, sys_dic, user_dic, partial)
         )
       })
   } else {
     res <-
-      posParallelRcpp(sentence, sys_dic, user_dic) %>%
+      posParallelRcpp(sentence, sys_dic, user_dic, partial) %>%
       dplyr::left_join(
         data.frame(
           sentence_id = seq_along(sentence),
