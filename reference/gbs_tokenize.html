@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +27,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/partial.html">How to Use Partial Parsing Mode</a>
     <a class="dropdown-item" href="../articles/quanteda.html">Text Mining with quanteda and gibasa</a>
     <a class="dropdown-item" href="../articles/textrecipes.html">Supervised Learning Using tidymodels and gibasa</a>
   </div>
@@ -66,6 +67,7 @@
 <span>  sys_dic <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  user_dic <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  split <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  partial <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"parse"</span>, <span class="st">"wakati"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -89,6 +91,13 @@ not Shift-JIS or other encodings.</p></dd>
 <dt>split</dt>
 <dd><p>Logical. If supplied <code>TRUE</code>, the function internally splits the sentence
 into sub-sentences using <code>stringi::stri_split_boudaries(type = "sentence")</code>.</p></dd>
+
+
+<dt>partial</dt>
+<dd><p>Logical. If supplied <code>TRUE</code>, activates partial parsing mode.
+To activate this feature, remember that all spaces at the start and end of
+the input chunks are already squashed. In particular, trailing spaces
+of chunks sometimes cause fatal errors.</p></dd>
 
 
 <dt>mode</dt>

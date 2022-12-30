@@ -3,9 +3,10 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   gibasa: gibasa.html
+  partial: partial.html
   quanteda: quanteda.html
   textrecipes: textrecipes.html
-last_built: 2022-12-26T00:46Z
+last_built: 2022-12-30T01:42Z
 urls:
   reference: https://paithiov909.github.io/gibasa/reference
   article: https://paithiov909.github.io/gibasa/articles
