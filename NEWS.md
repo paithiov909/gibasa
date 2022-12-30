@@ -1,3 +1,7 @@
+# gibasa 0.6.3
+
+* Added the `partial` argument to `gbs_tokenize` and `tokenize`. This argument controls the partial parsing mode, which forces to extract given chunks of sentences when activated.
+
 # gibasa 0.6.2
 
 * More friendly errors are returned when invalid dictionary path was provided.

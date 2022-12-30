@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+set.seed(39710)
+
 require(tidymodels, quietly = TRUE)
 tidymodels::tidymodels_prefer()
 ```
