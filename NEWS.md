@@ -1,3 +1,7 @@
+# gibasa 0.6.4
+
+* Refactored `is_blank`.
+
 # gibasa 0.6.3
 
 * Added the `partial` argument to `gbs_tokenize` and `tokenize`. This argument controls the partial parsing mode, which forces to extract given chunks of sentences when activated.

@@ -102,7 +102,6 @@ tokenize <- function(tbl,
 
 #' @noRd
 tagger_impl <- function(sentence, sys_dic, user_dic, split, partial) {
-
   # check if dictionaries are available?
   sys_dic <- paste0(sys_dic, collapse = "")
   user_dic <- paste0(user_dic, collapse = "")
