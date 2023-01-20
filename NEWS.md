@@ -1,3 +1,8 @@
+# gibasa 0.7.0
+
+* `tokenize` can now accept a character vector in addition to a data.frame like object.
+* `gbs_tokenize` is now deprecated. Please use the `tokenize` function instead.
+
 # gibasa 0.6.4
 
 * Refactored `is_blank`.
