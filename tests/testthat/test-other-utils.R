@@ -1,5 +1,21 @@
 testdata <- readRDS(system.file("testdata/testdata.rda", package = "audubon"))
 
+### as_tokens ----
+test_that("as_tokens works", {
+  skip_on_cran()
+
+  lst <-
+    tokenize(
+      data.frame(
+        doc_id = factor("text1"),
+        text = c("\u3053\u3093\u306b\u3061\u306f")
+      )
+    ) |>
+    prettify(col_select = 1) |>
+    as_tokens()
+  expect_named(lst, "text1")
+})
+
 ### is_blank ----
 test_that("is_blank works", {
   expect_true(is_blank(NaN))
