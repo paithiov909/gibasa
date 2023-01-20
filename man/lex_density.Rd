@@ -16,11 +16,11 @@ to be counted as contents words.}
 the denominator of lexical density is filtered before computing values.}
 
 \item{negate}{A logical vector of which length is 2.
-If supplied \code{TRUE}, then respectively negates the predicate functions
+If passed as \code{TRUE}, then respectively negates the predicate functions
 for counting contents words or targets.}
 }
 \value{
-numeric vector.
+A numeric vector.
 }
 \description{
 The lexical density is the proportion of content words (lexical items)

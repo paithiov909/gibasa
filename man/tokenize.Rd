@@ -2,20 +2,21 @@
 % Please edit documentation in R/tokenize.R
 \name{tokenize}
 \alias{tokenize}
-\title{Tokenize sentence for data.frame}
+\title{Tokenize sentences using 'MeCab'}
 \usage{
 tokenize(
-  tbl,
+  x,
   text_field = "text",
   docid_field = "doc_id",
   sys_dic = "",
   user_dic = "",
   split = FALSE,
-  partial = FALSE
+  partial = FALSE,
+  mode = c("parse", "wakati")
 )
 }
 \arguments{
-\item{tbl}{A data.frame.}
+\item{x}{A data.frame like object or a character vector to be tokenized.}
 
 \item{text_field}{String or symbol; column name where to get texts to be tokenized.}
 
@@ -27,19 +28,21 @@ not Shift-JIS or other encodings.}
 
 \item{user_dic}{Character scalar; path to the user dictionary for mecab.}
 
-\item{split}{Logical. If supplied \code{TRUE}, the function internally splits the sentence
+\item{split}{Logical. When passed as \code{TRUE}, the function internally splits the sentences
 into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
 
-\item{partial}{Logical. If supplied \code{TRUE}, activates partial parsing mode.
+\item{partial}{Logical. When passed as \code{TRUE}, activates partial parsing mode.
 To activate this feature, remember that all spaces at the start and end of
 the input chunks are already squashed. In particular, trailing spaces
 of chunks sometimes cause fatal errors.}
+
+\item{mode}{Character scalar to switch output format.}
 }
 \value{
-data.frame.
+A tibble or a named list of tokens.
 }
 \description{
-Tokenize sentence for data.frame
+Tokenize sentences using 'MeCab'
 }
 \examples{
 \dontrun{

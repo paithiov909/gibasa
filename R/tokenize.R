@@ -1,58 +1,20 @@
-#' Tokenize sentence for character vector
+#' Tokenize sentences using 'MeCab'
 #'
-#' @param sentence Character vector to be tokenized.
+#' @param x A data.frame like object or a character vector to be tokenized.
+#' @param text_field String or symbol; column name where to get texts to be tokenized.
+#' @param docid_field String or symbol; column name where to get identifiers of texts.
 #' @param sys_dic Character scalar; path to the system dictionary for mecab.
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.
 #' @param user_dic Character scalar; path to the user dictionary for mecab.
-#' @param split Logical. If supplied `TRUE`, the function internally splits the sentence
+#' @param split Logical. When passed as `TRUE`, the function internally splits the sentences
 #' into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.
-#' @param partial Logical. If supplied `TRUE`, activates partial parsing mode.
+#' @param partial Logical. When passed as `TRUE`, activates partial parsing mode.
 #' To activate this feature, remember that all spaces at the start and end of
 #' the input chunks are already squashed. In particular, trailing spaces
 #' of chunks sometimes cause fatal errors.
 #' @param mode Character scalar to switch output format.
-#' @return data.frame or named list.
-#' @export
-#' @examples
-#' \dontrun{
-#' df <- gbs_tokenize("\u3053\u3093\u306b\u3061\u306f")
-#' head(df)
-#' }
-gbs_tokenize <- function(sentence,
-                         sys_dic = "",
-                         user_dic = "",
-                         split = FALSE,
-                         partial = FALSE,
-                         mode = c("parse", "wakati")) {
-  mode <- rlang::arg_match(mode, c("parse", "wakati"))
-
-  # keep names
-  nm <- names(sentence)
-  if (is.null(nm)) {
-    nm <- seq_along(sentence)
-  }
-  sentence <- stringi::stri_enc_toutf8(sentence) %>%
-    purrr::set_names(nm)
-
-  result <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
-
-  if (identical(mode, "wakati")) {
-    result <- result %>%
-      dplyr::group_by(.data$doc_id) %>%
-      dplyr::group_map(~ .x$token) %>%
-      purrr::set_names(nm)
-  }
-  return(result)
-}
-
-#' Tokenize sentence for data.frame
-#'
-#' @param tbl A data.frame.
-#' @param text_field String or symbol; column name where to get texts to be tokenized.
-#' @param docid_field String or symbol; column name where to get identifiers of texts.
-#' @inheritParams gbs_tokenize
-#' @return data.frame.
+#' @return A tibble or a named list of tokens.
 #' @export
 #' @examples
 #' \dontrun{
@@ -64,33 +26,50 @@ gbs_tokenize <- function(sentence,
 #' )
 #' head(df)
 #' }
-tokenize <- function(tbl,
+tokenize <- function(x,
                      text_field = "text",
                      docid_field = "doc_id",
                      sys_dic = "",
                      user_dic = "",
                      split = FALSE,
-                     partial = FALSE) {
+                     partial = FALSE,
+                     mode = c("parse", "wakati")) {
+  UseMethod("tokenize")
+}
+
+#' @export
+tokenize.default <- function(x,
+                             text_field = "text",
+                             docid_field = "doc_id",
+                             sys_dic = "",
+                             user_dic = "",
+                             split = FALSE,
+                             partial = FALSE,
+                             mode = c("parse", "wakati")) {
+  mode <- rlang::arg_match(mode, c("parse", "wakati"))
+
+  x <- dplyr::as_tibble(x)
+
   text_field <- enquo(text_field)
   docid_field <- enquo(docid_field)
 
   sentence <-
     purrr::set_names(
-      dplyr::pull(tbl, {{ text_field }}) %>% stringi::stri_enc_toutf8(),
-      dplyr::pull(tbl, {{ docid_field }})
+      dplyr::pull(x, {{ text_field }}) %>% stringi::stri_enc_toutf8(),
+      dplyr::pull(x, {{ docid_field }})
     )
 
   result <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
 
   # if it's a factor, preserve ordering
   col_names <- rlang::as_name(docid_field)
-  if (is.factor(tbl[[col_names]])) {
-    col_u <- levels(tbl[[col_names]])
+  if (is.factor(x[[col_names]])) {
+    col_u <- levels(x[[col_names]])
   } else {
-    col_u <- unique(tbl[[col_names]])
+    col_u <- unique(x[[col_names]])
   }
 
-  tbl %>%
+  tbl <- x %>%
     dplyr::select(-!!text_field) %>%
     dplyr::mutate(dplyr::across(!!docid_field, ~ factor(., col_u))) %>%
     dplyr::rename(doc_id = {{ docid_field }}) %>%
@@ -98,11 +77,40 @@ tokenize <- function(tbl,
       result,
       by = c("doc_id" = "doc_id")
     )
+
+  if (!identical(mode, "wakati")) {
+    return(tbl)
+  }
+  as_tokens(tbl, pos_field = NULL, nm = col_u)
+}
+
+#' @export
+tokenize.character <- function(x,
+                               sys_dic = "",
+                               user_dic = "",
+                               split = FALSE,
+                               partial = FALSE,
+                               mode = c("parse", "wakati")) {
+  mode <- rlang::arg_match(mode, c("parse", "wakati"))
+
+  nm <- names(x)
+  if (is.null(nm)) {
+    nm <- seq_along(x)
+  }
+  sentence <- stringi::stri_enc_toutf8(x) %>%
+    purrr::set_names(nm)
+
+  tbl <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
+
+  if (!identical(mode, "wakati")) {
+    return(tbl)
+  }
+  as_tokens(tbl, pos_field = NULL, nm = nm)
 }
 
 #' @noRd
 tagger_impl <- function(sentence, sys_dic, user_dic, split, partial) {
-  # check if dictionaries are available?
+  # check if dictionaries are available.
   sys_dic <- paste0(sys_dic, collapse = "")
   user_dic <- paste0(user_dic, collapse = "")
   if (rlang::is_empty(dictionary_info(sys_dic, user_dic))) {
@@ -133,7 +141,8 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split, partial) {
   }
   res %>%
     dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%
-    dplyr::mutate(doc_id = factor(.data$doc_id, unique(.data$doc_id)))
+    dplyr::mutate(doc_id = factor(.data$doc_id, unique(.data$doc_id))) %>%
+    dplyr::as_tibble()
 }
 
 #' @noRd

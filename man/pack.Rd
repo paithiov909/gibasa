@@ -7,7 +7,7 @@
 pack(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ")
 }
 \arguments{
-\item{tbl}{A prettified data.frame of tokens.}
+\item{tbl}{A data.frame of tokens.}
 
 \item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
 
@@ -19,10 +19,10 @@ created of \code{audubon::ngram_tokenizer()}}
 \item{.collapse}{This argument is passed to \code{stringi::stri_join()}.}
 }
 \value{
-A data.frame.
+A tibble.
 }
 \description{
-Packs a prettified data.frame of tokens into a new data.frame of corpus,
+Packs a data.frame of tokens into a new data.frame of corpus,
 which is compatible with the Text Interchange Formats.
 }
 \section{Text Interchange Formats (TIF)}{
@@ -39,7 +39,7 @@ for corpora, tokens, and document-term matrices.
 
 
 
-The prettified data.frame of tokens here is a data.frame object
+The data.frame of tokens here is a data.frame object
 compatible with the TIF.
 
 A TIF valid data.frame of tokens are expected to have one unique key column (named \code{doc_id})

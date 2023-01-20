@@ -67,7 +67,7 @@ sentences <- c(
 
 sentences |>
   stringi::stri_replace_all_regex("(?<codes>[0-9\uFF10-\uFF19]{4}((\\s|\\.)+[a-zA-Z]{1,2}|[\uFF21-\uFF3A]{2}))", "\n${codes}\t*\n") |>
-  gibasa::gbs_tokenize(partial = TRUE, mode = "wakati")
+  gibasa::tokenize(partial = TRUE, mode = "wakati")
 ```
 
 なお、この機能を利用時に、文断片や形態素断片の先頭や末尾に半角スペースが含まれていると、MeCab側でエラーが発生し、Rセッションごと落ちる可能性がありますので、注意してください。

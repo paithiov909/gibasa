@@ -79,65 +79,88 @@ res <- gibasa::tokenize(
     text = audubon::polano[5:8]
   )
 )
-head(res)
-#>   doc_id sentence_id token_id    token
-#> 1      1           1        1     その
-#> 2      1           1        2     ころ
-#> 3      1           1        3 わたくし
-#> 4      1           1        4       は
-#> 5      1           1        5       、
-#> 6      1           1        6 モリーオ
-#>                                             feature
-#> 1                   連体詞,*,*,*,*,*,その,ソノ,ソノ
-#> 2         名詞,非自立,副詞可能,*,*,*,ころ,コロ,コロ
-#> 3 名詞,代名詞,一般,*,*,*,わたくし,ワタクシ,ワタクシ
-#> 4                      助詞,係助詞,*,*,*,*,は,ハ,ワ
-#> 5                        記号,読点,*,*,*,*,、,、,、
-#> 6                     名詞,固有名詞,地域,一般,*,*,*
+res
+#> # A tibble: 385 × 5
+#>    doc_id sentence_id token_id token    feature                                 
+#>    <fct>        <int>    <int> <chr>    <chr>                                   
+#>  1 1                1        1 その     連体詞,*,*,*,*,*,その,ソノ,ソノ         
+#>  2 1                1        2 ころ     名詞,非自立,副詞可能,*,*,*,ころ,コロ,コ…
+#>  3 1                1        3 わたくし 名詞,代名詞,一般,*,*,*,わたくし,ワタク… 
+#>  4 1                1        4 は       助詞,係助詞,*,*,*,*,は,ハ,ワ            
+#>  5 1                1        5 、       記号,読点,*,*,*,*,、,、,、              
+#>  6 1                1        6 モリーオ 名詞,固有名詞,地域,一般,*,*,*           
+#>  7 1                1        7 市       名詞,接尾,地域,*,*,*,市,シ,シ           
+#>  8 1                1        8 の       助詞,連体化,*,*,*,*,の,ノ,ノ            
+#>  9 1                1        9 博物     名詞,一般,*,*,*,*,博物,ハクブツ,ハクブツ
+#> 10 1                1       10 局       名詞,接尾,一般,*,*,*,局,キョク,キョク   
+#> # … with 375 more rows
 ```
 
 ### Prettify output
 
 ``` r
-head(gibasa::prettify(res))
-#>   doc_id sentence_id token_id    token   POS1     POS2     POS3 POS4
-#> 1      1           1        1     その 連体詞     <NA>     <NA> <NA>
-#> 2      1           1        2     ころ   名詞   非自立 副詞可能 <NA>
-#> 3      1           1        3 わたくし   名詞   代名詞     一般 <NA>
-#> 4      1           1        4       は   助詞   係助詞     <NA> <NA>
-#> 5      1           1        5       、   記号     読点     <NA> <NA>
-#> 6      1           1        6 モリーオ   名詞 固有名詞     地域 一般
-#>   X5StageUse1 X5StageUse2 Original    Yomi1    Yomi2
-#> 1        <NA>        <NA>     その     ソノ     ソノ
-#> 2        <NA>        <NA>     ころ     コロ     コロ
-#> 3        <NA>        <NA> わたくし ワタクシ ワタクシ
-#> 4        <NA>        <NA>       は       ハ       ワ
-#> 5        <NA>        <NA>       、       、       、
-#> 6        <NA>        <NA>     <NA>     <NA>     <NA>
-head(gibasa::prettify(res, col_select = 1:3))
-#>   doc_id sentence_id token_id    token   POS1     POS2     POS3
-#> 1      1           1        1     その 連体詞     <NA>     <NA>
-#> 2      1           1        2     ころ   名詞   非自立 副詞可能
-#> 3      1           1        3 わたくし   名詞   代名詞     一般
-#> 4      1           1        4       は   助詞   係助詞     <NA>
-#> 5      1           1        5       、   記号     読点     <NA>
-#> 6      1           1        6 モリーオ   名詞 固有名詞     地域
-head(gibasa::prettify(res, col_select = c(1, 3, 5)))
-#>   doc_id sentence_id token_id    token   POS1     POS3 X5StageUse1
-#> 1      1           1        1     その 連体詞     <NA>        <NA>
-#> 2      1           1        2     ころ   名詞 副詞可能        <NA>
-#> 3      1           1        3 わたくし   名詞     一般        <NA>
-#> 4      1           1        4       は   助詞     <NA>        <NA>
-#> 5      1           1        5       、   記号     <NA>        <NA>
-#> 6      1           1        6 モリーオ   名詞     地域        <NA>
-head(gibasa::prettify(res, col_select = c("POS1", "Original")))
-#>   doc_id sentence_id token_id    token   POS1 Original
-#> 1      1           1        1     その 連体詞     その
-#> 2      1           1        2     ころ   名詞     ころ
-#> 3      1           1        3 わたくし   名詞 わたくし
-#> 4      1           1        4       は   助詞       は
-#> 5      1           1        5       、   記号       、
-#> 6      1           1        6 モリーオ   名詞     <NA>
+gibasa::prettify(res)
+#> # A tibble: 385 × 13
+#>    doc_id senten…¹ token…² token POS1  POS2  POS3  POS4  X5Sta…³ X5Sta…⁴ Origi…⁵
+#>    <fct>     <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>  
+#>  1 1             1       1 その  連体… <NA>  <NA>  <NA>  <NA>    <NA>    その   
+#>  2 1             1       2 ころ  名詞  非自… 副詞… <NA>  <NA>    <NA>    ころ   
+#>  3 1             1       3 わた… 名詞  代名… 一般  <NA>  <NA>    <NA>    わたく…
+#>  4 1             1       4 は    助詞  係助… <NA>  <NA>  <NA>    <NA>    は     
+#>  5 1             1       5 、    記号  読点  <NA>  <NA>  <NA>    <NA>    、     
+#>  6 1             1       6 モリ… 名詞  固有… 地域  一般  <NA>    <NA>    <NA>   
+#>  7 1             1       7 市    名詞  接尾  地域  <NA>  <NA>    <NA>    市     
+#>  8 1             1       8 の    助詞  連体… <NA>  <NA>  <NA>    <NA>    の     
+#>  9 1             1       9 博物  名詞  一般  <NA>  <NA>  <NA>    <NA>    博物   
+#> 10 1             1      10 局    名詞  接尾  一般  <NA>  <NA>    <NA>    局     
+#> # … with 375 more rows, 2 more variables: Yomi1 <chr>, Yomi2 <chr>, and
+#> #   abbreviated variable names ¹​sentence_id, ²​token_id, ³​X5StageUse1,
+#> #   ⁴​X5StageUse2, ⁵​Original
+gibasa::prettify(res, col_select = 1:3)
+#> # A tibble: 385 × 7
+#>    doc_id sentence_id token_id token    POS1   POS2     POS3    
+#>    <fct>        <int>    <int> <chr>    <chr>  <chr>    <chr>   
+#>  1 1                1        1 その     連体詞 <NA>     <NA>    
+#>  2 1                1        2 ころ     名詞   非自立   副詞可能
+#>  3 1                1        3 わたくし 名詞   代名詞   一般    
+#>  4 1                1        4 は       助詞   係助詞   <NA>    
+#>  5 1                1        5 、       記号   読点     <NA>    
+#>  6 1                1        6 モリーオ 名詞   固有名詞 地域    
+#>  7 1                1        7 市       名詞   接尾     地域    
+#>  8 1                1        8 の       助詞   連体化   <NA>    
+#>  9 1                1        9 博物     名詞   一般     <NA>    
+#> 10 1                1       10 局       名詞   接尾     一般    
+#> # … with 375 more rows
+gibasa::prettify(res, col_select = c(1, 3, 5))
+#> # A tibble: 385 × 7
+#>    doc_id sentence_id token_id token    POS1   POS3     X5StageUse1
+#>    <fct>        <int>    <int> <chr>    <chr>  <chr>    <chr>      
+#>  1 1                1        1 その     連体詞 <NA>     <NA>       
+#>  2 1                1        2 ころ     名詞   副詞可能 <NA>       
+#>  3 1                1        3 わたくし 名詞   一般     <NA>       
+#>  4 1                1        4 は       助詞   <NA>     <NA>       
+#>  5 1                1        5 、       記号   <NA>     <NA>       
+#>  6 1                1        6 モリーオ 名詞   地域     <NA>       
+#>  7 1                1        7 市       名詞   地域     <NA>       
+#>  8 1                1        8 の       助詞   <NA>     <NA>       
+#>  9 1                1        9 博物     名詞   <NA>     <NA>       
+#> 10 1                1       10 局       名詞   一般     <NA>       
+#> # … with 375 more rows
+gibasa::prettify(res, col_select = c("POS1", "Original"))
+#> # A tibble: 385 × 6
+#>    doc_id sentence_id token_id token    POS1   Original
+#>    <fct>        <int>    <int> <chr>    <chr>  <chr>   
+#>  1 1                1        1 その     連体詞 その    
+#>  2 1                1        2 ころ     名詞   ころ    
+#>  3 1                1        3 わたくし 名詞   わたくし
+#>  4 1                1        4 は       助詞   は      
+#>  5 1                1        5 、       記号   、      
+#>  6 1                1        6 モリーオ 名詞   <NA>    
+#>  7 1                1        7 市       名詞   市      
+#>  8 1                1        8 の       助詞   の      
+#>  9 1                1        9 博物     名詞   博物    
+#> 10 1                1       10 局       名詞   局      
+#> # … with 375 more rows
 ```
 
 ### Pack output
@@ -178,87 +201,56 @@ schemes are supported.
 
 ``` r
 ## UniDic 2.1.2
-gibasa::gbs_tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/Downloads/unidic-lite") |> 
-    gibasa::prettify(into = gibasa::get_dict_features("unidic26")) |> 
-    head()
-#>   doc_id sentence_id token_id          token   POS1     POS2 POS3 POS4
-#> 1      1           1        1           あの 感動詞 フィラー <NA> <NA>
-#> 2      1           1        2 イーハトーヴォ   名詞 普通名詞 一般 <NA>
-#> 3      1           1        3             の   助詞   格助詞 <NA> <NA>
-#> 4      1           1        4     すきとおっ   動詞     一般 <NA> <NA>
-#> 5      1           1        5             た 助動詞     <NA> <NA> <NA>
-#> 6      1           1        6             風   名詞 普通名詞 一般 <NA>
-#>       cType         cForm      lForm    lemma       orth       pron   orthBase
-#> 1      <NA>          <NA>       アノ     あの       あの       アノ       あの
-#> 2      <NA>          <NA>       <NA>     <NA>       <NA>       <NA>       <NA>
-#> 3      <NA>          <NA>         ノ       の         の         ノ         の
-#> 4 五段-ラ行 連用形-促音便 スキトオル 透き通る すきとおっ スキトーッ すきとおる
-#> 5 助動詞-タ   連体形-一般         タ       た         た         タ         た
-#> 6      <NA>          <NA>       カゼ       風         風       カゼ         風
-#>     pronBase goshu iType iForm fType fForm       kana   kanaBase       form
-#> 1       アノ    和  <NA>  <NA>  <NA>  <NA>       アノ       アノ       アノ
-#> 2       <NA>  <NA>  <NA>  <NA>  <NA>  <NA>       <NA>       <NA>       <NA>
-#> 3         ノ    和  <NA>  <NA>  <NA>  <NA>         ノ         ノ         ノ
-#> 4 スキトール    和  <NA>  <NA>  <NA>  <NA> スキトオッ スキトオル スキトオッ
-#> 5         タ    和  <NA>  <NA>  <NA>  <NA>         タ         タ         タ
-#> 6       カゼ    和  <NA>  <NA>  <NA>  <NA>       カゼ       カゼ       カゼ
-#>     formBase iConType fConType aType               aConType aModeType
-#> 1       アノ     <NA>     <NA>     0                   <NA>      <NA>
-#> 2       <NA>     <NA>     <NA>  <NA>                   <NA>      <NA>
-#> 3         ノ     <NA>     <NA>  <NA>                名詞%F1      <NA>
-#> 4 スキトオル     <NA>     <NA>     3                     C1      <NA>
-#> 5         タ     <NA>     <NA>  <NA> 動詞%F2@1,形容詞%F4@-2      <NA>
-#> 6       カゼ     <NA>     <NA>     0                     C4      <NA>
+gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/Downloads/unidic-lite") |>
+  gibasa::prettify(into = gibasa::get_dict_features("unidic26"))
+#> # A tibble: 6 × 30
+#>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  cType cForm lForm lemma
+#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+#> 1 1              1       1 あの  感動… フィ… <NA>  <NA>  <NA>  <NA>  アノ  あの 
+#> 2 1              1       2 イー… 名詞  普通… 一般  <NA>  <NA>  <NA>  <NA>  <NA> 
+#> 3 1              1       3 の    助詞  格助… <NA>  <NA>  <NA>  <NA>  ノ    の   
+#> 4 1              1       4 すき… 動詞  一般  <NA>  <NA>  五段… 連用… スキ… 透き…
+#> 5 1              1       5 た    助動… <NA>  <NA>  <NA>  助動… 連体… タ    た   
+#> 6 1              1       6 風    名詞  普通… 一般  <NA>  <NA>  <NA>  カゼ  風   
+#> # … with 18 more variables: orth <chr>, pron <chr>, orthBase <chr>,
+#> #   pronBase <chr>, goshu <chr>, iType <chr>, iForm <chr>, fType <chr>,
+#> #   fForm <chr>, kana <chr>, kanaBase <chr>, form <chr>, formBase <chr>,
+#> #   iConType <chr>, fConType <chr>, aType <chr>, aConType <chr>,
+#> #   aModeType <chr>, and abbreviated variable names ¹​sentence_id, ²​token_id
 
 
 ## CC-CEDICT
-gibasa::gbs_tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |> 
-    gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
-#>   doc_id sentence_id token_id token POS1 POS2 POS3 POS4 pinyin_pron
-#> 1      1           1        1    它 <NA> <NA> <NA> <NA>         ta1
-#> 2      1           1        2  可以 <NA> <NA> <NA> <NA>     ke3 yi3
-#> 3      1           1        3  进行 <NA> <NA> <NA> <NA>  jin4 xing2
-#> 4      1           1        4  日语 <NA> <NA> <NA> <NA>     Ri4 yu3
-#> 5      1           1        5    和 <NA> <NA> <NA> <NA>         he2
-#> 6      1           1        6  汉语 <NA> <NA> <NA> <NA>    Han4 yu3
-#> 7      1           1        7    的 <NA> <NA> <NA> <NA>         di4
-#> 8      1           1        8  语态 <NA> <NA> <NA> <NA>    yu3 tai4
-#> 9      1           1        9  分析 <NA> <NA> <NA> <NA>    fen1 xi1
-#>   traditional_char_form simplified_char_form
-#> 1                    它                   它
-#> 2                  可以                 可以
-#> 3                  進行                 进行
-#> 4                  日語                 日语
-#> 5                    龢                   和
-#> 6                  漢語                 汉语
-#> 7                    的                   的
-#> 8                  語態                 语态
-#> 9                  分析                 分析
-#>                                                                              definition
-#> 1                                                                                   it/
-#> 2                                         can/may/possible/able to/not bad/pretty good/
-#> 3 to advance/to conduct/underway/in progress/to do/to carry out/to carry on/to execute/
-#> 4                                                                    Japanese language/
-#> 5                                                    old variant of 和[he2]/harmonious/
-#> 6                                                      Chinese language/CL:門|门[men2]/
-#> 7                                                                            aim/clear/
-#> 8                                                                      voice (grammar)/
-#> 9                                                    to analyze/analysis/CL:個|个[ge4]/
+gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |> 
+  gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
+#> # A tibble: 9 × 12
+#>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  pinyi…³ tradi…⁴ simpl…⁵
+#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>  
+#> 1 1              1       1 它    <NA>  <NA>  <NA>  <NA>  ta1     它      它     
+#> 2 1              1       2 可以  <NA>  <NA>  <NA>  <NA>  ke3 yi3 可以    可以   
+#> 3 1              1       3 进行  <NA>  <NA>  <NA>  <NA>  jin4 x… 進行    进行   
+#> 4 1              1       4 日语  <NA>  <NA>  <NA>  <NA>  Ri4 yu3 日語    日语   
+#> 5 1              1       5 和    <NA>  <NA>  <NA>  <NA>  he2     龢      和     
+#> 6 1              1       6 汉语  <NA>  <NA>  <NA>  <NA>  Han4 y… 漢語    汉语   
+#> 7 1              1       7 的    <NA>  <NA>  <NA>  <NA>  di4     的      的     
+#> 8 1              1       8 语态  <NA>  <NA>  <NA>  <NA>  yu3 ta… 語態    语态   
+#> 9 1              1       9 分析  <NA>  <NA>  <NA>  <NA>  fen1 x… 分析    分析   
+#> # … with 1 more variable: definition <chr>, and abbreviated variable names
+#> #   ¹​sentence_id, ²​token_id, ³​pinyin_pron, ⁴​traditional_char_form,
+#> #   ⁵​simplified_char_form
 
 
 ## mecab-ko-dic
-gibasa::gbs_tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |> 
-    gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
-#>   doc_id sentence_id token_id  token POS meaning presence reading     type
-#> 1      1           1        1 하네다 NNP    인명        F  하네다     <NA>
-#> 2      1           1        2   공항 NNG    장소        T    공항     <NA>
-#> 3      1           1        3   한정 NNG    <NA>        T    한정     <NA>
-#> 4      1           1        4 토트백 NNG    <NA>        T  토트백 Compound
-#>   first_pos last_pos             expression
-#> 1      <NA>     <NA>                   <NA>
-#> 2      <NA>     <NA>                   <NA>
-#> 3      <NA>     <NA>                   <NA>
-#> 4      <NA>     <NA> 토트/NNP/인명+백/NNG/*
+gibasa::tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |> 
+  gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
+#> # A tibble: 4 × 12
+#>   doc_id sentence_id token_id token  POS   meaning prese…¹ reading type  first…²
+#>   <fct>        <int>    <int> <chr>  <chr> <chr>   <chr>   <chr>   <chr> <chr>  
+#> 1 1                1        1 하네다 NNP   인명    F       하네다  <NA>  <NA>   
+#> 2 1                1        2 공항   NNG   장소    T       공항    <NA>  <NA>   
+#> 3 1                1        3 한정   NNG   <NA>    T       한정    <NA>  <NA>   
+#> 4 1                1        4 토트백 NNG   <NA>    T       토트백  Comp… <NA>   
+#> # … with 2 more variables: last_pos <chr>, expression <chr>, and abbreviated
+#> #   variable names ¹​presence, ²​first_pos
 ```
 
 ## License

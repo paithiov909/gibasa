@@ -14,7 +14,7 @@ collapse_tokens(tbl, condition, .collapse = "")
 \item{.collapse}{String with which tokens are concatenated.}
 }
 \value{
-data.frame.
+A data.frame.
 }
 \description{
 Concatenates sequences of tokens in the tidy text dataset,

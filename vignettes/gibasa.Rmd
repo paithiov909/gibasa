@@ -175,7 +175,7 @@ tbl |>
 ```{r nchar_dataset2}
 dplyr::filter(tbl, title == "ファウスト") |>
   dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::select(-text)
+  dplyr::select(!text)
 
 gbs_split_t <- function() {
   dplyr::filter(tbl, title == "ファウスト") |>

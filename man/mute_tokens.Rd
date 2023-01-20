@@ -16,7 +16,7 @@ when they are matched to condition.
 The default value is \code{NA_character}.}
 }
 \value{
-data.frame.
+A data.frame.
 }
 \description{
 Permutes tokens in the tidy text dataset with a string scalar
