@@ -86,6 +86,8 @@ tokenize.default <- function(x,
 
 #' @export
 tokenize.character <- function(x,
+                               text_field = "text",
+                               docid_field = "doc_id",
                                sys_dic = "",
                                user_dic = "",
                                split = FALSE,

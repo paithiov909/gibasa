@@ -1,3 +1,7 @@
+# gibasa 0.7.1
+
+* Fix documentations. There are no visible changes.
+
 # gibasa 0.7.0
 
 * `tokenize` can now accept a character vector in addition to a data.frame like object.

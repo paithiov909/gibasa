@@ -1,4 +1,4 @@
-#' Tokenize sentence for character vector
+#' Tokenize sentences using 'MeCab'
 #'
 #' @inherit tokenize return
 #' @inheritParams tokenize
@@ -12,6 +12,8 @@ gbs_tokenize <- function(x,
   .Deprecated("tokenize", package = "gibasa")
   tokenize(
     x,
+    text_field = "text",
+    docid_field = "doc_id",
     sys_dic = sys_dic,
     user_dic = user_dic,
     split = split,

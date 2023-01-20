@@ -2,7 +2,7 @@
 % Please edit documentation in R/gibasa-deprecated.R
 \name{gbs_tokenize}
 \alias{gbs_tokenize}
-\title{Tokenize sentence for character vector}
+\title{Tokenize sentences using 'MeCab'}
 \usage{
 gbs_tokenize(
   x,
@@ -36,5 +36,5 @@ of chunks sometimes cause fatal errors.}
 A tibble or a named list of tokens.
 }
 \description{
-Tokenize sentence for character vector
+Tokenize sentences using 'MeCab'
 }
