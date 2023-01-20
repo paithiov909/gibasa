@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,65 +136,88 @@
 <span>    text <span class="op">=</span> <span class="fu">audubon</span><span class="fu">::</span><span class="va"><a href="https://paithiov909.github.io/audubon/reference/polano.html" class="external-link">polano</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id    token</span></span>
-<span><span class="co">#&gt; 1      1           1        1     その</span></span>
-<span><span class="co">#&gt; 2      1           1        2     ころ</span></span>
-<span><span class="co">#&gt; 3      1           1        3 わたくし</span></span>
-<span><span class="co">#&gt; 4      1           1        4       は</span></span>
-<span><span class="co">#&gt; 5      1           1        5       、</span></span>
-<span><span class="co">#&gt; 6      1           1        6 モリーオ</span></span>
-<span><span class="co">#&gt;                                             feature</span></span>
-<span><span class="co">#&gt; 1                   連体詞,*,*,*,*,*,その,ソノ,ソノ</span></span>
-<span><span class="co">#&gt; 2         名詞,非自立,副詞可能,*,*,*,ころ,コロ,コロ</span></span>
-<span><span class="co">#&gt; 3 名詞,代名詞,一般,*,*,*,わたくし,ワタクシ,ワタクシ</span></span>
-<span><span class="co">#&gt; 4                      助詞,係助詞,*,*,*,*,は,ハ,ワ</span></span>
-<span><span class="co">#&gt; 5                        記号,読点,*,*,*,*,、,、,、</span></span>
-<span><span class="co">#&gt; 6                     名詞,固有名詞,地域,一般,*,*,*</span></span></code></pre></div>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; # A tibble: 385 × 5</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token    feature                                 </span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                                   </span></span>
+<span><span class="co">#&gt;  1 1                1        1 その     連体詞,*,*,*,*,*,その,ソノ,ソノ         </span></span>
+<span><span class="co">#&gt;  2 1                1        2 ころ     名詞,非自立,副詞可能,*,*,*,ころ,コロ,コ…</span></span>
+<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞,代名詞,一般,*,*,*,わたくし,ワタク… </span></span>
+<span><span class="co">#&gt;  4 1                1        4 は       助詞,係助詞,*,*,*,*,は,ハ,ワ            </span></span>
+<span><span class="co">#&gt;  5 1                1        5 、       記号,読点,*,*,*,*,、,、,、              </span></span>
+<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞,固有名詞,地域,一般,*,*,*           </span></span>
+<span><span class="co">#&gt;  7 1                1        7 市       名詞,接尾,地域,*,*,*,市,シ,シ           </span></span>
+<span><span class="co">#&gt;  8 1                1        8 の       助詞,連体化,*,*,*,*,の,ノ,ノ            </span></span>
+<span><span class="co">#&gt;  9 1                1        9 博物     名詞,一般,*,*,*,*,博物,ハクブツ,ハクブツ</span></span>
+<span><span class="co">#&gt; 10 1                1       10 局       名詞,接尾,一般,*,*,*,局,キョク,キョク   </span></span>
+<span><span class="co">#&gt; # … with 375 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="prettify-output">Prettify output<a class="anchor" aria-label="anchor" href="#prettify-output"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id    token   POS1     POS2     POS3 POS4</span></span>
-<span><span class="co">#&gt; 1      1           1        1     その 連体詞     &lt;NA&gt;     &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2      1           1        2     ころ   名詞   非自立 副詞可能 &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3      1           1        3 わたくし   名詞   代名詞     一般 &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4      1           1        4       は   助詞   係助詞     &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5      1           1        5       、   記号     読点     &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6      1           1        6 モリーオ   名詞 固有名詞     地域 一般</span></span>
-<span><span class="co">#&gt;   X5StageUse1 X5StageUse2 Original    Yomi1    Yomi2</span></span>
-<span><span class="co">#&gt; 1        &lt;NA&gt;        &lt;NA&gt;     その     ソノ     ソノ</span></span>
-<span><span class="co">#&gt; 2        &lt;NA&gt;        &lt;NA&gt;     ころ     コロ     コロ</span></span>
-<span><span class="co">#&gt; 3        &lt;NA&gt;        &lt;NA&gt; わたくし ワタクシ ワタクシ</span></span>
-<span><span class="co">#&gt; 4        &lt;NA&gt;        &lt;NA&gt;       は       ハ       ワ</span></span>
-<span><span class="co">#&gt; 5        &lt;NA&gt;        &lt;NA&gt;       、       、       、</span></span>
-<span><span class="co">#&gt; 6        &lt;NA&gt;        &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id    token   POS1     POS2     POS3</span></span>
-<span><span class="co">#&gt; 1      1           1        1     その 連体詞     &lt;NA&gt;     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2      1           1        2     ころ   名詞   非自立 副詞可能</span></span>
-<span><span class="co">#&gt; 3      1           1        3 わたくし   名詞   代名詞     一般</span></span>
-<span><span class="co">#&gt; 4      1           1        4       は   助詞   係助詞     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5      1           1        5       、   記号     読点     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6      1           1        6 モリーオ   名詞 固有名詞     地域</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id    token   POS1     POS3 X5StageUse1</span></span>
-<span><span class="co">#&gt; 1      1           1        1     その 連体詞     &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2      1           1        2     ころ   名詞 副詞可能        &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3      1           1        3 わたくし   名詞     一般        &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4      1           1        4       は   助詞     &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5      1           1        5       、   記号     &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6      1           1        6 モリーオ   名詞     地域        &lt;NA&gt;</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id    token   POS1 Original</span></span>
-<span><span class="co">#&gt; 1      1           1        1     その 連体詞     その</span></span>
-<span><span class="co">#&gt; 2      1           1        2     ころ   名詞     ころ</span></span>
-<span><span class="co">#&gt; 3      1           1        3 わたくし   名詞 わたくし</span></span>
-<span><span class="co">#&gt; 4      1           1        4       は   助詞       は</span></span>
-<span><span class="co">#&gt; 5      1           1        5       、   記号       、</span></span>
-<span><span class="co">#&gt; 6      1           1        6 モリーオ   名詞     &lt;NA&gt;</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 385 × 13</span></span>
+<span><span class="co">#&gt;    doc_id senten…¹ token…² token POS1  POS2  POS3  POS4  X5Sta…³ X5Sta…⁴ Origi…⁵</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;     &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt;  1 1             1       1 その  連体… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    その   </span></span>
+<span><span class="co">#&gt;  2 1             1       2 ころ  名詞  非自… 副詞… &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    ころ   </span></span>
+<span><span class="co">#&gt;  3 1             1       3 わた… 名詞  代名… 一般  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    わたく…</span></span>
+<span><span class="co">#&gt;  4 1             1       4 は    助詞  係助… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    は     </span></span>
+<span><span class="co">#&gt;  5 1             1       5 、    記号  読点  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    、     </span></span>
+<span><span class="co">#&gt;  6 1             1       6 モリ… 名詞  固有… 地域  一般  &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt;  7 1             1       7 市    名詞  接尾  地域  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    市     </span></span>
+<span><span class="co">#&gt;  8 1             1       8 の    助詞  連体… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    の     </span></span>
+<span><span class="co">#&gt;  9 1             1       9 博物  名詞  一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    博物   </span></span>
+<span><span class="co">#&gt; 10 1             1      10 局    名詞  接尾  一般  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    局     </span></span>
+<span><span class="co">#&gt; # … with 375 more rows, 2 more variables: Yomi1 &lt;chr&gt;, Yomi2 &lt;chr&gt;, and</span></span>
+<span><span class="co">#&gt; #   abbreviated variable names ¹​sentence_id, ²​token_id, ³​X5StageUse1,</span></span>
+<span><span class="co">#&gt; #   ⁴​X5StageUse2, ⁵​Original</span></span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 385 × 7</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS2     POS3    </span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;   </span></span>
+<span><span class="co">#&gt;  1 1                1        1 その     連体詞 &lt;NA&gt;     &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   非自立   副詞可能</span></span>
+<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   代名詞   一般    </span></span>
+<span><span class="co">#&gt;  4 1                1        4 は       助詞   係助詞   &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt;  5 1                1        5 、       記号   読点     &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   固有名詞 地域    </span></span>
+<span><span class="co">#&gt;  7 1                1        7 市       名詞   接尾     地域    </span></span>
+<span><span class="co">#&gt;  8 1                1        8 の       助詞   連体化   &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt;  9 1                1        9 博物     名詞   一般     &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt; 10 1                1       10 局       名詞   接尾     一般    </span></span>
+<span><span class="co">#&gt; # … with 375 more rows</span></span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 385 × 7</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS3     X5StageUse1</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt;  1 1                1        1 その     連体詞 &lt;NA&gt;     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   副詞可能 &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   一般     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  4 1                1        4 は       助詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  5 1                1        5 、       記号   &lt;NA&gt;     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   地域     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  7 1                1        7 市       名詞   地域     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  8 1                1        8 の       助詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  9 1                1        9 博物     名詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; 10 1                1       10 局       名詞   一般     &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; # … with 375 more rows</span></span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 385 × 6</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   Original</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;   </span></span>
+<span><span class="co">#&gt;  1 1                1        1 その     連体詞 その    </span></span>
+<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   ころ    </span></span>
+<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   わたくし</span></span>
+<span><span class="co">#&gt;  4 1                1        4 は       助詞   は      </span></span>
+<span><span class="co">#&gt;  5 1                1        5 、       記号   、      </span></span>
+<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt;  7 1                1        7 市       名詞   市      </span></span>
+<span><span class="co">#&gt;  8 1                1        8 の       助詞   の      </span></span>
+<span><span class="co">#&gt;  9 1                1        9 博物     名詞   博物    </span></span>
+<span><span class="co">#&gt; 10 1                1       10 局       名詞   局      </span></span>
+<span><span class="co">#&gt; # … with 375 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="pack-output">Pack output<a class="anchor" aria-label="anchor" href="#pack-output"></a>
@@ -231,87 +254,56 @@
 <p>IPA, <a href="https://clrd.ninjal.ac.jp/unidic/" class="external-link">UniDic</a>, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## UniDic 2.1.2</span></span>
-<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/unidic-lite"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id          token   POS1     POS2 POS3 POS4</span></span>
-<span><span class="co">#&gt; 1      1           1        1           あの 感動詞 フィラー &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2      1           1        2 イーハトーヴォ   名詞 普通名詞 一般 &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3      1           1        3             の   助詞   格助詞 &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4      1           1        4     すきとおっ   動詞     一般 &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5      1           1        5             た 助動詞     &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6      1           1        6             風   名詞 普通名詞 一般 &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;       cType         cForm      lForm    lemma       orth       pron   orthBase</span></span>
-<span><span class="co">#&gt; 1      &lt;NA&gt;          &lt;NA&gt;       アノ     あの       あの       アノ       あの</span></span>
-<span><span class="co">#&gt; 2      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3      &lt;NA&gt;          &lt;NA&gt;         ノ       の         の         ノ         の</span></span>
-<span><span class="co">#&gt; 4 五段-ラ行 連用形-促音便 スキトオル 透き通る すきとおっ スキトーッ すきとおる</span></span>
-<span><span class="co">#&gt; 5 助動詞-タ   連体形-一般         タ       た         た         タ         た</span></span>
-<span><span class="co">#&gt; 6      &lt;NA&gt;          &lt;NA&gt;       カゼ       風         風       カゼ         風</span></span>
-<span><span class="co">#&gt;     pronBase goshu iType iForm fType fForm       kana   kanaBase       form</span></span>
-<span><span class="co">#&gt; 1       アノ    和  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       アノ       アノ       アノ</span></span>
-<span><span class="co">#&gt; 2       &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3         ノ    和  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;         ノ         ノ         ノ</span></span>
-<span><span class="co">#&gt; 4 スキトール    和  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; スキトオッ スキトオル スキトオッ</span></span>
-<span><span class="co">#&gt; 5         タ    和  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;         タ         タ         タ</span></span>
-<span><span class="co">#&gt; 6       カゼ    和  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       カゼ       カゼ       カゼ</span></span>
-<span><span class="co">#&gt;     formBase iConType fConType aType               aConType aModeType</span></span>
-<span><span class="co">#&gt; 1       アノ     &lt;NA&gt;     &lt;NA&gt;     0                   &lt;NA&gt;      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;                   &lt;NA&gt;      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3         ノ     &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;                名詞%F1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4 スキトオル     &lt;NA&gt;     &lt;NA&gt;     3                     C1      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5         タ     &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt; 動詞%F2@1,形容詞%F4@-2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6       カゼ     &lt;NA&gt;     &lt;NA&gt;     0                     C4      &lt;NA&gt;</span></span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/unidic-lite"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 30</span></span>
+<span><span class="co">#&gt;   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  cType cForm lForm lemma</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 1              1       1 あの  感動… フィ… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  アノ  あの </span></span>
+<span><span class="co">#&gt; 2 1              1       2 イー… 名詞  普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 3 1              1       3 の    助詞  格助… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ノ    の   </span></span>
+<span><span class="co">#&gt; 4 1              1       4 すき… 動詞  一般  &lt;NA&gt;  &lt;NA&gt;  五段… 連用… スキ… 透き…</span></span>
+<span><span class="co">#&gt; 5 1              1       5 た    助動… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  助動… 連体… タ    た   </span></span>
+<span><span class="co">#&gt; 6 1              1       6 風    名詞  普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  カゼ  風   </span></span>
+<span><span class="co">#&gt; # … with 18 more variables: orth &lt;chr&gt;, pron &lt;chr&gt;, orthBase &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   pronBase &lt;chr&gt;, goshu &lt;chr&gt;, iType &lt;chr&gt;, iForm &lt;chr&gt;, fType &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   fForm &lt;chr&gt;, kana &lt;chr&gt;, kanaBase &lt;chr&gt;, form &lt;chr&gt;, formBase &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   iConType &lt;chr&gt;, fConType &lt;chr&gt;, aType &lt;chr&gt;, aConType &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   aModeType &lt;chr&gt;, and abbreviated variable names ¹​sentence_id, ²​token_id</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## CC-CEDICT</span></span>
-<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"它可以进行日语和汉语的语态分析"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/cc-cedict"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"cc-cedict"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id token POS1 POS2 POS3 POS4 pinyin_pron</span></span>
-<span><span class="co">#&gt; 1      1           1        1    它 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;         ta1</span></span>
-<span><span class="co">#&gt; 2      1           1        2  可以 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;     ke3 yi3</span></span>
-<span><span class="co">#&gt; 3      1           1        3  进行 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;  jin4 xing2</span></span>
-<span><span class="co">#&gt; 4      1           1        4  日语 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;     Ri4 yu3</span></span>
-<span><span class="co">#&gt; 5      1           1        5    和 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;         he2</span></span>
-<span><span class="co">#&gt; 6      1           1        6  汉语 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;    Han4 yu3</span></span>
-<span><span class="co">#&gt; 7      1           1        7    的 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;         di4</span></span>
-<span><span class="co">#&gt; 8      1           1        8  语态 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;    yu3 tai4</span></span>
-<span><span class="co">#&gt; 9      1           1        9  分析 &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;    fen1 xi1</span></span>
-<span><span class="co">#&gt;   traditional_char_form simplified_char_form</span></span>
-<span><span class="co">#&gt; 1                    它                   它</span></span>
-<span><span class="co">#&gt; 2                  可以                 可以</span></span>
-<span><span class="co">#&gt; 3                  進行                 进行</span></span>
-<span><span class="co">#&gt; 4                  日語                 日语</span></span>
-<span><span class="co">#&gt; 5                    龢                   和</span></span>
-<span><span class="co">#&gt; 6                  漢語                 汉语</span></span>
-<span><span class="co">#&gt; 7                    的                   的</span></span>
-<span><span class="co">#&gt; 8                  語態                 语态</span></span>
-<span><span class="co">#&gt; 9                  分析                 分析</span></span>
-<span><span class="co">#&gt;                                                                              definition</span></span>
-<span><span class="co">#&gt; 1                                                                                   it/</span></span>
-<span><span class="co">#&gt; 2                                         can/may/possible/able to/not bad/pretty good/</span></span>
-<span><span class="co">#&gt; 3 to advance/to conduct/underway/in progress/to do/to carry out/to carry on/to execute/</span></span>
-<span><span class="co">#&gt; 4                                                                    Japanese language/</span></span>
-<span><span class="co">#&gt; 5                                                    old variant of 和[he2]/harmonious/</span></span>
-<span><span class="co">#&gt; 6                                                      Chinese language/CL:門|门[men2]/</span></span>
-<span><span class="co">#&gt; 7                                                                            aim/clear/</span></span>
-<span><span class="co">#&gt; 8                                                                      voice (grammar)/</span></span>
-<span><span class="co">#&gt; 9                                                    to analyze/analysis/CL:個|个[ge4]/</span></span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"它可以进行日语和汉语的语态分析"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/cc-cedict"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"cc-cedict"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 9 × 12</span></span>
+<span><span class="co">#&gt;   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  pinyi…³ tradi…⁴ simpl…⁵</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 1              1       1 它    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ta1     它      它     </span></span>
+<span><span class="co">#&gt; 2 1              1       2 可以  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ke3 yi3 可以    可以   </span></span>
+<span><span class="co">#&gt; 3 1              1       3 进行  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  jin4 x… 進行    进行   </span></span>
+<span><span class="co">#&gt; 4 1              1       4 日语  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  Ri4 yu3 日語    日语   </span></span>
+<span><span class="co">#&gt; 5 1              1       5 和    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  he2     龢      和     </span></span>
+<span><span class="co">#&gt; 6 1              1       6 汉语  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  Han4 y… 漢語    汉语   </span></span>
+<span><span class="co">#&gt; 7 1              1       7 的    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  di4     的      的     </span></span>
+<span><span class="co">#&gt; 8 1              1       8 语态  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  yu3 ta… 語態    语态   </span></span>
+<span><span class="co">#&gt; 9 1              1       9 分析  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  fen1 x… 分析    分析   </span></span>
+<span><span class="co">#&gt; # … with 1 more variable: definition &lt;chr&gt;, and abbreviated variable names</span></span>
+<span><span class="co">#&gt; #   ¹​sentence_id, ²​token_id, ³​pinyin_pron, ⁴​traditional_char_form,</span></span>
+<span><span class="co">#&gt; #   ⁵​simplified_char_form</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## mecab-ko-dic</span></span>
-<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/gbs_tokenize.html">gbs_tokenize</a></span><span class="op">(</span><span class="st">"하네다공항한정토트백"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/mecab-ko-dic"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"ko-dic"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id  token POS meaning presence reading     type</span></span>
-<span><span class="co">#&gt; 1      1           1        1 하네다 NNP    인명        F  하네다     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2      1           1        2   공항 NNG    장소        T    공항     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3      1           1        3   한정 NNG    &lt;NA&gt;        T    한정     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4      1           1        4 토트백 NNG    &lt;NA&gt;        T  토트백 Compound</span></span>
-<span><span class="co">#&gt;   first_pos last_pos             expression</span></span>
-<span><span class="co">#&gt; 1      &lt;NA&gt;     &lt;NA&gt;                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2      &lt;NA&gt;     &lt;NA&gt;                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3      &lt;NA&gt;     &lt;NA&gt;                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4      &lt;NA&gt;     &lt;NA&gt; 토트/NNP/인명+백/NNG/*</span></span></code></pre></div>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"하네다공항한정토트백"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/mecab-ko-dic"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"ko-dic"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 12</span></span>
+<span><span class="co">#&gt;   doc_id sentence_id token_id token  POS   meaning prese…¹ reading type  first…²</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">#&gt; 1 1                1        1 하네다 NNP   인명    F       하네다  &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 2 1                1        2 공항   NNG   장소    T       공항    &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 3 1                1        3 한정   NNG   &lt;NA&gt;    T       한정    &lt;NA&gt;  &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; 4 1                1        4 토트백 NNG   &lt;NA&gt;    T       토트백  Comp… &lt;NA&gt;   </span></span>
+<span><span class="co">#&gt; # … with 2 more variables: last_pos &lt;chr&gt;, expression &lt;chr&gt;, and abbreviated</span></span>
+<span><span class="co">#&gt; #   variable names ¹​presence, ²​first_pos</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

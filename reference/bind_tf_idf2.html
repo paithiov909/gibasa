@@ -18,7 +18,7 @@ which are implemented in 'RMeCab' package."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,12 +113,12 @@ which are implemented in 'RMeCab' package.</p>
 
 
 <dt>norm</dt>
-<dd><p>Logical; If supplied <code>TRUE</code>, the raw term counts are normalized
+<dd><p>Logical; If passed as <code>TRUE</code>, the raw term counts are normalized
 being divided with L2 norms before computing IDF values.</p></dd>
 
 
 <dt>rmecab_compat</dt>
-<dd><p>Logical; If supplied <code>TRUE</code>, computes values while
+<dd><p>Logical; If passed as <code>TRUE</code>, computes values while
 taking care of compatibility with 'RMeCab'.
 Note that 'RMeCab' always computes IDF values using term frequency
 rather than raw term counts, and thus TF-IDF values may be
@@ -129,7 +129,7 @@ doubly affected by term frequency.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>data.frame.</p>
+<p>A data.frame.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
