@@ -1,3 +1,7 @@
+# gibasa 0.7.2
+
+* There are no visible changes.
+
 # gibasa 0.7.1
 
 * Fix documentations. There are no visible changes.
