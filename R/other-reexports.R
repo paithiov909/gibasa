@@ -1,8 +1,3 @@
-#' @noRd
-#' @importFrom rlang enquo enquos ensym sym .data := as_name as_label
-#' @importFrom dplyr %>%
-NULL
-
 #' Collapse sequences of tokens by condition
 #'
 #' @inherit audubon::collapse_tokens description return details

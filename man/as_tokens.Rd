@@ -17,7 +17,7 @@ as_tokens(
 \item{token_field}{Column name that contains tokens.}
 
 \item{pos_field}{Feature name that will be kept as the names
-of tokens. If you don't need them, giva \code{NULL} for this argument.}
+of tokens. If you don't need them, give a \code{NULL} for this argument.}
 
 \item{nm}{Names of returned list.
 If left with \code{NULL}, "doc_id" field of \code{tbl} is used instead.}
@@ -36,7 +36,7 @@ tokenize(
     text = audubon::polano[5:8]
   )
 ) |>
-prettify(col_select = "POS1") |>
-as_tokens()
+  prettify(col_select = "POS1") |>
+  as_tokens()
 }
 }

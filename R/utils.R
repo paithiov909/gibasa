@@ -3,7 +3,7 @@
 #' @param tbl A tibble of tokens out of \code{tokenize()}.
 #' @param token_field Column name that contains tokens.
 #' @param pos_field Feature name that will be kept as the names
-#' of tokens. If you don't need them, giva `NULL` for this argument.
+#' of tokens. If you don't need them, give a `NULL` for this argument.
 #' @param nm Names of returned list.
 #' If left with `NULL`, "doc_id" field of `tbl` is used instead.
 #' @return A named list of tokens.
@@ -16,8 +16,8 @@
 #'     text = audubon::polano[5:8]
 #'   )
 #' ) |>
-#' prettify(col_select = "POS1") |>
-#' as_tokens()
+#'   prettify(col_select = "POS1") |>
+#'   as_tokens()
 #' }
 as_tokens <- function(tbl,
                       token_field = "token",

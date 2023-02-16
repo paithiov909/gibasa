@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.7.1
+Version: 0.7.2
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
@@ -25,8 +25,12 @@ Imports:
     rlang (>= 0.4.11),
     stringi,
     utils
+Remotes:
+    Bioconductor/MatrixGenerics,
+    const-ae/sparseMatrixStats
 Suggests: 
     roxygen2,
+    sparseMatrixStats,
     testthat (>= 3.0.0)
 LinkingTo:
     Rcpp,
