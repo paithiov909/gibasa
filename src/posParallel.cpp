@@ -10,8 +10,6 @@
 #include "mecab.h"
 
 // structs for using in tbb::parallel_for
-namespace TextParser {
-
 struct TextParse
 {
   TextParse(const std::vector<std::string>* sentences, std::vector<std::vector<std::tuple<std::string, std::string>>>& results, mecab_model_t* model, const bool* is_partial_mode)
@@ -65,10 +63,7 @@ struct TextParse
   const bool* partial_;
 };
 
-}
-
 using namespace Rcpp;
-using namespace TextParser;
 
 //' Call tagger inside 'tbb::parallel_for' and return a data.frame.
 //'
