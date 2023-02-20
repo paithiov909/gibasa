@@ -56,7 +56,7 @@ gibasa::posDebugRcpp("月ノ美兎\t*\nは箱の中", partial = TRUE)
 
 ## 具体的な使用例
 
-`partial`引数は、`gbs_tokenize`と`tokenize`にも実装されています。実用的には、たとえば次のように使えるかもしれません。
+`partial`引数は`tokenize`にも実装されています。実用的には、たとえば次のように使えるかもしれません。
 
 ```{r}
 sentences <- c(

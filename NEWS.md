@@ -1,4 +1,4 @@
-# gibasa 0.7.2
+# gibasa 0.7.3
 
 * There are no visible changes.
 
