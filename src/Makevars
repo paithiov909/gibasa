@@ -19,7 +19,7 @@ PKG_CXXFLAGS = -DSTRICT_R_HEADERS \
 	-DMECAB_USE_UTF8_ONLY \
 	-DVERSION="\"$(VERSION)\"" -DPACKAGE="\"mecab\"" \
 	-DMECAB_DEFAULT_RC="\"$(MECAB_DEFAULT_RC)\""
-PKG_LIBS = $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()") -lpthread
+PKG_LIBS = $(shell "$(R_HOME)/bin/Rscript" -e "RcppParallel::RcppParallelLibs()") -pthread
 
 .PHONY: all
 
