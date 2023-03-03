@@ -59,7 +59,7 @@ corpus <- tbl |>
       doc_id = df$doc_id,
       text = df$text
     ) |>
-      gibasa::tokenize(split = TRUE) |>
+      gibasa::tokenize() |>
       gibasa::prettify(col_select = c("POS1", "Original")) |>
       dplyr::mutate(
         token = dplyr::if_else(is.na(Original), token, Original)

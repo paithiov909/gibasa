@@ -1,22 +1,25 @@
 // [[Rcpp::depends(RcppParallel)]]
-
 #define R_NO_REMAP
 
 #include <iostream>
 #include <sstream>
 #include <Rcpp.h>
 #include <RcppParallel.h>
-
 #include "mecab.h"
 
-// structs for using in tbb::parallel_for
-struct TextParse
-{
-  TextParse(const std::vector<std::string>* sentences, std::vector<std::vector<std::tuple<std::string, std::string>>>& results, mecab_model_t* model, const bool* is_partial_mode)
-    : sentences_(sentences), results_(results), model_(model), partial_(is_partial_mode)
-  {}
+using namespace Rcpp;
 
-  void operator()(const tbb::blocked_range<size_t>& range) const
+struct TextParse : public RcppParallel::Worker
+{
+  const std::vector<std::string>* sentences_;
+  std::vector<std::vector<std::tuple<std::string, std::string>>>& results_;
+  mecab_model_t* model_;
+  const bool* partial_;
+
+  TextParse(const std::vector<std::string>* sentences, std::vector<std::vector<std::tuple<std::string, std::string>>>& results, mecab_model_t* model, const bool* is_partial_mode)
+    : sentences_(sentences), results_(results), model_(model), partial_(is_partial_mode) {}
+
+  void operator()(std::size_t begin, std::size_t end)
   {
     mecab_t* tagger = mecab_model_new_tagger(model_);
     mecab_lattice_t* lattice = mecab_model_new_lattice(model_);
@@ -26,8 +29,7 @@ struct TextParse
       mecab_lattice_add_request_type(lattice, MECAB_PARTIAL);
     }
 
-    for (size_t i = range.begin(); i < range.end(); ++i) {
-      std::vector<std::tuple<std::string, std::string>> parsed;
+    for (size_t i = begin; i < end; ++i) {
       if (*partial_) {
         mecab_lattice_set_sentence(lattice, ((*sentences_)[i] + "\nEOS").c_str());
       } else {
@@ -36,6 +38,8 @@ struct TextParse
       mecab_parse_lattice(tagger, lattice);
 
       const size_t len = mecab_lattice_get_size(lattice);
+
+      std::vector<std::tuple<std::string, std::string>> parsed;
       parsed.reserve(len);
 
       node = mecab_lattice_get_bos_node(lattice);
@@ -51,19 +55,14 @@ struct TextParse
           parsed.push_back(std::make_tuple(morph, features));
         }
       }
-      results_[i] = parsed; // mutex is not needed
+      results_[i] = parsed;
     }
+
     mecab_lattice_destroy(lattice);
     mecab_destroy(tagger);
   }
 
-  const std::vector<std::string>* sentences_;
-  std::vector<std::vector<std::tuple<std::string, std::string>>>& results_;
-  mecab_model_t* model_;
-  const bool* partial_;
 };
-
-using namespace Rcpp;
 
 //' Call tagger inside 'tbb::parallel_for' and return a data.frame.
 //'
@@ -121,10 +120,8 @@ Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
   bool is_partial_mode = false;
   if (is_true(all(partial))) { is_partial_mode = true; }
 
-  // parallel argorithm with Intell TBB
-  // RcppParallel doesn't get CharacterVector as input and output
-  TextParse func = TextParse(&text, results, model, &is_partial_mode);
-  tbb::parallel_for(tbb::blocked_range<size_t>(0, text.size()), func);
+  TextParse textParse(&text, results, model, &is_partial_mode);
+  RcppParallel::parallelFor(0, text.size(), textParse);
 
   // clean
   mecab_model_destroy(model);

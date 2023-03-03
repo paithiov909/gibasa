@@ -1,6 +1,6 @@
-# gibasa 0.7.3
+# gibasa 0.7.4
 
-* There are no visible changes.
+* Use `RcppParallel::paralellFor` instead of `tbb::parallel_for`. There are no user's visible changes.
 
 # gibasa 0.7.1
 

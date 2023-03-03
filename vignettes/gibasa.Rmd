@@ -177,32 +177,12 @@ dplyr::filter(tbl, title == "ファウスト") |>
   dplyr::mutate(nchar = nchar(text)) |>
   dplyr::select(!text)
 
-gbs_split_t <- function() {
-  dplyr::filter(tbl, title == "ファウスト") |>
-    gibasa::tokenize(split = TRUE) |>
-    nrow()
-}
-gbs_split_f <- function() {
-  dplyr::filter(tbl, title == "ファウスト") |>
-    gibasa::tokenize(split = FALSE) |>
-    nrow()
-}
-
-gbs_split_t()
+dplyr::filter(tbl, title == "ファウスト") |>
+  gibasa::tokenize(split = TRUE) |>
+  nrow()
 ```
 
 `gibasa::tokenize`は`text_field`引数で指定した列に含まれる総トークン数行×3列のデータフレームを戻り値として返します。その戻り値に対して何も考えずに`gibasa::prettify`すると、`feature`列がさらに複数列に分割されるため、総トークン数が45万行あればそれだけでも45万行×十数列のデータフレームになります。それだけの量のtidy textを一気に扱うのは、あまり現実的ではありません。
-
-また、gibasaは、要素あたり数万字あるような文字列でもいちおう分かち書きできるはずですが、どちらかというと要素あたりの文字数はほどほどである文字列ベクトルを念頭にvectorizeされているため、短めの文書の集合に対してのほうが安定して動作します。そのため、要素ごとに長い文章に対しては`split=TRUE`にしたほうが速いケースが多くなるはずです（デフォルトでは`FALSE`になっています）。
-
-```r
-bench <- microbenchmark::microbenchmark(gbs_split_t(),
-                                        gbs_split_f(),
-                                        times = 3L)
-ggplot2::autoplot(bench)
-```
-
-![bencmark2](https://raw.githack.com/paithiov909/gibasa/main/man/figures/benchmark2.png)
 
 そこで、ここではひとまず単純に形態素解析するテキストの分量を減らします。以下では、文章あたりの文字数が5000字よりも少ないデータだけを使うことにします。これでも、全部で228篇あります。
 
@@ -239,7 +219,7 @@ corp <- tbl |>
       doc_id = df$doc_id,
       text = df$text
     ) |>
-      gibasa::tokenize(split = TRUE) |>
+      gibasa::tokenize() |>
       gibasa::prettify(col_select = c("POS1", "Original")) |>
       dplyr::filter(
         POS1 %in% c("名詞", "形容詞", "動詞"),
