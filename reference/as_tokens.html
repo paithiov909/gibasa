@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +82,7 @@
 
 <dt>pos_field</dt>
 <dd><p>Feature name that will be kept as the names
-of tokens. If you don't need them, giva <code>NULL</code> for this argument.</p></dd>
+of tokens. If you don't need them, give a <code>NULL</code> for this argument.</p></dd>
 
 
 <dt>nm</dt>
@@ -106,8 +106,8 @@ If left with <code>NULL</code>, "doc_id" field of <code>tbl</code> is used inste
 <span class="r-in"><span>    text <span class="op">=</span> <span class="fu">audubon</span><span class="fu">::</span><span class="va"><a href="https://paithiov909.github.io/audubon/reference/polano.html" class="external-link">polano</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="prettify.html">prettify</a></span><span class="op">(</span>col_select <span class="op">=</span> <span class="st">"POS1"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span><span class="fu">as_tokens</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="prettify.html">prettify</a></span><span class="op">(</span>col_select <span class="op">=</span> <span class="st">"POS1"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">as_tokens</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

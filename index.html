@@ -35,7 +35,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,10 +91,9 @@
 <p>Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and morphological analysis tool for R.</p>
 <p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> sometimes splits them into erroneous tokens.</p>
 <p>Gibasa provides 3 main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
-<div class="figure">
-<img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt=""><p class="caption">image</p>
-</div>
-<ul>
+<figure><img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt="flowchart of a text analysis that combines gibasa and other packages"><figcaption aria-hidden="true">
+flowchart of a text analysis that combines gibasa and other packages
+</figcaption></figure><ul>
 <li>
 <code><a href="reference/tokenize.html">gibasa::tokenize</a></code> retrieves a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
 <li>
@@ -108,13 +107,8 @@
 </h2>
 <p>You can install binary package via <a href="https://paithiov909.r-universe.dev/ui#package:gibasa" class="external-link">r-universe</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Enable repository from paithiov909</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  paithiov909 <span class="op">=</span> <span class="st">"https://paithiov909.r-universe.dev"</span>,</span>
-<span>  CRAN <span class="op">=</span> <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Download and install gibasa in R</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gibasa"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Install gibasa from r-universe repository</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gibasa"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://paithiov909.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Or build from source package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>MECAB_DEFAULT_RC <span class="op">=</span> <span class="st">"/fullpath/to/your/mecabrc"</span><span class="op">)</span> <span class="co"># if necessary</span></span>
@@ -225,16 +219,13 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id</span></span>
-<span><span class="co">#&gt; 1      1</span></span>
-<span><span class="co">#&gt; 2      2</span></span>
-<span><span class="co">#&gt; 3      3</span></span>
-<span><span class="co">#&gt; 4      4</span></span>
-<span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             text</span></span>
-<span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし た 。</span></span>
-<span><span class="co">#&gt; 2 十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし た し 俸給 も ほんの わずか でし た が 、 受持ち が 標本 の 採集 や 整理 で 生れ 付き 好き な こと でし た から 、 わたくし は 毎日 ずいぶん 愉快 に はたらき まし た 。 殊に その ころ 、 モリーオ 市 で は 競馬 場 を 植物 園 に 拵え 直す と いう ので 、 その 景色 の いい まわり に アカシヤ を 植え込ん だ 広い 地面 が 、 切符 売場 や 信号 所 の 建物 の つい た まま 、 わたくし ども の 役所 の 方 へ まわっ て 来 た もの です から 、 わたくし は すぐ 宿直 という 名前 で 月賦 で 買っ た 小さな 蓄音器 と 二 十 枚 ばかり の レコード を もっ て 、 その 番小屋 に ひとり 住む こと に なり まし た 。 わたくし は そこ の 馬 を 置く 場所 に 板 で 小さな し きい を つけ て 一疋 の 山羊 を 飼い まし た 。 毎朝 その 乳 を しぼっ て つめたい パン を ひたし て た べ 、 それ から 黒い 革 の かばん へ すこし の 書類 や 雑誌 を 入れ 、 靴 も きれい に みがき 、 並木 の ポプラ の 影法師 を 大股 にわたって 市 の 役所 へ 出 て 行く の でし た 。</span></span>
-<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を もつ 青い そら 、 うつくしい 森 で 飾ら れ た モリーオ 市 、 郊外 の ぎらぎら ひかる 草 の 波 。</span></span>
-<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼーロ と ロザーロ 、 羊 飼 の ミーロ や 、 顔 の 赤い こども たち 、 地主 の テーモ 、 山猫 博士 の ボーガント・デストゥパーゴ など 、 いま この 暗い 巨 き な 石 の 建物 の なか で 考え て いる と 、 みんな むかし 風 の なつかしい 青い 幻 燈 の よう に 思わ れ ます 。 で は 、 わたくし は いつか の 小さな み だし を つけ ながら 、 しずか に あの 年 の イーハトーヴォ の 五月 から 十月 まで を 書きつけ ましょ う 。</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span><span class="co">#&gt;   doc_id text                                                                   </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                  </span></span>
+<span><span class="co">#&gt; 1 1      その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし … </span></span>
+<span><span class="co">#&gt; 2 2      十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし…</span></span>
+<span><span class="co">#&gt; 3 3      あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を … </span></span>
+<span><span class="co">#&gt; 4 4      また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼ…</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>  <span class="va">res</span>,</span>
@@ -243,10 +234,10 @@
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id</span></span>
-<span><span class="co">#&gt; 1      1</span></span>
-<span><span class="co">#&gt;                                                                                                                                                                      text</span></span>
-<span><span class="co">#&gt; 1 その/連体詞 ころ/名詞 わたくし/名詞 は/助詞 、/記号 モリーオ/名詞 市/名詞 の/助詞 博物/名詞 局/名詞 に/助詞 勤める/動詞 て/助詞 居る/動詞 ます/助動詞 た/助動詞 。/記号</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
+<span><span class="co">#&gt;   doc_id text                                                                  </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                 </span></span>
+<span><span class="co">#&gt; 1 1      その/連体詞 ころ/名詞 わたくし/名詞 は/助詞 、/記号 モリーオ/名詞 市/…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>
