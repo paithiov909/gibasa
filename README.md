@@ -26,7 +26,12 @@ splits them into erroneous tokens.
 Gibasa provides 3 main functions: `gibasa::tokenize`,
 `gibasa::prettify`, and `gibasa::pack`.
 
-![image](man/figures/tidytext_fig5_1_mod.drawio.png)
+<figure>
+<img src="man/figures/tidytext_fig5_1_mod.drawio.png"
+alt="flowchart of a text analysis that combines gibasa and other packages" />
+<figcaption aria-hidden="true">flowchart of a text analysis that
+combines gibasa and other packages</figcaption>
+</figure>
 
 - `gibasa::tokenize` retrieves a TIF-compliant data.frame of corpus,
   returning tokens as format that known as ‘tidy text data’, so that
@@ -168,16 +173,13 @@ gibasa::prettify(res, col_select = c("POS1", "Original"))
 ``` r
 res <- gibasa::prettify(res)
 gibasa::pack(res)
-#>   doc_id
-#> 1      1
-#> 2      2
-#> 3      3
-#> 4      4
-#>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             text
-#> 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし た 。
-#> 2 十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし た し 俸給 も ほんの わずか でし た が 、 受持ち が 標本 の 採集 や 整理 で 生れ 付き 好き な こと でし た から 、 わたくし は 毎日 ずいぶん 愉快 に はたらき まし た 。 殊に その ころ 、 モリーオ 市 で は 競馬 場 を 植物 園 に 拵え 直す と いう ので 、 その 景色 の いい まわり に アカシヤ を 植え込ん だ 広い 地面 が 、 切符 売場 や 信号 所 の 建物 の つい た まま 、 わたくし ども の 役所 の 方 へ まわっ て 来 た もの です から 、 わたくし は すぐ 宿直 という 名前 で 月賦 で 買っ た 小さな 蓄音器 と 二 十 枚 ばかり の レコード を もっ て 、 その 番小屋 に ひとり 住む こと に なり まし た 。 わたくし は そこ の 馬 を 置く 場所 に 板 で 小さな し きい を つけ て 一疋 の 山羊 を 飼い まし た 。 毎朝 その 乳 を しぼっ て つめたい パン を ひたし て た べ 、 それ から 黒い 革 の かばん へ すこし の 書類 や 雑誌 を 入れ 、 靴 も きれい に みがき 、 並木 の ポプラ の 影法師 を 大股 にわたって 市 の 役所 へ 出 て 行く の でし た 。
-#> 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を もつ 青い そら 、 うつくしい 森 で 飾ら れ た モリーオ 市 、 郊外 の ぎらぎら ひかる 草 の 波 。
-#> 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼーロ と ロザーロ 、 羊 飼 の ミーロ や 、 顔 の 赤い こども たち 、 地主 の テーモ 、 山猫 博士 の ボーガント・デストゥパーゴ など 、 いま この 暗い 巨 き な 石 の 建物 の なか で 考え て いる と 、 みんな むかし 風 の なつかしい 青い 幻 燈 の よう に 思わ れ ます 。 で は 、 わたくし は いつか の 小さな み だし を つけ ながら 、 しずか に あの 年 の イーハトーヴォ の 五月 から 十月 まで を 書きつけ ましょ う 。
+#> # A tibble: 4 × 2
+#>   doc_id text                                                                   
+#>   <chr>  <chr>                                                                  
+#> 1 1      その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし … 
+#> 2 2      十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし…
+#> 3 3      あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を … 
+#> 4 4      また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼ…
 
 dplyr::mutate(
   res,
@@ -186,10 +188,10 @@ dplyr::mutate(
 ) |>
   gibasa::pack() |>
   head(1L)
-#>   doc_id
-#> 1      1
-#>                                                                                                                                                                      text
-#> 1 その/連体詞 ころ/名詞 わたくし/名詞 は/助詞 、/記号 モリーオ/名詞 市/名詞 の/助詞 博物/名詞 局/名詞 に/助詞 勤める/動詞 て/助詞 居る/動詞 ます/助動詞 た/助動詞 。/記号
+#> # A tibble: 1 × 2
+#>   doc_id text                                                                  
+#>   <chr>  <chr>                                                                 
+#> 1 1      その/連体詞 ころ/名詞 わたくし/名詞 は/助詞 、/記号 モリーオ/名詞 市/…
 ```
 
 ### Change dictionary

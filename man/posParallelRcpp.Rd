@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{posParallelRcpp}
 \alias{posParallelRcpp}
-\title{Call tagger inside 'tbb::parallel_for' and return a data.frame.}
+\title{Call tagger inside 'RcppParallel::parallelFor' and return a data.frame.}
 \arguments{
 \item{text}{Character vector.}
 
@@ -18,6 +18,6 @@
 data.frame.
 }
 \description{
-Call tagger inside 'tbb::parallel_for' and return a data.frame.
+Call tagger inside 'RcppParallel::parallelFor' and return a data.frame.
 }
 \keyword{internal}

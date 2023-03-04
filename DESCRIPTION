@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternate 'Rcpp' Interface to 'MeCab'
-Version: 0.7.4
+Version: 0.8.0
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
@@ -16,7 +16,7 @@ License: GPL (>= 3)
 URL: https://paithiov909.github.io/gibasa/
 BugReports: https://github.com/paithiov909/gibasa/issues
 Imports: 
-    audubon (>= 0.4.0),
+    audubon (>= 0.5.0),
     dplyr,
     Matrix,
     purrr,

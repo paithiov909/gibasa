@@ -64,7 +64,7 @@ struct TextParse : public RcppParallel::Worker
 
 };
 
-//' Call tagger inside 'tbb::parallel_for' and return a data.frame.
+//' Call tagger inside 'RcppParallel::parallelFor' and return a data.frame.
 //'
 //' @param text Character vector.
 //' @param sys_dic String scalar.

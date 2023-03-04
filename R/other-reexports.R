@@ -1,3 +1,11 @@
+#' Bind importance of bigrams
+#'
+#' @inherit audubon::bind_lr description return details seealso
+#' @inheritParams audubon::bind_lr
+#' @importFrom audubon bind_lr
+#' @export
+bind_lr <- audubon::bind_lr
+
 #' Collapse sequences of tokens by condition
 #'
 #' @inherit audubon::collapse_tokens description return details

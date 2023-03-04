@@ -33,7 +33,7 @@ as most of them are not separated with spaces and `tokenizers::tokenize_words` s
 
 Gibasa provides 3 main functions: `gibasa::tokenize`, `gibasa::prettify`, and `gibasa::pack`.
 
-![image](man/figures/tidytext_fig5_1_mod.drawio.png)
+![flowchart of a text analysis that combines gibasa and other packages](man/figures/tidytext_fig5_1_mod.drawio.png)
 
 - `gibasa::tokenize` retrieves a TIF-compliant data.frame of corpus, returning tokens as format that known as 'tidy text data', so that users can replace `tidytext::unnest_tokens` with it for tokenizing CJK text.
 - `gibasa::prettify` turns tagged features into columns.

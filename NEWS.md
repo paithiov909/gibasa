@@ -1,3 +1,9 @@
+# gibasa 0.8.0
+
+* [Breaking Change] Changed numbering style of 'sentence_id' when `split` is `TRUE`.
+* Added `grain_size` argument to `tokenize`.
+* Added new `bind_lr` function.
+
 # gibasa 0.7.4
 
 * Use `RcppParallel::paralellFor` instead of `tbb::parallel_for`. There are no user's visible changes.
