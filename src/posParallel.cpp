@@ -70,6 +70,7 @@ struct TextParse : public RcppParallel::Worker
 //' @param sys_dic String scalar.
 //' @param user_dic String scalar.
 //' @param partial Logical.
+//' @param grain_size Integer (larger than 1).
 //' @return data.frame.
 //'
 //' @name posParallelRcpp
@@ -81,7 +82,8 @@ struct TextParse : public RcppParallel::Worker
 Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
                                 std::string sys_dic = "",
                                 std::string user_dic = "",
-                                Rcpp::LogicalVector partial = 0) {
+                                Rcpp::LogicalVector partial = 0,
+                                std::size_t grain_size = 1) {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -120,8 +122,8 @@ Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
   bool is_partial_mode = false;
   if (is_true(all(partial))) { is_partial_mode = true; }
 
-  TextParse textParse(&text, results, model, &is_partial_mode);
-  RcppParallel::parallelFor(0, text.size(), textParse);
+  TextParse text_parse(&text, results, model, &is_partial_mode);
+  RcppParallel::parallelFor(0, text.size(), text_parse, grain_size);
 
   // clean
   mecab_model_destroy(model);

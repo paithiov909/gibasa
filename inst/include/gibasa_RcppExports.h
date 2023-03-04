@@ -87,17 +87,17 @@ namespace gibasa {
         return Rcpp::as<Rcpp::DataFrame >(rcpp_result_gen);
     }
 
-    inline Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic = "", std::string user_dic = "", Rcpp::LogicalVector partial = 0) {
-        typedef SEXP(*Ptr_posParallelRcpp)(SEXP,SEXP,SEXP,SEXP);
+    inline Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic = "", std::string user_dic = "", Rcpp::LogicalVector partial = 0, std::size_t grain_size = 1) {
+        typedef SEXP(*Ptr_posParallelRcpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_posParallelRcpp p_posParallelRcpp = NULL;
         if (p_posParallelRcpp == NULL) {
-            validateSignature("Rcpp::DataFrame(*posParallelRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector)");
+            validateSignature("Rcpp::DataFrame(*posParallelRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector,std::size_t)");
             p_posParallelRcpp = (Ptr_posParallelRcpp)R_GetCCallable("gibasa", "_gibasa_posParallelRcpp");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p_posParallelRcpp(Shield<SEXP>(Rcpp::wrap(text)), Shield<SEXP>(Rcpp::wrap(sys_dic)), Shield<SEXP>(Rcpp::wrap(user_dic)), Shield<SEXP>(Rcpp::wrap(partial)));
+            rcpp_result_gen = p_posParallelRcpp(Shield<SEXP>(Rcpp::wrap(text)), Shield<SEXP>(Rcpp::wrap(sys_dic)), Shield<SEXP>(Rcpp::wrap(user_dic)), Shield<SEXP>(Rcpp::wrap(partial)), Shield<SEXP>(Rcpp::wrap(grain_size)));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

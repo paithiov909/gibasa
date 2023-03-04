@@ -123,23 +123,24 @@ RcppExport SEXP _gibasa_posDebugRcpp(SEXP textSEXP, SEXP sys_dicSEXP, SEXP user_
     return rcpp_result_gen;
 }
 // posParallelRcpp
-Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic, std::string user_dic, Rcpp::LogicalVector partial);
-static SEXP _gibasa_posParallelRcpp_try(SEXP textSEXP, SEXP sys_dicSEXP, SEXP user_dicSEXP, SEXP partialSEXP) {
+Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic, std::string user_dic, Rcpp::LogicalVector partial, std::size_t grain_size);
+static SEXP _gibasa_posParallelRcpp_try(SEXP textSEXP, SEXP sys_dicSEXP, SEXP user_dicSEXP, SEXP partialSEXP, SEXP grain_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< std::vector<std::string> >::type text(textSEXP);
     Rcpp::traits::input_parameter< std::string >::type sys_dic(sys_dicSEXP);
     Rcpp::traits::input_parameter< std::string >::type user_dic(user_dicSEXP);
     Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type partial(partialSEXP);
-    rcpp_result_gen = Rcpp::wrap(posParallelRcpp(text, sys_dic, user_dic, partial));
+    Rcpp::traits::input_parameter< std::size_t >::type grain_size(grain_sizeSEXP);
+    rcpp_result_gen = Rcpp::wrap(posParallelRcpp(text, sys_dic, user_dic, partial, grain_size));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP _gibasa_posParallelRcpp(SEXP textSEXP, SEXP sys_dicSEXP, SEXP user_dicSEXP, SEXP partialSEXP) {
+RcppExport SEXP _gibasa_posParallelRcpp(SEXP textSEXP, SEXP sys_dicSEXP, SEXP user_dicSEXP, SEXP partialSEXP, SEXP grain_sizeSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(_gibasa_posParallelRcpp_try(textSEXP, sys_dicSEXP, user_dicSEXP, partialSEXP));
+        rcpp_result_gen = PROTECT(_gibasa_posParallelRcpp_try(textSEXP, sys_dicSEXP, user_dicSEXP, partialSEXP, grain_sizeSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -167,7 +168,7 @@ static int _gibasa_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::DataFrame(*dictionary_info)(std::string,std::string)");
         signatures.insert("int(*transition_cost)(unsigned short,unsigned short,std::string,std::string)");
         signatures.insert("Rcpp::DataFrame(*posDebugRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector)");
-        signatures.insert("Rcpp::DataFrame(*posParallelRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector)");
+        signatures.insert("Rcpp::DataFrame(*posParallelRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector,std::size_t)");
     }
     return signatures.find(sig) != signatures.end();
 }
@@ -186,7 +187,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gibasa_dictionary_info", (DL_FUNC) &_gibasa_dictionary_info, 2},
     {"_gibasa_transition_cost", (DL_FUNC) &_gibasa_transition_cost, 4},
     {"_gibasa_posDebugRcpp", (DL_FUNC) &_gibasa_posDebugRcpp, 4},
-    {"_gibasa_posParallelRcpp", (DL_FUNC) &_gibasa_posParallelRcpp, 4},
+    {"_gibasa_posParallelRcpp", (DL_FUNC) &_gibasa_posParallelRcpp, 5},
     {"_gibasa_RcppExport_registerCCallable", (DL_FUNC) &_gibasa_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };

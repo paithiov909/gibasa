@@ -58,6 +58,7 @@ posDebugRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L) {
 #' @param sys_dic String scalar.
 #' @param user_dic String scalar.
 #' @param partial Logical.
+#' @param grain_size Integer (larger than 1).
 #' @return data.frame.
 #'
 #' @name posParallelRcpp
@@ -65,8 +66,8 @@ posDebugRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L) {
 #' @export
 NULL
 
-posParallelRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L) {
-    .Call(`_gibasa_posParallelRcpp`, text, sys_dic, user_dic, partial)
+posParallelRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L, grain_size = 1L) {
+    .Call(`_gibasa_posParallelRcpp`, text, sys_dic, user_dic, partial, grain_size)
 }
 
 # Register entry points for exported C++ functions

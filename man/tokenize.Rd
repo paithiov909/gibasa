@@ -12,6 +12,7 @@ tokenize(
   user_dic = "",
   split = FALSE,
   partial = FALSE,
+  grain_size = 1L,
   mode = c("parse", "wakati")
 )
 }
@@ -35,6 +36,10 @@ into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}
 To activate this feature, remember that all spaces at the start and end of
 the input chunks are already squashed. In particular, trailing spaces
 of chunks sometimes cause fatal errors.}
+
+\item{grain_size}{Integer value larger than 1.
+This argument internally passed to \code{RcppParallel::parallelFor} function.
+Setting a larger chunk size could improve the performance in some cases.}
 
 \item{mode}{Character scalar to switch output format.}
 }

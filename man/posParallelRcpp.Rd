@@ -11,6 +11,8 @@
 \item{user_dic}{String scalar.}
 
 \item{partial}{Logical.}
+
+\item{grain_size}{Integer (larger than 1).}
 }
 \value{
 data.frame.

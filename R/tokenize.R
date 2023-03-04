@@ -13,6 +13,9 @@
 #' To activate this feature, remember that all spaces at the start and end of
 #' the input chunks are already squashed. In particular, trailing spaces
 #' of chunks sometimes cause fatal errors.
+#' @param grain_size Integer value larger than 1.
+#' This argument internally passed to `RcppParallel::parallelFor` function.
+#' Setting a larger chunk size could improve the performance in some cases.
 #' @param mode Character scalar to switch output format.
 #' @return A tibble or a named list of tokens.
 #' @export
@@ -33,6 +36,7 @@ tokenize <- function(x,
                      user_dic = "",
                      split = FALSE,
                      partial = FALSE,
+                     grain_size = 1L,
                      mode = c("parse", "wakati")) {
   UseMethod("tokenize")
 }
@@ -45,6 +49,7 @@ tokenize.default <- function(x,
                              user_dic = "",
                              split = FALSE,
                              partial = FALSE,
+                             grain_size = 1L,
                              mode = c("parse", "wakati")) {
   mode <- rlang::arg_match(mode, c("parse", "wakati"))
 
@@ -53,13 +58,11 @@ tokenize.default <- function(x,
   text_field <- enquo(text_field)
   docid_field <- enquo(docid_field)
 
-  sentence <-
-    purrr::set_names(
-      dplyr::pull(x, {{ text_field }}) %>% stringi::stri_enc_toutf8(),
-      dplyr::pull(x, {{ docid_field }})
-    )
-
-  result <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
+  result <- tagger_impl(
+    dplyr::pull(x, {{ text_field }}),
+    dplyr::pull(x, {{ docid_field }}),
+    sys_dic, user_dic, split, partial, grain_size
+  )
 
   # if it's a factor, preserve ordering
   col_names <- rlang::as_name(docid_field)
@@ -92,6 +95,7 @@ tokenize.character <- function(x,
                                user_dic = "",
                                split = FALSE,
                                partial = FALSE,
+                               grain_size = 1L,
                                mode = c("parse", "wakati")) {
   mode <- rlang::arg_match(mode, c("parse", "wakati"))
 
@@ -99,10 +103,7 @@ tokenize.character <- function(x,
   if (is.null(nm)) {
     nm <- seq_along(x)
   }
-  sentence <- stringi::stri_enc_toutf8(x) %>%
-    purrr::set_names(nm)
-
-  tbl <- tagger_impl(sentence, sys_dic, user_dic, split, partial)
+  tbl <- tagger_impl(x, nm, sys_dic, user_dic, split, partial, grain_size)
 
   if (!identical(mode, "wakati")) {
     return(tbl)
@@ -111,7 +112,13 @@ tokenize.character <- function(x,
 }
 
 #' @noRd
-tagger_impl <- function(sentence, sys_dic, user_dic, split, partial) {
+tagger_impl <- function(sentences,
+                        docnames,
+                        sys_dic,
+                        user_dic,
+                        split,
+                        partial,
+                        grain_size) {
   # check if dictionaries are available.
   sys_dic <- paste0(sys_dic, collapse = "")
   user_dic <- paste0(user_dic, collapse = "")
@@ -119,23 +126,26 @@ tagger_impl <- function(sentence, sys_dic, user_dic, split, partial) {
     rlang::abort(class = "gbs_missing_dict")
   }
 
+  grain_size <- ifelse(grain_size > 0L, as.integer(grain_size), 1L)
+
   if (isTRUE(split)) {
     res <-
-      purrr::imap_dfr(sentence, function(vec, doc_id) {
-        vec <- stringi::stri_split_boundaries(vec, type = "sentence") %>%
+      lapply(seq_along(sentences), function(i) {
+        vec <- stringi::stri_split_boundaries(sentences[i], type = "sentence") %>%
           unlist()
         dplyr::bind_cols(
-          data.frame(doc_id = doc_id),
-          posParallelRcpp(vec, sys_dic, user_dic, partial)
+          data.frame(doc_id = docnames[i]),
+          posParallelRcpp(vec, sys_dic, user_dic, partial, grain_size)
         )
-      })
+      }) %>%
+      purrr::list_rbind()
   } else {
     res <-
-      posParallelRcpp(sentence, sys_dic, user_dic, partial) %>%
+      posParallelRcpp(sentences, sys_dic, user_dic, partial, grain_size) %>%
       dplyr::left_join(
         data.frame(
-          sentence_id = seq_along(sentence),
-          doc_id = names(sentence)
+          sentence_id = seq_along(sentences),
+          doc_id = docnames
         ),
         by = "sentence_id"
       ) %>%
