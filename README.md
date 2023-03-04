@@ -47,13 +47,8 @@ You can install binary package via
 [r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa).
 
 ``` r
-# Enable repository from paithiov909
-options(repos = c(
-  paithiov909 = "https://paithiov909.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"))
-
-# Download and install gibasa in R
-install.packages("gibasa")
+# Install gibasa from r-universe repository
+install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 
 # Or build from source package
 Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary

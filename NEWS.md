@@ -6,7 +6,7 @@
 
 # gibasa 0.7.4
 
-* Use `RcppParallel::paralellFor` instead of `tbb::parallel_for`. There are no user's visible changes.
+* Use `RcppParallel::parallelFor` instead of `tbb::parallel_for`. There are no user's visible changes.
 
 # gibasa 0.7.1
 
