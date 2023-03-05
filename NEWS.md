@@ -1,6 +1,6 @@
 # gibasa 0.8.0
 
-* [Breaking Change] Changed numbering style of 'sentence_id' when `split` is `TRUE`.
+* [Breaking Change] Changed numbering style of 'sentence_id' when `split` is `FALSE`.
 * Added `grain_size` argument to `tokenize`.
 * Added new `bind_lr` function.
 
