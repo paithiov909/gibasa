@@ -74,12 +74,12 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 corp <- data |>
   dplyr::select(category, body) |>
   dplyr::mutate(doc_id = as.factor((dplyr::row_number()))) |>
-  dplyr::slice_sample(prop = .2)
+  dplyr::slice_sample(prop = .8)
 
 corp <- corp |>
   dplyr::mutate(
-    body = audubon::strj_normalize(body),
-    body = stringr::str_remove_all(body, "(https?\\://[[:alnum:]\\.\\-_/]+)"),
+    body = audubon::strj_normalize(body) |>
+      stringr::str_remove_all("(https?\\://[[:alnum:]\\.\\-_/]+)"),
   ) |>
   gibasa::tokenize(body) |>
   gibasa::prettify(col_select = c("POS1", "Original")) |>
@@ -117,16 +117,20 @@ corp |>
     remove_numbers = TRUE
   ) |>
   quanteda::dfm() |>
-  quanteda::dfm_trim(max_termfreq = 300L) |>
-  quanteda::dfm_weight("prop") |>
-  quanteda.textstats::textstat_frequency(groups = category) |>
-  dplyr::top_n(-30L, rank) |>
+  quanteda::dfm_trim(min_termfreq = 100L) |>
+  quanteda::dfm_tfidf() |>
+  quanteda.textstats::textstat_frequency(
+    n = 5,
+    groups = category,
+    force = TRUE
+  ) |>
   ggpubr::ggdotchart(
     x = "feature",
     y = "frequency",
     group = "group",
     color = "group",
     palette = viridisLite::turbo(9),
+    add = "segment",
     rotate = TRUE
   ) +
   ggplot2::theme_bw()
@@ -144,7 +148,7 @@ corp |>
     remove_numbers = TRUE
   ) |>
   quanteda::dfm() |>
-  quanteda::dfm_trim(max_termfreq = 300L) |>
+  quanteda::dfm_trim(min_termfreq = 100L) |>
   quanteda::dfm_group(groups = category) |>
   quanteda.textstats::textstat_keyness(target = "it-life-hack") |>
   quanteda.textplots::textplot_keyness()
@@ -157,7 +161,7 @@ corp |>
 ちなみに、`require(ca)`としてから`quatenda.textmodels::textmodel_ca`の結果を`plot`に渡すと、バイプロットを出力することもできます。
 
 ```{r ca}
-corp_sample <- quanteda::corpus_sample(corp, size = 32L)
+corp_sample <- quanteda::corpus_sample(corp, size = 24L)
 corp_sample |>
   quanteda::tokens(
     what = "fastestword",
@@ -165,9 +169,8 @@ corp_sample |>
     remove_numbers = TRUE
   ) |>
   quanteda::dfm() |>
-  quanteda::dfm_trim(max_termfreq = 300L) |>
-  quanteda::dfm_weight(scheme = "prop") |>
-  quanteda.textmodels::textmodel_ca() |>
+  quanteda::dfm_tfidf() |>
+  quanteda.textmodels::textmodel_ca(sparse = TRUE) |>
   quanteda.textplots::textplot_scale1d(
     margin = "documents",
     groups = quanteda::docvars(corp_sample, "category")
@@ -231,7 +234,7 @@ ggplot2::ggplot(ggdendro::segment(d)) +
   ggplot2::coord_flip() +
   ggplot2::scale_y_reverse(expand = c(.2, 0)) +
   ggdendro::theme_dendro() +
-  ggplot2::scale_color_manual(values = viridisLite::turbo(9))
+  ggplot2::scale_color_viridis_d(option = "turbo")
 ```
 
 ## LDA（Latent Dirichlet Allocation）
@@ -331,7 +334,7 @@ vec |>
   ggplot2::geom_point() +
   ggrepel::geom_text_repel(aes(label = rowname)) +
   ggplot2::theme_light() +
-  ggplot2::scale_color_manual(values = viridisLite::turbo(9))
+  ggplot2::scale_color_viridis_d(option = "turbo")
 ```
 
 ## セッション情報

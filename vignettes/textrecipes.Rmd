@@ -86,18 +86,26 @@ corpus_train <- rsample::training(corpus_split)
 corpus_test <- rsample::testing(corpus_split)
 ```
 
-以下のレシピとモデルで学習します。ここでは、ハッシュトリックを使っています。デフォルトだとパラメータは[ここに書かれている感じ](https://parsnip.tidymodels.org/reference/boost_tree.html)になります。
+以下のレシピとモデルで学習します。ここでは、ハッシュトリックを使っています。
 
 なお、tidymodelsの枠組みの外であらかじめ分かち書きを済ませましたが、`textrecipes::step_tokenize`の`custom_token`引数に独自にトークナイザを指定することで、一つのstepとして分かち書きすることもできます。
 
 ```{r prep_model}
+NUM_TERMS <- 100L
+
 corpus_spec <-
   parsnip::boost_tree(
-    sample_size = tune::tune(),
-    loss_reduction = tune::tune(),
-    tree_depth = tune::tune()
+    trees = NUM_TERMS,
+    tree_depth = tune::tune(),
+    mtry = tune::tune(),
+    min_n = 5,
+    learn_rate = .3,
+    stop_iter = 5 # 例なので小さな値にしています
   ) |>
-  parsnip::set_engine("xgboost") |>
+  parsnip::set_engine(
+    "xgboost",
+    nthread = max(1, parallel::detectCores() - 1, na.rm = TRUE)
+  ) |>
   parsnip::set_mode("classification")
 
 space_tokenizer <- function(x) {
@@ -110,8 +118,12 @@ corpus_rec <-
     data = corpus_train
   ) |>
   textrecipes::step_tokenize(text, custom_token = space_tokenizer) |>
-  textrecipes::step_tokenfilter(text, min_times = 30L, max_tokens = 300L) |>
-  textrecipes::step_texthash(text, num_terms = 200L)
+  textrecipes::step_tokenfilter(
+    text,
+    max_times = nrow(corpus_train),
+    max_tokens = NUM_TERMS * 5
+  ) |>
+  textrecipes::step_texthash(text, num_terms = NUM_TERMS)
 ```
 
 ```{r workflow}
@@ -124,16 +136,13 @@ corpus_wflow <-
 F値をメトリクスにして学習します。3分割CVで、簡単にですが、ハイパーパラメータ探索をします。
 
 ```{r tune_wl}
-# doParallel::registerDoParallel(cores = max(1, parallel::detectCores() - 1, na.rm = TRUE))
-
 corpus_tune_res <-
   corpus_wflow |>
   tune::tune_grid(
     resamples = rsample::vfold_cv(corpus_train, strata = category, v = 3L),
     grid = dials::grid_latin_hypercube(
-      dials::sample_prop(),
-      dials::loss_reduction(),
       dials::tree_depth(),
+      dials::mtry(range = c(30L, NUM_TERMS)),
       size = 10L
     ),
     metrics = yardstick::metric_set(yardstick::f_meas),
@@ -154,8 +163,6 @@ corpus_wflow <-
   tune::finalize_workflow(corpus_wflow, tune::select_best(corpus_tune_res, metric = "f_meas"))
 
 corpus_fit <- tune::last_fit(corpus_wflow, corpus_split)
-
-# doParallel::stopImplicitCluster()
 ```
 
 学習したモデルの精度を見てみます。
