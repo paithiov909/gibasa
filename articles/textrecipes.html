@@ -31,7 +31,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Supervised Learning Using tidymodels and gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2023-03-05</h4>
+            <h4 data-toc-skip class="date">2023-03-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/textrecipes.Rmd" class="external-link"><code>vignettes/textrecipes.Rmd</code></a></small>
       <div class="d-none name"><code>textrecipes.Rmd</code></div>
@@ -160,16 +160,24 @@
 <code class="sourceCode R"><span><span class="va">corpus_split</span> <span class="op">&lt;-</span> <span class="fu">rsample</span><span class="fu">::</span><span class="fu"><a href="https://rsample.tidymodels.org/reference/initial_split.html" class="external-link">initial_split</a></span><span class="op">(</span><span class="va">corpus</span>, prop <span class="op">=</span> <span class="fl">.8</span>, strata <span class="op">=</span> <span class="st">"category"</span><span class="op">)</span></span>
 <span><span class="va">corpus_train</span> <span class="op">&lt;-</span> <span class="fu">rsample</span><span class="fu">::</span><span class="fu"><a href="https://rsample.tidymodels.org/reference/initial_split.html" class="external-link">training</a></span><span class="op">(</span><span class="va">corpus_split</span><span class="op">)</span></span>
 <span><span class="va">corpus_test</span> <span class="op">&lt;-</span> <span class="fu">rsample</span><span class="fu">::</span><span class="fu"><a href="https://rsample.tidymodels.org/reference/initial_split.html" class="external-link">testing</a></span><span class="op">(</span><span class="va">corpus_split</span><span class="op">)</span></span></code></pre></div>
-<p>以下のレシピとモデルで学習します。ここでは、ハッシュトリックを使っています。デフォルトだとパラメータは<a href="https://parsnip.tidymodels.org/reference/boost_tree.html" class="external-link">ここに書かれている感じ</a>になります。</p>
+<p>以下のレシピとモデルで学習します。ここでは、ハッシュトリックを使っています。</p>
 <p>なお、tidymodelsの枠組みの外であらかじめ分かち書きを済ませましたが、<code><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html" class="external-link">textrecipes::step_tokenize</a></code>の<code>custom_token</code>引数に独自にトークナイザを指定することで、一つのstepとして分かち書きすることもできます。</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">corpus_spec</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">NUM_TERMS</span> <span class="op">&lt;-</span> <span class="fl">100L</span></span>
+<span></span>
+<span><span class="va">corpus_spec</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">parsnip</span><span class="fu">::</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/boost_tree.html" class="external-link">boost_tree</a></span><span class="op">(</span></span>
-<span>    sample_size <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    loss_reduction <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    tree_depth <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    trees <span class="op">=</span> <span class="va">NUM_TERMS</span>,</span>
+<span>    tree_depth <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    mtry <span class="op">=</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://hardhat.tidymodels.org/reference/tune.html" class="external-link">tune</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    min_n <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    learn_rate <span class="op">=</span> <span class="fl">.3</span>,</span>
+<span>    stop_iter <span class="op">=</span> <span class="fl">5</span> <span class="co"># 例なので小さな値にしています</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">parsnip</span><span class="fu">::</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html" class="external-link">set_engine</a></span><span class="op">(</span><span class="st">"xgboost"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">parsnip</span><span class="fu">::</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_engine.html" class="external-link">set_engine</a></span><span class="op">(</span></span>
+<span>    <span class="st">"xgboost"</span>,</span>
+<span>    nthread <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu">parallel</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html" class="external-link">detectCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">parsnip</span><span class="fu">::</span><span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html" class="external-link">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">space_tokenizer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -182,8 +190,12 @@
 <span>    data <span class="op">=</span> <span class="va">corpus_train</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">textrecipes</span><span class="fu">::</span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenize.html" class="external-link">step_tokenize</a></span><span class="op">(</span><span class="va">text</span>, custom_token <span class="op">=</span> <span class="va">space_tokenizer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">textrecipes</span><span class="fu">::</span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html" class="external-link">step_tokenfilter</a></span><span class="op">(</span><span class="va">text</span>, min_times <span class="op">=</span> <span class="fl">30L</span>, max_tokens <span class="op">=</span> <span class="fl">300L</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">textrecipes</span><span class="fu">::</span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_texthash.html" class="external-link">step_texthash</a></span><span class="op">(</span><span class="va">text</span>, num_terms <span class="op">=</span> <span class="fl">200L</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">textrecipes</span><span class="fu">::</span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_tokenfilter.html" class="external-link">step_tokenfilter</a></span><span class="op">(</span></span>
+<span>    <span class="va">text</span>,</span>
+<span>    max_times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">corpus_train</span><span class="op">)</span>,</span>
+<span>    max_tokens <span class="op">=</span> <span class="va">NUM_TERMS</span> <span class="op">*</span> <span class="fl">5</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">textrecipes</span><span class="fu">::</span><span class="fu"><a href="https://textrecipes.tidymodels.org/reference/step_texthash.html" class="external-link">step_texthash</a></span><span class="op">(</span><span class="va">text</span>, num_terms <span class="op">=</span> <span class="va">NUM_TERMS</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_wflow</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflows</span><span class="fu">::</span><span class="fu"><a href="https://workflows.tidymodels.org/reference/workflow.html" class="external-link">workflow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -191,16 +203,13 @@
 <span>  <span class="fu">workflows</span><span class="fu">::</span><span class="fu"><a href="https://workflows.tidymodels.org/reference/add_recipe.html" class="external-link">add_recipe</a></span><span class="op">(</span><span class="va">corpus_rec</span><span class="op">)</span></span></code></pre></div>
 <p>F値をメトリクスにして学習します。3分割CVで、簡単にですが、ハイパーパラメータ探索をします。</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># doParallel::registerDoParallel(cores = max(1, parallel::detectCores() - 1, na.rm = TRUE))</span></span>
-<span></span>
-<span><span class="va">corpus_tune_res</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">corpus_tune_res</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">corpus_wflow</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/tune_grid.html" class="external-link">tune_grid</a></span><span class="op">(</span></span>
 <span>    resamples <span class="op">=</span> <span class="fu">rsample</span><span class="fu">::</span><span class="fu"><a href="https://rsample.tidymodels.org/reference/vfold_cv.html" class="external-link">vfold_cv</a></span><span class="op">(</span><span class="va">corpus_train</span>, strata <span class="op">=</span> <span class="va">category</span>, v <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span>,</span>
 <span>    grid <span class="op">=</span> <span class="fu">dials</span><span class="fu">::</span><span class="fu"><a href="https://dials.tidymodels.org/reference/grid_max_entropy.html" class="external-link">grid_latin_hypercube</a></span><span class="op">(</span></span>
-<span>      <span class="fu">dials</span><span class="fu">::</span><span class="fu"><a href="https://dials.tidymodels.org/reference/trees.html" class="external-link">sample_prop</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>      <span class="fu">dials</span><span class="fu">::</span><span class="fu"><a href="https://dials.tidymodels.org/reference/trees.html" class="external-link">loss_reduction</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu">dials</span><span class="fu">::</span><span class="fu"><a href="https://dials.tidymodels.org/reference/trees.html" class="external-link">tree_depth</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu">dials</span><span class="fu">::</span><span class="fu"><a href="https://dials.tidymodels.org/reference/mtry.html" class="external-link">mtry</a></span><span class="op">(</span>range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30L</span>, <span class="va">NUM_TERMS</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>      size <span class="op">=</span> <span class="fl">10L</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    metrics <span class="op">=</span> <span class="fu">yardstick</span><span class="fu">::</span><span class="fu"><a href="https://yardstick.tidymodels.org/reference/metric_set.html" class="external-link">metric_set</a></span><span class="op">(</span><span class="fu">yardstick</span><span class="fu">::</span><span class="va"><a href="https://yardstick.tidymodels.org/reference/f_meas.html" class="external-link">f_meas</a></span><span class="op">)</span>,</span>
@@ -216,9 +225,7 @@
 <code class="sourceCode R"><span><span class="va">corpus_wflow</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/finalize_model.html" class="external-link">finalize_workflow</a></span><span class="op">(</span><span class="va">corpus_wflow</span>, <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/show_best.html" class="external-link">select_best</a></span><span class="op">(</span><span class="va">corpus_tune_res</span>, metric <span class="op">=</span> <span class="st">"f_meas"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">corpus_fit</span> <span class="op">&lt;-</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/last_fit.html" class="external-link">last_fit</a></span><span class="op">(</span><span class="va">corpus_wflow</span>, <span class="va">corpus_split</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># doParallel::stopImplicitCluster()</span></span></code></pre></div>
+<span><span class="va">corpus_fit</span> <span class="op">&lt;-</span> <span class="fu">tune</span><span class="fu">::</span><span class="fu"><a href="https://tune.tidymodels.org/reference/last_fit.html" class="external-link">last_fit</a></span><span class="op">(</span><span class="va">corpus_wflow</span>, <span class="va">corpus_split</span><span class="op">)</span></span></code></pre></div>
 <p>学習したモデルの精度を見てみます。</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">corpus_fit</span> <span class="op">|&gt;</span></span>
@@ -227,7 +234,7 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
 <span><span class="co">#&gt;   .metric .estimator .estimate</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> f_meas  macro          0.855</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> f_meas  macro          0.857</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
@@ -244,16 +251,16 @@
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2023-03-05</span></span>
+<span><span class="co">#&gt;  date     2023-03-14</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package     </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version       </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  audubon        0.5.0          <span style="color: #555555;">2023-03-04</span> <span style="color: #555555;">[2]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
+<span><span class="co">#&gt;  audubon        0.5.0          <span style="color: #555555;">2023-03-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  backports      1.4.1          <span style="color: #555555;">2021-12-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  bit            4.0.5          <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  bit64          4.0.5          <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  broom        * 1.0.3          <span style="color: #555555;">2023-01-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  broom        * 1.0.4          <span style="color: #555555;">2023-03-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  bslib          0.4.2          <span style="color: #555555;">2022-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  cachem         1.0.7          <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  class          7.3-20         <span style="color: #555555;">2022-01-16</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
@@ -278,11 +285,11 @@
 <span><span class="co">#&gt;  foreach        1.5.2          <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  fs             1.6.1          <span style="color: #555555;">2023-02-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  furrr          0.3.1          <span style="color: #555555;">2022-08-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  future         1.31.0         <span style="color: #555555;">2023-02-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  future         1.32.0         <span style="color: #555555;">2023-03-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  future.apply   1.10.0         <span style="color: #555555;">2022-11-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  generics       0.1.3          <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggplot2      * 3.4.1          <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  gibasa         0.8.0          <span style="color: #555555;">2023-03-05</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;  gibasa         0.8.1          <span style="color: #555555;">2023-03-14</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;  globals        0.16.2         <span style="color: #555555;">2022-11-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  glue           1.6.2          <span style="color: #555555;">2022-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  gower          1.0.1          <span style="color: #555555;">2022-12-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -293,7 +300,7 @@
 <span><span class="co">#&gt;  hms            1.1.2          <span style="color: #555555;">2022-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  htmltools      0.5.4          <span style="color: #555555;">2022-12-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  infer        * 1.0.4          <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ipred          0.9-13         <span style="color: #555555;">2022-06-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ipred          0.9-14         <span style="color: #555555;">2023-03-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  iterators      1.0.14         <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jquerylib      0.1.4          <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jsonlite       1.8.4          <span style="color: #555555;">2022-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -301,7 +308,7 @@
 <span><span class="co">#&gt;  labeling       0.4.2          <span style="color: #555555;">2020-10-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lattice        0.20-45        <span style="color: #555555;">2021-09-22</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
 <span><span class="co">#&gt;  lava           1.7.2.1        <span style="color: #555555;">2023-02-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ldccr          <span style="color: #BB00BB; font-weight: bold;">0.1.0.20221223</span> <span style="color: #555555;">2023-03-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@0d3d885)</span></span></span>
+<span><span class="co">#&gt;  ldccr          <span style="color: #BB00BB; font-weight: bold;">0.1.0.20221223</span> <span style="color: #555555;">2023-03-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@0d3d885)</span></span></span>
 <span><span class="co">#&gt;  lgr            0.4.4          <span style="color: #555555;">2022-09-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lhs            1.1.6          <span style="color: #555555;">2022-12-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lifecycle      1.0.3          <span style="color: #555555;">2022-10-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -345,13 +352,13 @@
 <span><span class="co">#&gt;  sessioninfo    1.2.2          <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.2)</span></span></span>
 <span><span class="co">#&gt;  stringi        1.7.12         <span style="color: #555555;">2023-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stringr        1.5.0          <span style="color: #555555;">2022-12-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  styler         1.9.0          <span style="color: #555555;">2023-01-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.9.0)</span></span></span>
+<span><span class="co">#&gt;  styler         1.9.1          <span style="color: #555555;">2023-03-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.9.1)</span></span></span>
 <span><span class="co">#&gt;  survival       3.4-0          <span style="color: #555555;">2022-08-09</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.2.2)</span></span></span>
 <span><span class="co">#&gt;  systemfonts    1.0.4          <span style="color: #555555;">2022-02-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  text2vec     * 0.6.3          <span style="color: #555555;">2022-11-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  textrecipes  * 1.0.2          <span style="color: #555555;">2022-12-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  textshaping    0.3.6          <span style="color: #555555;">2021-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  tibble       * 3.1.8          <span style="color: #555555;">2022-07-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  tibble       * 3.2.0          <span style="color: #555555;">2023-03-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  tidymodels   * 1.0.0          <span style="color: #555555;">2022-07-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  tidyr        * 1.3.0          <span style="color: #555555;">2023-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  tidyselect     1.2.0          <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -371,7 +378,7 @@
 <span><span class="co">#&gt;  yaml           2.3.7          <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  yardstick    * 1.1.0          <span style="color: #555555;">2022-09-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmprVL5Zo/temp_libpath37a29abb9b2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpdZnAkZ/temp_libpath415a7c194960</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.2.2/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.2.2/lib/R/library</span></span></span>
