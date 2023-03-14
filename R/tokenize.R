@@ -152,15 +152,6 @@ tagger_impl <- function(sentences,
       dplyr::relocate("doc_id", dplyr::everything())
   }
   res %>%
-    dplyr::mutate(dplyr::across(where(is.character), ~ reset_encoding(.))) %>%
     dplyr::mutate(doc_id = factor(.data$doc_id, unique(.data$doc_id))) %>%
     dplyr::as_tibble()
-}
-
-#' @noRd
-reset_encoding <- function(chr) {
-  unlist(lapply(chr, function(elem) {
-    Encoding(elem) <- "UTF-8"
-    return(elem)
-  }))
 }

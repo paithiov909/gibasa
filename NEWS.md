@@ -1,3 +1,7 @@
+# gibasa 0.8.1
+
+* For performance, `tokenize` now skips resetting the output encodings to UTF-8.
+
 # gibasa 0.8.0
 
 * [Breaking Change] Changed numbering style of 'sentence_id' when `split` is `FALSE`.
