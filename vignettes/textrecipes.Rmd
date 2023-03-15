@@ -45,13 +45,13 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 }
 ```
 
-ここでは、未知語でない語で、かつ、名詞・形容詞・動詞である語についてのみ抽出し、IPA辞書に収録されている原形の分かち書きにします。このとき、漢字だけで書かれている名詞の連続については複合名詞と見なし、ひとつのトークンとします。
+ここでは、名詞・形容詞・動詞のみ抽出し、IPA辞書に収録されている語については原形にしながら分かち書きにします。このとき、漢字だけで書かれている名詞の連続については複合名詞と見なし、ひとつのトークンとします。
 
 ```{r prep_corpus_2}
 corpus <- tbl |>
   dplyr::mutate(
     text = audubon::strj_normalize(body),
-    chunk = dplyr::ntile(doc_id, 10)
+    chunk = dplyr::ntile(dplyr::row_number(), 10)
   ) |>
   dplyr::group_by(chunk) |>
   dplyr::group_map(function(df, idx) {

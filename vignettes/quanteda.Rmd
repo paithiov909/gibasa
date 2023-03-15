@@ -73,7 +73,7 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 ```{r tidy_data_2}
 corp <- data |>
   dplyr::select(category, body) |>
-  dplyr::mutate(doc_id = as.factor((dplyr::row_number()))) |>
+  dplyr::mutate(doc_id = as.character(dplyr::row_number())) |>
   dplyr::slice_sample(prop = .8)
 
 corp <- corp |>
@@ -252,15 +252,6 @@ dtm <- corp |>
   ) |>
   quanteda::dfm() |>
   quanteda::dfm_tfidf()
-
-features <- corp |>
-  quanteda::tokens(
-    what = "fastestword",
-    remove_punct = TRUE,
-    remove_numbers = TRUE
-  ) |>
-  quanteda::dfm() |>
-  quanteda::ntoken()
 
 m <- dtm |>
   as("dgCMatrix") |>
