@@ -6,6 +6,8 @@
 #ifndef MECAB_COMMON_H_
 #define MECAB_COMMON_H_
 
+#include <Rcpp.h>
+
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -106,8 +108,8 @@ class die {
  public:
   die() {}
   ~die() {
-    std::cerr << std::endl;
-    std::exit(EXIT_FAILURE);
+    Rcpp::Rcerr << std::endl;
+    Rcpp::stop("exit"); // std::exit(EXIT_FAILURE);
   }
   int operator&(std::ostream&) { return 0; }
 };
@@ -142,14 +144,14 @@ class wlog {
       __FILE__ << "(" << __LINE__ << ") [" << #condition << "] "
 
 #define CHECK_DIE(condition) \
-(condition) ? 0 : die() & std::cerr << __FILE__ << \
+(condition) ? 0 : die() & Rcpp::Rcerr << __FILE__ << \
 "(" << __LINE__ << ") [" << #condition << "] "
 
 // die when overflow. the value shoule be size_t.
 #define CAST_OR_DIE(target, value) \
   (value)<=static_cast<size_t>(std::numeric_limits<target>::max()) ? \
   static_cast<target>(value) : \
-  static_cast<target>(die() & std::cerr << __FILE__ << \
+  static_cast<target>(die() & Rcpp::Rcerr << __FILE__ << \
   "(" << __LINE__ << ") [" << #value << "] overflow")
 
 #endif  // MECAB_COMMON_H_
