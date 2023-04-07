@@ -30,13 +30,8 @@ gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形�
 [r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
 
 ```r
-# Enable repository from paithiov909
-options(repos = c(
-  paithiov909 = "https://paithiov909.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"))
-
-# Download and install gibasa in R
-install.packages("gibasa")
+# Install gibasa from r-universe repository
+install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 バイナリパッケージが用意されていない環境では、ソースパッケージをビルドしてインストールします。ビルド時に`MECAB_DEFAULT_RC`という環境変数を内部的に指定するため、正しく動作させるにはmecabrcとMeCabの辞書があらかじめ適切な位置に配置されている必要があります。使っているOSのパッケージマネージャなどからインストールしておいてください。
@@ -46,7 +41,7 @@ install.packages("gibasa")
 remotes::install_github("paithiov909/gibasa")
 ```
 
-Windowsの場合、ソースビルドには[Rtools42](https://cran.r-project.org/bin/windows/Rtools/rtools42/rtools.html)が必要です。また、インストールの方法によらず、gibasaを使用するにはMeCabの辞書が必要なため、[これ](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2)などを使ってMeCabをインストールしておいてください。
+Windowsの場合、ソースビルドには[Rtools](https://cran.r-project.org/bin/windows/Rtools/)が必要です。また、インストールの方法によらず、gibasaを使用するにはMeCabの辞書が必要なため、[これ](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2)などを使ってMeCabをインストールしておいてください。
 
 ### 基本的な使い方
 

@@ -14,7 +14,7 @@
 #' the input chunks are already squashed. In particular, trailing spaces
 #' of chunks sometimes cause fatal errors.
 #' @param grain_size Integer value larger than 1.
-#' This argument internally passed to `RcppParallel::parallelFor` function.
+#' This argument is internally passed to `RcppParallel::parallelFor` function.
 #' Setting a larger chunk size could improve the performance in some cases.
 #' @param mode Character scalar to switch output format.
 #' @return A tibble or a named list of tokens.

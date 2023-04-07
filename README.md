@@ -33,12 +33,12 @@ alt="flowchart of a text analysis that combines gibasa and other packages" />
 combines gibasa and other packages</figcaption>
 </figure>
 
-- `gibasa::tokenize` retrieves a TIF-compliant data.frame of corpus,
+- `gibasa::tokenize` takes a TIF-compliant data.frame of corpus,
   returning tokens as format that known as ‘tidy text data’, so that
   users can replace `tidytext::unnest_tokens` with it for tokenizing CJK
   text.
 - `gibasa::prettify` turns tagged features into columns.
-- `gibasa::pack` retrieves a ‘tidy text data’, typically returning
+- `gibasa::pack` takes a ‘tidy text data’, typically returning
   space-separated corpus.
 
 ## Installation
@@ -93,7 +93,7 @@ res
 #>  8 1                1        8 の       助詞,連体化,*,*,*,*,の,ノ,ノ            
 #>  9 1                1        9 博物     名詞,一般,*,*,*,*,博物,ハクブツ,ハクブツ
 #> 10 1                1       10 局       名詞,接尾,一般,*,*,*,局,キョク,キョク   
-#> # … with 375 more rows
+#> # ℹ 375 more rows
 ```
 
 ### Prettify output
@@ -101,21 +101,21 @@ res
 ``` r
 gibasa::prettify(res)
 #> # A tibble: 385 × 13
-#>    doc_id senten…¹ token…² token POS1  POS2  POS3  POS4  X5Sta…³ X5Sta…⁴ Origi…⁵
-#>    <fct>     <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>  
-#>  1 1             1       1 その  連体… <NA>  <NA>  <NA>  <NA>    <NA>    その   
-#>  2 1             1       2 ころ  名詞  非自… 副詞… <NA>  <NA>    <NA>    ころ   
-#>  3 1             1       3 わた… 名詞  代名… 一般  <NA>  <NA>    <NA>    わたく…
-#>  4 1             1       4 は    助詞  係助… <NA>  <NA>  <NA>    <NA>    は     
-#>  5 1             1       5 、    記号  読点  <NA>  <NA>  <NA>    <NA>    、     
-#>  6 1             1       6 モリ… 名詞  固有… 地域  一般  <NA>    <NA>    <NA>   
-#>  7 1             1       7 市    名詞  接尾  地域  <NA>  <NA>    <NA>    市     
-#>  8 1             1       8 の    助詞  連体… <NA>  <NA>  <NA>    <NA>    の     
-#>  9 1             1       9 博物  名詞  一般  <NA>  <NA>  <NA>    <NA>    博物   
-#> 10 1             1      10 局    名詞  接尾  一般  <NA>  <NA>    <NA>    局     
-#> # … with 375 more rows, 2 more variables: Yomi1 <chr>, Yomi2 <chr>, and
-#> #   abbreviated variable names ¹​sentence_id, ²​token_id, ³​X5StageUse1,
-#> #   ⁴​X5StageUse2, ⁵​Original
+#>    doc_id sentence_id token_id token    POS1   POS2     POS3  POS4  X5StageUse1
+#>    <fct>        <int>    <int> <chr>    <chr>  <chr>    <chr> <chr> <chr>      
+#>  1 1                1        1 その     連体詞 <NA>     <NA>  <NA>  <NA>       
+#>  2 1                1        2 ころ     名詞   非自立   副詞… <NA>  <NA>       
+#>  3 1                1        3 わたくし 名詞   代名詞   一般  <NA>  <NA>       
+#>  4 1                1        4 は       助詞   係助詞   <NA>  <NA>  <NA>       
+#>  5 1                1        5 、       記号   読点     <NA>  <NA>  <NA>       
+#>  6 1                1        6 モリーオ 名詞   固有名詞 地域  一般  <NA>       
+#>  7 1                1        7 市       名詞   接尾     地域  <NA>  <NA>       
+#>  8 1                1        8 の       助詞   連体化   <NA>  <NA>  <NA>       
+#>  9 1                1        9 博物     名詞   一般     <NA>  <NA>  <NA>       
+#> 10 1                1       10 局       名詞   接尾     一般  <NA>  <NA>       
+#> # ℹ 375 more rows
+#> # ℹ 4 more variables: X5StageUse2 <chr>, Original <chr>, Yomi1 <chr>,
+#> #   Yomi2 <chr>
 gibasa::prettify(res, col_select = 1:3)
 #> # A tibble: 385 × 7
 #>    doc_id sentence_id token_id token    POS1   POS2     POS3    
@@ -130,7 +130,7 @@ gibasa::prettify(res, col_select = 1:3)
 #>  8 1                1        8 の       助詞   連体化   <NA>    
 #>  9 1                1        9 博物     名詞   一般     <NA>    
 #> 10 1                1       10 局       名詞   接尾     一般    
-#> # … with 375 more rows
+#> # ℹ 375 more rows
 gibasa::prettify(res, col_select = c(1, 3, 5))
 #> # A tibble: 385 × 7
 #>    doc_id sentence_id token_id token    POS1   POS3     X5StageUse1
@@ -145,7 +145,7 @@ gibasa::prettify(res, col_select = c(1, 3, 5))
 #>  8 1                1        8 の       助詞   <NA>     <NA>       
 #>  9 1                1        9 博物     名詞   <NA>     <NA>       
 #> 10 1                1       10 局       名詞   一般     <NA>       
-#> # … with 375 more rows
+#> # ℹ 375 more rows
 gibasa::prettify(res, col_select = c("POS1", "Original"))
 #> # A tibble: 385 × 6
 #>    doc_id sentence_id token_id token    POS1   Original
@@ -160,7 +160,7 @@ gibasa::prettify(res, col_select = c("POS1", "Original"))
 #>  8 1                1        8 の       助詞   の      
 #>  9 1                1        9 博物     名詞   博物    
 #> 10 1                1       10 局       名詞   局      
-#> # … with 375 more rows
+#> # ℹ 375 more rows
 ```
 
 ### Pack output

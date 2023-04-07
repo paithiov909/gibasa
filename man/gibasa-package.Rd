@@ -4,7 +4,7 @@
 \name{gibasa-package}
 \alias{gibasa}
 \alias{gibasa-package}
-\title{gibasa: An Alternate 'Rcpp' Interface to 'MeCab'}
+\title{gibasa: An Alternative 'Rcpp' Interface to 'MeCab'}
 \description{
 Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK tokenizer and morphological analysis tool. The main goal of gibasa package is to provide an alternative to 'tidytext' for CJK text data.
 }
