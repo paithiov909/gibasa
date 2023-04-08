@@ -66,7 +66,7 @@ bool Connector::compile(const char *ifile, const char *ofile) {
   std::istream *is = &ifs;
 
   if (!ifs) {
-    std::cerr << ifile
+    Rcpp::Rcerr << ifile
               << " is not found. minimum setting is used." << std::endl;
     is = &iss;
   }
@@ -86,8 +86,8 @@ bool Connector::compile(const char *ifile, const char *ofile) {
   std::vector<short> matrix(matrix_size);
   std::fill(matrix.begin(), matrix.end(), 0);
 
-  std::cout << "reading " << ifile << " ... "
-            << lsize << "x" << rsize << std::endl;
+  // std::cout << "reading " << ifile << " ... "
+  //           << lsize << "x" << rsize << std::endl;
 
   while (is->getline(buf.get(), buf.size())) {
     CHECK_DIE(tokenize2(buf.get(), "\t ", column, 3) == 3)
@@ -96,7 +96,7 @@ bool Connector::compile(const char *ifile, const char *ofile) {
     const size_t r = std::atoi(column[1]);
     const int    c = std::atoi(column[2]);
     CHECK_DIE(l < lsize && r < rsize) << "index values are out of range";
-    progress_bar("emitting matrix      ", l + 1, lsize);
+    // progress_bar("emitting matrix      ", l + 1, lsize);
     matrix[(l + lsize * r)] = static_cast<short>(c);
   }
 

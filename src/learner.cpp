@@ -55,8 +55,8 @@ class CRFLearner {
 
     const std::vector<std::string> &files = param->rest_args();
     if (files.size() != 2) {
-      std::cout << "Usage: " <<
-          param->program_name() << " corpus model" << std::endl;
+      // std::cout << "Usage: " <<
+      //     param->program_name() << " corpus model" << std::endl;
       return -1;
     }
 
@@ -77,9 +77,9 @@ class CRFLearner {
     CHECK_DIE(feature_index.open(*param)) << "cannot open feature index";
 
     if (!old_model.empty()) {
-      std::cout << "Using previous model: " << old_model << std::endl;
-      std::cout << "--cost --freq and --eta options are overwritten."
-                << std::endl;
+      // std::cout << "Using previous model: " << old_model << std::endl;
+      // std::cout << "--cost --freq and --eta options are overwritten."
+      //           << std::endl;
       CHECK_DIE(tokenizer.dictionary_info());
       const char *dic_charset = tokenizer.dictionary_info()->charset;
       feature_index.reopen(old_model.c_str(),
@@ -103,10 +103,10 @@ class CRFLearner {
     CHECK_DIE(thread_num > 0 && thread_num <= 512)
         << "# thread is invalid: " << thread_num;
 
-    std::cout.setf(std::ios::fixed, std::ios::floatfield);
-    std::cout.precision(5);
-
-    std::cout << "reading corpus ..." << std::flush;
+    // std::cout.setf(std::ios::fixed, std::ios::floatfield);
+    // std::cout.precision(5);
+    //
+    // std::cout << "reading corpus ..." << std::flush;
 
     std::ifstream ifs(WPATH(ifile.c_str()));
     CHECK_DIE(ifs) << "no such file or directory: " << ifile;
@@ -129,7 +129,7 @@ class CRFLearner {
       }
 
       if (x.size() % 100 == 0) {
-        std::cout << x.size() << "... " << std::flush;
+        // std::cout << x.size() << "... " << std::flush;
       }
     }
 
@@ -145,20 +145,20 @@ class CRFLearner {
 
     feature_index.set_alpha(&alpha[0]);
 
-    std::cout << std::endl;
-    std::cout << "Number of sentences: " << x.size()  << std::endl;
-    std::cout << "Number of features:  " << psize     << std::endl;
-    std::cout << "eta:                 " << eta       << std::endl;
-    std::cout << "freq:                " << freq      << std::endl;
-    std::cout << "eval-size:           " << eval_size << std::endl;
-    std::cout << "unk-eval-size:       " << unk_eval_size << std::endl;
-#ifdef MECAB_USE_THREAD
-    std::cout << "threads:             " << thread_num << std::endl;
-#endif
-    std::cout << "charset:             " <<
-        tokenizer.dictionary_info()->charset << std::endl;
-    std::cout << "C(sigma^2):          " << C          << std::endl
-              << std::endl;
+//     std::cout << std::endl;
+//     std::cout << "Number of sentences: " << x.size()  << std::endl;
+//     std::cout << "Number of features:  " << psize     << std::endl;
+//     std::cout << "eta:                 " << eta       << std::endl;
+//     std::cout << "freq:                " << freq      << std::endl;
+//     std::cout << "eval-size:           " << eval_size << std::endl;
+//     std::cout << "unk-eval-size:       " << unk_eval_size << std::endl;
+// #ifdef MECAB_USE_THREAD
+//     std::cout << "threads:             " << thread_num << std::endl;
+// #endif
+//     std::cout << "charset:             " <<
+//         tokenizer.dictionary_info()->charset << std::endl;
+//     std::cout << "C(sigma^2):          " << C          << std::endl
+//               << std::endl;
 
 #ifdef MECAB_USE_THREAD
     std::vector<learner_thread> thread;
@@ -215,9 +215,9 @@ class CRFLearner {
         }
       }
 
-      const double p = 1.0 * micro_c / micro_p;
-      const double r = 1.0 * micro_c / micro_r;
-      const double micro_f = 2 * p * r / (p + r);
+      // const double p = 1.0 * micro_c / micro_p;
+      // const double r = 1.0 * micro_c / micro_r;
+      // const double micro_f = 2 * p * r / (p + r);
 
       for (size_t i = 0; i < psize; ++i) {
         const double penalty = (alpha[i] - old_alpha[i]);
@@ -227,11 +227,11 @@ class CRFLearner {
 
       const double diff = (itr == 0 ? 1.0 :
                            std::fabs(1.0 * (prev_obj - obj)) / prev_obj);
-      std::cout << "iter="    << itr
-                << " err="    << 1.0 * err/x.size()
-                << " F="      << micro_f
-                << " target=" << obj
-                << " diff="   << diff << std::endl;
+      // std::cout << "iter="    << itr
+      //           << " err="    << 1.0 * err/x.size()
+      //           << " F="      << micro_f
+      //           << " target=" << obj
+      //           << " diff="   << diff << std::endl;
       prev_obj = obj;
 
       if (diff < eta) {
@@ -255,7 +255,7 @@ class CRFLearner {
       }
     }
 
-    std::cout << "\nDone! writing model file ... " << std::endl;
+    // std::cout << "\nDone! writing model file ... " << std::endl;
 
     std::ostringstream oss;
 
@@ -300,8 +300,8 @@ class Learner {
     Param param;
 
     if (!param.open(argc, argv, long_options)) {
-      std::cout << param.what() << "\n\n" <<  COPYRIGHT
-                << "\ntry '--help' for more information." << std::endl;
+      // std::cout << param.what() << "\n\n" <<  COPYRIGHT
+      //           << "\ntry '--help' for more information." << std::endl;
       return -1;
     }
 

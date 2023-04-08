@@ -1,0 +1,5 @@
+The gibasa package as a whole is distributed under the GNU General Public License v3.0.
+
+This package partially includes the source codes from 'MeCab @shogo82148 flavored' <https://github.com/shogo82148/mecab>,
+which is a derived work originally from 'MeCab' that copyrighted by Taku Kudo and 'Nippon Telegraph and Telephone Corporation'.
+The original 'MeCab' library and its '@shogo82148 flavored' are released under any of the GPL v2.0, the LGPL, or the BSD License.

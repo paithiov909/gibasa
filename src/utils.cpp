@@ -231,28 +231,28 @@ bool escape_csv_element(std::string *w) {
   return true;
 }
 
-int progress_bar(const char* message, size_t current, size_t total) {
-  static char bar[] = "###########################################";
-  static int scale = sizeof(bar) - 1;
-  static int prev = 0;
-
-  int cur_percentage  = static_cast<int>(100.0 * current/total);
-  int bar_len = static_cast<int>(1.0 * current*scale/total);
-
-  if (prev != cur_percentage) {
-    printf("%s: %3d%% |%.*s%*s| ", message, cur_percentage,
-           bar_len, bar, scale - bar_len, "");
-    if (cur_percentage == 100)
-      printf("\n");
-    else
-      printf("\r");
-    fflush(stdout);
-  }
-
-  prev = cur_percentage;
-
-  return 1;
-}
+// int progress_bar(const char* message, size_t current, size_t total) {
+//   static char bar[] = "###########################################";
+//   static int scale = sizeof(bar) - 1;
+//   static int prev = 0;
+//
+//   int cur_percentage  = static_cast<int>(100.0 * current/total);
+//   int bar_len = static_cast<int>(1.0 * current*scale/total);
+//
+//   if (prev != cur_percentage) {
+//     printf("%s: %3d%% |%.*s%*s| ", message, cur_percentage,
+//            bar_len, bar, scale - bar_len, "");
+//     if (cur_percentage == 100)
+//       printf("\n");
+//     else
+//       printf("\r");
+//     fflush(stdout);
+//   }
+//
+//   prev = cur_percentage;
+//
+//   return 1;
+// }
 
 int load_request_type(const Param &param) {
   int request_type = MECAB_ONE_BEST;

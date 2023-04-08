@@ -1,8 +1,9 @@
 #' Bind importance of bigrams
 #'
-#' @inherit audubon::bind_lr description return details seealso
+#' @inherit audubon::bind_lr description return details
 #' @inheritParams audubon::bind_lr
 #' @importFrom audubon bind_lr
+#' @seealso \doi{10.5715/jnlp.10.27}
 #' @export
 bind_lr <- audubon::bind_lr
 

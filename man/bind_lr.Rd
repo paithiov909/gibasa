@@ -27,5 +27,5 @@ The 'LR' value is the synergistic average of bigram importance
 that based on the words and their positions (left or right side).
 }
 \seealso{
-\ifelse{text}{doi:10.5715/jnlp.10.27 <https://doi.org/10.5715/jnlp.10.27>}{\ifelse{latex}{\href{https://doi.org/10.5715/jnlp.10.27}{doi:10.5715\out{\\slash{}}jnlp.10.27}}{\href{https://doi.org/10.5715/jnlp.10.27}{doi:10.5715/jnlp.10.27}}}
+\doi{10.5715/jnlp.10.27}
 }

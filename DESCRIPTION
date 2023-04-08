@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
-Title: An Alternative 'Rcpp' Interface to 'MeCab'
-Version: 0.8.2
+Title: An Alternative 'Rcpp' Wrapper of 'MeCab'
+Version: 0.9.0
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
@@ -9,8 +9,8 @@ Authors@R: c(
     person("Nippon Telegraph", "and Telephone Corporation", role = "cph")
   )
 Maintainer: Akiru Kato <paithiov909@gmail.com>
-Description: Gibasa is a plain 'Rcpp' interface to 'MeCab', CJK
-    tokenizer and morphological analysis tool. The main goal of gibasa
+Description: This package is a plain 'Rcpp' wrapper of 'MeCab', a CJK
+    tokenizer and morphological analysis tool. The main goal of this
     package is to provide an alternative to 'tidytext' for CJK text data.
 License: GPL (>= 3)
 URL: https://paithiov909.github.io/gibasa/
@@ -25,12 +25,8 @@ Imports:
     rlang (>= 0.4.11),
     stringi,
     utils
-Remotes:
-    Bioconductor/MatrixGenerics,
-    const-ae/sparseMatrixStats
 Suggests: 
     roxygen2,
-    sparseMatrixStats,
     testthat (>= 3.0.0)
 LinkingTo:
     Rcpp,

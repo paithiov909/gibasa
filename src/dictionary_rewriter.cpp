@@ -3,6 +3,8 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include <Rcpp.h>
+
 #include <cstring>
 #include <fstream>
 #include <iterator>
@@ -206,7 +208,7 @@ bool POSIDGenerator::open(const char *filename,
                           Iconv *iconv) {
   std::ifstream ifs(WPATH(filename));
   if (!ifs) {
-    std::cerr << filename
+    Rcpp::Rcerr << filename
               << " is not found. minimum setting is used" << std::endl;
     rewrite_.resize(1);
     rewrite_.back().set_pattern("*", "1");

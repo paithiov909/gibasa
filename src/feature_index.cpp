@@ -3,6 +3,8 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include <Rcpp.h>
+
 #include <algorithm>
 #include <cstring>
 #include <fstream>
@@ -118,9 +120,9 @@ bool DecoderFeatureIndex::open(const Param &param) {
   const std::string modelfile = param.get<std::string>("model");
   // open the file as binary mode again and fallback to text file
   if (!openBinaryModel(param)) {
-    std::cout << modelfile
-              << " is not a binary model. reopen it as text mode..."
-              << std::endl;
+    // std::cout << modelfile
+    //           << " is not a binary model. reopen it as text mode..."
+    //           << std::endl;
     CHECK_DIE(openTextModel(param)) <<
         "no such file or directory: " << modelfile;
   }

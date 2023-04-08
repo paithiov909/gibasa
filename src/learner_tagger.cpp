@@ -125,7 +125,7 @@ bool EncoderLearnerTagger::read(std::istream *is,
       node->wcost    = 0.0;
       node->bnext    = begin_node_list_[pos];
       begin_node_list_[pos] = node;
-      std::cout << "adding virtual node: " << node->feature << std::endl;
+      // std::cout << "adding virtual node: " << node->feature << std::endl;
     }
 
     pos += corpus[i]->length;

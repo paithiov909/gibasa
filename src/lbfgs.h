@@ -29,7 +29,7 @@ class LBFGS {
       w_.resize(size * (2 * msize + 1) + 2 * msize);
       diag_.resize(size);
     } else if (diag_.size() != size) {
-      std::cerr << "size of array is different" << std::endl;
+      // std::cerr << "size of array is different" << std::endl;
       return -1;
     }
 
@@ -37,7 +37,7 @@ class LBFGS {
                    msize, x, f, g, &diag_[0], &w_[0], orthant, C, &iflag_);
 
     if (iflag_ < 0) {
-      std::cerr << "routine stops with unexpected error" << std::endl;
+      // std::cerr << "routine stops with unexpected error" << std::endl;
       return -1;
     }
 

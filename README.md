@@ -9,12 +9,12 @@
 badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-universe.dev)
 ![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
-[![codecov](https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg)](https://codecov.io/gh/paithiov909/gibasa)
+[![codecov](https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg)](https://app.codecov.io/gh/paithiov909/gibasa)
 <!-- badges: end -->
 
 ## Overview
 
-Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and
+Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK tokenizer and
 morphological analysis tool for R.
 
 The main goal of gibasa package is to provide an alternative to

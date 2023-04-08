@@ -542,8 +542,8 @@ void LBFGS::lbfgs_optimize(int size,
       return;
     }
     if (info != 1) {
-      std::cerr << "The line search routine mcsrch failed: error code:"
-                << info << std::endl;
+      // std::cerr << "The line search routine mcsrch failed: error code:"
+      //           << info << std::endl;
       *iflag = -1;
       return;
     }

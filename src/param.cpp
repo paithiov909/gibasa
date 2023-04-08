@@ -210,12 +210,12 @@ bool Param::open(const char *arg, const Option *opts) {
 
 int Param::help_version() const {
   if (get<bool>("help")) {
-    std::cout << help();
+    // std::cout << help();
     return 0;
   }
 
   if (get<bool>("version")) {
-    std::cout << version();
+    // std::cout << version();
     return 0;
   }
 

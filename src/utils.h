@@ -44,7 +44,7 @@ enum { EUC_JP, CP932, UTF8, UTF16, UTF16LE, UTF16BE, ASCII };
 int decode_charset(const char *charset);
 
 void inline dtoa(double val, char *s) {
-  std::sprintf(s, "%-16f", val);
+  // std::sprintf(s, "%-16f", val);
   char *p = s;
   for (; *p != ' '; ++p) {}
   *p = '\0';
@@ -115,7 +115,7 @@ bool escape_csv_element(std::string *w);
 void enum_csv_dictionaries(const char *path,
                            std::vector<std::string> *dics);
 
-int  progress_bar(const char* message, size_t current, size_t total);
+// int  progress_bar(const char* message, size_t current, size_t total);
 
 bool toLower(std::string *);
 

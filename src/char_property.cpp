@@ -2,6 +2,8 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include <Rcpp.h>
+
 #include <fstream>
 #include <map>
 #include <vector>
@@ -140,7 +142,7 @@ bool CharProperty::compile(const char *cfile,
   std::istream *is = &ifs;
 
   if (!ifs) {
-    std::cerr << cfile
+    Rcpp::Rcerr << cfile
               << " is not found. minimum setting is used" << std::endl;
     is = &iss;
   }
@@ -214,7 +216,7 @@ bool CharProperty::compile(const char *cfile,
   std::istream *is2 = &ifs2;
 
   if (!ifs2) {
-    std::cerr << ufile
+    Rcpp::Rcerr << ufile
               << " is not found. minimum setting is used." << std::endl;
     is2 = &iss2;
   }

@@ -1,3 +1,7 @@
+# gibasa 0.9.0
+
+* Prepare for CRAN release.
+
 # gibasa 0.8.1
 
 * For performance, `tokenize` now skips resetting the output encodings to UTF-8.
@@ -76,4 +80,4 @@
 # gibasa 0.2.0
 
 * Added a `NEWS.md` file to track changes to the package.
-* `tokenize` now gets a data.frame as its first argument, returns a data.frame only. The former function that gets character vector and returns a data.frame or named list was renamed as `gbs_tokenize`.
+* `tokenize` now takes a data.frame as its first argument, returns a data.frame only. The former function that gets character vector and returns a data.frame or named list was renamed as `gbs_tokenize`.

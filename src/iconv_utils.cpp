@@ -3,6 +3,8 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include <Rcpp.h>
+
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -44,7 +46,7 @@ static const char * decode_charset_iconv(const char *str) {
     case  MeCab::UTF16BE:
       return "UTF-16BE";
     default:
-      std::cerr << "charset " << str
+      Rcpp::Rcerr << "charset " << str
                 << " is not defined, use " MECAB_DEFAULT_CHARSET;
       return MECAB_DEFAULT_CHARSET;
   }
@@ -71,7 +73,7 @@ static DWORD decode_charset_win32(const char *str) {
     case MeCab::CP932:
       return 932;
     default:
-      std::cerr << "charset " << str
+      Rcpp::Rcerr << "charset " << str
                 << " is not defined, use 'CP_THREAD_ACP'";
       return CP_THREAD_ACP;
   }
@@ -107,7 +109,7 @@ bool Iconv::open(const char* from, const char* to) {
   }
   ic_ = from_cp_;
 #else
-  std::cerr << "iconv_open is not supported" << std::endl;
+  Rcpp::Rcerr << "iconv_open is not supported" << std::endl;
 #endif
 #endif
 
