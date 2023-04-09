@@ -14,8 +14,8 @@ badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-
 
 ## Overview
 
-Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK tokenizer and
-morphological analysis tool for R.
+Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK (Chinese, Japanese,
+and Korean) tokenizer and morphological analysis tool for R.
 
 The main goal of gibasa package is to provide an alternative to
 `tidytext::unnest_tokens` for CJK text data. For analyzing CJK text
@@ -44,7 +44,7 @@ combines gibasa and other packages</figcaption>
 ## Installation
 
 You can install binary package via
-[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa).
+[r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ``` r
 # Install gibasa from r-universe repository
@@ -191,7 +191,7 @@ dplyr::mutate(
 
 ### Change dictionary
 
-IPA, [UniDic](https://clrd.ninjal.ac.jp/unidic/),
+IPA, UniDic,
 [CC-CEDICT-MeCab](https://github.com/ueda-keisuke/CC-CEDICT-MeCab), and
 [mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/)
 schemes are supported.

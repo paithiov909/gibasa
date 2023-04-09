@@ -1,4 +1,4 @@
-# gibasa 0.9.0
+# gibasa 0.9.2
 
 * Prepare for CRAN release.
 

@@ -6,7 +6,7 @@
 \alias{gibasa-package}
 \title{gibasa: An Alternative 'Rcpp' Wrapper of 'MeCab'}
 \description{
-This package is a plain 'Rcpp' wrapper of 'MeCab', a CJK tokenizer and morphological analysis tool. The main goal of this package is to provide an alternative to 'tidytext' for CJK text data.
+A plain 'Rcpp' wrapper of 'MeCab' that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to 'tidytext' using morphological analysis.
 }
 \seealso{
 Useful links:
@@ -27,6 +27,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Jorge Nocedal [contributor]
   \item Nippon Telegraph and Telephone Corporation [copyright holder]
 }
 

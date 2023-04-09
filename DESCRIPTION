@@ -1,17 +1,19 @@
 Type: Package
 Package: gibasa
 Title: An Alternative 'Rcpp' Wrapper of 'MeCab'
-Version: 0.9.0
+Version: 0.9.2
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
     person("Taku", "Kudo", role = "aut"),
+    person("Jorge", "Nocedal", role = "ctb"),
     person("Nippon Telegraph", "and Telephone Corporation", role = "cph")
   )
 Maintainer: Akiru Kato <paithiov909@gmail.com>
-Description: This package is a plain 'Rcpp' wrapper of 'MeCab', a CJK
-    tokenizer and morphological analysis tool. The main goal of this
-    package is to provide an alternative to 'tidytext' for CJK text data.
+Description: A plain 'Rcpp' wrapper of 'MeCab' that can segment Chinese,
+    Japanese, and Korean text into tokens. The main goal of this package
+    is to provide an alternative to 'tidytext' using morphological
+    analysis.
 License: GPL (>= 3)
 URL: https://paithiov909.github.io/gibasa/
 BugReports: https://github.com/paithiov909/gibasa/issues

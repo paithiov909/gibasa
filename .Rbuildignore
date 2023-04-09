@@ -9,3 +9,5 @@
 ^mecab$
 ^pkgdown$
 ^vignettes$
+^cran-comments\.md$
+^CRAN-SUBMISSION$
