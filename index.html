@@ -5,18 +5,20 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Gibasa is a plain Rcpp interface to MeCab, CJK
-    tokenizer and morphological analysis tool. The main goal of gibasa
-    package is to provide an alternative to tidytext for CJK text data.">
-<title>An Alternate Rcpp Interface to MeCab • gibasa</title>
+<meta name="description" content="A plain Rcpp wrapper of MeCab that can segment Chinese,
+    Japanese, and Korean text into tokens. The main goal of this package
+    is to provide an alternative to tidytext using morphological
+    analysis.">
+<title>An Alternative Rcpp Wrapper of MeCab • gibasa</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="An Alternate Rcpp Interface to MeCab">
-<meta property="og:description" content="Gibasa is a plain Rcpp interface to MeCab, CJK
-    tokenizer and morphological analysis tool. The main goal of gibasa
-    package is to provide an alternative to tidytext for CJK text data.">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="An Alternative Rcpp Wrapper of MeCab">
+<meta property="og:description" content="A plain Rcpp wrapper of MeCab that can segment Chinese,
+    Japanese, and Korean text into tokens. The main goal of this package
+    is to provide an alternative to tidytext using morphological
+    analysis.">
 <meta property="og:image" content="https://paithiov909.github.io/gibasa/reference/figures/tidytext_fig5_1_mod.drawio.png">
 <meta property="og:image:alt" content="Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and morphological analysis tool for R">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,24 +90,24 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and morphological analysis tool for R.</p>
+<p>Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK (Chinese, Japanese, and Korean) tokenizer and morphological analysis tool for R.</p>
 <p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> sometimes splits them into erroneous tokens.</p>
 <p>Gibasa provides 3 main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
 <figure><img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt="flowchart of a text analysis that combines gibasa and other packages"><figcaption aria-hidden="true">
 flowchart of a text analysis that combines gibasa and other packages
 </figcaption></figure><ul>
 <li>
-<code><a href="reference/tokenize.html">gibasa::tokenize</a></code> retrieves a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
+<code><a href="reference/tokenize.html">gibasa::tokenize</a></code> takes a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
 <li>
 <code><a href="reference/prettify.html">gibasa::prettify</a></code> turns tagged features into columns.</li>
 <li>
-<code><a href="reference/pack.html">gibasa::pack</a></code> retrieves a ‘tidy text data’, typically returning space-separated corpus.</li>
+<code><a href="reference/pack.html">gibasa::pack</a></code> takes a ‘tidy text data’, typically returning space-separated corpus.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install binary package via <a href="https://paithiov909.r-universe.dev/ui#package:gibasa" class="external-link">r-universe</a>.</p>
+<p>You can install binary package via <a href="https://paithiov909.r-universe.dev/gibasa" class="external-link">r-universe</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install gibasa from r-universe repository</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gibasa"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://paithiov909.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
@@ -144,7 +146,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt;  8 1                1        8 の       助詞,連体化,*,*,*,*,の,ノ,ノ            </span></span>
 <span><span class="co">#&gt;  9 1                1        9 博物     名詞,一般,*,*,*,*,博物,ハクブツ,ハクブツ</span></span>
 <span><span class="co">#&gt; 10 1                1       10 局       名詞,接尾,一般,*,*,*,局,キョク,キョク   </span></span>
-<span><span class="co">#&gt; # … with 375 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 375 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="prettify-output">Prettify output<a class="anchor" aria-label="anchor" href="#prettify-output"></a>
@@ -152,21 +154,21 @@ flowchart of a text analysis that combines gibasa and other packages
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 385 × 13</span></span>
-<span><span class="co">#&gt;    doc_id senten…¹ token…² token POS1  POS2  POS3  POS4  X5Sta…³ X5Sta…⁴ Origi…⁵</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;     &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt;  1 1             1       1 その  連体… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    その   </span></span>
-<span><span class="co">#&gt;  2 1             1       2 ころ  名詞  非自… 副詞… &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    ころ   </span></span>
-<span><span class="co">#&gt;  3 1             1       3 わた… 名詞  代名… 一般  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    わたく…</span></span>
-<span><span class="co">#&gt;  4 1             1       4 は    助詞  係助… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    は     </span></span>
-<span><span class="co">#&gt;  5 1             1       5 、    記号  読点  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    、     </span></span>
-<span><span class="co">#&gt;  6 1             1       6 モリ… 名詞  固有… 地域  一般  &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt;  7 1             1       7 市    名詞  接尾  地域  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    市     </span></span>
-<span><span class="co">#&gt;  8 1             1       8 の    助詞  連体… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    の     </span></span>
-<span><span class="co">#&gt;  9 1             1       9 博物  名詞  一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    博物   </span></span>
-<span><span class="co">#&gt; 10 1             1      10 局    名詞  接尾  一般  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    局     </span></span>
-<span><span class="co">#&gt; # … with 375 more rows, 2 more variables: Yomi1 &lt;chr&gt;, Yomi2 &lt;chr&gt;, and</span></span>
-<span><span class="co">#&gt; #   abbreviated variable names ¹​sentence_id, ²​token_id, ³​X5StageUse1,</span></span>
-<span><span class="co">#&gt; #   ⁴​X5StageUse2, ⁵​Original</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS2     POS3  POS4  X5StageUse1</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt;  1 1                1        1 その     連体詞 &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   非自立   副詞… &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   代名詞   一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  4 1                1        4 は       助詞   係助詞   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  5 1                1        5 、       記号   読点     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   固有名詞 地域  一般  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  7 1                1        7 市       名詞   接尾     地域  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  8 1                1        8 の       助詞   連体化   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  9 1                1        9 博物     名詞   一般     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; 10 1                1       10 局       名詞   接尾     一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; # ℹ 375 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 4 more variables: X5StageUse2 &lt;chr&gt;, Original &lt;chr&gt;, Yomi1 &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   Yomi2 &lt;chr&gt;</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 385 × 7</span></span>
 <span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS2     POS3    </span></span>
@@ -181,7 +183,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt;  8 1                1        8 の       助詞   連体化   &lt;NA&gt;    </span></span>
 <span><span class="co">#&gt;  9 1                1        9 博物     名詞   一般     &lt;NA&gt;    </span></span>
 <span><span class="co">#&gt; 10 1                1       10 局       名詞   接尾     一般    </span></span>
-<span><span class="co">#&gt; # … with 375 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 375 more rows</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 385 × 7</span></span>
 <span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS3     X5StageUse1</span></span>
@@ -196,7 +198,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt;  8 1                1        8 の       助詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
 <span><span class="co">#&gt;  9 1                1        9 博物     名詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
 <span><span class="co">#&gt; 10 1                1       10 局       名詞   一般     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt; # … with 375 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 375 more rows</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 385 × 6</span></span>
 <span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   Original</span></span>
@@ -211,7 +213,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt;  8 1                1        8 の       助詞   の      </span></span>
 <span><span class="co">#&gt;  9 1                1        9 博物     名詞   博物    </span></span>
 <span><span class="co">#&gt; 10 1                1       10 局       名詞   局      </span></span>
-<span><span class="co">#&gt; # … with 375 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 375 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="pack-output">Pack output<a class="anchor" aria-label="anchor" href="#pack-output"></a>
@@ -242,7 +244,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <div class="section level3">
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>
 </h3>
-<p>IPA, <a href="https://clrd.ninjal.ac.jp/unidic/" class="external-link">UniDic</a>, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
+<p>IPA, UniDic, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## UniDic 2.1.2</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/unidic-lite"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -306,6 +308,7 @@ flowchart of a text analysis that combines gibasa and other packages
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=gibasa" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/paithiov909/gibasa/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/paithiov909/gibasa/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -342,7 +345,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <ul class="list-unstyled">
 <li><a href="https://paithiov909.r-universe.dev" class="external-link"><img src="https://paithiov909.r-universe.dev/badges/gibasa" alt="gibasa status badge"></a></li>
 <li><a href="https://github.com/paithiov909/gibasa/actions" class="external-link"><img src="https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/paithiov909/gibasa" class="external-link"><img src="https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://app.codecov.io/gh/paithiov909/gibasa" class="external-link"><img src="https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg" alt="codecov"></a></li>
 </ul>
 </div>
 
