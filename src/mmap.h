@@ -195,7 +195,7 @@ template <class T> class Mmap {
       if (flag == O_RDWR) {
         int fd2;
         if ((fd2 = ::open(fileName.c_str(), O_RDWR)) >= 0) {
-          ssize_t ret = ::write(fd2, text, length);
+          // ::write(fd2, text, length);
           ::close(fd2);
         }
       }
