@@ -1,3 +1,7 @@
+# gibasa 0.9.3
+
+* Removed unnecessary C++ files.
+
 # gibasa 0.9.2
 
 * Prepare for CRAN release.

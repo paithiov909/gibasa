@@ -5,6 +5,16 @@
 #' @importFrom audubon bind_lr
 #' @seealso \doi{10.5715/jnlp.10.27}
 #' @export
+#' @examples
+#' \dontrun{
+#' df <- tokenize(
+#'   data.frame(
+#'     doc_id = seq_along(audubon::polano[5:8]),
+#'     text = audubon::polano[5:8]
+#'   )
+#' )
+#' bind_lr(df)
+#' }
 bind_lr <- audubon::bind_lr
 
 #' Collapse sequences of tokens by condition

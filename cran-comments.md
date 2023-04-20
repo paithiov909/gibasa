@@ -14,25 +14,13 @@ I removed problematic C++ files and resolved warnings in the following environme
 - R-hub macos-highsierra-release-cran (r-release)
 
 ## R CMD check results
-❯ On debian-gcc-devel-nold (r-devel)
-  checking CRAN incoming feasibility ... [13s/68s] NOTE
-  Maintainer: ‘Akiru Kato <paithiov909@gmail.com>’
-
-  Days since last update: 6
-
 ❯ On debian-gcc-devel-nold (r-devel), windows-x86_64-oldrel (r-oldrel)
   checking for GNU extensions in Makefiles ... NOTE
   GNU make is a SystemRequirements.
-
-❯ On windows-x86_64-oldrel (r-oldrel)
-  checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Akiru Kato <paithiov909@gmail.com>'
-
-  Days since last update: 6
 
 ❯ On windows-x86_64-oldrel (r-oldrel)
   checking for detritus in the temp directory ... NOTE
   Found the following files/directories:
     'lastMiKTeXException'
 
-0 errors ✔ | 0 warnings ✔ | 4 notes ✖
+0 errors ✔ | 0 warnings ✔ | 2 notes ✖

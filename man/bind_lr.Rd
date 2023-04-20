@@ -26,6 +26,17 @@ Calculates and binds the importance of bigrams and their synergistic average.
 The 'LR' value is the synergistic average of bigram importance
 that based on the words and their positions (left or right side).
 }
+\examples{
+\dontrun{
+df <- tokenize(
+  data.frame(
+    doc_id = seq_along(audubon::polano[5:8]),
+    text = audubon::polano[5:8]
+  )
+)
+bind_lr(df)
+}
+}
 \seealso{
 \doi{10.5715/jnlp.10.27}
 }
