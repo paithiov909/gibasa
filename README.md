@@ -10,6 +10,8 @@ badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-
 ![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
 [![codecov](https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg)](https://app.codecov.io/gh/paithiov909/gibasa)
+[![CRAN logs
+badge](https://cranlogs.r-pkg.org/badges/gibasa)](https://cran.r-project.org/package=gibasa)
 <!-- badges: end -->
 
 ## Overview
@@ -26,12 +28,8 @@ splits them into erroneous tokens.
 Gibasa provides 3 main functions: `gibasa::tokenize`,
 `gibasa::prettify`, and `gibasa::pack`.
 
-<figure>
-<img src="man/figures/tidytext_fig5_1_mod.drawio.png"
-alt="flowchart of a text analysis that combines gibasa and other packages" />
-<figcaption aria-hidden="true">flowchart of a text analysis that
-combines gibasa and other packages</figcaption>
-</figure>
+![flowchart of a text analysis that combines gibasa and other
+packages](man/figures/tidytext_fig5_1_mod.drawio.png)
 
 - `gibasa::tokenize` takes a TIF-compliant data.frame of corpus,
   returning tokens as format that known as ‘tidy text data’, so that

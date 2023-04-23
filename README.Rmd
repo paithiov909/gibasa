@@ -21,6 +21,7 @@ require(gibasa)
 ![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
 [![codecov](https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg)](https://app.codecov.io/gh/paithiov909/gibasa)
+[![CRAN logs badge](https://cranlogs.r-pkg.org/badges/gibasa)](https://cran.r-project.org/package=gibasa)
 <!-- badges: end -->
 
 ## Overview
