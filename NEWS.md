@@ -1,3 +1,7 @@
+# gibasa 0.9.4
+
+* Updated Makevars for Unix alikes. Users can now use a file specified by the `MECABRC` environment variable or `~/.mecabrc` to set up dictionaries.
+
 # gibasa 0.9.3
 
 * Removed unnecessary C++ files.
