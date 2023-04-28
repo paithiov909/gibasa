@@ -103,6 +103,7 @@ tokenize.character <- function(x,
   if (is.null(nm)) {
     nm <- seq_along(x)
   }
+
   tbl <- tagger_impl(x, nm, sys_dic, user_dic, split, partial, grain_size)
 
   if (!identical(mode, "wakati")) {
@@ -120,10 +121,8 @@ tagger_impl <- function(sentences,
                         partial,
                         grain_size) {
   # check if dictionaries are available.
-  sys_dic <- paste0(sys_dic, collapse = "")
-  user_dic <- paste0(user_dic, collapse = "")
   if (rlang::is_empty(dictionary_info(sys_dic, user_dic))) {
-    rlang::abort(class = "gbs_missing_dict")
+    rlang::abort("Can't find dictionaries.", class = "gbs_missing_dict")
   }
 
   grain_size <- ifelse(grain_size > 0L, as.integer(grain_size), 1L)

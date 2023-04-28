@@ -35,8 +35,8 @@ Rcpp::DataFrame dictionary_info(std::string sys_dic = "",
 
   mecab_model_t* model = mecab_model_new2(argv.c_str());
   if (!model) {
-    Rcerr << "failed to create mecab_model_t: maybe provided an invalid dictionary?" << std::endl;
     mecab_model_destroy(model);
+    Rcpp::warning("Failed to create mecab_model_t: maybe provided an invalid dictionary?");
     return R_NilValue;
   }
 
@@ -112,9 +112,8 @@ int transition_cost(unsigned short rcAttr,
 
   mecab_model_t* model = mecab_model_new2(argv.c_str());
   if (!model) {
-    Rcerr << "failed to create mecab_model_t: maybe provided an invalid dictionary?" << std::endl;
     mecab_model_destroy(model);
-    return 0;
+    Rcpp::stop("Failed to create mecab_model_t: maybe provided an invalid dictionary?");
   }
 
   const int t_cost = mecab_model_transition_cost(model, rcAttr, lcAttr);
@@ -162,9 +161,8 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
 
   mecab_model_t* model = mecab_model_new2(argv.c_str());
   if (!model) {
-    Rcerr << "failed to create mecab_model_t: maybe provided an invalid dictionary?" << std::endl;
     mecab_model_destroy(model);
-    return R_NilValue;
+    Rcpp::stop("Failed to create mecab_model_t: maybe provided an invalid dictionary?");
   }
 
   std::vector<int> docids;

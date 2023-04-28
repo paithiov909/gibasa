@@ -1,8 +1,16 @@
+skip_if_no_dict <- function() {
+  dict <- suppressWarnings(dictionary_info())
+  skip_if(
+    nrow(dict) < 1L,
+    "There are no available dictionaries."
+  )
+}
 testdata <- readRDS(system.file("testdata/testdata.rda", package = "audubon"))
 
 ### as_tokens ----
 test_that("as_tokens works", {
   skip_on_cran()
+  skip_if_no_dict()
 
   lst <-
     tokenize(
@@ -30,22 +38,20 @@ test_that("is_blank works", {
   )
 })
 
-### dictionary_info ----
-test_that("dictionary_info works", {
-  skip_on_cran()
-
-  res <- dictionary_info()
-  expect_s3_class(res, "data.frame")
-  expect_equal(ncol(res), 7L)
-})
-
 ### transition_cost ----
 test_that("transition_cost works", {
   skip_on_cran()
+  skip_if_no_dict()
 
   expect_type(get_transition_cost(0, 0), "integer")
   expect_error(get_transition_cost(-1, 0))
   expect_error(get_transition_cost(1318, 0))
+})
+test_that("transition_cost fails", {
+  skip_on_cran()
+  expect_error(suppressWarnings(
+    get_transition_cost(0, 0, sys_dic = "/dict/dir/doesnt/exist")
+  ))
 })
 
 ### pack ----
@@ -57,6 +63,7 @@ test_that("pack works", {
 ### prettify ----
 test_that("prettify works", {
   skip_on_cran()
+  skip_if_no_dict()
 
   df <- tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
   expect_error(prettify(df, col_select = c(1, 10)))

@@ -99,7 +99,7 @@ get_transition_cost <- function(rcAttr,
                                 user_dic = "") {
   dict <- dictionary_info(sys_dic, user_dic)
   if (rlang::is_empty(dict)) {
-    rlang::abort(class = "gbs_missing_dict")
+    rlang::abort("Can't find dictionaries.", class = "gbs_missing_dict")
   }
   rcAttr <- as.integer(rcAttr)
   lcAttr <- as.integer(lcAttr)

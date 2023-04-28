@@ -1,6 +1,22 @@
+skip_if_no_dict <- function() {
+  dict <- suppressWarnings(dictionary_info())
+  skip_if(
+    nrow(dict) < 1L,
+    "There are no available dictionaries."
+  )
+}
+
 ### tokenize ----
+test_that("tokenize fails", {
+  skip_on_cran()
+  expect_error(suppressWarnings(
+    tokenize(character(0), sys_dic = "/dict/dir/doesnt/exist")
+  ))
+})
+
 test_that("tokenize for character vector works", {
   skip_on_cran()
+  skip_if_no_dict()
 
   df <- tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
   expect_s3_class(df$doc_id, "factor")
@@ -13,6 +29,7 @@ test_that("tokenize for character vector works", {
 
 test_that("tokenize for data.frame works", {
   skip_on_cran()
+  skip_if_no_dict()
 
   df <- tokenize(
     data.frame(

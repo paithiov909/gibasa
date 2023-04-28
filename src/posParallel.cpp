@@ -105,9 +105,8 @@ Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
   // create model
   model = mecab_model_new2(argv.c_str());
   if (!model) {
-    Rcerr << "failed to create mecab_model_t: maybe provided an invalid dictionary?" << std::endl;
     mecab_model_destroy(model);
-    return R_NilValue;
+    Rcpp::stop("Failed to create mecab_model_t: maybe provided an invalid dictionary?");
   }
 
   std::vector<std::vector<std::tuple<std::string, std::string>>> results(text.size());
