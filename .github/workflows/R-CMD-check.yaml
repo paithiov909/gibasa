@@ -59,9 +59,8 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          args: 'c("--no-vignettes", "--no-manual", "--ignore-vignettes")'
+          args: 'c("--no-vignettes", "--no-manual", "--ignore-vignettes", "--as-cran")'
           build_args: 'c("--no-build-vignettes", "--no-manual")'
-          error-on: '"error"'
 
       - name: Codecov
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
