@@ -1,8 +1,10 @@
 #' Tokenize sentences using 'MeCab'
 #'
 #' @param x A data.frame like object or a character vector to be tokenized.
-#' @param text_field String or symbol; column name where to get texts to be tokenized.
-#' @param docid_field String or symbol; column name where to get identifiers of texts.
+#' @param text_field <[`data-masked`][rlang::args_data_masking]>
+#' String or symbol; column name where to get texts to be tokenized.
+#' @param docid_field <[`data-masked`][rlang::args_data_masking]>
+#' String or symbol; column name where to get identifiers of texts.
 #' @param sys_dic Character scalar; path to the system dictionary for mecab.
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.

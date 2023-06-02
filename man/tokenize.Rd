@@ -19,9 +19,11 @@ tokenize(
 \arguments{
 \item{x}{A data.frame like object or a character vector to be tokenized.}
 
-\item{text_field}{String or symbol; column name where to get texts to be tokenized.}
+\item{text_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+String or symbol; column name where to get texts to be tokenized.}
 
-\item{docid_field}{String or symbol; column name where to get identifiers of texts.}
+\item{docid_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+String or symbol; column name where to get identifiers of texts.}
 
 \item{sys_dic}{Character scalar; path to the system dictionary for mecab.
 Note that the system dictionary is expected to be compiled with UTF-8,
