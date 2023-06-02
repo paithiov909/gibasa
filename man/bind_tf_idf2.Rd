@@ -18,11 +18,14 @@ bind_tf_idf2(
 \arguments{
 \item{tbl}{A tidy text dataset.}
 
-\item{term}{Column containing terms as string or symbol.}
+\item{term}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing terms as string or symbol.}
 
-\item{document}{Column containing document IDs as string or symbol.}
+\item{document}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing document IDs as string or symbol.}
 
-\item{n}{Column containing document-term counts as string or symbol.}
+\item{n}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing document-term counts as string or symbol.}
 
 \item{tf}{Method for computing term frequency.}
 

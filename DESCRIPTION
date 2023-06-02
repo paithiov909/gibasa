@@ -20,7 +20,6 @@ BugReports: https://github.com/paithiov909/gibasa/issues
 Imports: 
     audubon (>= 0.5.0),
     dplyr,
-    Matrix,
     purrr,
     Rcpp,
     RcppParallel,

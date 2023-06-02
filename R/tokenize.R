@@ -65,7 +65,7 @@ tokenize.default <- function(x,
   )
 
   # if it's a factor, preserve ordering
-  col_names <- rlang::as_name(docid_field)
+  col_names <- as_name(docid_field)
   if (is.factor(x[[col_names]])) {
     col_u <- levels(x[[col_names]])
   } else {

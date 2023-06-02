@@ -17,4 +17,26 @@
 #'   dplyr::ungroup()
 #' bind_tf_idf2(df)
 #' }
-bind_tf_idf2 <- audubon::bind_tf_idf2
+bind_tf_idf2 <- function(tbl,
+                         term = "token",
+                         document = "doc_id",
+                         n = "n",
+                         tf = c("tf", "tf2", "tf3"),
+                         idf = c("idf", "idf2", "idf3", "idf4"),
+                         norm = FALSE,
+                         rmecab_compat = TRUE) {
+  term <- enquo(term)
+  document <- enquo(document)
+  n_col <- enquo(n)
+
+  audubon::bind_tf_idf2(
+    tbl = tbl,
+    term = {{ term }},
+    document = {{ document }},
+    n = {{ n_col }},
+    tf = tf,
+    idf = idf,
+    norm = norm,
+    rmecab_compat = rmecab_compat
+  )
+}

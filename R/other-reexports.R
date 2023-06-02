@@ -15,7 +15,18 @@
 #' )
 #' bind_lr(df)
 #' }
-bind_lr <- audubon::bind_lr
+bind_lr <- function(tbl,
+                    term = "token",
+                    lr_mode = c("n", "dn"),
+                    avg_rate = 1.0) {
+  term <- enquo(term)
+  audubon::bind_lr(
+    tbl = tbl,
+    term = {{ term }},
+    lr_mode = lr_mode,
+    avg_rate = avg_rate
+  )
+}
 
 #' Collapse sequences of tokens by condition
 #'
@@ -38,7 +49,16 @@ bind_lr <- audubon::bind_lr
 #'   POS1 == "\u540d\u8a5e" & stringr::str_detect(token, "^[\\p{Han}]+$")
 #' ))
 #' }
-collapse_tokens <- audubon::collapse_tokens
+collapse_tokens <- function(tbl,
+                            condition,
+                            .collapse = "") {
+  condition <- enquo(condition)
+  audubon::collapse_tokens(
+    tbl = tbl,
+    condition = {{ condition }},
+    .collapse = .collapse
+  )
+}
 
 #' Mute tokens by condition
 #'
@@ -58,7 +78,16 @@ collapse_tokens <- audubon::collapse_tokens
 #'
 #' head(mute_tokens(df, POS1 %in% c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e")))
 #' }
-mute_tokens <- audubon::mute_tokens
+mute_tokens <- function(tbl,
+                        condition,
+                        .as = NA_character_) {
+  condition <- enquo(condition)
+  audubon::mute_tokens(
+    tbl = tbl,
+    condition = {{ condition }},
+    .as = .as
+  )
+}
 
 #' Calculate lexical density
 #'
@@ -91,4 +120,14 @@ mute_tokens <- audubon::mute_tokens
 #'     vnr = lex_density(POS1, "\u52d5\u8a5e", "\u540d\u8a5e")
 #'   )
 #' }
-lex_density <- audubon::lex_density
+lex_density <- function(vec,
+                        contents_words,
+                        targets = NULL,
+                        negate = c(FALSE, FALSE)) {
+  audubon::lex_density(
+    vec = vec,
+    contents_words = contents_words,
+    targets = targets,
+    negate = negate
+  )
+}

@@ -9,7 +9,8 @@ bind_lr(tbl, term = "token", lr_mode = c("n", "dn"), avg_rate = 1)
 \arguments{
 \item{tbl}{A tidy text dataset.}
 
-\item{term}{Column containing terms as string or symbol.}
+\item{term}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing terms as string or symbol.}
 
 \item{lr_mode}{Method for computing 'FL' and 'FR' values.
 \code{n} is equivalent to 'LN' and 'RN', and \code{dn} is equivalent to 'LDN' and 'RDN'.}

@@ -23,7 +23,11 @@
 prettify <- function(tbl,
                      into = get_dict_features("ipa"),
                      col_select = seq_along(into)) {
-  audubon::prettify(tbl, into = into, col_select = col_select)
+  audubon::prettify(
+    tbl = tbl,
+    into = into,
+    col_select = col_select
+  )
 }
 
 #' Get dictionary's features
@@ -32,4 +36,15 @@ prettify <- function(tbl,
 #' @inheritParams audubon::get_dict_features
 #' @importFrom audubon get_dict_features
 #' @export
-get_dict_features <- audubon::get_dict_features
+get_dict_features <- function(dict = c(
+                                "ipa",
+                                "unidic17",
+                                "unidic26",
+                                "unidic29",
+                                "cc-cedict",
+                                "ko-dic",
+                                "naist11",
+                                "sudachi"
+                              )) {
+  audubon::get_dict_features(dict = dict)
+}

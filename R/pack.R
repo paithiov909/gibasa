@@ -15,6 +15,12 @@
 #' pack(df)
 #' }
 pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
-  pull <- ensym(pull)
-  audubon::pack(tbl, pull, n = n, sep = sep, .collapse = .collapse)
+  pull <- enquo(pull)
+  audubon::pack(
+    tbl = tbl,
+    pull = {{ pull }},
+    n = n,
+    sep = sep,
+    .collapse = .collapse
+  )
 }
