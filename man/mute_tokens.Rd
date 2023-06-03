@@ -9,8 +9,7 @@ mute_tokens(tbl, condition, .as = NA_character_)
 \arguments{
 \item{tbl}{A tidy text dataset.}
 
-\item{condition}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-A logical expression.}
+\item{condition}{A logical expression.}
 
 \item{.as}{String with which tokens are replaced
 when they are matched to condition.
