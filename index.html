@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,9 +93,10 @@
 <p>Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK (Chinese, Japanese, and Korean) tokenizer and morphological analysis tool for R.</p>
 <p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> sometimes splits them into erroneous tokens.</p>
 <p>Gibasa provides 3 main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
-<figure><img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt="flowchart of a text analysis that combines gibasa and other packages"><figcaption aria-hidden="true">
-flowchart of a text analysis that combines gibasa and other packages
-</figcaption></figure><ul>
+<div class="figure">
+<img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt=""><p class="caption">flowchart of a text analysis that combines gibasa and other packages</p>
+</div>
+<ul>
 <li>
 <code><a href="reference/tokenize.html">gibasa::tokenize</a></code> takes a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
 <li>
@@ -346,6 +347,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <li><a href="https://paithiov909.r-universe.dev" class="external-link"><img src="https://paithiov909.r-universe.dev/badges/gibasa" alt="gibasa status badge"></a></li>
 <li><a href="https://github.com/paithiov909/gibasa/actions" class="external-link"><img src="https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/paithiov909/gibasa" class="external-link"><img src="https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://cran.r-project.org/package=gibasa" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/gibasa" alt="CRAN logs badge"></a></li>
 </ul>
 </div>
 
