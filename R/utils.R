@@ -23,7 +23,7 @@ as_tokens <- function(tbl,
                       token_field = "token",
                       pos_field = get_dict_features()[1],
                       nm = NULL) {
-  token_field <- enquo(token_field)
+  token_field <- rlang::as_name(ensym(token_field))
   col_names <- rlang::as_name("doc_id")
 
   if (is.null(nm)) {
@@ -35,18 +35,12 @@ as_tokens <- function(tbl,
   }
 
   if (is.null(pos_field)) {
-    tbl %>%
-      dplyr::group_by(.data[[col_names]]) %>%
-      dplyr::group_map(function(df, grp) {
-        dplyr::pull(df, !!token_field)
-      }) %>%
+    tbl[[token_field]] %>%
+      split(tbl[[col_names]]) %>%
       purrr::set_names(nm)
   } else {
-    tbl %>%
-      dplyr::group_by(.data[[col_names]]) %>%
-      dplyr::group_map(function(df, grp) {
-        dplyr::pull(df, !!token_field, pos_field)
-      }) %>%
+    purrr::set_names(tbl[[token_field]], tbl[[pos_field]]) %>%
+      split(tbl[[col_names]]) %>%
       purrr::set_names(nm)
   }
 }
