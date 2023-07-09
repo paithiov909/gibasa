@@ -5,23 +5,23 @@ skip_if_no_dict <- function() {
     "There are no available dictionaries."
   )
 }
-testdata <- readRDS(system.file("testdata/testdata.rda", package = "audubon"))
+testdata <- readRDS(system.file("testdata/testdata.rda", package = "gibasa"))
 
 ### as_tokens ----
 test_that("as_tokens works", {
-  skip_on_cran()
-  skip_if_no_dict()
-
-  lst <-
-    tokenize(
-      data.frame(
-        doc_id = factor("text1"),
-        text = c("\u3053\u3093\u306b\u3061\u306f")
-      )
-    ) |>
+  lst1 <-
+    testdata[["tokens"]] |>
+    dplyr::filter(as.integer(doc_id) < 5) |>
     prettify(col_select = 1) |>
     as_tokens()
-  expect_named(lst, "text1")
+
+  lst2 <-
+    testdata[["tokens"]] |>
+    dplyr::filter(as.integer(doc_id) < 5) |>
+    prettify(col_select = 1) |>
+    as_tokens(token)
+
+  expect_equal(lst1, lst2)
 })
 
 ### is_blank ----
@@ -54,21 +54,14 @@ test_that("transition_cost fails", {
   ))
 })
 
-### pack ----
-test_that("pack works", {
-  res <- pack(testdata[[7]])
-  expect_equal(nrow(res), 50L)
-})
-
-### prettify ----
-test_that("prettify works", {
-  skip_on_cran()
-  skip_if_no_dict()
-
-  df <- tokenize(c(text1 = "\u3053\u3093\u306b\u3061\u306f"))
-  expect_error(prettify(df, col_select = c(1, 10)))
-  expect_equal(ncol(prettify(df)), 13L)
-  expect_equal(ncol(prettify(df, col_select = c(1, 2, 3))), 7L)
-  expect_equal(ncol(prettify(df, col_select = 1:3)), 7L)
-  expect_equal(ncol(prettify(df, col_select = c("POS1", "POS2", "POS3"))), 7L)
+### get_dict_features ----
+test_that("get_dict_features works", {
+  expect_equal(length(get_dict_features()), 9L)
+  expect_equal(length(get_dict_features("unidic17")), 17L)
+  expect_equal(length(get_dict_features("unidic26")), 26L)
+  expect_equal(length(get_dict_features("unidic29")), 29L)
+  expect_equal(length(get_dict_features("cc-cedict")), 8L)
+  expect_equal(length(get_dict_features("ko-dic")), 8L)
+  expect_equal(length(get_dict_features("naist11")), 11L)
+  expect_equal(length(get_dict_features("sudachi")), 6L)
 })

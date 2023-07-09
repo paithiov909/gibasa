@@ -2,7 +2,7 @@
 % Please edit documentation in R/bind_tf_idf2.R
 \name{bind_tf_idf2}
 \alias{bind_tf_idf2}
-\title{Bind the term frequency and inverse document frequency}
+\title{Bind term frequency and inverse document frequency}
 \usage{
 bind_tf_idf2(
   tbl,
@@ -18,11 +18,14 @@ bind_tf_idf2(
 \arguments{
 \item{tbl}{A tidy text dataset.}
 
-\item{term}{Column containing terms as string or symbol.}
+\item{term}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing terms as string or symbol.}
 
-\item{document}{Column containing document IDs as string or symbol.}
+\item{document}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing document IDs as string or symbol.}
 
-\item{n}{Column containing document-term counts as string or symbol.}
+\item{n}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column containing document-term counts as string or symbol.}
 
 \item{tf}{Method for computing term frequency.}
 
@@ -51,7 +54,7 @@ which are implemented in 'RMeCab' package.
 Types of term frequency can be switched with \code{tf} argument:
 \itemize{
 \item \code{tf} is term frequency (not raw count of terms).
-\item \code{tf2} is logarithmic term frequency of which base is 10.
+\item \code{tf2} is logarithmic term frequency of which base is \code{exp(1)}.
 \item \code{tf3} is binary-weighted term frequency.
 }
 
@@ -68,8 +71,8 @@ Types of inverse document frequencies can be switched with \code{idf} argument:
 \dontrun{
 df <- tokenize(
   data.frame(
-    doc_id = seq_along(audubon::polano[5:8]),
-    text = audubon::polano[5:8]
+    doc_id = seq_along(ginga[5:8]),
+    text = ginga[5:8]
   )
 ) |>
   dplyr::group_by(doc_id) |>

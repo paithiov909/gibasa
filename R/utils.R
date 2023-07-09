@@ -1,7 +1,8 @@
 #' Create a list of tokens
 #'
 #' @param tbl A tibble of tokens out of \code{tokenize()}.
-#' @param token_field Column name that contains tokens.
+#' @param token_field <[`data-masked`][rlang::args_data_masking]>
+#' Column name that contains tokens.
 #' @param pos_field Feature name that will be kept as the names
 #' of tokens. If you don't need them, give a `NULL` for this argument.
 #' @param nm Names of returned list.
@@ -12,8 +13,8 @@
 #' \dontrun{
 #' tokenize(
 #'   data.frame(
-#'     doc_id = seq_along(audubon::polano[5:8]),
-#'     text = audubon::polano[5:8]
+#'     doc_id = seq_along(ginga[5:8]),
+#'     text = ginga[5:8]
 #'   )
 #' ) |>
 #'   prettify(col_select = "POS1") |>

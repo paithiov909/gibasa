@@ -2,21 +2,22 @@
 % Please edit documentation in R/pack.R
 \name{pack}
 \alias{pack}
-\title{Pack prettified data.frame of tokens}
+\title{Pack a data.frame of tokens}
 \usage{
 pack(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ")
 }
 \arguments{
 \item{tbl}{A data.frame of tokens.}
 
-\item{pull}{Column to be packed into text or ngrams body. Default value is \code{token}.}
+\item{pull}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{n}{Integer internally passed to ngrams tokenizer function
 created of \code{audubon::ngram_tokenizer()}}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 
-\item{.collapse}{This argument is passed to \code{stringi::stri_join()}.}
+\item{.collapse}{This argument is passed to \code{stringi::stri_c()}.}
 }
 \value{
 A tibble.
@@ -28,15 +29,12 @@ which is compatible with the Text Interchange Formats.
 \section{Text Interchange Formats (TIF)}{
 
 
-
 The Text Interchange Formats (TIF) is a set of standards
 that allows R text analysis packages to target defined inputs and outputs
 for corpora, tokens, and document-term matrices.
-
 }
 
 \section{Valid data.frame of tokens}{
-
 
 
 The data.frame of tokens here is a data.frame object
@@ -45,15 +43,14 @@ compatible with the TIF.
 A TIF valid data.frame of tokens are expected to have one unique key column (named \code{doc_id})
 of each text and several feature columns of each tokens.
 The feature columns must contain at least \code{token} itself.
-
 }
 
 \examples{
 \dontrun{
 df <- tokenize(
   data.frame(
-    doc_id = seq_along(audubon::polano[5:8]),
-    text = audubon::polano[5:8]
+    doc_id = seq_along(ginga[5:8]),
+    text = ginga[5:8]
   )
 )
 pack(df)

@@ -14,7 +14,8 @@ as_tokens(
 \arguments{
 \item{tbl}{A tibble of tokens out of \code{tokenize()}.}
 
-\item{token_field}{Column name that contains tokens.}
+\item{token_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
+Column name that contains tokens.}
 
 \item{pos_field}{Feature name that will be kept as the names
 of tokens. If you don't need them, give a \code{NULL} for this argument.}
@@ -32,8 +33,8 @@ Create a list of tokens
 \dontrun{
 tokenize(
   data.frame(
-    doc_id = seq_along(audubon::polano[5:8]),
-    text = audubon::polano[5:8]
+    doc_id = seq_along(ginga[5:8]),
+    text = ginga[5:8]
   )
 ) |>
   prettify(col_select = "POS1") |>

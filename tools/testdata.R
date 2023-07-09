@@ -1,4 +1,7 @@
-df <- data.frame(doc_id = seq_along(audubon::polano[1:50]), audubon::polano[1:50])
+df <- data.frame(
+  doc_id = seq_along(gibasa::ginga[1:50]) |> as.character(),
+  text = gibasa::ginga[1:50]
+)
 
 testdata <-
   purrr::imap(c("tf*idf", "tf2*idf", "tf2*idf2",
@@ -15,12 +18,14 @@ testdata <-
       dplyr::mutate(token = stringr::str_c(TERM, POS1, POS2, sep = "/")) |>
       dplyr::select(doc_id, token, tf_idf) |>
       dplyr::arrange(doc_id, token, tf_idf)
-  })
+  }) |>
+  purrr::set_names(c("tf*idf", "tf2*idf", "tf2*idf2",
+                     "tf3*idf", "tf2*idf3", "tf2*idf4"))
 
-tbl <-
+df <-
   data.frame(
-    doc_id = seq_along(audubon::polano[1:50]),
-    text = audubon::polano[1:50]
+    doc_id = seq_along(gibasa::ginga[1:50]) |> as.character(),
+    text = gibasa::ginga[1:50]
   ) |>
   gibasa::tokenize() |>
   gibasa::prettify(col_select = c("POS1", "POS2")) |>
@@ -31,6 +36,15 @@ tbl <-
   dplyr::count(token) |>
   dplyr::ungroup()
 
-testdata[[7]] <- tbl
+testdata[["raw_counts"]] <- df
 
-saveRDS(testdata, "testdata.rda")
+df <-
+  data.frame(
+    doc_id = seq_along(gibasa::ginga[1:50]) |> as.character(),
+    text = gibasa::ginga[1:50]
+  ) |>
+  gibasa::tokenize()
+
+testdata[["tokens"]] <- df
+
+saveRDS(testdata, "inst/testdata/testdata.rda")

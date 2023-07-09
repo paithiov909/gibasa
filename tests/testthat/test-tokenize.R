@@ -35,7 +35,9 @@ test_that("tokenize for data.frame works", {
     data.frame(
       doc_id = c(1),
       text = c("\u3053\u3093\u306b\u3061\u306f")
-    )
+    ),
+    text_field = text,
+    docid_field = doc_id
   )
   expect_s3_class(df$doc_id, "factor")
   expect_equal(df[[1]][1], factor("1"))
