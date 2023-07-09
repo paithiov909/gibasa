@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,13 +90,12 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK (Chinese, Japanese, and Korean) tokenizer and morphological analysis tool for R.</p>
-<p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For analyzing CJK text data, it usually requires part-of-speech tagging, as most of them are not separated with spaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> sometimes splits them into erroneous tokens.</p>
-<p>Gibasa provides 3 main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
-<div class="figure">
-<img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt=""><p class="caption">flowchart of a text analysis that combines gibasa and other packages</p>
-</div>
-<ul>
+<p>Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a morphological analyzer for CJK text.</p>
+<p>Part-of-speech tagging with morphological analyzers is useful for processing CJK text data. This is because most words in CJK text are not separated by whitespaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> may split them into wrong tokens.</p>
+<p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For this goal, gibasa provides three main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
+<figure><img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt="flowchart of a text analysis that combines gibasa and other packages"><figcaption aria-hidden="true">
+flowchart of a text analysis that combines gibasa and other packages
+</figcaption></figure><ul>
 <li>
 <code><a href="reference/tokenize.html">gibasa::tokenize</a></code> takes a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
 <li>
@@ -108,7 +107,7 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install binary package via <a href="https://paithiov909.r-universe.dev/gibasa" class="external-link">r-universe</a>.</p>
+<p>You can install binary package via <a href="https://cran.r-project.org/package=gibasa" class="external-link">CRAN</a> or <a href="https://paithiov909.r-universe.dev/gibasa" class="external-link">r-universe</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install gibasa from r-universe repository</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gibasa"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://paithiov909.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
@@ -119,6 +118,7 @@
 <p>To use gibasa package requires the <a href="https://taku910.github.io/mecab/" class="external-link">MeCab</a> library and its dictionary installed and available.</p>
 <p>In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself.</p>
 <p>In case using Windows, use installer <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7WElGUGt6ejlpVXc" class="external-link">built for 32bit</a> or <a href="https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2" class="external-link">built for 64bit</a>. Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.</p>
+<p>As of v0.9.4 above, gibasa looks at the file specified by the environment variable <code>MECABRC</code> or the file located at <code>~/.mecabrc</code>. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -129,92 +129,92 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu">audubon</span><span class="fu">::</span><span class="va"><a href="https://paithiov909.github.io/audubon/reference/polano.html" class="external-link">polano</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    text <span class="op">=</span> <span class="fu">audubon</span><span class="fu">::</span><span class="va"><a href="https://paithiov909.github.io/audubon/reference/polano.html" class="external-link">polano</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span>
+<span>    doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="va"><a href="reference/ginga.html">ginga</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    text <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="va"><a href="reference/ginga.html">ginga</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">res</span></span>
-<span><span class="co">#&gt; # A tibble: 385 × 5</span></span>
-<span><span class="co">#&gt;    doc_id sentence_id token_id token    feature                                 </span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                                   </span></span>
-<span><span class="co">#&gt;  1 1                1        1 その     連体詞,*,*,*,*,*,その,ソノ,ソノ         </span></span>
-<span><span class="co">#&gt;  2 1                1        2 ころ     名詞,非自立,副詞可能,*,*,*,ころ,コロ,コ…</span></span>
-<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞,代名詞,一般,*,*,*,わたくし,ワタク… </span></span>
-<span><span class="co">#&gt;  4 1                1        4 は       助詞,係助詞,*,*,*,*,は,ハ,ワ            </span></span>
-<span><span class="co">#&gt;  5 1                1        5 、       記号,読点,*,*,*,*,、,、,、              </span></span>
-<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞,固有名詞,地域,一般,*,*,*           </span></span>
-<span><span class="co">#&gt;  7 1                1        7 市       名詞,接尾,地域,*,*,*,市,シ,シ           </span></span>
-<span><span class="co">#&gt;  8 1                1        8 の       助詞,連体化,*,*,*,*,の,ノ,ノ            </span></span>
-<span><span class="co">#&gt;  9 1                1        9 博物     名詞,一般,*,*,*,*,博物,ハクブツ,ハクブツ</span></span>
-<span><span class="co">#&gt; 10 1                1       10 局       名詞,接尾,一般,*,*,*,局,キョク,キョク   </span></span>
-<span><span class="co">#&gt; # ℹ 375 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 187 × 5</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token        feature                             </span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;                               </span></span>
+<span><span class="co">#&gt;  1 1                1        1 　           記号,空白,*,*,*,*,　,　,　          </span></span>
+<span><span class="co">#&gt;  2 1                1        2 カムパネルラ 名詞,一般,*,*,*,*,*                 </span></span>
+<span><span class="co">#&gt;  3 1                1        3 が           助詞,格助詞,一般,*,*,*,が,ガ,ガ     </span></span>
+<span><span class="co">#&gt;  4 1                1        4 手           名詞,一般,*,*,*,*,手,テ,テ          </span></span>
+<span><span class="co">#&gt;  5 1                1        5 を           助詞,格助詞,一般,*,*,*,を,ヲ,ヲ     </span></span>
+<span><span class="co">#&gt;  6 1                1        6 あげ         動詞,自立,*,*,一段,連用形,あげる,ア…</span></span>
+<span><span class="co">#&gt;  7 1                1        7 まし         助動詞,*,*,*,特殊・マス,連用形,ます…</span></span>
+<span><span class="co">#&gt;  8 1                1        8 た           助動詞,*,*,*,特殊・タ,基本形,た,タ,…</span></span>
+<span><span class="co">#&gt;  9 1                1        9 。           記号,句点,*,*,*,*,。,。,。          </span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞,代名詞,一般,*,*,*,それ,ソレ,ソ…</span></span>
+<span><span class="co">#&gt; # ℹ 177 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="prettify-output">Prettify output<a class="anchor" aria-label="anchor" href="#prettify-output"></a>
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 385 × 13</span></span>
-<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS2     POS3  POS4  X5StageUse1</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      </span></span>
-<span><span class="co">#&gt;  1 1                1        1 その     連体詞 &lt;NA&gt;     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   非自立   副詞… &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   代名詞   一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  4 1                1        4 は       助詞   係助詞   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  5 1                1        5 、       記号   読点     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   固有名詞 地域  一般  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  7 1                1        7 市       名詞   接尾     地域  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  8 1                1        8 の       助詞   連体化   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  9 1                1        9 博物     名詞   一般     &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt; 10 1                1       10 局       名詞   接尾     一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt; # ℹ 375 more rows</span></span>
+<span><span class="co">#&gt; # A tibble: 187 × 13</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token        POS1   POS2  POS3  POS4  X5StageUse1</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt;  1 1                1        1 　           記号   空白  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  2 1                1        2 カムパネルラ 名詞   一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  3 1                1        3 が           助詞   格助… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  4 1                1        4 手           名詞   一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  5 1                1        5 を           助詞   格助… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  6 1                1        6 あげ         動詞   自立  &lt;NA&gt;  &lt;NA&gt;  一段       </span></span>
+<span><span class="co">#&gt;  7 1                1        7 まし         助動詞 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  特殊・マス </span></span>
+<span><span class="co">#&gt;  8 1                1        8 た           助動詞 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  特殊・タ   </span></span>
+<span><span class="co">#&gt;  9 1                1        9 。           記号   句点  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞   代名… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; # ℹ 177 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 4 more variables: X5StageUse2 &lt;chr&gt;, Original &lt;chr&gt;, Yomi1 &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   Yomi2 &lt;chr&gt;</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 385 × 7</span></span>
-<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS2     POS3    </span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;   </span></span>
-<span><span class="co">#&gt;  1 1                1        1 その     連体詞 &lt;NA&gt;     &lt;NA&gt;    </span></span>
-<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   非自立   副詞可能</span></span>
-<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   代名詞   一般    </span></span>
-<span><span class="co">#&gt;  4 1                1        4 は       助詞   係助詞   &lt;NA&gt;    </span></span>
-<span><span class="co">#&gt;  5 1                1        5 、       記号   読点     &lt;NA&gt;    </span></span>
-<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   固有名詞 地域    </span></span>
-<span><span class="co">#&gt;  7 1                1        7 市       名詞   接尾     地域    </span></span>
-<span><span class="co">#&gt;  8 1                1        8 の       助詞   連体化   &lt;NA&gt;    </span></span>
-<span><span class="co">#&gt;  9 1                1        9 博物     名詞   一般     &lt;NA&gt;    </span></span>
-<span><span class="co">#&gt; 10 1                1       10 局       名詞   接尾     一般    </span></span>
-<span><span class="co">#&gt; # ℹ 375 more rows</span></span>
+<span><span class="co">#&gt; # A tibble: 187 × 7</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token        POS1   POS2   POS3 </span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#&gt;  1 1                1        1 　           記号   空白   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt;  2 1                1        2 カムパネルラ 名詞   一般   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt;  3 1                1        3 が           助詞   格助詞 一般 </span></span>
+<span><span class="co">#&gt;  4 1                1        4 手           名詞   一般   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt;  5 1                1        5 を           助詞   格助詞 一般 </span></span>
+<span><span class="co">#&gt;  6 1                1        6 あげ         動詞   自立   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt;  7 1                1        7 まし         助動詞 &lt;NA&gt;   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt;  8 1                1        8 た           助動詞 &lt;NA&gt;   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt;  9 1                1        9 。           記号   句点   &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞   代名詞 一般 </span></span>
+<span><span class="co">#&gt; # ℹ 177 more rows</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 385 × 7</span></span>
-<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   POS3     X5StageUse1</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;      </span></span>
-<span><span class="co">#&gt;  1 1                1        1 その     連体詞 &lt;NA&gt;     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   副詞可能 &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   一般     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  4 1                1        4 は       助詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  5 1                1        5 、       記号   &lt;NA&gt;     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   地域     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  7 1                1        7 市       名詞   地域     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  8 1                1        8 の       助詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  9 1                1        9 博物     名詞   &lt;NA&gt;     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt; 10 1                1       10 局       名詞   一般     &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt; # ℹ 375 more rows</span></span>
+<span><span class="co">#&gt; # A tibble: 187 × 7</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token        POS1   POS3  X5StageUse1</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt;  1 1                1        1 　           記号   &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  2 1                1        2 カムパネルラ 名詞   &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  3 1                1        3 が           助詞   一般  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  4 1                1        4 手           名詞   &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  5 1                1        5 を           助詞   一般  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  6 1                1        6 あげ         動詞   &lt;NA&gt;  一段       </span></span>
+<span><span class="co">#&gt;  7 1                1        7 まし         助動詞 &lt;NA&gt;  特殊・マス </span></span>
+<span><span class="co">#&gt;  8 1                1        8 た           助動詞 &lt;NA&gt;  特殊・タ   </span></span>
+<span><span class="co">#&gt;  9 1                1        9 。           記号   &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞   一般  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; # ℹ 177 more rows</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span>, col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 385 × 6</span></span>
-<span><span class="co">#&gt;    doc_id sentence_id token_id token    POS1   Original</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;   </span></span>
-<span><span class="co">#&gt;  1 1                1        1 その     連体詞 その    </span></span>
-<span><span class="co">#&gt;  2 1                1        2 ころ     名詞   ころ    </span></span>
-<span><span class="co">#&gt;  3 1                1        3 わたくし 名詞   わたくし</span></span>
-<span><span class="co">#&gt;  4 1                1        4 は       助詞   は      </span></span>
-<span><span class="co">#&gt;  5 1                1        5 、       記号   、      </span></span>
-<span><span class="co">#&gt;  6 1                1        6 モリーオ 名詞   &lt;NA&gt;    </span></span>
-<span><span class="co">#&gt;  7 1                1        7 市       名詞   市      </span></span>
-<span><span class="co">#&gt;  8 1                1        8 の       助詞   の      </span></span>
-<span><span class="co">#&gt;  9 1                1        9 博物     名詞   博物    </span></span>
-<span><span class="co">#&gt; 10 1                1       10 局       名詞   局      </span></span>
-<span><span class="co">#&gt; # ℹ 375 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # A tibble: 187 × 6</span></span>
+<span><span class="co">#&gt;    doc_id sentence_id token_id token        POS1   Original</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;   </span></span>
+<span><span class="co">#&gt;  1 1                1        1 　           記号   　      </span></span>
+<span><span class="co">#&gt;  2 1                1        2 カムパネルラ 名詞   &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt;  3 1                1        3 が           助詞   が      </span></span>
+<span><span class="co">#&gt;  4 1                1        4 手           名詞   手      </span></span>
+<span><span class="co">#&gt;  5 1                1        5 を           助詞   を      </span></span>
+<span><span class="co">#&gt;  6 1                1        6 あげ         動詞   あげる  </span></span>
+<span><span class="co">#&gt;  7 1                1        7 まし         助動詞 ます    </span></span>
+<span><span class="co">#&gt;  8 1                1        8 た           助動詞 た      </span></span>
+<span><span class="co">#&gt;  9 1                1        9 。           記号   。      </span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞   それ    </span></span>
+<span><span class="co">#&gt; # ℹ 177 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="pack-output">Pack output<a class="anchor" aria-label="anchor" href="#pack-output"></a>
@@ -224,11 +224,11 @@
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
 <span><span class="co">#&gt;   doc_id text                                                                   </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                  </span></span>
-<span><span class="co">#&gt; 1 1      その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし … </span></span>
-<span><span class="co">#&gt; 2 2      十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし…</span></span>
-<span><span class="co">#&gt; 3 3      あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を … </span></span>
-<span><span class="co">#&gt; 4 4      また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼ…</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;chr&gt;                                                                  </span></span>
+<span><span class="co">#&gt; 1 1      　 カムパネルラ が 手 を あげ まし た 。 それ から 四 、 五 人 手 を … </span></span>
+<span><span class="co">#&gt; 2 2      　 ところが 先生 は 早く も それ を 見つけ た の でし た 。            </span></span>
+<span><span class="co">#&gt; 3 3      「 ジョバンニ さん 。 あなた は わかっ て いる の でしょ う 」         </span></span>
+<span><span class="co">#&gt; 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と も…</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>  <span class="va">res</span>,</span>
@@ -239,8 +239,8 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   doc_id text                                                                  </span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;                                                                 </span></span>
-<span><span class="co">#&gt; 1 1      その/連体詞 ころ/名詞 わたくし/名詞 は/助詞 、/記号 モリーオ/名詞 市/…</span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;chr&gt;                                                                 </span></span>
+<span><span class="co">#&gt; 1 1      　/記号 カムパネルラ/名詞 が/助詞 手/名詞 を/助詞 あげる/動詞 ます/助…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>

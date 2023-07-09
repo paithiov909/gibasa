@@ -58,6 +58,9 @@
     <loc>https://paithiov909.github.io/gibasa/reference/gibasa-package.html</loc>
   </url>
   <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/ginga.html</loc>
+  </url>
+  <url>
     <loc>https://paithiov909.github.io/gibasa/reference/index.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/mute_tokens.html</loc>
+  </url>
+  <url>
+    <loc>https://paithiov909.github.io/gibasa/reference/ngram_tokenizer.html</loc>
   </url>
   <url>
     <loc>https://paithiov909.github.io/gibasa/reference/pack.html</loc>
