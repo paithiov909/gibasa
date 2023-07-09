@@ -1,6 +1,6 @@
 # gibasa 0.9.5
 
-* Remove audubon dependency for maintainability.
+* Removed audubon dependency for maintainability.
 * `pack` now preserves `doc_id` type when it's factor.
 
 # gibasa 0.9.4

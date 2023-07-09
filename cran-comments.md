@@ -13,7 +13,7 @@
 
 ❯ On debian-gcc-release (r-release)
   checking installed package size ... NOTE
-    installed size is  8.8Mb
+    installed size is  9.0Mb
     sub-directories of 1Mb or more:
       libs   8.6Mb
 
