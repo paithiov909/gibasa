@@ -50,7 +50,7 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 ```{r prep_corpus_2}
 corpus <- tbl |>
   dplyr::mutate(
-    text = audubon::strj_normalize(body),
+    text = stringi::stri_trans_nfkc(body),
     chunk = dplyr::ntile(dplyr::row_number(), 10)
   ) |>
   dplyr::group_by(chunk) |>

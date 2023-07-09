@@ -27,7 +27,7 @@ gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形�
 
 ### インストールの仕方
 
-[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からインストールできます。
+[CRAN](https://cran.r-project.org/package=gibasa)のほか、[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からもインストールできます。
 
 ```r
 # Install gibasa from r-universe repository
@@ -54,11 +54,11 @@ gibasaは、次にあげる関数を使って、CJKテキストの分かち書�
 まず、`doc_id`列と`text`列をもつデータフレームについて、`gibasa::tokenize`でtidy textのかたちにできます（以下の例ではIPA辞書を使っています）。ちなみに、元のデータフレームの`doc_id`列と`text`列以外の列は戻り値にも保持されます。
 
 ```{r tokenize}
-audubon::polano[5]
+gibasa::ginga[5]
 
 dat <- data.frame(
-  doc_id = seq_along(audubon::polano[5:8]),
-  text = audubon::polano[5:8],
+  doc_id = seq_along(gibasa::ginga[5:8]),
+  text = gibasa::ginga[5:8],
   meta = c("aaa", "bbb", "ccc", "ddd")
 )
 
@@ -86,7 +86,7 @@ gibasa::pack(res, POS1)
 
 ### ベンチマーク
 
-[TokyoR #98](https://tokyor.connpass.com/event/244200/)での[LTのスライド](https://paithiov909.github.io/shiryo/gibasa/#11)でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもmecabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。
+[TokyoR #98](https://tokyor.connpass.com/event/244200/)での[LTのスライド](https://paithiov909.github.io/shiryo/gibasa/#11)でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもMeCabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。
 
 ```r
 dat <- data.frame(
@@ -147,7 +147,7 @@ dplyr::glimpse(tbl)
 
 ## デモ：前処理（分かち書き）のコツ
 
-これを前処理（分かち書き）していくのですが、注意点として、このくらいの分量のテキストデータを一気に`gibasa::tokenize`にわたしても、おそらくメモリ不足になってしまい、結果が返ってきません。
+これを前処理（分かち書き）していくのですが、実際上の注意点として、これよりももっと大規模な分量のテキストデータを一気に`gibasa::tokenize`にわたす場合、メモリ不足になってしまい、結果が返ってこない可能性があります。
 
 たとえば、このデータセットの`text`列について、文字数を確認すると、おおよそ次のような分量があります。
 
@@ -177,9 +177,9 @@ dplyr::filter(tbl, title == "ファウスト") |>
   nrow()
 ```
 
-`gibasa::tokenize`は`text_field`引数で指定した列に含まれる総トークン数行×3列のデータフレームを戻り値として返します。その戻り値に対して何も考えずに`gibasa::prettify`すると、`feature`列がさらに複数列に分割されるため、総トークン数が45万行あればそれだけでも45万行×十数列のデータフレームになります。それだけの量のtidy textを一気に扱うのは、あまり現実的ではありません。
+`gibasa::tokenize`は`text_field`引数で指定した列に含まれる総トークン数行×3列のデータフレームを戻り値として返します。その戻り値に対して何も考えずに`gibasa::prettify`すると、`feature`列がさらに複数列に分割されるため、総トークン数が45万行あればそれだけでも45万行×十数列のデータフレームになります。どのくらいの規模のtidy textを扱うかは、使用している環境のスペックに応じて加減するようにしてください。
 
-そこで、ここではひとまず単純に形態素解析するテキストの分量を減らします。以下では、文章あたりの文字数が5000字よりも少ないデータだけを使うことにします。これでも、全部で228篇あります。
+ここでは、ひとまず単純に形態素解析するテキストの分量を減らします。以下では、文章あたりの文字数が5000字よりも少ないデータだけを使うことにします。これでも、全部で228篇あります。
 
 ```{r nchar_dataset3}
 tbl <- dplyr::filter(tbl, nchar(text) < 5000)
@@ -196,7 +196,7 @@ tbl |>
   dplyr::mutate(across(where(is.numeric), trunc))
 ```
 
-さらに、実際にこれくらいの規模のテキストデータを形態素解析するにあたっては、最終的に欲しいかたちのデータになるように元のデータセットを小分けにしながら処理するのが無難です。
+実際に大規模なテキストデータを形態素解析するにあたっては、最終的に欲しいかたちのデータになるように元のデータセットを小分けにしながら処理するのが有効かもしれません。
 
 たとえば、ここでは、トークンのなかでも未知語でないもので、かつ、名詞・形容詞・動詞についてのみを、辞書に収録されている原形で抽出し、品詞情報とあわせて「/」で区切ったタグ付き単語の分かち書きにしています。このとき、以下のように、`chunk`という新しくつくった列についてグルーピングし、適当なサイズのまとまりごとに`text`列を処理しています。
 

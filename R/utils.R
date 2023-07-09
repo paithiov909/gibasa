@@ -24,8 +24,8 @@ as_tokens <- function(tbl,
                       token_field = "token",
                       pos_field = get_dict_features()[1],
                       nm = NULL) {
-  token_field <- rlang::as_name(ensym(token_field))
-  col_names <- rlang::as_name("doc_id")
+  token_field <- as_name(enquo(token_field))
+  col_names <- as_name("doc_id")
 
   if (is.null(nm)) {
     if (is.factor(tbl[[col_names]])) {

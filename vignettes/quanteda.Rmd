@@ -33,13 +33,8 @@ require("ggplot2", quietly = TRUE)
 これらは、次のような感じでインストールできます。
 
 ```r
-# Enable repository from paithiov909
-options(repos = c(
-  ropensci = "https://paithiov909.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"))
-
-# Download and install ldccr in R
-install.packages("ldccr")
+# Install ldccr in R:
+install.packages("ldccr", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 この記事は、こういう使い方ができるというメモのようなもので、やっていることの意味についての説明はしていません。また、quantedaは[tokenizers](https://github.com/ropensci/tokenizers)をラップした関数によって日本語の文書でも分かち書きできるので、手元の辞書に収録されている表現どおりに分かち書きしたい場合や、品詞情報が欲しい場合でないかぎりは、形態素解析器を使うメリットはあまりないかもしれません。tokenizers（内部的にはstringi）が利用しているICUの[Boundary Analysis](https://unicode-org.github.io/icu/userguide/boundaryanalysis/)の仕様については、[UAX#29](https://www.unicode.org/reports/tr29/#Word_Boundaries)などを参照してください。
@@ -78,7 +73,7 @@ corp <- data |>
 
 corp <- corp |>
   dplyr::mutate(
-    body = audubon::strj_normalize(body) |>
+    body = stringi::stri_trans_nfkc(body) |>
       stringr::str_remove_all("(https?\\://[[:alnum:]\\.\\-_/]+)"),
   ) |>
   gibasa::tokenize(body) |>
@@ -239,9 +234,9 @@ ggplot2::ggplot(ggdendro::segment(d)) +
 
 ## LDA（Latent Dirichlet Allocation）
 
-LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に直接渡すこともできます。公式の[クイックスタートガイド](https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models)も参考にしてください。weighted LDAなどの実装を含む[keyATM](https://github.com/keyATM/keyATM)といった選択肢もあります。
+LDAについては`quanteda::convert`でdfmを変換して`topicmodels::LDA`に直接渡すこともできます。公式の[クイックスタートガイド](https://quanteda.io/articles/pkgdown/quickstart_ja.html#topic-models)も参考にしてください。
 
-なお、トピック数は9に決め打ちしています。トピック数含めパラメタの探索をしたい場合には、[ldatuning](https://github.com/nikita-moor/ldatuning)や[stm](https://github.com/bstewart/stm)などを利用したほうがよいです。
+なお、トピック数は9に決め打ちしています。トピック数含めパラメタの探索をしたい場合には、[ldatuning](https://github.com/nikita-moor/ldatuning)や[stm](https://github.com/bstewart/stm)などを利用できます。
 
 ```{r lda_1}
 dtm <- corp |>

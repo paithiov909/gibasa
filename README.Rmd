@@ -26,13 +26,11 @@ require(gibasa)
 
 ## Overview
 
-Gibasa is a plain 'Rcpp' wrapper of 'MeCab', a CJK (Chinese, Japanese, and Korean) tokenizer and morphological analysis tool for R.
+Gibasa is a plain 'Rcpp' wrapper of 'MeCab', a morphological analyzer for CJK text.
 
-The main goal of gibasa package is to provide an alternative to `tidytext::unnest_tokens` for CJK text data.
-For analyzing CJK text data, it usually requires part-of-speech tagging,
-as most of them are not separated with spaces and `tokenizers::tokenize_words` sometimes splits them into erroneous tokens.
+Part-of-speech tagging with morphological analyzers is useful for processing CJK text data. This is because most words in CJK text are not separated by whitespaces and `tokenizers::tokenize_words` may split them into wrong tokens.
 
-Gibasa provides 3 main functions: `gibasa::tokenize`, `gibasa::prettify`, and `gibasa::pack`.
+The main goal of gibasa package is to provide an alternative to `tidytext::unnest_tokens` for CJK text data. For this goal, gibasa provides three main functions: `gibasa::tokenize`, `gibasa::prettify`, and `gibasa::pack`.
 
 ![flowchart of a text analysis that combines gibasa and other packages](man/figures/tidytext_fig5_1_mod.drawio.png)
 
@@ -42,7 +40,7 @@ Gibasa provides 3 main functions: `gibasa::tokenize`, `gibasa::prettify`, and `g
 
 ## Installation
 
-You can install binary package via [r-universe](https://paithiov909.r-universe.dev/gibasa).
+You can install binary package via [CRAN](https://cran.r-project.org/package=gibasa) or [r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ```r
 # Install gibasa from r-universe repository
@@ -55,10 +53,11 @@ remotes::install_github("paithiov909/gibasa")
 
 To use gibasa package requires the [MeCab](https://taku910.github.io/mecab/) library and its dictionary installed and available.
 
-In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself.
+In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself. 
 
-In case using Windows, use installer [built for 32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc) or [built for 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2).
-Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
+In case using Windows, use installer [built for 32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc) or [built for 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2). Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
+
+As of v0.9.4 above, gibasa looks at the file specified by the environment variable `MECABRC` or the file located at `~/.mecabrc`. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.
 
 ## Usage
 
@@ -67,8 +66,8 @@ Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 ```{r}
 res <- gibasa::tokenize(
   data.frame(
-    doc_id = seq_along(audubon::polano[5:8]),
-    text = audubon::polano[5:8]
+    doc_id = seq_along(gibasa::ginga[5:8]),
+    text = gibasa::ginga[5:8]
   )
 )
 res

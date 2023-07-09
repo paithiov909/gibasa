@@ -16,20 +16,25 @@ badge](https://cranlogs.r-pkg.org/badges/gibasa)](https://cran.r-project.org/pac
 
 ## Overview
 
-Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a CJK (Chinese, Japanese,
-and Korean) tokenizer and morphological analysis tool for R.
+Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a morphological analyzer
+for CJK text.
+
+Part-of-speech tagging with morphological analyzers is useful for
+processing CJK text data. This is because most words in CJK text are not
+separated by whitespaces and `tokenizers::tokenize_words` may split them
+into wrong tokens.
 
 The main goal of gibasa package is to provide an alternative to
-`tidytext::unnest_tokens` for CJK text data. For analyzing CJK text
-data, it usually requires part-of-speech tagging, as most of them are
-not separated with spaces and `tokenizers::tokenize_words` sometimes
-splits them into erroneous tokens.
+`tidytext::unnest_tokens` for CJK text data. For this goal, gibasa
+provides three main functions: `gibasa::tokenize`, `gibasa::prettify`,
+and `gibasa::pack`.
 
-Gibasa provides 3 main functions: `gibasa::tokenize`,
-`gibasa::prettify`, and `gibasa::pack`.
-
-![flowchart of a text analysis that combines gibasa and other
-packages](man/figures/tidytext_fig5_1_mod.drawio.png)
+<figure>
+<img src="man/figures/tidytext_fig5_1_mod.drawio.png"
+alt="flowchart of a text analysis that combines gibasa and other packages" />
+<figcaption aria-hidden="true">flowchart of a text analysis that
+combines gibasa and other packages</figcaption>
+</figure>
 
 - `gibasa::tokenize` takes a TIF-compliant data.frame of corpus,
   returning tokens as format that known as ‘tidy text data’, so that
@@ -42,6 +47,7 @@ packages](man/figures/tidytext_fig5_1_mod.drawio.png)
 ## Installation
 
 You can install binary package via
+[CRAN](https://cran.r-project.org/package=gibasa) or
 [r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ``` r
@@ -66,6 +72,11 @@ or [built for
 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2).
 Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
+As of v0.9.4 above, gibasa looks at the file specified by the
+environment variable `MECABRC` or the file located at `~/.mecabrc`. If
+the MeCab dictionary is in a different location than the default, create
+a mecabrc file and specify where the dictionary is located.
+
 ## Usage
 
 ### Tokenize sentences
@@ -73,92 +84,92 @@ Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 ``` r
 res <- gibasa::tokenize(
   data.frame(
-    doc_id = seq_along(audubon::polano[5:8]),
-    text = audubon::polano[5:8]
+    doc_id = seq_along(gibasa::ginga[5:8]),
+    text = gibasa::ginga[5:8]
   )
 )
 res
-#> # A tibble: 385 × 5
-#>    doc_id sentence_id token_id token    feature                                 
-#>    <fct>        <int>    <int> <chr>    <chr>                                   
-#>  1 1                1        1 その     連体詞,*,*,*,*,*,その,ソノ,ソノ         
-#>  2 1                1        2 ころ     名詞,非自立,副詞可能,*,*,*,ころ,コロ,コ…
-#>  3 1                1        3 わたくし 名詞,代名詞,一般,*,*,*,わたくし,ワタク… 
-#>  4 1                1        4 は       助詞,係助詞,*,*,*,*,は,ハ,ワ            
-#>  5 1                1        5 、       記号,読点,*,*,*,*,、,、,、              
-#>  6 1                1        6 モリーオ 名詞,固有名詞,地域,一般,*,*,*           
-#>  7 1                1        7 市       名詞,接尾,地域,*,*,*,市,シ,シ           
-#>  8 1                1        8 の       助詞,連体化,*,*,*,*,の,ノ,ノ            
-#>  9 1                1        9 博物     名詞,一般,*,*,*,*,博物,ハクブツ,ハクブツ
-#> 10 1                1       10 局       名詞,接尾,一般,*,*,*,局,キョク,キョク   
-#> # ℹ 375 more rows
+#> # A tibble: 187 × 5
+#>    doc_id sentence_id token_id token        feature                             
+#>    <fct>        <int>    <int> <chr>        <chr>                               
+#>  1 1                1        1 　           記号,空白,*,*,*,*,　,　,　          
+#>  2 1                1        2 カムパネルラ 名詞,一般,*,*,*,*,*                 
+#>  3 1                1        3 が           助詞,格助詞,一般,*,*,*,が,ガ,ガ     
+#>  4 1                1        4 手           名詞,一般,*,*,*,*,手,テ,テ          
+#>  5 1                1        5 を           助詞,格助詞,一般,*,*,*,を,ヲ,ヲ     
+#>  6 1                1        6 あげ         動詞,自立,*,*,一段,連用形,あげる,ア…
+#>  7 1                1        7 まし         助動詞,*,*,*,特殊・マス,連用形,ます…
+#>  8 1                1        8 た           助動詞,*,*,*,特殊・タ,基本形,た,タ,…
+#>  9 1                1        9 。           記号,句点,*,*,*,*,。,。,。          
+#> 10 1                1       10 それ         名詞,代名詞,一般,*,*,*,それ,ソレ,ソ…
+#> # ℹ 177 more rows
 ```
 
 ### Prettify output
 
 ``` r
 gibasa::prettify(res)
-#> # A tibble: 385 × 13
-#>    doc_id sentence_id token_id token    POS1   POS2     POS3  POS4  X5StageUse1
-#>    <fct>        <int>    <int> <chr>    <chr>  <chr>    <chr> <chr> <chr>      
-#>  1 1                1        1 その     連体詞 <NA>     <NA>  <NA>  <NA>       
-#>  2 1                1        2 ころ     名詞   非自立   副詞… <NA>  <NA>       
-#>  3 1                1        3 わたくし 名詞   代名詞   一般  <NA>  <NA>       
-#>  4 1                1        4 は       助詞   係助詞   <NA>  <NA>  <NA>       
-#>  5 1                1        5 、       記号   読点     <NA>  <NA>  <NA>       
-#>  6 1                1        6 モリーオ 名詞   固有名詞 地域  一般  <NA>       
-#>  7 1                1        7 市       名詞   接尾     地域  <NA>  <NA>       
-#>  8 1                1        8 の       助詞   連体化   <NA>  <NA>  <NA>       
-#>  9 1                1        9 博物     名詞   一般     <NA>  <NA>  <NA>       
-#> 10 1                1       10 局       名詞   接尾     一般  <NA>  <NA>       
-#> # ℹ 375 more rows
+#> # A tibble: 187 × 13
+#>    doc_id sentence_id token_id token        POS1   POS2  POS3  POS4  X5StageUse1
+#>    <fct>        <int>    <int> <chr>        <chr>  <chr> <chr> <chr> <chr>      
+#>  1 1                1        1 　           記号   空白  <NA>  <NA>  <NA>       
+#>  2 1                1        2 カムパネルラ 名詞   一般  <NA>  <NA>  <NA>       
+#>  3 1                1        3 が           助詞   格助… 一般  <NA>  <NA>       
+#>  4 1                1        4 手           名詞   一般  <NA>  <NA>  <NA>       
+#>  5 1                1        5 を           助詞   格助… 一般  <NA>  <NA>       
+#>  6 1                1        6 あげ         動詞   自立  <NA>  <NA>  一段       
+#>  7 1                1        7 まし         助動詞 <NA>  <NA>  <NA>  特殊・マス 
+#>  8 1                1        8 た           助動詞 <NA>  <NA>  <NA>  特殊・タ   
+#>  9 1                1        9 。           記号   句点  <NA>  <NA>  <NA>       
+#> 10 1                1       10 それ         名詞   代名… 一般  <NA>  <NA>       
+#> # ℹ 177 more rows
 #> # ℹ 4 more variables: X5StageUse2 <chr>, Original <chr>, Yomi1 <chr>,
 #> #   Yomi2 <chr>
 gibasa::prettify(res, col_select = 1:3)
-#> # A tibble: 385 × 7
-#>    doc_id sentence_id token_id token    POS1   POS2     POS3    
-#>    <fct>        <int>    <int> <chr>    <chr>  <chr>    <chr>   
-#>  1 1                1        1 その     連体詞 <NA>     <NA>    
-#>  2 1                1        2 ころ     名詞   非自立   副詞可能
-#>  3 1                1        3 わたくし 名詞   代名詞   一般    
-#>  4 1                1        4 は       助詞   係助詞   <NA>    
-#>  5 1                1        5 、       記号   読点     <NA>    
-#>  6 1                1        6 モリーオ 名詞   固有名詞 地域    
-#>  7 1                1        7 市       名詞   接尾     地域    
-#>  8 1                1        8 の       助詞   連体化   <NA>    
-#>  9 1                1        9 博物     名詞   一般     <NA>    
-#> 10 1                1       10 局       名詞   接尾     一般    
-#> # ℹ 375 more rows
+#> # A tibble: 187 × 7
+#>    doc_id sentence_id token_id token        POS1   POS2   POS3 
+#>    <fct>        <int>    <int> <chr>        <chr>  <chr>  <chr>
+#>  1 1                1        1 　           記号   空白   <NA> 
+#>  2 1                1        2 カムパネルラ 名詞   一般   <NA> 
+#>  3 1                1        3 が           助詞   格助詞 一般 
+#>  4 1                1        4 手           名詞   一般   <NA> 
+#>  5 1                1        5 を           助詞   格助詞 一般 
+#>  6 1                1        6 あげ         動詞   自立   <NA> 
+#>  7 1                1        7 まし         助動詞 <NA>   <NA> 
+#>  8 1                1        8 た           助動詞 <NA>   <NA> 
+#>  9 1                1        9 。           記号   句点   <NA> 
+#> 10 1                1       10 それ         名詞   代名詞 一般 
+#> # ℹ 177 more rows
 gibasa::prettify(res, col_select = c(1, 3, 5))
-#> # A tibble: 385 × 7
-#>    doc_id sentence_id token_id token    POS1   POS3     X5StageUse1
-#>    <fct>        <int>    <int> <chr>    <chr>  <chr>    <chr>      
-#>  1 1                1        1 その     連体詞 <NA>     <NA>       
-#>  2 1                1        2 ころ     名詞   副詞可能 <NA>       
-#>  3 1                1        3 わたくし 名詞   一般     <NA>       
-#>  4 1                1        4 は       助詞   <NA>     <NA>       
-#>  5 1                1        5 、       記号   <NA>     <NA>       
-#>  6 1                1        6 モリーオ 名詞   地域     <NA>       
-#>  7 1                1        7 市       名詞   地域     <NA>       
-#>  8 1                1        8 の       助詞   <NA>     <NA>       
-#>  9 1                1        9 博物     名詞   <NA>     <NA>       
-#> 10 1                1       10 局       名詞   一般     <NA>       
-#> # ℹ 375 more rows
+#> # A tibble: 187 × 7
+#>    doc_id sentence_id token_id token        POS1   POS3  X5StageUse1
+#>    <fct>        <int>    <int> <chr>        <chr>  <chr> <chr>      
+#>  1 1                1        1 　           記号   <NA>  <NA>       
+#>  2 1                1        2 カムパネルラ 名詞   <NA>  <NA>       
+#>  3 1                1        3 が           助詞   一般  <NA>       
+#>  4 1                1        4 手           名詞   <NA>  <NA>       
+#>  5 1                1        5 を           助詞   一般  <NA>       
+#>  6 1                1        6 あげ         動詞   <NA>  一段       
+#>  7 1                1        7 まし         助動詞 <NA>  特殊・マス 
+#>  8 1                1        8 た           助動詞 <NA>  特殊・タ   
+#>  9 1                1        9 。           記号   <NA>  <NA>       
+#> 10 1                1       10 それ         名詞   一般  <NA>       
+#> # ℹ 177 more rows
 gibasa::prettify(res, col_select = c("POS1", "Original"))
-#> # A tibble: 385 × 6
-#>    doc_id sentence_id token_id token    POS1   Original
-#>    <fct>        <int>    <int> <chr>    <chr>  <chr>   
-#>  1 1                1        1 その     連体詞 その    
-#>  2 1                1        2 ころ     名詞   ころ    
-#>  3 1                1        3 わたくし 名詞   わたくし
-#>  4 1                1        4 は       助詞   は      
-#>  5 1                1        5 、       記号   、      
-#>  6 1                1        6 モリーオ 名詞   <NA>    
-#>  7 1                1        7 市       名詞   市      
-#>  8 1                1        8 の       助詞   の      
-#>  9 1                1        9 博物     名詞   博物    
-#> 10 1                1       10 局       名詞   局      
-#> # ℹ 375 more rows
+#> # A tibble: 187 × 6
+#>    doc_id sentence_id token_id token        POS1   Original
+#>    <fct>        <int>    <int> <chr>        <chr>  <chr>   
+#>  1 1                1        1 　           記号   　      
+#>  2 1                1        2 カムパネルラ 名詞   <NA>    
+#>  3 1                1        3 が           助詞   が      
+#>  4 1                1        4 手           名詞   手      
+#>  5 1                1        5 を           助詞   を      
+#>  6 1                1        6 あげ         動詞   あげる  
+#>  7 1                1        7 まし         助動詞 ます    
+#>  8 1                1        8 た           助動詞 た      
+#>  9 1                1        9 。           記号   。      
+#> 10 1                1       10 それ         名詞   それ    
+#> # ℹ 177 more rows
 ```
 
 ### Pack output
@@ -168,11 +179,11 @@ res <- gibasa::prettify(res)
 gibasa::pack(res)
 #> # A tibble: 4 × 2
 #>   doc_id text                                                                   
-#>   <chr>  <chr>                                                                  
-#> 1 1      その ころ わたくし は 、 モリーオ 市 の 博物 局 に 勤め て 居り まし … 
-#> 2 2      十 八 等 官 でし た から 役所 の なか でも 、 ず うっ と 下 の 方 でし…
-#> 3 3      あの イーハトーヴォ の すきとおっ た 風 、 夏 で も 底 に 冷た さ を … 
-#> 4 4      また その なか で いっしょ に なっ た たくさん の ひと たち 、 ファゼ…
+#>   <fct>  <chr>                                                                  
+#> 1 1      　 カムパネルラ が 手 を あげ まし た 。 それ から 四 、 五 人 手 を … 
+#> 2 2      　 ところが 先生 は 早く も それ を 見つけ た の でし た 。            
+#> 3 3      「 ジョバンニ さん 。 あなた は わかっ て いる の でしょ う 」         
+#> 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と も…
 
 dplyr::mutate(
   res,
@@ -183,8 +194,8 @@ dplyr::mutate(
   head(1L)
 #> # A tibble: 1 × 2
 #>   doc_id text                                                                  
-#>   <chr>  <chr>                                                                 
-#> 1 1      その/連体詞 ころ/名詞 わたくし/名詞 は/助詞 、/記号 モリーオ/名詞 市/…
+#>   <fct>  <chr>                                                                 
+#> 1 1      　/記号 カムパネルラ/名詞 が/助詞 手/名詞 を/助詞 あげる/動詞 ます/助…
 ```
 
 ### Change dictionary
