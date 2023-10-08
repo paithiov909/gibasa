@@ -18,7 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macOS-latest,    r: 'release'}
+          - {os: windows-latest,  r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
 
@@ -50,6 +51,17 @@ jobs:
           make
           sudo make install
           cd ../../
+
+      - use: actions/setup-python@v4
+        if: ${{ matrix.config.os == 'windows-latest' }}
+        with:
+          python-version: '3.10'
+
+      - name: Setup ipadic for windows
+        if: ${{ matrix.config.os == 'windows-latest' }}
+        run: |
+          python3 -m pip install ipadic
+          python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > ~/.mecabrc
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         env:
