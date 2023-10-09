@@ -62,8 +62,8 @@ jobs:
         if: ${{ matrix.config.os == 'windows-latest' }}
         run: |
           python3 -m pip install ipadic
-          python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > $HOME\.mecabrc
-          echo "MECAB_DEFAULT_RC='${HOME}/.mecabrc'" >> $GITHUB_ENV
+          python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > $HOME/mecabrc
+          echo "MECAB_DEFAULT_RC='${HOME}/mecabrc'" >> $GITHUB_ENV
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         env:
