@@ -10,7 +10,9 @@ else
 endif
 endif
 
+# https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Using-pthreads
 CXX_STD = CXX17
+PKG_CPPFLAGS = -pthread
 PKG_CXXFLAGS = -DSTRICT_R_HEADERS \
 	-DHAVE_GETENV -DHAVE_PTHREAD_H \
 	-DHAVE_STDINT_H -DHAVE_UNISTD_H -DHAVE_STRING_H -DHAVE_FCNTL_H \

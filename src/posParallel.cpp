@@ -118,8 +118,7 @@ Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
   int sentence_number = 0;
   int token_number = 1;
 
-  bool is_partial_mode = false;
-  if (is_true(all(partial))) { is_partial_mode = true; }
+  bool is_partial_mode = is_true(all(partial)) ? true : false;
 
   TextParse text_parse(&text, results, model, &is_partial_mode);
   RcppParallel::parallelFor(0, text.size(), text_parse, grain_size);

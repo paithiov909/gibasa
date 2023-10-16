@@ -72,5 +72,5 @@ posParallelRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L, gra
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('_gibasa_RcppExport_registerCCallable', PACKAGE = 'gibasa')
+    .Call(`_gibasa_RcppExport_registerCCallable`)
 })
