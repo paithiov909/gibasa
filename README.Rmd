@@ -53,11 +53,18 @@ remotes::install_github("paithiov909/gibasa")
 
 To use gibasa package requires the [MeCab](https://taku910.github.io/mecab/) library and its dictionary installed and available.
 
-In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself. 
+In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself.
 
 In case using Windows, use installer [built for 32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc) or [built for 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2). Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
-As of v0.9.4 above, gibasa looks at the file specified by the environment variable `MECABRC` or the file located at `~/.mecabrc`. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.
+As of v0.9.4, gibasa looks at the file specified by the environment variable `MECABRC` or the file located at `~/.mecabrc`. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.
+
+For example, to install and use the [ipadic](https://pypi.org/project/ipadic/) from PyPI, run
+
+```sh
+$ python3 -m pip install ipadic
+$ python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > ~/.mecabrc
+```
 
 ## Usage
 
@@ -108,12 +115,12 @@ gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic 
 #> # A tibble: 6 × 30
 #>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  cType cForm lForm lemma
 #>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-#> 1 1              1       1 あの  感動… フィ… <NA>  <NA>  <NA>  <NA>  アノ  あの 
-#> 2 1              1       2 イー… 名詞  普通… 一般  <NA>  <NA>  <NA>  <NA>  <NA> 
-#> 3 1              1       3 の    助詞  格助… <NA>  <NA>  <NA>  <NA>  ノ    の   
+#> 1 1              1       1 あの  感動… フィ… <NA>  <NA>  <NA>  <NA>  アノ  あの
+#> 2 1              1       2 イー… 名詞  普通… 一般  <NA>  <NA>  <NA>  <NA>  <NA>
+#> 3 1              1       3 の    助詞  格助… <NA>  <NA>  <NA>  <NA>  ノ    の
 #> 4 1              1       4 すき… 動詞  一般  <NA>  <NA>  五段… 連用… スキ… 透き…
-#> 5 1              1       5 た    助動… <NA>  <NA>  <NA>  助動… 連体… タ    た   
-#> 6 1              1       6 風    名詞  普通… 一般  <NA>  <NA>  <NA>  カゼ  風   
+#> 5 1              1       5 た    助動… <NA>  <NA>  <NA>  助動… 連体… タ    た
+#> 6 1              1       6 風    名詞  普通… 一般  <NA>  <NA>  <NA>  カゼ  風
 #> # … with 18 more variables: orth <chr>, pron <chr>, orthBase <chr>,
 #> #   pronBase <chr>, goshu <chr>, iType <chr>, iForm <chr>, fType <chr>,
 #> #   fForm <chr>, kana <chr>, kanaBase <chr>, form <chr>, formBase <chr>,
@@ -122,35 +129,35 @@ gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic 
 
 
 ## CC-CEDICT
-gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |> 
+gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |>
   gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
 #> # A tibble: 9 × 12
 #>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  pinyi…³ tradi…⁴ simpl…⁵
-#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>  
-#> 1 1              1       1 它    <NA>  <NA>  <NA>  <NA>  ta1     它      它     
-#> 2 1              1       2 可以  <NA>  <NA>  <NA>  <NA>  ke3 yi3 可以    可以   
-#> 3 1              1       3 进行  <NA>  <NA>  <NA>  <NA>  jin4 x… 進行    进行   
-#> 4 1              1       4 日语  <NA>  <NA>  <NA>  <NA>  Ri4 yu3 日語    日语   
-#> 5 1              1       5 和    <NA>  <NA>  <NA>  <NA>  he2     龢      和     
-#> 6 1              1       6 汉语  <NA>  <NA>  <NA>  <NA>  Han4 y… 漢語    汉语   
-#> 7 1              1       7 的    <NA>  <NA>  <NA>  <NA>  di4     的      的     
-#> 8 1              1       8 语态  <NA>  <NA>  <NA>  <NA>  yu3 ta… 語態    语态   
-#> 9 1              1       9 分析  <NA>  <NA>  <NA>  <NA>  fen1 x… 分析    分析   
+#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>
+#> 1 1              1       1 它    <NA>  <NA>  <NA>  <NA>  ta1     它      它
+#> 2 1              1       2 可以  <NA>  <NA>  <NA>  <NA>  ke3 yi3 可以    可以
+#> 3 1              1       3 进行  <NA>  <NA>  <NA>  <NA>  jin4 x… 進行    进行
+#> 4 1              1       4 日语  <NA>  <NA>  <NA>  <NA>  Ri4 yu3 日語    日语
+#> 5 1              1       5 和    <NA>  <NA>  <NA>  <NA>  he2     龢      和
+#> 6 1              1       6 汉语  <NA>  <NA>  <NA>  <NA>  Han4 y… 漢語    汉语
+#> 7 1              1       7 的    <NA>  <NA>  <NA>  <NA>  di4     的      的
+#> 8 1              1       8 语态  <NA>  <NA>  <NA>  <NA>  yu3 ta… 語態    语态
+#> 9 1              1       9 分析  <NA>  <NA>  <NA>  <NA>  fen1 x… 分析    分析
 #> # … with 1 more variable: definition <chr>, and abbreviated variable names
 #> #   ¹​sentence_id, ²​token_id, ³​pinyin_pron, ⁴​traditional_char_form,
 #> #   ⁵​simplified_char_form
 
 
 ## mecab-ko-dic
-gibasa::tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |> 
+gibasa::tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |>
   gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
 #> # A tibble: 4 × 12
 #>   doc_id sentence_id token_id token  POS   meaning prese…¹ reading type  first…²
-#>   <fct>        <int>    <int> <chr>  <chr> <chr>   <chr>   <chr>   <chr> <chr>  
-#> 1 1                1        1 하네다 NNP   인명    F       하네다  <NA>  <NA>   
-#> 2 1                1        2 공항   NNG   장소    T       공항    <NA>  <NA>   
-#> 3 1                1        3 한정   NNG   <NA>    T       한정    <NA>  <NA>   
-#> 4 1                1        4 토트백 NNG   <NA>    T       토트백  Comp… <NA>   
+#>   <fct>        <int>    <int> <chr>  <chr> <chr>   <chr>   <chr>   <chr> <chr>
+#> 1 1                1        1 하네다 NNP   인명    F       하네다  <NA>  <NA>
+#> 2 1                1        2 공항   NNG   장소    T       공항    <NA>  <NA>
+#> 3 1                1        3 한정   NNG   <NA>    T       한정    <NA>  <NA>
+#> 4 1                1        4 토트백 NNG   <NA>    T       토트백  Comp… <NA>
 #> # … with 2 more variables: last_pos <chr>, expression <chr>, and abbreviated
 #> #   variable names ¹​presence, ²​first_pos
 ```
