@@ -32,7 +32,7 @@ not Shift-JIS or other encodings.}
 \item{user_dic}{Character scalar; path to the user dictionary for mecab.}
 
 \item{split}{Logical. When passed as \code{TRUE}, the function internally splits the sentences
-into sub-sentences using \code{stringi::stri_split_boudaries(type = "sentence")}.}
+into sub-sentences using \code{stringi::stri_split_boundaries(type = "sentence")}.}
 
 \item{partial}{Logical. When passed as \code{TRUE}, activates partial parsing mode.
 To activate this feature, remember that all spaces at the start and end of

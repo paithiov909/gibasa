@@ -31,7 +31,7 @@ A data.frame.
 }
 \description{
 Turns a single character column into features
-separating with delimiter.
+while separating with delimiter.
 }
 \examples{
 prettify(

@@ -1,7 +1,7 @@
 #' Prettify tokenized output
 #'
 #' Turns a single character column into features
-#' separating with delimiter.
+#' while separating with delimiter.
 #'
 #' @param tbl A data.frame that has feature column to be prettified.
 #' @param col <[`data-masked`][rlang::args_data_masking]>
@@ -69,9 +69,9 @@ prettify <- function(tbl,
   dplyr::bind_cols(dplyr::select(tbl, -!!col), features)
 }
 
-#' Get dictionary's features
+#' Get dictionary features
 #'
-#' Returns dictionary's features.
+#' Returns names of dictionary features.
 #' Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
 #' "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
 #' "naist11", "sudachi", and "ipa".
