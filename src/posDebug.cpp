@@ -223,6 +223,7 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
     }
   }
 
+  mecab_lattice_destroy(lattice);
   mecab_model_destroy(model);
 
   return DataFrame::create(
