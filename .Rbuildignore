@@ -3,6 +3,7 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 ^\.github$
+^\.vscode$
 ^_pkgdown\.yml$
 ^codecov\.yml$
 ^renovate\.json$
