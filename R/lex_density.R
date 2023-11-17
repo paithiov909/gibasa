@@ -12,7 +12,7 @@
 #' @param negate A logical vector of which length is 2.
 #' If passed as `TRUE`, then respectively negates the predicate functions
 #' for counting contents words or targets.
-#' @return A numeric vector.
+#' @returns A numeric vector.
 #' @export
 #' @examples
 #' \dontrun{

@@ -19,7 +19,7 @@
 #' This argument is internally passed to `RcppParallel::parallelFor` function.
 #' Setting a larger chunk size could improve the performance in some cases.
 #' @param mode Character scalar to switch output format.
-#' @return A tibble or a named list of tokens.
+#' @returns A tibble or a named list of tokens.
 #' @export
 #' @examples
 #' \dontrun{

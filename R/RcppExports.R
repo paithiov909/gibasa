@@ -5,7 +5,7 @@
 #'
 #' @param sys_dic String scalar.
 #' @param user_dic String scalar.
-#' @return data.frame.
+#' @returns data.frame.
 #'
 #' @name dictionary_info
 #' @export
@@ -17,7 +17,7 @@ NULL
 #' @param lcAttr Integer.
 #' @param sys_dic String.
 #' @param user_dic String.
-#' @return Numeric.
+#' @returns Numeric.
 #'
 #' @name transition_cost
 #' @keywords internal
@@ -33,7 +33,7 @@ NULL
 #' @param sys_dic String.
 #' @param user_dic String.
 #' @param partial Logical.
-#' @return data.frame.
+#' @returns data.frame.
 #'
 #' @name posDebugRcpp
 #' @keywords internal
@@ -59,7 +59,7 @@ posDebugRcpp <- function(text, sys_dic = "", user_dic = "", partial = 0L) {
 #' @param user_dic String scalar.
 #' @param partial Logical.
 #' @param grain_size Integer (larger than 1).
-#' @return data.frame.
+#' @returns data.frame.
 #'
 #' @name posParallelRcpp
 #' @keywords internal

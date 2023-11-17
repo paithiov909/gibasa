@@ -9,7 +9,7 @@
 #' @param .as String with which tokens are replaced
 #' when they are matched to condition.
 #' The default value is `NA_character`.
-#' @return A data.frame.
+#' @returns A data.frame.
 #' @export
 #' @examples
 #' \dontrun{

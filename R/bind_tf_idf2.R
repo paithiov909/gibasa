@@ -111,7 +111,7 @@ global_entropy <- function(sp) {
 #' Note that 'RMeCab' always computes IDF values using term frequency
 #' rather than raw term counts, and thus TF-IDF values may be
 #' doubly affected by term frequency.
-#' @return A data.frame.
+#' @returns A data.frame.
 #' @export
 #' @examples
 #' \dontrun{

@@ -11,7 +11,7 @@
 #' @param col_select Character or integer vector that will be kept
 #' in prettified features.
 #' @param delim Character scalar used to separate fields within a feature.
-#' @return A data.frame.
+#' @returns A data.frame.
 #' @export
 #' @examples
 #' prettify(
@@ -81,7 +81,7 @@ prettify <- function(tbl,
 #' and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{'mecab-ko-dic'}.
 #' @param dict Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
 #' "cc-cedict", "ko-dic", "naist11", or "sudachi".
-#' @return A character vector.
+#' @returns A character vector.
 #' @export
 #' @examples
 #' get_dict_features("ipa")

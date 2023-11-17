@@ -27,7 +27,7 @@
 #' created of \code{audubon::ngram_tokenizer()}
 #' @param sep Character scalar internally used as the concatenator of ngrams.
 #' @param .collapse This argument is passed to \code{stringi::stri_c()}.
-#' @return A tibble.
+#' @returns A tibble.
 #' @export
 #' @examples
 #' \dontrun{
@@ -69,7 +69,7 @@ pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
 #' Make an ngram tokenizer function.
 #'
 #' @param n Integer.
-#' @return ngram tokenizer function
+#' @returns ngram tokenizer function
 #' @export
 #' @examples
 #' bigram <- ngram_tokenizer(2)

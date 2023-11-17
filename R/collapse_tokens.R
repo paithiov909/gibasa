@@ -11,7 +11,7 @@
 #' @param condition <[`data-masked`][rlang::args_data_masking]>
 #' A logical expression.
 #' @param .collapse String with which tokens are concatenated.
-#' @return A data.frame.
+#' @returns A data.frame.
 #' @export
 #' @examples
 #' \dontrun{
