@@ -3,10 +3,12 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include "connector.h"
+
 #include <fstream>
 #include <sstream>
+
 #include "common.h"
-#include "connector.h"
 #include "mmap.h"
 #include "param.h"
 #include "utils.h"
@@ -14,21 +16,18 @@
 namespace MeCab {
 
 bool Connector::open(const Param &param) {
-  const std::string filename = create_filename
-      (param.get<std::string>("dicdir"), MATRIX_FILE);
+  const std::string filename =
+      create_filename(param.get<std::string>("dicdir"), MATRIX_FILE);
   return open(filename.c_str());
 }
 
-bool Connector::open(const char* filename,
-                     const char *mode) {
-  CHECK_FALSE(cmmap_->open(filename, mode))
-      << "cannot open: " << filename;
+bool Connector::open(const char *filename, const char *mode) {
+  CHECK_FALSE(cmmap_->open(filename, mode)) << "cannot open: " << filename;
 
   matrix_ = cmmap_->begin();
 
-  CHECK_FALSE(matrix_) << "matrix is NULL" ;
-  CHECK_FALSE(cmmap_->size() >= 2)
-      << "file size is invalid: " << filename;
+  CHECK_FALSE(matrix_) << "matrix is NULL";
+  CHECK_FALSE(cmmap_->size() >= 2) << "file size is invalid: " << filename;
 
   lsize_ = static_cast<size_t>(static_cast<unsigned short>((*cmmap_)[0]));
   rsize_ = static_cast<size_t>(static_cast<unsigned short>((*cmmap_)[1]));
@@ -40,9 +39,7 @@ bool Connector::open(const char* filename,
   return true;
 }
 
-void Connector::close() {
-  cmmap_->close();
-}
+void Connector::close() { cmmap_->close(); }
 
 bool Connector::openText(const char *filename) {
   std::ifstream ifs(WPATH(filename));
@@ -66,11 +63,10 @@ bool Connector::compile(const char *ifile, const char *ofile) {
   std::istream *is = &ifs;
 
   if (!ifs) {
-    Rcpp::Rcerr << ifile
-              << " is not found. minimum setting is used." << std::endl;
+    Rcpp::Rcerr << ifile << " is not found. minimum setting is used."
+                << std::endl;
     is = &iss;
   }
-
 
   char *column[4];
   scoped_fixed_array<char, BUF_SIZE> buf;
@@ -86,27 +82,28 @@ bool Connector::compile(const char *ifile, const char *ofile) {
   std::vector<short> matrix(matrix_size);
   std::fill(matrix.begin(), matrix.end(), 0);
 
-  // std::cout << "reading " << ifile << " ... "
-  //           << lsize << "x" << rsize << std::endl;
+  Rcpp::Rcout << "reading " << ifile << " ... " << lsize << "x" << rsize
+              << std::endl;
 
   while (is->getline(buf.get(), buf.size())) {
     CHECK_DIE(tokenize2(buf.get(), "\t ", column, 3) == 3)
         << "format error: " << buf.get();
     const size_t l = std::atoi(column[0]);
     const size_t r = std::atoi(column[1]);
-    const int    c = std::atoi(column[2]);
+    const int c = std::atoi(column[2]);
     CHECK_DIE(l < lsize && r < rsize) << "index values are out of range";
     // progress_bar("emitting matrix      ", l + 1, lsize);
     matrix[(l + lsize * r)] = static_cast<short>(c);
   }
 
-  std::ofstream ofs(WPATH(ofile), std::ios::binary|std::ios::out);
+  std::ofstream ofs(WPATH(ofile), std::ios::binary | std::ios::out);
   CHECK_DIE(ofs) << "permission denied: " << ofile;
-  ofs.write(reinterpret_cast<const char*>(&lsize), sizeof(unsigned short));
-  ofs.write(reinterpret_cast<const char*>(&rsize), sizeof(unsigned short));
-  ofs.write(reinterpret_cast<const char*>(&matrix[0]), matrix_size * sizeof(short));
+  ofs.write(reinterpret_cast<const char *>(&lsize), sizeof(unsigned short));
+  ofs.write(reinterpret_cast<const char *>(&rsize), sizeof(unsigned short));
+  ofs.write(reinterpret_cast<const char *>(&matrix[0]),
+            matrix_size * sizeof(short));
   ofs.close();
 
   return true;
 }
-}
+}  // namespace MeCab

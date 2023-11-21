@@ -7,11 +7,12 @@
 #define MECAB_WRITER_H_
 
 #include <string>
+
 #include "common.h"
 #include "mecab.h"
-#include "utils.h"
 #include "scoped_ptr.h"
 #include "string_buffer.h"
+#include "utils.h"
 
 namespace MeCab {
 
@@ -24,12 +25,9 @@ class Writer {
   bool open(const Param &param);
   void close();
 
-  bool writeNode(Lattice *lattice,
-                 const char *format,
-                 const Node *node, StringBuffer *s) const;
-  bool writeNode(Lattice *lattice,
-                 const Node *node,
+  bool writeNode(Lattice *lattice, const char *format, const Node *node,
                  StringBuffer *s) const;
+  bool writeNode(Lattice *lattice, const Node *node, StringBuffer *s) const;
 
   bool write(Lattice *lattice, StringBuffer *node) const;
 
@@ -52,6 +50,6 @@ class Writer {
 
   bool (Writer::*write_)(Lattice *lattice, StringBuffer *s) const;
 };
-}
+}  // namespace MeCab
 
 #endif  // WRITER_H_

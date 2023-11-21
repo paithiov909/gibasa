@@ -3,12 +3,11 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
-#include <Rcpp.h>
-
 #include <cstring>
 #include <fstream>
 #include <iostream>
 #include <string>
+
 #include "common.h"
 #include "scoped_ptr.h"
 #include "utils.h"
@@ -30,30 +29,30 @@
 namespace {
 
 #ifdef HAVE_ICONV
-static const char * decode_charset_iconv(const char *str) {
+static const char *decode_charset_iconv(const char *str) {
   const int charset = MeCab::decode_charset(str);
   switch (charset) {
     case MeCab::UTF8:
       return "UTF-8";
     case MeCab::EUC_JP:
       return "EUC-JP";
-    case  MeCab::CP932:
+    case MeCab::CP932:
       return "SHIFT-JIS";
-    case  MeCab::UTF16:
+    case MeCab::UTF16:
       return "UTF-16";
-    case  MeCab::UTF16LE:
+    case MeCab::UTF16LE:
       return "UTF-16LE";
-    case  MeCab::UTF16BE:
+    case MeCab::UTF16BE:
       return "UTF-16BE";
     default:
       Rcpp::Rcerr << "charset " << str
-                << " is not defined, use " MECAB_DEFAULT_CHARSET;
+                  << " is not defined, use " MECAB_DEFAULT_CHARSET;
       return MECAB_DEFAULT_CHARSET;
   }
   return MECAB_DEFAULT_CHARSET;
 }
 
-#else // HAVE_ICONV
+#else  // HAVE_ICONV
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
 static DWORD decode_charset_win32(const char *str) {
@@ -74,19 +73,19 @@ static DWORD decode_charset_win32(const char *str) {
       return 932;
     default:
       Rcpp::Rcerr << "charset " << str
-                << " is not defined, use 'CP_THREAD_ACP'";
+                  << " is not defined, use 'CP_THREAD_ACP'";
       return CP_THREAD_ACP;
   }
   return 0;
 }
-#endif // defined(_WIN32) && !defined(__CYGWIN__)
+#endif  // defined(_WIN32) && !defined(__CYGWIN__)
 
-#endif // HAVE_ICONV
+#endif  // HAVE_ICONV
 
 }  // namespace
 
 namespace MeCab {
-bool Iconv::open(const char* from, const char* to) {
+bool Iconv::open(const char *from, const char *to) {
   ic_ = 0;
 #if defined HAVE_ICONV
   const char *from2 = decode_charset_iconv(from);
@@ -94,10 +93,10 @@ bool Iconv::open(const char* from, const char* to) {
   if (std::strcmp(from2, to2) == 0) {
     return true;
   }
-  ic_ = 0;
-  ic_ = iconv_open(to2, from2);
-  if (ic_ == (iconv_t)(-1)) {
-    ic_ = 0;
+  ic_ = nullptr;
+  ic_ = Riconv_open(to2, from2);
+  if (ic_ == (void *)(-1)) {
+    ic_ = nullptr;
     return false;
   }
 #else
@@ -136,10 +135,9 @@ bool Iconv::convert(std::string *str) {
   char *obuf = obuf_org;
   std::fill(obuf, obuf + olen, 0);
   size_t olen_org = olen;
-  iconv(ic_, 0, &ilen, 0, &olen);  // reset iconv state
+  Riconv(ic_, 0, &ilen, 0, &olen);  // reset iconv state
   while (ilen != 0) {
-    if (iconv(ic_, (ICONV_CONST char **)&ibuf, &ilen, &obuf, &olen)
-        == (size_t) -1) {
+    if (Riconv(ic_, (const char **)&ibuf, &ilen, &obuf, &olen) == (size_t)-1) {
       return false;
     }
   }
@@ -147,9 +145,8 @@ bool Iconv::convert(std::string *str) {
 #else
 #if defined(_WIN32) && !defined(__CYGWIN__)
   // covert it to wide character first
-  const int wide_len = ::MultiByteToWideChar( from_cp_, 0,
-                                              str->c_str(),
-                                              -1, NULL, 0);
+  const int wide_len =
+      ::MultiByteToWideChar(from_cp_, 0, str->c_str(), -1, NULL, 0);
   if (wide_len <= 0) {
     return false;
   }
@@ -160,8 +157,8 @@ bool Iconv::convert(std::string *str) {
     return false;
   };
 
-  if (::MultiByteToWideChar(from_cp_, 0, str->c_str(), -1,
-                            wide_str.get(), wide_len + 1) == 0) {
+  if (::MultiByteToWideChar(from_cp_, 0, str->c_str(), -1, wide_str.get(),
+                            wide_len + 1) == 0) {
     return false;
   }
 
@@ -172,25 +169,22 @@ bool Iconv::convert(std::string *str) {
     if (to_cp_ == 1201) {
       char *buf = const_cast<char *>(str->data());
       for (size_t i = 0; i < static_cast<size_t>(2 * wide_len); i += 2) {
-        std::swap(buf[i], buf[i+1]);
+        std::swap(buf[i], buf[i + 1]);
       }
     }
     return true;
   }
 
-  const int output_len = ::WideCharToMultiByte( to_cp_, 0,
-                                                wide_str.get(),
-                                                -1,
-                                                NULL, 0, NULL, NULL);
+  const int output_len =
+      ::WideCharToMultiByte(to_cp_, 0, wide_str.get(), -1, NULL, 0, NULL, NULL);
 
   if (output_len <= 0) {
     return false;
   }
 
   scoped_array<char> encoded(new char[output_len + 1]);
-  if (::WideCharToMultiByte(to_cp_, 0, wide_str.get(), wide_len,
-                            encoded.get(), output_len + 1,
-                            NULL, NULL) == 0) {
+  if (::WideCharToMultiByte(to_cp_, 0, wide_str.get(), wide_len, encoded.get(),
+                            output_len + 1, NULL, NULL) == 0) {
     return false;
   }
 
@@ -202,11 +196,14 @@ bool Iconv::convert(std::string *str) {
   return true;
 }
 
-Iconv::Iconv() : ic_(0)  {}
+Iconv::Iconv() : ic_(0) {}
 
 Iconv::~Iconv() {
 #if defined HAVE_ICONV
-  if (ic_ != 0) iconv_close(ic_);
+  if (ic_ != 0) {
+    Riconv_close(ic_);
+    ic_ = nullptr;
+  }
 #endif
 }
-}
+}  // namespace MeCab

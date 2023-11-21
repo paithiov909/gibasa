@@ -7,17 +7,18 @@
 #define MECAB_LEARNER_NODE_H_
 
 #include <cstring>
-#include "mecab.h"
+
 #include "common.h"
+#include "mecab.h"
 #include "utils.h"
 
 struct mecab_learner_path_t {
-  struct mecab_learner_node_t*  rnode;
-  struct mecab_learner_path_t*  rnext;
-  struct mecab_learner_node_t*  lnode;
-  struct mecab_learner_path_t*  lnext;
-  double                        cost;
-  const int                     *fvector;
+  struct mecab_learner_node_t *rnode;
+  struct mecab_learner_path_t *rnext;
+  struct mecab_learner_node_t *lnode;
+  struct mecab_learner_path_t *lnext;
+  double cost;
+  const int *fvector;
 };
 
 struct mecab_learner_node_t {
@@ -28,24 +29,24 @@ struct mecab_learner_node_t {
   struct mecab_learner_path_t *rpath;
   struct mecab_learner_path_t *lpath;
   struct mecab_learner_node_t *anext;
-  const char                  *surface;
-  const char                  *feature;
-  unsigned int                 id;
-  unsigned short               length;
-  unsigned short               rlength;
-  unsigned short               rcAttr;
-  unsigned short               lcAttr;
-  unsigned short               posid;
-  unsigned char                char_type;
-  unsigned char                stat;
-  unsigned char                isbest;
-  double                       alpha;
-  double                       beta;
-  short                        wcost2;
-  double                       wcost;
-  double                       cost;
-  const int                    *fvector;
-  struct mecab_token_t         *token;
+  const char *surface;
+  const char *feature;
+  unsigned int id;
+  unsigned short length;
+  unsigned short rlength;
+  unsigned short rcAttr;
+  unsigned short lcAttr;
+  unsigned short posid;
+  unsigned char char_type;
+  unsigned char stat;
+  unsigned char isbest;
+  double alpha;
+  double beta;
+  short wcost2;
+  double wcost;
+  double cost;
+  const int *fvector;
+  struct mecab_token_t *token;
 };
 
 namespace MeCab {
@@ -53,8 +54,8 @@ namespace MeCab {
 typedef struct mecab_learner_path_t LearnerPath;
 typedef struct mecab_learner_node_t LearnerNode;
 
-template <class T1, class T2> T1 repeat_find_if(T1 b, T1 e,
-                                                const T2& v, size_t n) {
+template <class T1, class T2>
+T1 repeat_find_if(T1 b, T1 e, const T2 &v, size_t n) {
   T1 r = b;
   for (size_t i = 0; i < n; ++i) {
     r = std::find(b, e, v);
@@ -66,8 +67,7 @@ template <class T1, class T2> T1 repeat_find_if(T1 b, T1 e,
 
 // NOTE: first argment:   answer,
 //       second argment:  system output
-inline bool node_cmp_eq(const LearnerNode &node1,
-                        const LearnerNode &node2,
+inline bool node_cmp_eq(const LearnerNode &node1, const LearnerNode &node2,
                         size_t size, size_t unk_size) {
   if (node1.length == node2.length &&
       strncmp(node1.surface, node2.surface, node1.length) == 0) {
@@ -89,7 +89,7 @@ inline bool node_cmp_eq(const LearnerNode &node1,
 
 inline bool is_empty(LearnerPath *path) {
   return ((!path->rnode->rpath && path->rnode->stat != MECAB_EOS_NODE) ||
-          (!path->lnode->lpath && path->lnode->stat != MECAB_BOS_NODE) );
+          (!path->lnode->lpath && path->lnode->stat != MECAB_BOS_NODE));
 }
 
 inline void calc_expectation(LearnerPath *path, double *expected, double Z) {
@@ -97,9 +97,8 @@ inline void calc_expectation(LearnerPath *path, double *expected, double Z) {
     return;
   }
 
-  const double c = std::exp(path->lnode->alpha +
-                            path->cost +
-                            path->rnode->beta - Z);
+  const double c =
+      std::exp(path->lnode->alpha + path->cost + path->rnode->beta - Z);
 
   for (const int *f = path->fvector; *f != -1; ++f) {
     expected[*f] += c;
@@ -115,20 +114,18 @@ inline void calc_expectation(LearnerPath *path, double *expected, double Z) {
 inline void calc_alpha(LearnerNode *n) {
   n->alpha = 0.0;
   for (LearnerPath *path = n->lpath; path; path = path->lnext) {
-    n->alpha = logsumexp(n->alpha,
-                         path->cost + path->lnode->alpha,
-                         path == n->lpath);
+    n->alpha =
+        logsumexp(n->alpha, path->cost + path->lnode->alpha, path == n->lpath);
   }
 }
 
 inline void calc_beta(LearnerNode *n) {
   n->beta = 0.0;
   for (LearnerPath *path = n->rpath; path; path = path->rnext) {
-    n->beta = logsumexp(n->beta,
-                        path->cost + path->rnode->beta,
-                        path == n->rpath);
+    n->beta =
+        logsumexp(n->beta, path->cost + path->rnode->beta, path == n->rpath);
   }
 }
-}
+}  // namespace MeCab
 
 #endif  // MECAB_LEARNER_NODE_H_

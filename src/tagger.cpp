@@ -3,11 +3,10 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
-#include <Rcpp.h>
-
 #include <cstring>
 #include <iostream>
 #include <iterator>
+
 #include "common.h"
 #include "connector.h"
 #include "mecab.h"
@@ -33,51 +32,43 @@ namespace {
 const float kDefaultTheta = 0.75;
 
 const MeCab::Option long_options[] = {
-  { "rcfile",        'r',  0, "FILE",    "use FILE as resource file" },
-  { "dicdir",        'd',  0, "DIR",    "set DIR  as a system dicdir" },
-  { "userdic",        'u',  0, "FILE",    "use FILE as a user dictionary" },
-  { "lattice-level",      'l', "0", "INT",
-    "lattice information level (DEPRECATED)" },
-  { "dictionary-info",  'D', 0, 0, "show dictionary information and exit" },
-  { "output-format-type", 'O',  0, "TYPE",
-    "set output format type (wakati,none,...)" },
-  { "all-morphs",      'a', 0, 0,    "output all morphs(default false)" },
-  { "nbest",              'N', "1",
-    "INT", "output N best results (default 1)" },
-  { "partial",            'p',  0, 0,
-    "partial parsing mode (default false)" },
-  { "marginal",           'm',  0, 0,
-    "output marginal probability (default false)" },
-  { "max-grouping-size",  'M',  "24",
-    "INT",  "maximum grouping size for unknown words (default 24)" },
-  { "node-format",        'F',  "", "STR",
-    "use STR as the user-defined node format" },
-  { "unk-format",        'U',  "", "STR",
-    "use STR as the user-defined unknown node format"   },
-  { "bos-format",        'B',  "", "STR",
-    "use STR as the user-defined beginning-of-sentence format"   },
-  { "eos-format",        'E',  "EOS\\n", "STR",
-    "use STR as the user-defined end-of-sentence format"   },
-  { "eon-format",        'S',  "", "STR",
-    "use STR as the user-defined end-of-NBest format"   },
-  { "unk-feature",       'x',  0, "STR",
-    "use STR as the feature for unknown word" },
-  { "input-buffer-size",  'b',  0, "INT",
-    "set input buffer size (default 8192)" },
-  { "dump-config", 'P', 0, 0, "dump MeCab parameters" },
-  { "allocate-sentence",  'C', 0, 0,
-    "allocate new memory for input sentence" },
-  { "theta",        't',  "0.75",  "FLOAT",
-    "set temparature parameter theta (default 0.75)"  },
-  { "cost-factor",        'c',  "700",  "INT",
-    "set cost factor (default 700)"  },
-  { "output",        'o',  0,    "FILE",  "set the output file name" },
-  { "version",        'v',  0, 0,     "show the version and exit." },
-  { "help",          'h',  0, 0,     "show this help and exit." },
-  { NULL, '\0', 0, 0, NULL }
-};
+    {"rcfile", 'r', 0, "FILE", "use FILE as resource file"},
+    {"dicdir", 'd', 0, "DIR", "set DIR  as a system dicdir"},
+    {"userdic", 'u', 0, "FILE", "use FILE as a user dictionary"},
+    {"lattice-level", 'l', "0", "INT",
+     "lattice information level (DEPRECATED)"},
+    {"dictionary-info", 'D', 0, 0, "show dictionary information and exit"},
+    {"output-format-type", 'O', 0, "TYPE",
+     "set output format type (wakati,none,...)"},
+    {"all-morphs", 'a', 0, 0, "output all morphs(default false)"},
+    {"nbest", 'N', "1", "INT", "output N best results (default 1)"},
+    {"partial", 'p', 0, 0, "partial parsing mode (default false)"},
+    {"marginal", 'm', 0, 0, "output marginal probability (default false)"},
+    {"max-grouping-size", 'M', "24", "INT",
+     "maximum grouping size for unknown words (default 24)"},
+    {"node-format", 'F', "", "STR", "use STR as the user-defined node format"},
+    {"unk-format", 'U', "", "STR",
+     "use STR as the user-defined unknown node format"},
+    {"bos-format", 'B', "", "STR",
+     "use STR as the user-defined beginning-of-sentence format"},
+    {"eos-format", 'E', "EOS\\n", "STR",
+     "use STR as the user-defined end-of-sentence format"},
+    {"eon-format", 'S', "", "STR",
+     "use STR as the user-defined end-of-NBest format"},
+    {"unk-feature", 'x', 0, "STR", "use STR as the feature for unknown word"},
+    {"input-buffer-size", 'b', 0, "INT",
+     "set input buffer size (default 8192)"},
+    {"dump-config", 'P', 0, 0, "dump MeCab parameters"},
+    {"allocate-sentence", 'C', 0, 0, "allocate new memory for input sentence"},
+    {"theta", 't', "0.75", "FLOAT",
+     "set temparature parameter theta (default 0.75)"},
+    {"cost-factor", 'c', "700", "INT", "set cost factor (default 700)"},
+    {"output", 'o', 0, "FILE", "set the output file name"},
+    {"version", 'v', 0, 0, "show the version and exit."},
+    {"help", 'h', 0, 0, "show this help and exit."},
+    {NULL, '\0', 0, 0, NULL}};
 
-class ModelImpl: public Model {
+class ModelImpl : public Model {
  public:
   ModelImpl();
   virtual ~ModelImpl();
@@ -88,42 +79,30 @@ class ModelImpl: public Model {
 
   bool swap(Model *model);
 
-  bool is_available() const {
-    return (viterbi_ && writer_.get());
-  }
+  bool is_available() const { return (viterbi_ && writer_.get()); }
 
-  int request_type() const {
-    return request_type_;
-  }
+  int request_type() const { return request_type_; }
 
-  double theta() const {
-    return theta_;
-  }
+  double theta() const { return theta_; }
 
   const DictionaryInfo *dictionary_info() const {
-    return viterbi_->tokenizer() ?
-        viterbi_->tokenizer()->dictionary_info() : 0;
+    return viterbi_->tokenizer() ? viterbi_->tokenizer()->dictionary_info() : 0;
   }
 
-  int transition_cost(unsigned short rcAttr,
-                      unsigned short lcAttr) const {
+  int transition_cost(unsigned short rcAttr, unsigned short lcAttr) const {
     return viterbi_->connector()->transition_cost(rcAttr, lcAttr);
   }
 
-  Node *lookup(const char *begin, const char *end,
-               Lattice *lattice) const {
-    return viterbi_->tokenizer()->lookup<false>(
-        begin, end,
-        lattice->allocator(), lattice);
+  Node *lookup(const char *begin, const char *end, Lattice *lattice) const {
+    return viterbi_->tokenizer()->lookup<false>(begin, end,
+                                                lattice->allocator(), lattice);
   }
 
   Tagger *createTagger() const;
 
   Lattice *createLattice() const;
 
-  const Viterbi *viterbi() const {
-    return viterbi_;
-  }
+  const Viterbi *viterbi() const { return viterbi_; }
 
   // moves the owership.
   Viterbi *take_viterbi() {
@@ -132,68 +111,63 @@ class ModelImpl: public Model {
     return result;
   }
 
-  const Writer *writer() const {
-    return writer_.get();
-  }
+  const Writer *writer() const { return writer_.get(); }
 
 #ifdef HAVE_ATOMIC_OPS
-  read_write_mutex *mutex() const {
-    return &mutex_;
-  }
+  read_write_mutex *mutex() const { return &mutex_; }
 #endif
 
  private:
-  Viterbi            *viterbi_;
-  scoped_ptr<Writer>  writer_;
-  int                 request_type_;
-  double              theta_;
+  Viterbi *viterbi_;
+  scoped_ptr<Writer> writer_;
+  int request_type_;
+  double theta_;
 
 #ifdef HAVE_ATOMIC_OPS
-  mutable read_write_mutex      mutex_;
+  mutable read_write_mutex mutex_;
 #endif
 };
 
-class TaggerImpl: public Tagger {
+class TaggerImpl : public Tagger {
  public:
-  bool                  open(int argc, char **argv);
-  bool                  open(const char *arg);
-  bool                  open(const ModelImpl &model);
+  bool open(int argc, char **argv);
+  bool open(const char *arg);
+  bool open(const ModelImpl &model);
 
-  bool                  parse(Lattice *lattice) const;
+  bool parse(Lattice *lattice) const;
 
-  void                  set_request_type(int request_type);
-  int                   request_type() const;
+  void set_request_type(int request_type);
+  int request_type() const;
 
-  const char*           parse(const char*);
-  const char*           parse(const char*, size_t);
-  const char*           parse(const char*, size_t, char*, size_t);
-  const Node*           parseToNode(const char*);
-  const Node*           parseToNode(const char*, size_t = 0);
-  const char*           parseNBest(size_t, const char*);
-  const char*           parseNBest(size_t, const char*, size_t);
-  const char*           parseNBest(size_t, const char*,
-                                   size_t, char *, size_t);
-  bool                  parseNBestInit(const char*);
-  bool                  parseNBestInit(const char*, size_t);
-  const Node*           nextNode();
-  const char*           next();
-  const char*           next(char*, size_t);
+  const char *parse(const char *);
+  const char *parse(const char *, size_t);
+  const char *parse(const char *, size_t, char *, size_t);
+  const Node *parseToNode(const char *);
+  const Node *parseToNode(const char *, size_t = 0);
+  const char *parseNBest(size_t, const char *);
+  const char *parseNBest(size_t, const char *, size_t);
+  const char *parseNBest(size_t, const char *, size_t, char *, size_t);
+  bool parseNBestInit(const char *);
+  bool parseNBestInit(const char *, size_t);
+  const Node *nextNode();
+  const char *next();
+  const char *next(char *, size_t);
 
-  const char           *formatNode(const Node *);
-  const char           *formatNode(const Node *, char *, size_t);
+  const char *formatNode(const Node *);
+  const char *formatNode(const Node *, char *, size_t);
 
   const DictionaryInfo *dictionary_info() const;
 
-  void                  set_partial(bool partial);
-  bool                  partial() const;
-  void                  set_theta(float theta);
-  float                 theta() const;
-  void                  set_lattice_level(int level);
-  int                   lattice_level() const;
-  void                  set_all_morphs(bool all_morphs);
-  bool                  all_morphs() const;
+  void set_partial(bool partial);
+  bool partial() const;
+  void set_theta(float theta);
+  float theta() const;
+  void set_lattice_level(int level);
+  int lattice_level() const;
+  void set_all_morphs(bool all_morphs);
+  bool all_morphs() const;
 
-  const char*           what() const;
+  const char *what() const;
 
   TaggerImpl();
   virtual ~TaggerImpl();
@@ -201,9 +175,7 @@ class TaggerImpl: public Tagger {
  private:
   const ModelImpl *model() const { return current_model_; }
 
-   void set_what(const char *str) {
-     what_.assign(str);
-   }
+  void set_what(const char *str) { what_.assign(str); }
 
   void initRequestType() {
     mutable_lattice()->set_request_type(request_type_);
@@ -217,12 +189,12 @@ class TaggerImpl: public Tagger {
     return lattice_.get();
   }
 
-  const ModelImpl          *current_model_;
-  scoped_ptr<ModelImpl>     model_;
-  scoped_ptr<Lattice>       lattice_;
-  int                       request_type_;
-  double                    theta_;
-  std::string               what_;
+  const ModelImpl *current_model_;
+  scoped_ptr<ModelImpl> model_;
+  scoped_ptr<Lattice> lattice_;
+  int request_type_;
+  double theta_;
+  std::string what_;
 };
 
 class LatticeImpl : public Lattice {
@@ -234,9 +206,7 @@ class LatticeImpl : public Lattice {
   void clear();
 
   bool is_available() const {
-    return (sentence_ &&
-            !begin_nodes_.empty() &&
-            !end_nodes_.empty());
+    return (sentence_ && !begin_nodes_.empty() && !end_nodes_.empty());
   }
 
   // nbest;
@@ -246,7 +216,7 @@ class LatticeImpl : public Lattice {
   Node *bos_node() const { return end_nodes_[0]; }
   Node *eos_node() const { return begin_nodes_[size()]; }
   Node **begin_nodes() const { return const_cast<Node **>(&begin_nodes_[0]); }
-  Node **end_nodes() const   { return const_cast<Node **>(&end_nodes_[0]); }
+  Node **end_nodes() const { return const_cast<Node **>(&end_nodes_[0]); }
   Node *begin_nodes(size_t pos) const { return begin_nodes_[pos]; }
   Node *end_nodes(size_t pos) const { return end_nodes_[pos]; }
 
@@ -259,37 +229,26 @@ class LatticeImpl : public Lattice {
   double Z() const { return Z_; }
 
   float theta() const { return theta_; }
-  void  set_theta(float theta) { theta_ = theta; }
+  void set_theta(float theta) { theta_ = theta; }
 
   int request_type() const { return request_type_; }
 
-  void set_request_type(int request_type) {
-    request_type_ = request_type;
-  }
+  void set_request_type(int request_type) { request_type_ = request_type; }
   bool has_request_type(int request_type) const {
     return request_type & request_type_;
   }
-  void add_request_type(int request_type) {
-    request_type_ |= request_type;
-  }
-  void remove_request_type(int request_type) {
-    request_type_ &= ~request_type;
-  }
+  void add_request_type(int request_type) { request_type_ |= request_type; }
+  void remove_request_type(int request_type) { request_type_ &= ~request_type; }
 
-  Allocator<Node, Path> *allocator() const {
-    return allocator_.get();
-  }
+  Allocator<Node, Path> *allocator() const { return allocator_.get(); }
 
-  Node *newNode() {
-    return allocator_->newNode();
-  }
+  Node *newNode() { return allocator_->newNode(); }
 
   bool has_constraint() const;
   int boundary_constraint(size_t pos) const;
   const char *feature_constraint(size_t begin_pos) const;
 
-  void set_boundary_constraint(size_t pos,
-                               int boundary_constraint_type);
+  void set_boundary_constraint(size_t pos, int boundary_constraint_type);
 
   void set_feature_constraint(size_t begin_pos, size_t end_pos,
                               const char *feature);
@@ -298,31 +257,28 @@ class LatticeImpl : public Lattice {
 
   const char *what() const { return what_.c_str(); }
 
-  void set_what(const char *str) {
-    what_.assign(str);
-  }
+  void set_what(const char *str) { what_.assign(str); }
 
   const char *toString();
   const char *toString(char *buf, size_t size);
   const char *toString(const Node *node);
-  const char *toString(const Node *node,
-                       char *buf, size_t size);
+  const char *toString(const Node *node, char *buf, size_t size);
   const char *enumNBestAsString(size_t N);
   const char *enumNBestAsString(size_t N, char *buf, size_t size);
 
  private:
-  const char                 *sentence_;
-  size_t                      size_;
-  double                      theta_;
-  double                      Z_;
-  int                         request_type_;
-  std::string                 what_;
-  std::vector<Node *>         end_nodes_;
-  std::vector<Node *>         begin_nodes_;
-  std::vector<const char *>   feature_constraint_;
-  std::vector<unsigned char>  boundary_constraint_;
-  const Writer               *writer_;
-  scoped_ptr<StringBuffer>    ostrs_;
+  const char *sentence_;
+  size_t size_;
+  double theta_;
+  double Z_;
+  int request_type_;
+  std::string what_;
+  std::vector<Node *> end_nodes_;
+  std::vector<Node *> begin_nodes_;
+  std::vector<const char *> feature_constraint_;
+  std::vector<unsigned char> boundary_constraint_;
+  const Writer *writer_;
+  scoped_ptr<StringBuffer> ostrs_;
   scoped_ptr<Allocator<Node, Path> > allocator_;
 
   StringBuffer *stream() {
@@ -338,8 +294,10 @@ class LatticeImpl : public Lattice {
 };
 
 ModelImpl::ModelImpl()
-    : viterbi_(new Viterbi), writer_(new Writer),
-      request_type_(MECAB_ONE_BEST), theta_(0.0) {}
+    : viterbi_(new Viterbi),
+      writer_(new Writer),
+      request_type_(MECAB_ONE_BEST),
+      theta_(0.0) {}
 
 ModelImpl::~ModelImpl() {
   delete viterbi_;
@@ -358,8 +316,7 @@ bool ModelImpl::open(int argc, char **argv) {
 
 bool ModelImpl::open(const char *arg) {
   Param param;
-  if (!param.open(arg, long_options) ||
-      !load_dictionary_resource(&param)) {
+  if (!param.open(arg, long_options) || !load_dictionary_resource(&param)) {
     setGlobalError(param.what());
     return false;
   }
@@ -408,9 +365,9 @@ bool ModelImpl::swap(Model *model) {
   Viterbi *current_viterbi = viterbi_;
   {
     scoped_writer_lock l(mutex());
-    viterbi_      = m->take_viterbi();
+    viterbi_ = m->take_viterbi();
     request_type_ = m->request_type();
-    theta_        = m->theta();
+    theta_ = m->theta();
   }
 
   delete current_viterbi;
@@ -444,14 +401,11 @@ Lattice *ModelImpl::createLattice() const {
 }
 
 TaggerImpl::TaggerImpl()
-    : current_model_(0),
-      request_type_(MECAB_ONE_BEST), theta_(kDefaultTheta) {}
+    : current_model_(0), request_type_(MECAB_ONE_BEST), theta_(kDefaultTheta) {}
 
 TaggerImpl::~TaggerImpl() {}
 
-const char *TaggerImpl::what() const {
-  return what_.c_str();
-}
+const char *TaggerImpl::what() const { return what_.c_str(); }
 
 bool TaggerImpl::open(int argc, char **argv) {
   model_.reset(new ModelImpl);
@@ -462,7 +416,7 @@ bool TaggerImpl::open(int argc, char **argv) {
   }
   current_model_ = model_.get();
   request_type_ = model()->request_type();
-  theta_        = model()->theta();
+  theta_ = model()->theta();
   return true;
 }
 
@@ -475,7 +429,7 @@ bool TaggerImpl::open(const char *arg) {
   }
   current_model_ = model_.get();
   request_type_ = model()->request_type();
-  theta_        = model()->theta();
+  theta_ = model()->theta();
   return true;
 }
 
@@ -486,7 +440,7 @@ bool TaggerImpl::open(const ModelImpl &model) {
   model_.reset(0);
   current_model_ = &model;
   request_type_ = current_model_->request_type();
-  theta_        = current_model_->theta();
+  theta_ = current_model_->theta();
   return true;
 }
 
@@ -494,9 +448,7 @@ void TaggerImpl::set_request_type(int request_type) {
   request_type_ = request_type;
 }
 
-int TaggerImpl::request_type() const {
-  return request_type_;
-}
+int TaggerImpl::request_type() const { return request_type_; }
 
 void TaggerImpl::set_partial(bool partial) {
   if (partial) {
@@ -506,25 +458,22 @@ void TaggerImpl::set_partial(bool partial) {
   }
 }
 
-bool TaggerImpl::partial() const {
-  return request_type_ & MECAB_PARTIAL;
-}
+bool TaggerImpl::partial() const { return request_type_ & MECAB_PARTIAL; }
 
-void TaggerImpl::set_theta(float theta) {
-  theta_ = theta;
-}
+void TaggerImpl::set_theta(float theta) { theta_ = theta; }
 
-float TaggerImpl::theta() const {
-  return theta_;
-}
+float TaggerImpl::theta() const { return theta_; }
 
 void TaggerImpl::set_lattice_level(int level) {
   switch (level) {
-    case 0: request_type_ |= MECAB_ONE_BEST;
+    case 0:
+      request_type_ |= MECAB_ONE_BEST;
       break;
-    case 1: request_type_ |= MECAB_NBEST;
+    case 1:
+      request_type_ |= MECAB_NBEST;
       break;
-    case 2: request_type_ |= MECAB_MARGINAL_PROB;
+    case 2:
+      request_type_ |= MECAB_MARGINAL_PROB;
       break;
     default:
       break;
@@ -549,9 +498,7 @@ void TaggerImpl::set_all_morphs(bool all_morphs) {
   }
 }
 
-bool TaggerImpl::all_morphs() const {
-  return request_type_ & MECAB_ALL_MORPHS;
-}
+bool TaggerImpl::all_morphs() const { return request_type_ & MECAB_ALL_MORPHS; }
 
 bool TaggerImpl::parse(Lattice *lattice) const {
 #ifdef HAVE_ATOMIC_OPS
@@ -581,8 +528,8 @@ const char *TaggerImpl::parse(const char *str, size_t len) {
   return result;
 }
 
-const char *TaggerImpl::parse(const char *str, size_t len,
-                              char *out, size_t len2) {
+const char *TaggerImpl::parse(const char *str, size_t len, char *out,
+                              size_t len2) {
   Lattice *lattice = mutable_lattice();
   initRequestType();
   lattice->set_sentence(str, len);
@@ -629,7 +576,7 @@ bool TaggerImpl::parseNBestInit(const char *str, size_t len) {
   return true;
 }
 
-const Node* TaggerImpl::nextNode() {
+const Node *TaggerImpl::nextNode() {
   Lattice *lattice = mutable_lattice();
   if (!lattice->next()) {
     lattice->set_what("no more results");
@@ -638,7 +585,7 @@ const Node* TaggerImpl::nextNode() {
   return lattice->bos_node();
 }
 
-const char* TaggerImpl::next() {
+const char *TaggerImpl::next() {
   Lattice *lattice = mutable_lattice();
   if (!lattice->next()) {
     lattice->set_what("no more results");
@@ -652,7 +599,7 @@ const char* TaggerImpl::next() {
   return result;
 }
 
-const char* TaggerImpl::next(char *out, size_t len2) {
+const char *TaggerImpl::next(char *out, size_t len2) {
   Lattice *lattice = mutable_lattice();
   if (!lattice->next()) {
     lattice->set_what("no more results");
@@ -666,12 +613,11 @@ const char* TaggerImpl::next(char *out, size_t len2) {
   return result;
 }
 
-const char* TaggerImpl::parseNBest(size_t N, const char* str) {
+const char *TaggerImpl::parseNBest(size_t N, const char *str) {
   return parseNBest(N, str, std::strlen(str));
 }
 
-const char* TaggerImpl::parseNBest(size_t N,
-                                   const char* str, size_t len) {
+const char *TaggerImpl::parseNBest(size_t N, const char *str, size_t len) {
   Lattice *lattice = mutable_lattice();
   initRequestType();
   lattice->add_request_type(MECAB_NBEST);
@@ -690,7 +636,7 @@ const char* TaggerImpl::parseNBest(size_t N,
   return result;
 }
 
-const char* TaggerImpl::parseNBest(size_t N, const char* str, size_t len,
+const char *TaggerImpl::parseNBest(size_t N, const char *str, size_t len,
                                    char *out, size_t len2) {
   Lattice *lattice = mutable_lattice();
   initRequestType();
@@ -710,7 +656,7 @@ const char* TaggerImpl::parseNBest(size_t N, const char* str, size_t len,
   return result;
 }
 
-const char* TaggerImpl::formatNode(const Node* node) {
+const char *TaggerImpl::formatNode(const Node *node) {
   const char *result = mutable_lattice()->toString(node);
   if (!result) {
     set_what(mutable_lattice()->what());
@@ -719,8 +665,7 @@ const char* TaggerImpl::formatNode(const Node* node) {
   return result;
 }
 
-const char* TaggerImpl::formatNode(const Node* node,
-                                   char *out, size_t len) {
+const char *TaggerImpl::formatNode(const Node *node, char *out, size_t len) {
   const char *result = mutable_lattice()->toString(node, out, len);
   if (!result) {
     set_what(mutable_lattice()->what());
@@ -734,7 +679,10 @@ const DictionaryInfo *TaggerImpl::dictionary_info() const {
 }
 
 LatticeImpl::LatticeImpl(const Writer *writer)
-    : sentence_(0), size_(0), theta_(kDefaultTheta), Z_(0.0),
+    : sentence_(0),
+      size_(0),
+      theta_(kDefaultTheta),
+      Z_(0.0),
       request_type_(MECAB_ONE_BEST),
       writer_(writer),
       ostrs_(0),
@@ -778,10 +726,8 @@ void LatticeImpl::set_sentence(const char *sentence, size_t len) {
   }
 
   size_ = len;
-  std::memset(&end_nodes_[0],   0,
-              sizeof(end_nodes_[0]) * (len + 4));
-  std::memset(&begin_nodes_[0], 0,
-              sizeof(begin_nodes_[0]) * (len + 4));
+  std::memset(&end_nodes_[0], 0, sizeof(end_nodes_[0]) * (len + 4));
+  std::memset(&begin_nodes_[0], 0, sizeof(begin_nodes_[0]) * (len + 4));
 }
 
 bool LatticeImpl::next() {
@@ -801,9 +747,8 @@ bool LatticeImpl::next() {
 void LatticeImpl::set_result(const char *result) {
   char *str = allocator()->strdup(result, std::strlen(result));
   std::vector<char *> lines;
-  const size_t lsize = tokenize(str, "\n",
-                                std::back_inserter(lines),
-                                std::strlen(result));
+  const size_t lsize =
+      tokenize(str, "\n", std::back_inserter(lines), std::strlen(result));
   CHECK_DIE(lsize == lines.size());
 
   std::string sentence;
@@ -853,8 +798,8 @@ void LatticeImpl::set_result(const char *result) {
     node->stat = MECAB_NOR_NODE;
     node->wcost = 0;
     node->cost = 0;
-    node->feature = allocator()->strdup(features[i].c_str(),
-                                        features[i].size());
+    node->feature =
+        allocator()->strdup(features[i].c_str(), features[i].size());
     begin_nodes_[offset] = node;
     end_nodes_[offset + node->length] = node;
     offset += node->length;
@@ -868,8 +813,8 @@ void LatticeImpl::set_result(const char *result) {
 // default implementation of Lattice formatter.
 namespace {
 void writeLattice(Lattice *lattice, StringBuffer *os) {
-  for (const Node *node = lattice->bos_node()->next;
-       node->next; node = node->next) {
+  for (const Node *node = lattice->bos_node()->next; node->next;
+       node = node->next) {
     os->write(node->surface, node->length);
     *os << '\t' << node->feature;
     *os << '\n';
@@ -878,9 +823,7 @@ void writeLattice(Lattice *lattice, StringBuffer *os) {
 }
 }  // namespace
 
-const char *LatticeImpl::toString() {
-  return toStringInternal(stream());
-}
+const char *LatticeImpl::toString() { return toStringInternal(stream()); }
 
 const char *LatticeImpl::toString(char *buf, size_t size) {
   StringBuffer os(buf, size);
@@ -908,14 +851,12 @@ const char *LatticeImpl::toString(const Node *node) {
   return toStringInternal(node, stream());
 }
 
-const char *LatticeImpl::toString(const Node *node,
-                                  char *buf, size_t size) {
+const char *LatticeImpl::toString(const Node *node, char *buf, size_t size) {
   StringBuffer os(buf, size);
   return toStringInternal(node, &os);
 }
 
-const char *LatticeImpl::toStringInternal(const Node *node,
-                                          StringBuffer *os) {
+const char *LatticeImpl::toStringInternal(const Node *node, StringBuffer *os) {
   os->clear();
   if (!node) {
     set_what("node is NULL");
@@ -946,8 +887,7 @@ const char *LatticeImpl::enumNBestAsString(size_t N, char *buf, size_t size) {
   return enumNBestAsStringInternal(N, &os);
 }
 
-const char *LatticeImpl::enumNBestAsStringInternal(size_t N,
-                                                   StringBuffer *os) {
+const char *LatticeImpl::enumNBestAsStringInternal(size_t N, StringBuffer *os) {
   os->clear();
 
   if (N == 0 || N > NBEST_MAX) {
@@ -1041,13 +981,9 @@ Tagger *Tagger::create(int argc, char **argv) {
   return createTagger(argc, argv);
 }
 
-Tagger *Tagger::create(const char *arg) {
-  return createTagger(arg);
-}
+Tagger *Tagger::create(const char *arg) { return createTagger(arg); }
 
-const char *Tagger::version() {
-  return VERSION;
-}
+const char *Tagger::version() { return VERSION; }
 
 Tagger *createTagger(int argc, char **argv) {
   TaggerImpl *tagger = new TaggerImpl();
@@ -1069,17 +1005,11 @@ Tagger *createTagger(const char *argv) {
   return tagger;
 }
 
-void deleteTagger(Tagger *tagger) {
-  delete tagger;
-}
+void deleteTagger(Tagger *tagger) { delete tagger; }
 
-const char *getTaggerError() {
-  return getLastError();
-}
+const char *getTaggerError() { return getLastError(); }
 
-const char *getLastError() {
-  return getGlobalError();
-}
+const char *getLastError() { return getGlobalError(); }
 
 Model *createModel(int argc, char **argv) {
   ModelImpl *model = new ModelImpl;
@@ -1099,36 +1029,22 @@ Model *createModel(const char *arg) {
   return model;
 }
 
-void deleteModel(Model *model) {
-  delete model;
-}
+void deleteModel(Model *model) { delete model; }
 
-Model *Model::create(int argc, char **argv) {
-  return createModel(argc, argv);
-}
+Model *Model::create(int argc, char **argv) { return createModel(argc, argv); }
 
-Model *Model::create(const char *arg) {
-  return createModel(arg);
-}
+Model *Model::create(const char *arg) { return createModel(arg); }
 
-const char *Model::version() {
-  return VERSION;
-}
+const char *Model::version() { return VERSION; }
 
 bool Tagger::parse(const Model &model, Lattice *lattice) {
   scoped_ptr<Tagger> tagger(model.createTagger());
   return tagger->parse(lattice);
 }
 
-Lattice *Lattice::create() {
-  return createLattice();
-}
+Lattice *Lattice::create() { return createLattice(); }
 
-Lattice *createLattice() {
-  return new LatticeImpl;
-}
+Lattice *createLattice() { return new LatticeImpl; }
 
-void deleteLattice(Lattice *lattice) {
-  delete lattice;
-}
-}  // MeCab
+void deleteLattice(Lattice *lattice) { delete lattice; }
+}  // namespace MeCab

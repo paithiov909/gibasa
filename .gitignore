@@ -41,4 +41,5 @@ vignettes/*.pdf
 .vscode
 docs
 inst/doc
+mecab
 windows

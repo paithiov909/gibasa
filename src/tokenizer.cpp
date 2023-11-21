@@ -3,36 +3,35 @@
 //
 //  Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
+#include "tokenizer.h"
+
 #include "common.h"
 #include "connector.h"
 #include "darts.h"
 #include "learner_node.h"
 #include "param.h"
 #include "scoped_ptr.h"
-#include "tokenizer.h"
 #include "utils.h"
 #include "viterbi.h"
 
 namespace MeCab {
 namespace {
 
-void inline read_node_info(const Dictionary &dic,
-                           const Token &token,
+void inline read_node_info(const Dictionary &dic, const Token &token,
                            LearnerNode **node) {
-  (*node)->lcAttr  = token.lcAttr;
-  (*node)->rcAttr  = token.rcAttr;
-  (*node)->posid   = token.posid;
-  (*node)->wcost2  = token.wcost;
+  (*node)->lcAttr = token.lcAttr;
+  (*node)->rcAttr = token.rcAttr;
+  (*node)->posid = token.posid;
+  (*node)->wcost2 = token.wcost;
   (*node)->feature = dic.feature(token);
 }
 
-void inline read_node_info(const Dictionary &dic,
-                           const Token &token,
+void inline read_node_info(const Dictionary &dic, const Token &token,
                            Node **node) {
-  (*node)->lcAttr  = token.lcAttr;
-  (*node)->rcAttr  = token.rcAttr;
-  (*node)->posid   = token.posid;
-  (*node)->wcost   = token.wcost;
+  (*node)->lcAttr = token.lcAttr;
+  (*node)->rcAttr = token.rcAttr;
+  (*node)->posid = token.posid;
+  (*node)->wcost = token.wcost;
   (*node)->feature = dic.feature(token);
 }
 }  // namespace
@@ -41,33 +40,27 @@ template class Tokenizer<Node, Path>;
 template class Tokenizer<LearnerNode, LearnerPath>;
 template Tokenizer<Node, Path>::Tokenizer();
 template void Tokenizer<Node, Path>::close();
-template const DictionaryInfo
-*Tokenizer<Node, Path>::dictionary_info() const;
-template Node* Tokenizer<Node, Path>::getBOSNode(Allocator<Node, Path> *) const;
-template Node* Tokenizer<Node, Path>::getEOSNode(Allocator<Node, Path> *) const;
-template Node* Tokenizer<Node, Path>::lookup<false>(
-    const char *,
-    const char *,
-    Allocator<Node, Path> *,
-    Lattice *) const;
-template Node* Tokenizer<Node, Path>::lookup<true>(
-    const char *,
-    const char *,
-    Allocator<Node, Path> *,
-    Lattice *) const;
+template const DictionaryInfo *Tokenizer<Node, Path>::dictionary_info() const;
+template Node *Tokenizer<Node, Path>::getBOSNode(Allocator<Node, Path> *) const;
+template Node *Tokenizer<Node, Path>::getEOSNode(Allocator<Node, Path> *) const;
+template Node *Tokenizer<Node, Path>::lookup<false>(const char *, const char *,
+                                                    Allocator<Node, Path> *,
+                                                    Lattice *) const;
+template Node *Tokenizer<Node, Path>::lookup<true>(const char *, const char *,
+                                                   Allocator<Node, Path> *,
+                                                   Lattice *) const;
 template bool Tokenizer<Node, Path>::open(const Param &);
 template Tokenizer<LearnerNode, LearnerPath>::Tokenizer();
 template void Tokenizer<LearnerNode, LearnerPath>::close();
-template const DictionaryInfo
-*Tokenizer<LearnerNode, LearnerPath>::dictionary_info() const;
-template LearnerNode * Tokenizer<LearnerNode, LearnerPath>::getEOSNode(
+template const DictionaryInfo *
+Tokenizer<LearnerNode, LearnerPath>::dictionary_info() const;
+template LearnerNode *Tokenizer<LearnerNode, LearnerPath>::getEOSNode(
     Allocator<LearnerNode, LearnerPath> *) const;
-template LearnerNode * Tokenizer<LearnerNode, LearnerPath>::getBOSNode(
+template LearnerNode *Tokenizer<LearnerNode, LearnerPath>::getBOSNode(
     Allocator<LearnerNode, LearnerPath> *) const;
 template LearnerNode *Tokenizer<LearnerNode, LearnerPath>::lookup<false>(
-    const char *,
-    const char *,
-    Allocator<LearnerNode, LearnerPath> *, Lattice *) const;
+    const char *, const char *, Allocator<LearnerNode, LearnerPath> *,
+    Lattice *) const;
 template bool Tokenizer<LearnerNode, LearnerPath>::open(const Param &);
 
 template <typename N, typename P>
@@ -99,19 +92,16 @@ bool Tokenizer<N, P>::open(const Param &param) {
 
   const std::string prefix = param.template get<std::string>("dicdir");
 
-  CHECK_FALSE(unkdic_.open(create_filename
-                                 (prefix, UNK_DIC_FILE).c_str()))
+  CHECK_FALSE(unkdic_.open(create_filename(prefix, UNK_DIC_FILE).c_str()))
       << unkdic_.what();
   CHECK_FALSE(property_.open(param)) << property_.what();
 
   Dictionary *sysdic = new Dictionary;
 
-  CHECK_FALSE(sysdic->open
-                    (create_filename(prefix, SYS_DIC_FILE).c_str()))
+  CHECK_FALSE(sysdic->open(create_filename(prefix, SYS_DIC_FILE).c_str()))
       << sysdic->what();
 
-  CHECK_FALSE(sysdic->type() == 0)
-      << "not a system dictionary: " << prefix;
+  CHECK_FALSE(sysdic->type() == 0) << "not a system dictionary: " << prefix;
 
   property_.set_charset(sysdic->charset());
   dic_.push_back(sysdic);
@@ -126,8 +116,7 @@ bool Tokenizer<N, P>::open(const Param &param) {
     for (size_t i = 0; i < n; ++i) {
       Dictionary *d = new Dictionary;
       CHECK_FALSE(d->open(dicfile[i])) << d->what();
-      CHECK_FALSE(d->type() == 1)
-          << "not a user dictionary: " << dicfile[i];
+      CHECK_FALSE(d->type() == 1) << "not a user dictionary: " << dicfile[i];
       CHECK_FALSE(sysdic->isCompatible(*d))
           << "incompatible dictionary: " << dicfile[i];
       dic_.push_back(d);
@@ -138,14 +127,14 @@ bool Tokenizer<N, P>::open(const Param &param) {
   dictionary_info_freelist_.free();
   for (int i = static_cast<int>(dic_.size() - 1); i >= 0; --i) {
     DictionaryInfo *d = dictionary_info_freelist_.alloc();
-    d->next          = dictionary_info_;
-    d->filename      = dic_[i]->filename();
-    d->charset       = dic_[i]->charset();
-    d->size          = CAST_OR_DIE(unsigned int, dic_[i]->size());
-    d->lsize         = CAST_OR_DIE(unsigned int, dic_[i]->lsize());
-    d->rsize         = CAST_OR_DIE(unsigned int, dic_[i]->rsize());
-    d->type          = dic_[i]->type();
-    d->version       = dic_[i]->version();
+    d->next = dictionary_info_;
+    d->filename = dic_[i]->filename();
+    d->charset = dic_[i]->charset();
+    d->size = CAST_OR_DIE(unsigned int, dic_[i]->size());
+    d->lsize = CAST_OR_DIE(unsigned int, dic_[i]->lsize());
+    d->rsize = CAST_OR_DIE(unsigned int, dic_[i]->rsize());
+    d->type = dic_[i]->type();
+    d->version = dic_[i]->version();
     dictionary_info_ = d;
   }
 
@@ -169,8 +158,7 @@ bool Tokenizer<N, P>::open(const Param &param) {
     unk_feature_.reset_string(tmp);
   }
 
-  CHECK_FALSE(*bos_feature_ != '\0')
-      << "bos-feature is undefined in dicrc";
+  CHECK_FALSE(*bos_feature_ != '\0') << "bos-feature is undefined in dicrc";
 
   max_grouping_size_ = param.template get<size_t>("max-grouping-size");
   if (max_grouping_size_ == 0) {
@@ -198,11 +186,10 @@ inline bool partial_match(const char *f1, const char *f2) {
 
   const size_t n1 = tokenizeCSV(buf1.get(), c1.get(), c1.size());
   const size_t n2 = tokenizeCSV(buf2.get(), c2.get(), c2.size());
-  const size_t n  = std::min(n1, n2);
+  const size_t n = std::min(n1, n2);
 
   for (size_t i = 0; i < n; ++i) {
-    if (std::strcmp(c1[i], "*") != 0 &&
-        std::strcmp(c1[i], c2[i]) != 0) {
+    if (std::strcmp(c1[i], "*") != 0 && std::strcmp(c1[i], c2[i]) != 0) {
       return false;
     }
   }
@@ -211,7 +198,7 @@ inline bool partial_match(const char *f1, const char *f2) {
 }
 
 template <typename N>
-bool is_valid_node(const Lattice *lattice,  N *node) {
+bool is_valid_node(const Lattice *lattice, N *node) {
   const size_t end_pos = node->surface - lattice->sentence() + node->length;
   if (lattice->boundary_constraint(end_pos) == MECAB_INSIDE_TOKEN) {
     return false;
@@ -231,21 +218,26 @@ bool is_valid_node(const Lattice *lattice,  N *node) {
 }
 }  // namespace
 
-#define ADDUNKNWON do {                                                  \
-    const Token *token = unk_tokens_[cinfo.default_type].first;          \
-    size_t size  = unk_tokens_[cinfo.default_type].second;               \
-    for (size_t k = 0; k < size; ++k) {                                  \
-      N *new_node = allocator->newNode();                                \
-      read_node_info(unkdic_, *(token + k), &new_node);                  \
-      new_node->char_type = cinfo.default_type;                          \
-      new_node->surface = begin2;                                        \
-      new_node->length = begin3 - begin2;                                \
-      new_node->rlength = begin3 - begin;                                \
-      new_node->stat = MECAB_UNK_NODE;                                   \
-      new_node->bnext = result_node;                                     \
-      if (unk_feature_.get()) new_node->feature = unk_feature_.get();    \
-      if (isPartial && !is_valid_node(lattice, new_node)) { continue; }  \
-      result_node = new_node; } } while (0)
+#define ADDUNKNWON                                                    \
+  do {                                                                \
+    const Token *token = unk_tokens_[cinfo.default_type].first;       \
+    size_t size = unk_tokens_[cinfo.default_type].second;             \
+    for (size_t k = 0; k < size; ++k) {                               \
+      N *new_node = allocator->newNode();                             \
+      read_node_info(unkdic_, *(token + k), &new_node);               \
+      new_node->char_type = cinfo.default_type;                       \
+      new_node->surface = begin2;                                     \
+      new_node->length = begin3 - begin2;                             \
+      new_node->rlength = begin3 - begin;                             \
+      new_node->stat = MECAB_UNK_NODE;                                \
+      new_node->bnext = result_node;                                  \
+      if (unk_feature_.get()) new_node->feature = unk_feature_.get(); \
+      if (isPartial && !is_valid_node(lattice, new_node)) {           \
+        continue;                                                     \
+      }                                                               \
+      result_node = new_node;                                         \
+    }                                                                 \
+  } while (0)
 
 template <typename N, typename P>
 template <bool isPartial>
@@ -268,8 +260,8 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
     }
   }
 
-  const char *begin2 = property_.seekToOtherType(begin, end, space_,
-                                                 &cinfo, &mblen, &clen);
+  const char *begin2 =
+      property_.seekToOtherType(begin, end, space_, &cinfo, &mblen, &clen);
 
   Dictionary::result_type *daresults = allocator->mutable_results();
   const size_t results_size = allocator->results_size();
@@ -277,9 +269,7 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
   for (std::vector<Dictionary *>::const_iterator it = dic_.begin();
        it != dic_.end(); ++it) {
     const size_t n = (*it)->commonPrefixSearch(
-        begin2,
-        static_cast<size_t>(end - begin2),
-        daresults, results_size);
+        begin2, static_cast<size_t>(end - begin2), daresults, results_size);
     for (size_t i = 0; i < n; ++i) {
       size_t size = (*it)->token_size(daresults[i]);
       const Token *token = (*it)->token(daresults[i]);
@@ -317,8 +307,8 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
   if (cinfo.group) {
     const char *tmp = begin3;
     CharInfo fail;
-    begin3 = property_.seekToOtherType(begin3, end, cinfo,
-                                       &fail, &mblen, &clen);
+    begin3 =
+        property_.seekToOtherType(begin3, end, cinfo, &fail, &mblen, &clen);
     if (clen <= max_grouping_size_) {
       ADDUNKNWON;
     }
@@ -351,8 +341,8 @@ N *Tokenizer<N, P>::lookup(const char *begin, const char *end,
       cinfo = property_.getCharInfo(begin3, end, &mblen);
       begin3 += mblen;
       if (begin3 > end ||
-          lattice->boundary_constraint(begin3 - lattice->sentence())
-          != MECAB_INSIDE_TOKEN) {
+          lattice->boundary_constraint(begin3 - lattice->sentence()) !=
+              MECAB_INSIDE_TOKEN) {
         break;
       }
     }
@@ -385,12 +375,12 @@ const DictionaryInfo *Tokenizer<N, P>::dictionary_info() const {
 
 template <typename N, typename P>
 void Tokenizer<N, P>::close() {
-  for (std::vector<Dictionary *>::iterator it = dic_.begin();
-       it != dic_.end(); ++it) {
+  for (std::vector<Dictionary *>::iterator it = dic_.begin(); it != dic_.end();
+       ++it) {
     delete *it;
   }
   dic_.clear();
   unk_tokens_.clear();
   property_.close();
 }
-}
+}  // namespace MeCab

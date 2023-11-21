@@ -7,6 +7,7 @@
 #define MECAB_MMAP_H
 
 #include <errno.h>
+
 #include <string>
 
 #ifdef HAVE_CONFIG_H
@@ -59,38 +60,39 @@ extern "C" {
 
 namespace MeCab {
 
-template <class T> class Mmap {
+template <class T>
+class Mmap {
  private:
-  T            *text;
-  size_t       length;
-  std::string  fileName;
+  T* text;
+  size_t length;
+  std::string fileName;
   whatlog what_;
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
   HANDLE hFile;
   HANDLE hMap;
 #else
-  int    fd;
-  int    flag;
+  int fd;
+  int flag;
 #endif
 
  public:
-  T&       operator[](size_t n)       { return *(text + n); }
+  T& operator[](size_t n) { return *(text + n); }
   const T& operator[](size_t n) const { return *(text + n); }
-  T*       begin()           { return text; }
-  const T* begin()    const  { return text; }
-  T*       end()           { return text + size(); }
-  const T* end()    const  { return text + size(); }
-  size_t size()               { return length/sizeof(T); }
-  const char *what()          { return what_.str(); }
-  const char *file_name()     { return fileName.c_str(); }
-  size_t file_size()          { return length; }
-  bool empty()                { return(length == 0); }
+  T* begin() { return text; }
+  const T* begin() const { return text; }
+  T* end() { return text + size(); }
+  const T* end() const { return text + size(); }
+  size_t size() { return length / sizeof(T); }
+  const char* what() { return what_.str(); }
+  const char* file_name() { return fileName.c_str(); }
+  size_t file_size() { return length; }
+  bool empty() { return (length == 0); }
 
   // This code is imported from sufary, develoved by
   //  TATUO Yamashita <yto@nais.to> Thanks!
 #if defined(_WIN32) && !defined(__CYGWIN__)
-  bool open(const char *filename, const char *mode = "r") {
+  bool open(const char* filename, const char* mode = "r") {
     this->close();
     unsigned long mode1, mode2, mode3;
     fileName = std::string(filename);
@@ -108,7 +110,7 @@ template <class T> class Mmap {
     }
 
     hFile = CreateFile(WPATH(filename), mode1, FILE_SHARE_READ, 0,
-                          OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+                       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
     CHECK_FALSE(hFile != INVALID_HANDLE_VALUE)
         << "CreateFile() failed: " << filename;
 
@@ -117,14 +119,16 @@ template <class T> class Mmap {
     hMap = ::CreateFileMapping(hFile, 0, mode2, 0, 0, 0);
     CHECK_FALSE(hMap) << "CreateFileMapping() failed: " << filename;
 
-    text = reinterpret_cast<T *>(::MapViewOfFile(hMap, mode3, 0, 0, 0));
+    text = reinterpret_cast<T*>(::MapViewOfFile(hMap, mode3, 0, 0, 0));
     CHECK_FALSE(text) << "MapViewOfFile() failed: " << filename;
 
     return true;
   }
 
   void close() {
-    if (text) { ::UnmapViewOfFile(text); }
+    if (text) {
+      ::UnmapViewOfFile(text);
+    }
     if (hFile != INVALID_HANDLE_VALUE) {
       ::CloseHandle(hFile);
       hFile = INVALID_HANDLE_VALUE;
@@ -136,7 +140,7 @@ template <class T> class Mmap {
     text = 0;
   }
 
-  Mmap(): text(0), hFile(INVALID_HANDLE_VALUE), hMap(0) {}
+  Mmap() : text(0), hFile(INVALID_HANDLE_VALUE), hMap(0) {}
 
 #else
 
@@ -145,7 +149,7 @@ template <class T> class Mmap {
     struct stat st;
     fileName = std::string(filename);
 
-    if      (std::strcmp(mode, "r") == 0)
+    if (std::strcmp(mode, "r") == 0)
       flag = O_RDONLY;
     else if (std::strcmp(mode, "r+") == 0)
       flag = O_RDWR;
@@ -164,16 +168,14 @@ template <class T> class Mmap {
     int prot = PROT_READ;
     if (flag == O_RDWR) prot |= PROT_WRITE;
     char *p;
-    CHECK_FALSE((p = reinterpret_cast<char *>
-                 (::mmap(0, length, prot, MAP_SHARED, fd, 0)))
-                != MAP_FAILED)
+    CHECK_FALSE((p = reinterpret_cast<char *>(
+                     ::mmap(0, length, prot, MAP_SHARED, fd, 0))) != MAP_FAILED)
         << "mmap() failed: " << filename;
 
     text = reinterpret_cast<T *>(p);
 #else
     text = new T[length];
-    CHECK_FALSE(::read(fd, text, length) >= 0)
-        << "read() failed: " << filename;
+    CHECK_FALSE(::read(fd, text, length) >= 0) << "read() failed: " << filename;
 #endif
     ::close(fd);
     fd = -1;
@@ -199,7 +201,7 @@ template <class T> class Mmap {
           ::close(fd2);
         }
       }
-      delete [] text;
+      delete[] text;
 #endif
     }
 
@@ -211,5 +213,5 @@ template <class T> class Mmap {
 
   virtual ~Mmap() { this->close(); }
 };
-}
+}  // namespace MeCab
 #endif

@@ -2,15 +2,15 @@
 //
 //  Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
 //  Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
-#include <Rcpp.h>
+#include "char_property.h"
 
 #include <fstream>
 #include <map>
-#include <vector>
 #include <set>
-#include <string>
 #include <sstream>
-#include "char_property.h"
+#include <string>
+#include <vector>
+
 #include "common.h"
 #include "mmap.h"
 #include "param.h"
@@ -28,8 +28,7 @@ struct Range {
 int atohex(const char *s) {
   int n = 0;
 
-  CHECK_DIE(std::strlen(s) >= 3
-            && s[0] == '0' && (s[1] == 'x' || s[1] == 'X'))
+  CHECK_DIE(std::strlen(s) >= 3 && s[0] == '0' && (s[1] == 'x' || s[1] == 'X'))
       << "no hex value: " << s;
 
   const char *p = s;
@@ -57,13 +56,11 @@ CharInfo encode(const std::vector<std::string> &c,
   CHECK_DIE(c.size()) << "category size is empty";
 
   std::map<std::string, CharInfo>::const_iterator it = category->find(c[0]);
-  CHECK_DIE(it != category->end())
-      << "category [" << c[0] << "] is undefined";
+  CHECK_DIE(it != category->end()) << "category [" << c[0] << "] is undefined";
 
   CharInfo base = it->second;
   for (size_t i = 0; i < c.size(); ++i) {
-    std::map<std::string, CharInfo>::const_iterator it =
-        category->find(c[i]);
+    std::map<std::string, CharInfo>::const_iterator it = category->find(c[i]);
     CHECK_DIE(it != category->end())
         << "category [" << c[i] << "] is undefined";
     base.type += (1 << it->second.default_type);
@@ -71,10 +68,10 @@ CharInfo encode(const std::vector<std::string> &c,
 
   return base;
 }
-}
+}  // namespace
 
 bool CharProperty::open(const Param &param) {
-  const std::string prefix   = param.get<std::string>("dicdir");
+  const std::string prefix = param.get<std::string>("dicdir");
   const std::string filename = create_filename(prefix, CHAR_PROPERTY_FILE);
   return open(filename.c_str());
 }
@@ -87,11 +84,10 @@ bool CharProperty::open(const char *filename) {
   unsigned int csize;
   read_static<unsigned int>(&ptr, csize);
 
-  size_t fsize = sizeof(unsigned int) +
-      (32 * csize) + sizeof(unsigned int) * 0xffff;
+  size_t fsize =
+      sizeof(unsigned int) + (32 * csize) + sizeof(unsigned int) * 0xffff;
 
-  CHECK_FALSE(fsize == cmmap_->size())
-      << "invalid file size: " << filename;
+  CHECK_FALSE(fsize == cmmap_->size()) << "invalid file size: " << filename;
 
   clist_.clear();
   for (unsigned int i = 0; i < csize; ++i) {
@@ -104,14 +100,12 @@ bool CharProperty::open(const char *filename) {
   return true;
 }
 
-void CharProperty::close() {
-  cmmap_->close();
-}
+void CharProperty::close() { cmmap_->close(); }
 
 size_t CharProperty::size() const { return clist_.size(); }
 
 const char *CharProperty::name(size_t i) const {
-  return const_cast<const char*>(clist_[i]);
+  return const_cast<const char *>(clist_[i]);
 }
 
 // this function must be rewritten.
@@ -128,8 +122,7 @@ int CharProperty::id(const char *key) const {
   return -1;
 }
 
-bool CharProperty::compile(const char *cfile,
-                           const char *ufile,
+bool CharProperty::compile(const char *cfile, const char *ufile,
                            const char *ofile) {
   scoped_fixed_array<char, BUF_SIZE> line;
   scoped_fixed_array<char *, 512> col;
@@ -142,8 +135,8 @@ bool CharProperty::compile(const char *cfile,
   std::istream *is = &ifs;
 
   if (!ifs) {
-    Rcpp::Rcerr << cfile
-              << " is not found. minimum setting is used" << std::endl;
+    Rcpp::Rcerr << cfile << " is not found. minimum setting is used"
+                << std::endl;
     is = &iss;
   }
 
@@ -162,7 +155,7 @@ bool CharProperty::compile(const char *cfile,
 
       if (pos != std::string::npos) {
         high = low.substr(pos + 2, low.size() - pos - 2);
-        low  = low.substr(0, pos);
+        low = low.substr(0, pos);
       } else {
         high = low;
       }
@@ -171,9 +164,8 @@ bool CharProperty::compile(const char *cfile,
       r.low = atohex(low.c_str());
       r.high = atohex(high.c_str());
 
-      CHECK_DIE(r.low >= 0 && r.low < 0xffff &&
-                r.high >= 0 && r.high < 0xffff &&
-                r.low <= r.high)
+      CHECK_DIE(r.low >= 0 && r.low < 0xffff && r.high >= 0 &&
+                r.high < 0xffff && r.low <= r.high)
           << "range error: low=" << r.low << " high=" << r.high;
 
       for (size_t i = 1; i < size; ++i) {
@@ -193,9 +185,9 @@ bool CharProperty::compile(const char *cfile,
           << "category " << key << " is already defined";
 
       CharInfo c;
-      c.invoke  = std::atoi(col[1]);
-      c.group   = std::atoi(col[2]);
-      c.length  = std::atoi(col[3]);
+      c.invoke = std::atoi(col[1]);
+      c.group = std::atoi(col[2]);
+      c.length = std::atoi(col[3]);
       c.default_type = id++;
 
       category.insert(std::pair<std::string, CharInfo>(key, c));
@@ -216,8 +208,8 @@ bool CharProperty::compile(const char *cfile,
   std::istream *is2 = &ifs2;
 
   if (!ifs2) {
-    Rcpp::Rcerr << ufile
-              << " is not found. minimum setting is used." << std::endl;
+    Rcpp::Rcerr << ufile << " is not found. minimum setting is used."
+                << std::endl;
     is2 = &iss2;
   }
 
@@ -232,8 +224,7 @@ bool CharProperty::compile(const char *cfile,
   }
 
   for (std::map<std::string, CharInfo>::const_iterator it = category.begin();
-       it != category.end();
-       ++it) {
+       it != category.end(); ++it) {
     CHECK_DIE(unk.find(it->first) != unk.end())
         << "category [" << it->first << "] is undefined in " << ufile;
   }
@@ -246,8 +237,7 @@ bool CharProperty::compile(const char *cfile,
     std::fill(table.begin(), table.end(), c);
   }
 
-  for (std::vector<Range>::const_iterator it = range.begin();
-       it != range.end();
+  for (std::vector<Range>::const_iterator it = range.begin(); it != range.end();
        ++it) {
     const CharInfo c = encode(it->c, &category);
     for (int i = it->low; i <= it->high; ++i) {
@@ -257,25 +247,24 @@ bool CharProperty::compile(const char *cfile,
 
   // output binary table
   {
-    std::ofstream ofs(WPATH(ofile), std::ios::binary|std::ios::out);
+    std::ofstream ofs(WPATH(ofile), std::ios::binary | std::ios::out);
     CHECK_DIE(ofs) << "permission denied: " << ofile;
 
     unsigned int size = static_cast<unsigned int>(category.size());
-    ofs.write(reinterpret_cast<const char*>(&size), sizeof(size));
+    ofs.write(reinterpret_cast<const char *>(&size), sizeof(size));
     for (std::vector<std::string>::const_iterator it = category_ary.begin();
-         it != category_ary.end();
-         ++it) {
+         it != category_ary.end(); ++it) {
       char buf[32];
       std::fill(buf, buf + sizeof(buf), '\0');
       std::strncpy(buf, it->c_str(), sizeof(buf) - 1);
-      buf[sizeof(buf)-1] = '\0';
-      ofs.write(reinterpret_cast<const char*>(buf), sizeof(buf));
+      buf[sizeof(buf) - 1] = '\0';
+      ofs.write(reinterpret_cast<const char *>(buf), sizeof(buf));
     }
-    ofs.write(reinterpret_cast<const char*>(&table[0]),
+    ofs.write(reinterpret_cast<const char *>(&table[0]),
               sizeof(CharInfo) * table.size());
     ofs.close();
   }
 
   return true;
 }
-}
+}  // namespace MeCab

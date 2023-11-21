@@ -7,7 +7,7 @@
 #define MECAB_ICONV_H
 
 #if defined HAVE_ICONV
-#include <iconv.h>
+#include <R_ext/Riconv.h>
 #endif
 
 #if defined(_WIN32) && !defined(__CYGWIN__)
@@ -22,7 +22,7 @@ namespace MeCab {
 class Iconv {
  private:
 #ifdef HAVE_ICONV
-  iconv_t ic_;
+  void *ic_;
 #else
   int ic_;
 #endif
@@ -38,6 +38,6 @@ class Iconv {
   bool open(const char *from, const char *to);
   bool convert(std::string *);
 };
-}
+}  // namespace MeCab
 
 #endif

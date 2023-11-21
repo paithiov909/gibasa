@@ -17,7 +17,7 @@ namespace MeCab {
 // make a function which maps the local code to the UCS code.
 
 inline unsigned short utf8_to_ucs2(const char *begin, const char *end,
-                                   size_t*  mblen) {
+                                   size_t *mblen) {
   const size_t len = end - begin;
 
   if (static_cast<unsigned char>(begin[0]) < 0x80) {
@@ -26,12 +26,12 @@ inline unsigned short utf8_to_ucs2(const char *begin, const char *end,
 
   } else if (len >= 2 && (begin[0] & 0xe0) == 0xc0) {
     *mblen = 2;
-    return((begin[0] & 0x1f) << 6) |(begin[1] & 0x3f);
+    return ((begin[0] & 0x1f) << 6) | (begin[1] & 0x3f);
 
   } else if (len >= 3 && (begin[0] & 0xf0) == 0xe0) {
     *mblen = 3;
-    return ((begin[0] & 0x0f) << 12) |
-        ((begin[1] & 0x3f) << 6) |(begin[2] & 0x3f);
+    return ((begin[0] & 0x0f) << 12) | ((begin[1] & 0x3f) << 6) |
+           (begin[2] & 0x3f);
 
     /* belows are out of UCS2 */
   } else if (len >= 4 && (begin[0] & 0xf8) == 0xf0) {
@@ -54,7 +54,7 @@ inline unsigned short utf8_to_ucs2(const char *begin, const char *end,
 
 inline unsigned short ascii_to_ucs2(const char *begin, const char *end,
                                     size_t *mblen) {
-  (void)end; // ignore unused parameter ‘end’
+  (void)end;  // ignore unused parameter ‘end’
   *mblen = 1;
   return static_cast<unsigned char>(begin[0]);
 }
@@ -99,7 +99,6 @@ inline unsigned short utf16_to_ucs2(const char *begin, const char *end,
 #endif
 }
 
-
 #ifndef MECAB_USE_UTF8_ONLY
 inline unsigned short euc_to_ucs2(const char *begin, const char *end,
                                   size_t *mblen) {
@@ -108,18 +107,18 @@ inline unsigned short euc_to_ucs2(const char *begin, const char *end,
   // JISX 0212, 0213
   if (static_cast<unsigned char>(begin[0]) == 0x8f && len >= 3) {
     unsigned short key = (static_cast<unsigned char>(begin[1]) << 8) +
-        static_cast<unsigned char>(begin[2]);
+                         static_cast<unsigned char>(begin[2]);
     if (key < 0xA0A0) {  // offset  violation
       *mblen = 1;
       return static_cast<unsigned char>(begin[0]);
     }
     *mblen = 3;
-    return euc_hojo_tbl[ key - 0xA0A0 ];
+    return euc_hojo_tbl[key - 0xA0A0];
     // JISX 0208 + 0201
   } else if ((static_cast<unsigned char>(begin[0]) & 0x80) && len >= 2) {
     *mblen = 2;
     return euc_tbl[(static_cast<unsigned char>(begin[0]) << 8) +
-                   static_cast<unsigned char>(begin[1]) ];
+                   static_cast<unsigned char>(begin[1])];
   } else {
     *mblen = 1;
     return static_cast<unsigned char>(begin[0]);
@@ -133,17 +132,17 @@ inline unsigned short cp932_to_ucs2(const char *begin, const char *end,
   if ((static_cast<unsigned char>(begin[0]) >= 0xA1 &&
        static_cast<unsigned char>(begin[0]) <= 0xDF)) {
     *mblen = 1;
-    return cp932_tbl[static_cast<unsigned char>(begin[0]) ];
+    return cp932_tbl[static_cast<unsigned char>(begin[0])];
   } else if ((static_cast<unsigned char>(begin[0]) & 0x80) && len >= 2) {
     *mblen = 2;
-    return cp932_tbl[(static_cast<unsigned char>(begin[0]) << 8)
-                     + static_cast<unsigned char>(begin[1]) ];
+    return cp932_tbl[(static_cast<unsigned char>(begin[0]) << 8) +
+                     static_cast<unsigned char>(begin[1])];
   } else {
     *mblen = 1;
     return static_cast<unsigned char>(begin[0]);
   }
 }
 #endif
-}
+}  // namespace MeCab
 
 #endif

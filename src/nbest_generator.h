@@ -7,8 +7,9 @@
 #define MECAB_NBEST_GENERATOR_H_
 
 #include <queue>
-#include "mecab.h"
+
 #include "freelist.h"
+#include "mecab.h"
 
 namespace MeCab {
 
@@ -29,8 +30,9 @@ class NBestGenerator {
   };
 
   std::priority_queue<QueueElement *, std::vector<QueueElement *>,
-                      QueueElementComp> agenda_;
-  FreeList <QueueElement> freelist_;
+                      QueueElementComp>
+      agenda_;
+  FreeList<QueueElement> freelist_;
 
  public:
   explicit NBestGenerator() : freelist_(512) {}
@@ -38,6 +40,6 @@ class NBestGenerator {
   bool set(Lattice *lattice);
   bool next();
 };
-}
+}  // namespace MeCab
 
 #endif  // MECAB_NBEST_GENERATOR_H_

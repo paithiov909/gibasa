@@ -1,6 +1,7 @@
 #define R_NO_REMAP
 
 #include <Rcpp.h>
+
 #include "mecab.h"
 
 using namespace Rcpp;
@@ -30,13 +31,14 @@ Rcpp::DataFrame dictionary_info(std::string sys_dic = "",
   }
   const char* delim = " ";
   std::ostringstream os;
-  std::copy(args.begin(), args.end(), std::ostream_iterator<std::string>(os, delim));
+  std::copy(args.begin(), args.end(),
+            std::ostream_iterator<std::string>(os, delim));
   std::string argv = os.str();
 
   MeCab::Model* model = MeCab::createModel(argv.c_str());
   if (!model) {
-    MeCab::deleteModel(model);
-    Rcpp::warning("Failed to create MeCab::Model: maybe provided an invalid dictionary?");
+    Rcpp::warning(
+        "Failed to create MeCab::Model: maybe provided an invalid dictionary?");
     return R_NilValue;
   }
 
@@ -67,15 +69,10 @@ Rcpp::DataFrame dictionary_info(std::string sys_dic = "",
 
   MeCab::deleteModel(model);
 
-  return DataFrame::create(
-    _["file_path"] = filenames,
-    _["charset"] = charsets,
-    _["lsize"] = lsize,
-    _["rsize"] = rsize,
-    _["size"] = size,
-    _["type"] = type,
-    _["version"] = version
-  );
+  return Rcpp::DataFrame::create(_["file_path"] = filenames,
+                                 _["charset"] = charsets, _["lsize"] = lsize,
+                                 _["rsize"] = rsize, _["size"] = size,
+                                 _["type"] = type, _["version"] = version);
 }
 
 //' Get transition cost between pos attributes
@@ -91,10 +88,8 @@ Rcpp::DataFrame dictionary_info(std::string sys_dic = "",
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-int transition_cost(unsigned short rcAttr,
-                    unsigned short lcAttr,
-                    std::string sys_dic = "",
-                    std::string user_dic = "") {
+int transition_cost(unsigned short rcAttr, unsigned short lcAttr,
+                    std::string sys_dic = "", std::string user_dic = "") {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -107,13 +102,14 @@ int transition_cost(unsigned short rcAttr,
   }
   const char* delim = " ";
   std::ostringstream os;
-  std::copy(args.begin(), args.end(), std::ostream_iterator<std::string>(os, delim));
+  std::copy(args.begin(), args.end(),
+            std::ostream_iterator<std::string>(os, delim));
   std::string argv = os.str();
 
   MeCab::Model* model = MeCab::createModel(argv.c_str());
   if (!model) {
-    MeCab::deleteModel(model);
-    Rcpp::stop("Failed to create MeCab::Model: maybe provided an invalid dictionary?");
+    Rcpp::stop(
+        "Failed to create MeCab::Model: maybe provided an invalid dictionary?");
   }
 
   const int t_cost = model->transition_cost(rcAttr, lcAttr);
@@ -156,13 +152,14 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
   }
   const char* delim = " ";
   std::ostringstream os;
-  std::copy(args.begin(), args.end(), std::ostream_iterator<std::string>(os, delim));
+  std::copy(args.begin(), args.end(),
+            std::ostream_iterator<std::string>(os, delim));
   std::string argv = os.str();
 
   MeCab::Model* model = MeCab::createModel(argv.c_str());
   if (!model) {
-    deleteModel(model);
-    Rcpp::stop("Failed to create MeCab::Model: maybe provided an invalid dictionary?");
+    Rcpp::stop(
+        "Failed to create MeCab::Model: maybe provided an invalid dictionary?");
   }
 
   std::vector<int> docids;
@@ -230,19 +227,10 @@ Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
   MeCab::deleteTagger(tagger);
   MeCab::deleteModel(model);
 
-  return DataFrame::create(
-    _["doc_id"] = docids,
-    _["pos_id"] = posids,
-    _["surface"] = surfaces,
-    _["feature"] = features,
-    _["stat"] = stats,
-    _["rcAttr"] = rcAttr,
-    _["lcAttr"] = lcAttr,
-    _["alpha"] = alpha,
-    _["beta"] = beta,
-    _["is_best"] = isbest,
-    _["prob"] = prob,
-    _["wcost"] = wcost,
-    _["cost"] = cost
-  );
+  return Rcpp::DataFrame::create(
+      _["doc_id"] = docids, _["pos_id"] = posids, _["surface"] = surfaces,
+      _["feature"] = features, _["stat"] = stats, _["rcAttr"] = rcAttr,
+      _["lcAttr"] = lcAttr, _["alpha"] = alpha, _["beta"] = beta,
+      _["is_best"] = isbest, _["prob"] = prob, _["wcost"] = wcost,
+      _["cost"] = cost);
 }

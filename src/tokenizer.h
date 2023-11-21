@@ -6,13 +6,13 @@
 #ifndef MECAB_TOKENIZER_H_
 #define MECAB_TOKENIZER_H_
 
-#include "mecab.h"
-#include "freelist.h"
-#include "dictionary.h"
 #include "char_property.h"
+#include "common.h"
+#include "dictionary.h"
+#include "freelist.h"
+#include "mecab.h"
 #include "nbest_generator.h"
 #include "scoped_ptr.h"
-#include "common.h"
 
 namespace MeCab {
 
@@ -37,9 +37,7 @@ class Allocator {
     return path_freelist_->alloc();
   }
 
-  Dictionary::result_type *mutable_results() {
-    return results_.get();
-  }
+  Dictionary::result_type *mutable_results() { return results_.get(); }
 
   char *alloc(size_t size) {
     if (!char_freelist_.get()) {
@@ -67,9 +65,7 @@ class Allocator {
     return &partial_buffer_[0];
   }
 
-  size_t results_size() const {
-    return kResultsSize;
-  }
+  size_t results_size() const { return kResultsSize; }
 
   void free() {
     id_ = 0;
@@ -96,33 +92,33 @@ class Allocator {
   size_t id_;
   scoped_ptr<FreeList<N> > node_freelist_;
   scoped_ptr<FreeList<P> > path_freelist_;
-  scoped_ptr<ChunkFreeList<char>  >  char_freelist_;
-  scoped_ptr<NBestGenerator>  nbest_generator_;
+  scoped_ptr<ChunkFreeList<char> > char_freelist_;
+  scoped_ptr<NBestGenerator> nbest_generator_;
   std::vector<char> partial_buffer_;
-  scoped_array<Dictionary::result_type>  results_;
+  scoped_array<Dictionary::result_type> results_;
 };
 
 template <typename N, typename P>
 class Tokenizer {
  private:
-  std::vector<Dictionary *>              dic_;
-  Dictionary                             unkdic_;
-  scoped_string                          bos_feature_;
-  scoped_string                          unk_feature_;
-  FreeList<DictionaryInfo>               dictionary_info_freelist_;
+  std::vector<Dictionary *> dic_;
+  Dictionary unkdic_;
+  scoped_string bos_feature_;
+  scoped_string unk_feature_;
+  FreeList<DictionaryInfo> dictionary_info_freelist_;
   std::vector<std::pair<const Token *, size_t> > unk_tokens_;
-  DictionaryInfo                        *dictionary_info_;
-  CharInfo                               space_;
-  CharProperty                           property_;
-  size_t                                 max_grouping_size_;
-  whatlog                                what_;
+  DictionaryInfo *dictionary_info_;
+  CharInfo space_;
+  CharProperty property_;
+  size_t max_grouping_size_;
+  whatlog what_;
 
  public:
   N *getBOSNode(Allocator<N, P> *allocator) const;
   N *getEOSNode(Allocator<N, P> *allocator) const;
-  template <bool IsPartial> N *lookup(const char *begin, const char *end,
-                                      Allocator<N, P> *allocator,
-                                      Lattice *lattice) const;
+  template <bool IsPartial>
+  N *lookup(const char *begin, const char *end, Allocator<N, P> *allocator,
+            Lattice *lattice) const;
   bool open(const Param &param);
   void close();
 
@@ -133,5 +129,5 @@ class Tokenizer {
   explicit Tokenizer();
   virtual ~Tokenizer() { this->close(); }
 };
-}
+}  // namespace MeCab
 #endif  // MECAB_TOKENIZER_H_

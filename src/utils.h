@@ -7,11 +7,12 @@
 #define MECAB_UTILS_H
 
 #include <algorithm>
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <string>
 #include <vector>
+
 #include "common.h"
 
 #ifdef HAVE_CONFIG_H
@@ -46,7 +47,8 @@ int decode_charset(const char *charset);
 void inline dtoa(double val, char *s) {
   // std::sprintf(s, "%-16f", val);
   char *p = s;
-  for (; *p != ' '; ++p) {}
+  for (; *p != ' '; ++p) {
+  }
   *p = '\0';
   return;
 }
@@ -99,7 +101,7 @@ inline const char *read_ptr(const char **ptr, size_t size) {
 }
 
 template <class T>
-inline void read_static(const char **ptr, T& value) {
+inline void read_static(const char **ptr, T &value) {
   const char *r = read_ptr(ptr, sizeof(T));
   memcpy(&value, r, sizeof(T));
 }
@@ -112,24 +114,20 @@ bool load_dictionary_resource(Param *);
 
 bool escape_csv_element(std::string *w);
 
-void enum_csv_dictionaries(const char *path,
-                           std::vector<std::string> *dics);
+void enum_csv_dictionaries(const char *path, std::vector<std::string> *dics);
 
-// int  progress_bar(const char* message, size_t current, size_t total);
+int progress_bar(const char *message, size_t current, size_t total);
 
 bool toLower(std::string *);
 
-std::string create_filename(const std::string &path,
-                            const std::string &file);
+std::string create_filename(const std::string &path, const std::string &file);
 void remove_filename(std::string *s);
 void remove_pathname(std::string *s);
-void replace_string(std::string *s,
-                    const std::string &src,
+void replace_string(std::string *s, const std::string &src,
                     const std::string &dst);
 
 template <class Iterator>
-inline size_t tokenizeCSV(char *str,
-                          Iterator out, size_t max) {
+inline size_t tokenizeCSV(char *str, Iterator out, size_t max) {
   char *eos = str + std::strlen(str);
   char *start = 0;
   char *end = 0;
@@ -137,15 +135,14 @@ inline size_t tokenizeCSV(char *str,
 
   for (; str < eos; ++str) {
     // skip white spaces
-     while (*str == ' ' || *str == '\t') ++str;
+    while (*str == ' ' || *str == '\t') ++str;
     if (*str == '"') {
       start = ++str;
       end = start;
       for (; str < eos; ++str) {
         if (*str == '"') {
           str++;
-          if (*str != '"')
-            break;
+          if (*str != '"') break;
         }
         *end++ = *str;
       }
@@ -165,8 +162,7 @@ inline size_t tokenizeCSV(char *str,
 }
 
 template <class Iterator>
-inline size_t tokenize(char *str, const char *del,
-                       Iterator out, size_t max) {
+inline size_t tokenize(char *str, const char *del, Iterator out, size_t max) {
   char *stre = str + std::strlen(str);
   const char *dele = del + std::strlen(del);
   size_t size = 0;
@@ -185,8 +181,7 @@ inline size_t tokenize(char *str, const char *del,
 
 // continus run of space is regarded as one space
 template <class Iterator>
-inline size_t tokenize2(char *str, const char *del,
-                        Iterator out, size_t max) {
+inline size_t tokenize2(char *str, const char *del, Iterator out, size_t max) {
   char *stre = str + std::strlen(str);
   const char *dele = del + std::strlen(del);
   size_t size = 0;
@@ -206,7 +201,7 @@ inline size_t tokenize2(char *str, const char *del,
 }
 
 inline double logsumexp(double x, double y, bool flg) {
-#define MINUS_LOG_EPSILON  50
+#define MINUS_LOG_EPSILON 50
 
   if (flg) return y;  // init mode
   double vmin = std::min<double>(x, y);
@@ -221,26 +216,35 @@ inline double logsumexp(double x, double y, bool flg) {
 inline short int tocost(double d, int n) {
   static const short max = +32767;
   static const short min = -32767;
-  return static_cast<short>(std::max<double>(
-                                std::min<double>(
-                                    -n * d,
-                                    static_cast<double>(max)),
-                                static_cast<double>(min)) );
+  return static_cast<short>(
+      std::max<double>(std::min<double>(-n * d, static_cast<double>(max)),
+                       static_cast<double>(min)));
 }
 
 inline char getEscapedChar(const char p) {
   switch (p) {
-    case '0':  return '\0';
-    case 'a':  return '\a';
-    case 'b':  return '\b';
-    case 't':  return '\t';
-    case 'n':  return '\n';
-    case 'v':  return '\v';
-    case 'f':  return '\f';
-    case 'r':  return '\r';
-    case 's':  return ' ';
-    case '\\': return '\\';
-    default: break;
+    case '0':
+      return '\0';
+    case 'a':
+      return '\a';
+    case 'b':
+      return '\b';
+    case 't':
+      return '\t';
+    case 'n':
+      return '\n';
+    case 'v':
+      return '\v';
+    case 'f':
+      return '\f';
+    case 'r':
+      return '\r';
+    case 's':
+      return ' ';
+    case '\\':
+      return '\\';
+    default:
+      break;
   }
 
   return '\0';  // never be here
@@ -254,5 +258,5 @@ uint64_t fingerprint(const std::string &str);
 std::wstring Utf8ToWide(const std::string &input);
 std::string WideToUtf8(const std::wstring &input);
 #endif
-}
+}  // namespace MeCab
 #endif

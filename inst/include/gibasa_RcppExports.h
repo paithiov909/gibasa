@@ -24,6 +24,48 @@ namespace gibasa {
         }
     }
 
+    inline bool dict_index_sys(std::string dic_dir, std::string out_dir, std::string encoding) {
+        typedef SEXP(*Ptr_dict_index_sys)(SEXP,SEXP,SEXP);
+        static Ptr_dict_index_sys p_dict_index_sys = NULL;
+        if (p_dict_index_sys == NULL) {
+            validateSignature("bool(*dict_index_sys)(std::string,std::string,std::string)");
+            p_dict_index_sys = (Ptr_dict_index_sys)R_GetCCallable("gibasa", "_gibasa_dict_index_sys");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dict_index_sys(Shield<SEXP>(Rcpp::wrap(dic_dir)), Shield<SEXP>(Rcpp::wrap(out_dir)), Shield<SEXP>(Rcpp::wrap(encoding)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<bool >(rcpp_result_gen);
+    }
+
+    inline bool dict_index_user(std::string dic_dir, std::string file, std::string csv_file, std::string encoding) {
+        typedef SEXP(*Ptr_dict_index_user)(SEXP,SEXP,SEXP,SEXP);
+        static Ptr_dict_index_user p_dict_index_user = NULL;
+        if (p_dict_index_user == NULL) {
+            validateSignature("bool(*dict_index_user)(std::string,std::string,std::string,std::string)");
+            p_dict_index_user = (Ptr_dict_index_user)R_GetCCallable("gibasa", "_gibasa_dict_index_user");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_dict_index_user(Shield<SEXP>(Rcpp::wrap(dic_dir)), Shield<SEXP>(Rcpp::wrap(file)), Shield<SEXP>(Rcpp::wrap(csv_file)), Shield<SEXP>(Rcpp::wrap(encoding)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<bool >(rcpp_result_gen);
+    }
+
     inline Rcpp::DataFrame dictionary_info(std::string sys_dic = "", std::string user_dic = "") {
         typedef SEXP(*Ptr_dictionary_info)(SEXP,SEXP);
         static Ptr_dictionary_info p_dictionary_info = NULL;

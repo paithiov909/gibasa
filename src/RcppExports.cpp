@@ -13,6 +13,79 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// dict_index_sys
+bool dict_index_sys(std::string dic_dir, std::string out_dir, std::string encoding);
+static SEXP _gibasa_dict_index_sys_try(SEXP dic_dirSEXP, SEXP out_dirSEXP, SEXP encodingSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< std::string >::type dic_dir(dic_dirSEXP);
+    Rcpp::traits::input_parameter< std::string >::type out_dir(out_dirSEXP);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    rcpp_result_gen = Rcpp::wrap(dict_index_sys(dic_dir, out_dir, encoding));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gibasa_dict_index_sys(SEXP dic_dirSEXP, SEXP out_dirSEXP, SEXP encodingSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gibasa_dict_index_sys_try(dic_dirSEXP, out_dirSEXP, encodingSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// dict_index_user
+bool dict_index_user(std::string dic_dir, std::string file, std::string csv_file, std::string encoding);
+static SEXP _gibasa_dict_index_user_try(SEXP dic_dirSEXP, SEXP fileSEXP, SEXP csv_fileSEXP, SEXP encodingSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< std::string >::type dic_dir(dic_dirSEXP);
+    Rcpp::traits::input_parameter< std::string >::type file(fileSEXP);
+    Rcpp::traits::input_parameter< std::string >::type csv_file(csv_fileSEXP);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    rcpp_result_gen = Rcpp::wrap(dict_index_user(dic_dir, file, csv_file, encoding));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _gibasa_dict_index_user(SEXP dic_dirSEXP, SEXP fileSEXP, SEXP csv_fileSEXP, SEXP encodingSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_gibasa_dict_index_user_try(dic_dirSEXP, fileSEXP, csv_fileSEXP, encodingSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // dictionary_info
 Rcpp::DataFrame dictionary_info(std::string sys_dic, std::string user_dic);
 static SEXP _gibasa_dictionary_info_try(SEXP sys_dicSEXP, SEXP user_dicSEXP) {
@@ -165,6 +238,8 @@ RcppExport SEXP _gibasa_posParallelRcpp(SEXP textSEXP, SEXP sys_dicSEXP, SEXP us
 static int _gibasa_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
+        signatures.insert("bool(*dict_index_sys)(std::string,std::string,std::string)");
+        signatures.insert("bool(*dict_index_user)(std::string,std::string,std::string,std::string)");
         signatures.insert("Rcpp::DataFrame(*dictionary_info)(std::string,std::string)");
         signatures.insert("int(*transition_cost)(unsigned short,unsigned short,std::string,std::string)");
         signatures.insert("Rcpp::DataFrame(*posDebugRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector)");
@@ -175,6 +250,8 @@ static int _gibasa_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP _gibasa_RcppExport_registerCCallable() { 
+    R_RegisterCCallable("gibasa", "_gibasa_dict_index_sys", (DL_FUNC)_gibasa_dict_index_sys_try);
+    R_RegisterCCallable("gibasa", "_gibasa_dict_index_user", (DL_FUNC)_gibasa_dict_index_user_try);
     R_RegisterCCallable("gibasa", "_gibasa_dictionary_info", (DL_FUNC)_gibasa_dictionary_info_try);
     R_RegisterCCallable("gibasa", "_gibasa_transition_cost", (DL_FUNC)_gibasa_transition_cost_try);
     R_RegisterCCallable("gibasa", "_gibasa_posDebugRcpp", (DL_FUNC)_gibasa_posDebugRcpp_try);
@@ -184,6 +261,8 @@ RcppExport SEXP _gibasa_RcppExport_registerCCallable() {
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_gibasa_dict_index_sys", (DL_FUNC) &_gibasa_dict_index_sys, 3},
+    {"_gibasa_dict_index_user", (DL_FUNC) &_gibasa_dict_index_user, 4},
     {"_gibasa_dictionary_info", (DL_FUNC) &_gibasa_dictionary_info, 2},
     {"_gibasa_transition_cost", (DL_FUNC) &_gibasa_transition_cost, 4},
     {"_gibasa_posDebugRcpp", (DL_FUNC) &_gibasa_posDebugRcpp, 4},
