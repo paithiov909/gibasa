@@ -230,11 +230,12 @@ int progress_bar(const char *message, size_t current, size_t total) {
   if (prev != cur_percentage) {
     Rprintf("%s: %3d%% |%.*s%*s| ", message, cur_percentage, bar_len, bar,
             scale - bar_len, "");
-    if (cur_percentage == 100)
+    if (cur_percentage == 100) {
       Rprintf("\n");
-    else
+    } else {
       Rprintf("\r");
-    // fflush(stdout);
+      Rcpp::Rcout.flush();
+    }
   }
 
   prev = cur_percentage;
