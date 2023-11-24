@@ -77,8 +77,8 @@ class DictionaryComplier {
         param.get<bool>("assign-user-dictionary-costs");
     const std::string userdic = param.get<std::string>("userdic");
 
-// #define DCONF(file) create_filename(dicdir, std::string(file)).c_str()
-// #define OCONF(file) create_filename(outdir, std::string(file)).c_str()
+    // #define DCONF(file) create_filename(dicdir, std::string(file)).c_str()
+    // #define OCONF(file) create_filename(outdir, std::string(file)).c_str()
 
     CHECK_DIE(param.load(create_filename(dicdir, "dicrc").c_str()))
         << "no such file or directory: " << create_filename(dicdir, DICRC);
@@ -194,7 +194,17 @@ bool dict_index_sys(std::string dic_dir, std::string out_dir,
   for (int i = 0; i < argc; ++i) {
     ptr[i] = const_cast<char*>(args[i].c_str());
   }
-  return MeCab::DictionaryComplier::run(argc, ptr);
+
+  int ret;
+  try {
+    ret = MeCab::DictionaryComplier::run(argc, ptr);
+  } catch (const std::exception& e) {
+    Rcpp::Rcerr << e.what() << "\n";
+    free(ptr);
+    return false;
+  }
+  free(ptr);
+  return ret == 0;
 }
 
 //' Build user dictionary
@@ -212,8 +222,8 @@ bool dict_index_sys(std::string dic_dir, std::string out_dir,
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-bool dict_index_user(std::string dic_dir, std::string file, std::string csv_file,
-                     std::string encoding) {
+bool dict_index_user(std::string dic_dir, std::string file,
+                     std::string csv_file, std::string encoding) {
   std::vector<std::string> args;
   args.push_back("mecab-dict-index");
   if (dic_dir != "") {
@@ -235,5 +245,15 @@ bool dict_index_user(std::string dic_dir, std::string file, std::string csv_file
   for (int i = 0; i < argc; ++i) {
     ptr[i] = const_cast<char*>(args[i].c_str());
   }
-  return MeCab::DictionaryComplier::run(argc, ptr);
+
+  int ret;
+  try {
+    ret = MeCab::DictionaryComplier::run(argc, ptr);
+  } catch (const std::exception& e) {
+    Rcpp::Rcerr << e.what() << "\n";
+    free(ptr);
+    return false;
+  }
+  free(ptr);
+  return ret == 0;
 }

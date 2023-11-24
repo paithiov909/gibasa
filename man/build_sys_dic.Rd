@@ -17,7 +17,7 @@ This argument is passed as '-o' option argument.}
 This argument is passed as '-f' option argument.}
 }
 \value{
-Invisibly returns \code{TRUE} if dictionary is successfully built.
+A \code{TRUE} is invisibly returned if dictionary is successfully built.
 }
 \description{
 Build a UTF-8 system dictionary from source dictionary files.

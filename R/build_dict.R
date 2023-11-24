@@ -11,7 +11,7 @@
 #' A `dicrc` file is included in source dictionaries, so you can just copy it to `out_dir`.
 #'
 #' @inheritParams dict_index_sys
-#' @returns Invisibly returns `TRUE` if dictionary is successfully built.
+#' @returns A `TRUE` is invisibly returned if dictionary is successfully built.
 #' @export
 build_sys_dic <- function(dic_dir, out_dir, encoding) {
   cond <- dict_index_sys(
@@ -19,7 +19,7 @@ build_sys_dic <- function(dic_dir, out_dir, encoding) {
     out_dir = path.expand(out_dir),
     encoding = encoding
   )
-  return(invisible(!cond))
+  return(invisible(cond))
 }
 
 #' Build user dictionary
@@ -34,7 +34,7 @@ build_sys_dic <- function(dic_dir, out_dir, encoding) {
 #' To assume word costs, use \code{posDebugRcpp()} function.
 #'
 #' @inheritParams dict_index_user
-#' @returns Invisibly returns `TRUE` if dictionary is successfully built.
+#' @returns A `TRUE` is invisibly returned if dictionary is successfully built.
 #' @export
 build_user_dic <- function(dic_dir, file, csv_file, encoding) {
   cond <- dict_index_user(
@@ -43,5 +43,5 @@ build_user_dic <- function(dic_dir, file, csv_file, encoding) {
     csv_file = path.expand(csv_file),
     encoding = encoding
   )
-  return(invisible(!cond))
+  return(invisible(cond))
 }
