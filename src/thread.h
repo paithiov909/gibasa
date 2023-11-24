@@ -61,6 +61,7 @@ class atomic_int {
   std::atomic<int> val_;
 };
 inline void yield_processor(void) { std::this_thread::yield(); }
+#define HAVE_ATOMIC_OPS 1
 
 #elif defined(HAVE_OSX_ATOMIC_OPS)
 class atomic_int {
