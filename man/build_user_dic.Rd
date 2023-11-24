@@ -31,3 +31,52 @@ Note that this function does not support auto assignment of word cost field.
 So, you can't leave any word costs as empty in your input csv file.
 To assume word costs, use \code{posDebugRcpp()} function.
 }
+\examples{
+\donttest{
+if (requireNamespace("withr")) {
+  # create a sample dictionary in temporary directory
+  build_sys_dic(
+    dic_dir = system.file("latin", package = "gibasa"),
+    out_dir = tempdir(),
+    encoding = "utf8"
+  )
+  # copy the 'dicrc' file
+  file.copy(
+    system.file("latin/dicrc", package = "gibasa"),
+    tempdir()
+  )
+  # write a csv file and compile it into a user dictionary
+  csv_file <- tempfile(fileext = ".csv")
+  writeLines(
+    c(
+      "qa, 0, 0, 5, \u304f\u3041",
+      "qi, 0, 0, 5, \u304f\u3043",
+      "qu, 0, 0, 5, \u304f",
+      "qe, 0, 0, 5, \u304f\u3047",
+      "qo, 0, 0, 5, \u304f\u3049"
+    ),
+    csv_file
+  )
+  build_user_dic(
+    dic_dir = tempdir(),
+    file = (user_dic <- tempfile(fileext = ".dic")),
+    csv_file = csv_file,
+    encoding = "utf8"
+  )
+  # mocking a 'mecabrc' file to temporalily use the dictionary
+  withr::with_envvar(
+    c(
+      "MECABRC" = if (.Platform$OS.type == "windows") {
+        "nul"
+      } else {
+        "/dev/null"
+      },
+      "RCPP_PARALLEL_BACKEND" = "tinythread"
+    ),
+    {
+      tokenize("quensan", sys_dic = tempdir(), user_dic = user_dic)
+    }
+  )
+}
+}
+}

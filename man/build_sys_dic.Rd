@@ -27,6 +27,38 @@ This function is a wrapper around dictionary compiler of mecab.
 
 Running this function will create 4 files:
 'char.bin', 'matrix.bin', 'sys.dic', and 'unk.dic' in \code{out_dir}.
+
 To use these compiled dictionary, you also need create a \code{dicrc} file to \code{out_dir}.
 A \code{dicrc} file is included in source dictionaries, so you can just copy it to \code{out_dir}.
+}
+\examples{
+\donttest{
+if (requireNamespace("withr")) {
+  # create a sample dictionary in temporary directory
+  build_sys_dic(
+    dic_dir = system.file("latin", package = "gibasa"),
+    out_dir = tempdir(),
+    encoding = "utf8"
+  )
+  # copy the 'dicrc' file
+  file.copy(
+    system.file("latin/dicrc", package = "gibasa"),
+    tempdir()
+  )
+  # mocking a 'mecabrc' file to temporalily use the dictionary
+  withr::with_envvar(
+    c(
+      "MECABRC" = if (.Platform$OS.type == "windows") {
+        "nul"
+      } else {
+        "/dev/null"
+      },
+      "RCPP_PARALLEL_BACKEND" = "tinythread"
+    ),
+    {
+      tokenize("katta-wokattauresikatta", sys_dic = tempdir())
+    }
+  )
+}
+}
 }
