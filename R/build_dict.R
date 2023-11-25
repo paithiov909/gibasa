@@ -28,7 +28,7 @@
 #'     system.file("latin/dicrc", package = "gibasa"),
 #'     tempdir()
 #'   )
-#'   # mocking a 'mecabrc' file to temporalily use the dictionary
+#'   # mocking a 'mecabrc' file to temporarily use the dictionary
 #'   withr::with_envvar(
 #'     c(
 #'       "MECABRC" = if (.Platform$OS.type == "windows") {
@@ -99,7 +99,7 @@ build_sys_dic <- function(dic_dir, out_dir, encoding) {
 #'     csv_file = csv_file,
 #'     encoding = "utf8"
 #'   )
-#'   # mocking a 'mecabrc' file to temporalily use the dictionary
+#'   # mocking a 'mecabrc' file to temporarily use the dictionary
 #'   withr::with_envvar(
 #'     c(
 #'       "MECABRC" = if (.Platform$OS.type == "windows") {

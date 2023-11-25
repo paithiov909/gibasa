@@ -28,7 +28,7 @@ This function is a wrapper around dictionary compiler of 'MeCab'.
 Running this function will create 4 files:
 'char.bin', 'matrix.bin', 'sys.dic', and 'unk.dic' in \code{out_dir}.
 
-To use these compiled dictionary, you also need create a \code{dicrc} file to \code{out_dir}.
+To use these compiled dictionary, you also need create a \code{dicrc} file in \code{out_dir}.
 A \code{dicrc} file is included in source dictionaries, so you can just copy it to \code{out_dir}.
 }
 \examples{
@@ -45,7 +45,7 @@ if (requireNamespace("withr")) {
     system.file("latin/dicrc", package = "gibasa"),
     tempdir()
   )
-  # mocking a 'mecabrc' file to temporalily use the dictionary
+  # mocking a 'mecabrc' file to temporarily use the dictionary
   withr::with_envvar(
     c(
       "MECABRC" = if (.Platform$OS.type == "windows") {

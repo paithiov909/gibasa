@@ -63,7 +63,7 @@ if (requireNamespace("withr")) {
     csv_file = csv_file,
     encoding = "utf8"
   )
-  # mocking a 'mecabrc' file to temporalily use the dictionary
+  # mocking a 'mecabrc' file to temporarily use the dictionary
   withr::with_envvar(
     c(
       "MECABRC" = if (.Platform$OS.type == "windows") {
