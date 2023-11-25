@@ -5,10 +5,10 @@
 #' String or symbol; column name where to get texts to be tokenized.
 #' @param docid_field <[`data-masked`][rlang::args_data_masking]>
 #' String or symbol; column name where to get identifiers of texts.
-#' @param sys_dic Character scalar; path to the system dictionary for mecab.
+#' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.
-#' @param user_dic Character scalar; path to the user dictionary for mecab.
+#' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.
 #' @param split Logical. When passed as `TRUE`, the function internally splits the sentences
 #' into sub-sentences using \code{stringi::stri_split_boundaries(type = "sentence")}.
 #' @param partial Logical. When passed as `TRUE`, activates partial parsing mode.

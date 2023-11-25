@@ -20,10 +20,10 @@ This argument is passed as '-f' option argument.}
 A \code{TRUE} is invisibly returned if dictionary is successfully built.
 }
 \description{
-Build a UTF-8 system dictionary from source dictionary files.
+Builds a UTF-8 system dictionary from source dictionary files.
 }
 \details{
-This function is a wrapper around dictionary compiler of mecab.
+This function is a wrapper around dictionary compiler of 'MeCab'.
 
 Running this function will create 4 files:
 'char.bin', 'matrix.bin', 'sys.dic', and 'unk.dic' in \code{out_dir}.

@@ -13,7 +13,7 @@ pack(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ")
 Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{n}{Integer internally passed to ngrams tokenizer function
-created of \code{audubon::ngram_tokenizer()}}
+created of \code{gibasa::ngram_tokenizer()}}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 

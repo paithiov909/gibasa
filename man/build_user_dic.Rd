@@ -22,14 +22,14 @@ This argument is passed as '-f' option argument.}
 A \code{TRUE} is invisibly returned if dictionary is successfully built.
 }
 \description{
-Build a UTF-8 user dictionary from a csv file.
+Builds a UTF-8 user dictionary from a csv file.
 }
 \details{
-This function is a wrapper around dictionary compiler of mecab.
+This function is a wrapper around dictionary compiler of 'MeCab'.
 
 Note that this function does not support auto assignment of word cost field.
 So, you can't leave any word costs as empty in your input csv file.
-To assume word costs, use \code{posDebugRcpp()} function.
+To estimate word costs, use \code{posDebugRcpp()} function.
 }
 \examples{
 \donttest{

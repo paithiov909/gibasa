@@ -51,10 +51,10 @@ You can install binary package via
 [r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ``` r
-# Install gibasa from r-universe repository
+## Install gibasa from r-universe repository
 install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 
-# Or build from source package
+## Or build from source package
 Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
 remotes::install_github("paithiov909/gibasa")
 ```
@@ -215,56 +215,138 @@ schemes are supported.
 
 ``` r
 ## UniDic 2.1.2
-gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/Downloads/unidic-lite") |>
+gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = file.path("mecab/unidic-lite")) |>
   gibasa::prettify(into = gibasa::get_dict_features("unidic26"))
 #> # A tibble: 6 × 30
-#>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  cType cForm lForm lemma
-#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-#> 1 1              1       1 あの  感動… フィ… <NA>  <NA>  <NA>  <NA>  アノ  あの
-#> 2 1              1       2 イー… 名詞  普通… 一般  <NA>  <NA>  <NA>  <NA>  <NA>
-#> 3 1              1       3 の    助詞  格助… <NA>  <NA>  <NA>  <NA>  ノ    の
-#> 4 1              1       4 すき… 動詞  一般  <NA>  <NA>  五段… 連用… スキ… 透き…
-#> 5 1              1       5 た    助動… <NA>  <NA>  <NA>  助動… 連体… タ    た
-#> 6 1              1       6 風    名詞  普通… 一般  <NA>  <NA>  <NA>  カゼ  風
-#> # … with 18 more variables: orth <chr>, pron <chr>, orthBase <chr>,
+#>   doc_id sentence_id token_id token   POS1   POS2  POS3  POS4  cType cForm lForm
+#>   <fct>        <int>    <int> <chr>   <chr>  <chr> <chr> <chr> <chr> <chr> <chr>
+#> 1 1                1        1 あの    感動詞 フィ… <NA>  <NA>  <NA>  <NA>  アノ 
+#> 2 1                1        2 イーハ… 名詞   普通… 一般  <NA>  <NA>  <NA>  <NA> 
+#> 3 1                1        3 の      助詞   格助… <NA>  <NA>  <NA>  <NA>  ノ   
+#> 4 1                1        4 すきと… 動詞   一般  <NA>  <NA>  五段… 連用… スキ…
+#> 5 1                1        5 た      助動詞 <NA>  <NA>  <NA>  助動… 連体… タ   
+#> 6 1                1        6 風      名詞   普通… 一般  <NA>  <NA>  <NA>  カゼ 
+#> # ℹ 19 more variables: lemma <chr>, orth <chr>, pron <chr>, orthBase <chr>,
 #> #   pronBase <chr>, goshu <chr>, iType <chr>, iForm <chr>, fType <chr>,
 #> #   fForm <chr>, kana <chr>, kanaBase <chr>, form <chr>, formBase <chr>,
 #> #   iConType <chr>, fConType <chr>, aType <chr>, aConType <chr>,
-#> #   aModeType <chr>, and abbreviated variable names ¹​sentence_id, ²​token_id
+#> #   aModeType <chr>
 
 
 ## CC-CEDICT
-gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |>
+gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = file.path("mecab/cc-cedict")) |>
   gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
 #> # A tibble: 9 × 12
-#>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  pinyi…³ tradi…⁴ simpl…⁵
-#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>
-#> 1 1              1       1 它    <NA>  <NA>  <NA>  <NA>  ta1     它      它
-#> 2 1              1       2 可以  <NA>  <NA>  <NA>  <NA>  ke3 yi3 可以    可以
-#> 3 1              1       3 进行  <NA>  <NA>  <NA>  <NA>  jin4 x… 進行    进行
-#> 4 1              1       4 日语  <NA>  <NA>  <NA>  <NA>  Ri4 yu3 日語    日语
-#> 5 1              1       5 和    <NA>  <NA>  <NA>  <NA>  he2     龢      和
-#> 6 1              1       6 汉语  <NA>  <NA>  <NA>  <NA>  Han4 y… 漢語    汉语
-#> 7 1              1       7 的    <NA>  <NA>  <NA>  <NA>  di4     的      的
-#> 8 1              1       8 语态  <NA>  <NA>  <NA>  <NA>  yu3 ta… 語態    语态
-#> 9 1              1       9 分析  <NA>  <NA>  <NA>  <NA>  fen1 x… 分析    分析
-#> # … with 1 more variable: definition <chr>, and abbreviated variable names
-#> #   ¹​sentence_id, ²​token_id, ³​pinyin_pron, ⁴​traditional_char_form,
-#> #   ⁵​simplified_char_form
+#>   doc_id sentence_id token_id token POS1  POS2  POS3  POS4  pinyin_pron
+#>   <fct>        <int>    <int> <chr> <chr> <chr> <chr> <chr> <chr>      
+#> 1 1                1        1 它    <NA>  <NA>  <NA>  <NA>  ta1        
+#> 2 1                1        2 可以  <NA>  <NA>  <NA>  <NA>  ke3 yi3    
+#> 3 1                1        3 进行  <NA>  <NA>  <NA>  <NA>  jin4 xing2 
+#> 4 1                1        4 日语  <NA>  <NA>  <NA>  <NA>  Ri4 yu3    
+#> 5 1                1        5 和    <NA>  <NA>  <NA>  <NA>  he2        
+#> 6 1                1        6 汉语  <NA>  <NA>  <NA>  <NA>  Han4 yu3   
+#> 7 1                1        7 的    <NA>  <NA>  <NA>  <NA>  di4        
+#> 8 1                1        8 语态  <NA>  <NA>  <NA>  <NA>  yu3 tai4   
+#> 9 1                1        9 分析  <NA>  <NA>  <NA>  <NA>  fen1 xi1   
+#> # ℹ 3 more variables: traditional_char_form <chr>, simplified_char_form <chr>,
+#> #   definition <chr>
 
 
 ## mecab-ko-dic
-gibasa::tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |>
+gibasa::tokenize("하네다공항한정토트백", sys_dic = file.path("mecab/mecab-ko-dic")) |>
   gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
 #> # A tibble: 4 × 12
-#>   doc_id sentence_id token_id token  POS   meaning prese…¹ reading type  first…²
-#>   <fct>        <int>    <int> <chr>  <chr> <chr>   <chr>   <chr>   <chr> <chr>
-#> 1 1                1        1 하네다 NNP   인명    F       하네다  <NA>  <NA>
-#> 2 1                1        2 공항   NNG   장소    T       공항    <NA>  <NA>
-#> 3 1                1        3 한정   NNG   <NA>    T       한정    <NA>  <NA>
-#> 4 1                1        4 토트백 NNG   <NA>    T       토트백  Comp… <NA>
-#> # … with 2 more variables: last_pos <chr>, expression <chr>, and abbreviated
-#> #   variable names ¹​presence, ²​first_pos
+#>   doc_id sentence_id token_id token  POS   meaning presence reading type    
+#>   <fct>        <int>    <int> <chr>  <chr> <chr>   <chr>    <chr>   <chr>   
+#> 1 1                1        1 하네다 NNP   인명    F        하네다  <NA>    
+#> 2 1                1        2 공항   NNG   장소    T        공항    <NA>    
+#> 3 1                1        3 한정   NNG   <NA>    T        한정    <NA>    
+#> 4 1                1        4 토트백 NNG   <NA>    T        토트백  Compound
+#> # ℹ 3 more variables: first_pos <chr>, last_pos <chr>, expression <chr>
+```
+
+## Build dictionaries
+
+### Build a system dictionary
+
+``` r
+## build a new ipadic in temporary directory
+build_sys_dic(
+  dic_dir = file.path("mecab/ipadic-eucjp"), # replace here with path to your source dictionary
+  out_dir = tempdir(),
+  encoding = "euc-jp" # encoding of source csv files
+)
+#> reading mecab/ipadic-eucjp/unk.def ... 40
+#> reading mecab/ipadic-eucjp/Adverb.csv ... 3032
+#> reading mecab/ipadic-eucjp/Conjunction.csv ... 171
+#> reading mecab/ipadic-eucjp/Suffix.csv ... 1393
+#> reading mecab/ipadic-eucjp/Noun.adverbal.csv ... 795
+#> reading mecab/ipadic-eucjp/Noun.others.csv ... 151
+#> reading mecab/ipadic-eucjp/Noun.org.csv ... 16668
+#> reading mecab/ipadic-eucjp/Verb.csv ... 130750
+#> reading mecab/ipadic-eucjp/Noun.place.csv ... 72999
+#> reading mecab/ipadic-eucjp/Noun.csv ... 60477
+#> reading mecab/ipadic-eucjp/Adnominal.csv ... 135
+#> reading mecab/ipadic-eucjp/Noun.number.csv ... 42
+#> reading mecab/ipadic-eucjp/Noun.verbal.csv ... 12146
+#> reading mecab/ipadic-eucjp/Filler.csv ... 19
+#> reading mecab/ipadic-eucjp/Others.csv ... 2
+#> reading mecab/ipadic-eucjp/Noun.adjv.csv ... 3328
+#> reading mecab/ipadic-eucjp/Interjection.csv ... 252
+#> reading mecab/ipadic-eucjp/Postp-col.csv ... 91
+#> reading mecab/ipadic-eucjp/Noun.nai.csv ... 42
+#> reading mecab/ipadic-eucjp/Prefix.csv ... 221
+#> reading mecab/ipadic-eucjp/Noun.name.csv ... 34202
+#> reading mecab/ipadic-eucjp/Symbol.csv ... 208
+#> reading mecab/ipadic-eucjp/Adj.csv ... 27210
+#> reading mecab/ipadic-eucjp/Noun.demonst.csv ... 120
+#> reading mecab/ipadic-eucjp/Noun.proper.csv ... 27327
+#> reading mecab/ipadic-eucjp/Postp.csv ... 146
+#> reading mecab/ipadic-eucjp/Auxil.csv ... 199
+#> reading mecab/ipadic-eucjp/matrix.def ... 1316x1316
+#> 
+#> done!
+
+## copy the 'dicrc' file
+file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
+#> [1] TRUE
+
+dictionary_info(sys_dic = tempdir())
+#>                 file_path charset lsize rsize   size type version
+#> 1 /tmp/RtmpoYB70E/sys.dic    utf8  1316  1316 392126    0     102
+```
+
+### Build a user dictionary
+
+``` r
+## write a csv file and compile it into a user dictionary
+writeLines(
+  c(
+    "月ノ,1290,1290,4579,名詞,固有名詞,人名,姓,*,*,つきの,ツキノ,ツキノ",
+    "美兎,1291,1291,8561,名詞,固有名詞,人名,名,*,*,みと,ミト,ミト"
+  ),
+  con = (csv_file <- tempfile(fileext = ".csv"))
+)
+build_user_dic(
+  dic_dir = file.path("mecab/ipadic-eucjp"),
+  file = (user_dic <- tempfile(fileext = ".dic")),
+  csv_file = csv_file,
+  encoding = "utf8"
+)
+#> reading /tmp/RtmpoYB70E/file662a4b1cf241.csv ... 2
+#> 
+#> done!
+
+tokenize("月ノ美兎は箱の中", sys_dic = tempdir(), user_dic = user_dic)
+#> # A tibble: 6 × 5
+#>   doc_id sentence_id token_id token feature                                    
+#>   <fct>        <int>    <int> <chr> <chr>                                      
+#> 1 1                1        1 月ノ  名詞,固有名詞,人名,姓,*,*,つきの,ツキノ,ツ…
+#> 2 1                1        2 美兎  名詞,固有名詞,人名,名,*,*,みと,ミト,ミト   
+#> 3 1                1        3 は    助詞,係助詞,*,*,*,*,は,ハ,ワ               
+#> 4 1                1        4 箱    名詞,一般,*,*,*,*,箱,ハコ,ハコ             
+#> 5 1                1        5 の    助詞,連体化,*,*,*,*,の,ノ,ノ               
+#> 6 1                1        6 中    名詞,非自立,副詞可能,*,*,*,中,ナカ,ナカ
 ```
 
 ## License
