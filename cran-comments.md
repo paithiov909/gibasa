@@ -1,3 +1,6 @@
+## Notes
+The CRAN package check results for this package currently show a warning under 'r-devel-linux-x86_64-fedora-clang', but this problem comes from the 'Rcpp' package and will be resolved in its future patch.
+
 ## Test environments
 - R-hub ubuntu-gcc-release (r-release)
 - R-hub debian-clang-devel (r-devel)

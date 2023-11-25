@@ -1,4 +1,4 @@
-# gibasa 0.9.6
+# gibasa 1.0.0
 
 * Added wrappers around dictionary compiler of MeCab.
 
