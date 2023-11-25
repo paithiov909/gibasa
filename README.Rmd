@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-require(gibasa)
+pkgload::load_all()
 ```
 
 # gibasa
@@ -43,10 +43,10 @@ The main goal of gibasa package is to provide an alternative to `tidytext::unnes
 You can install binary package via [CRAN](https://cran.r-project.org/package=gibasa) or [r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ```r
-# Install gibasa from r-universe repository
+## Install gibasa from r-universe repository
 install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 
-# Or build from source package
+## Or build from source package
 Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
 remotes::install_github("paithiov909/gibasa")
 ```
@@ -108,58 +108,59 @@ dplyr::mutate(
 
 IPA, UniDic, [CC-CEDICT-MeCab](https://github.com/ueda-keisuke/CC-CEDICT-MeCab), and [mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/) schemes are supported.
 
-```r
+```{r}
 ## UniDic 2.1.2
-gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = "/Downloads/unidic-lite") |>
+gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = file.path("mecab/unidic-lite")) |>
   gibasa::prettify(into = gibasa::get_dict_features("unidic26"))
-#> # A tibble: 6 × 30
-#>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  cType cForm lForm lemma
-#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr> <chr>
-#> 1 1              1       1 あの  感動… フィ… <NA>  <NA>  <NA>  <NA>  アノ  あの
-#> 2 1              1       2 イー… 名詞  普通… 一般  <NA>  <NA>  <NA>  <NA>  <NA>
-#> 3 1              1       3 の    助詞  格助… <NA>  <NA>  <NA>  <NA>  ノ    の
-#> 4 1              1       4 すき… 動詞  一般  <NA>  <NA>  五段… 連用… スキ… 透き…
-#> 5 1              1       5 た    助動… <NA>  <NA>  <NA>  助動… 連体… タ    た
-#> 6 1              1       6 風    名詞  普通… 一般  <NA>  <NA>  <NA>  カゼ  風
-#> # … with 18 more variables: orth <chr>, pron <chr>, orthBase <chr>,
-#> #   pronBase <chr>, goshu <chr>, iType <chr>, iForm <chr>, fType <chr>,
-#> #   fForm <chr>, kana <chr>, kanaBase <chr>, form <chr>, formBase <chr>,
-#> #   iConType <chr>, fConType <chr>, aType <chr>, aConType <chr>,
-#> #   aModeType <chr>, and abbreviated variable names ¹​sentence_id, ²​token_id
 
 
 ## CC-CEDICT
-gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = "/Downloads/cc-cedict") |>
+gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = file.path("mecab/cc-cedict")) |>
   gibasa::prettify(into = gibasa::get_dict_features("cc-cedict"))
-#> # A tibble: 9 × 12
-#>   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  pinyi…³ tradi…⁴ simpl…⁵
-#>   <fct>      <int>   <int> <chr> <chr> <chr> <chr> <chr> <chr>   <chr>   <chr>
-#> 1 1              1       1 它    <NA>  <NA>  <NA>  <NA>  ta1     它      它
-#> 2 1              1       2 可以  <NA>  <NA>  <NA>  <NA>  ke3 yi3 可以    可以
-#> 3 1              1       3 进行  <NA>  <NA>  <NA>  <NA>  jin4 x… 進行    进行
-#> 4 1              1       4 日语  <NA>  <NA>  <NA>  <NA>  Ri4 yu3 日語    日语
-#> 5 1              1       5 和    <NA>  <NA>  <NA>  <NA>  he2     龢      和
-#> 6 1              1       6 汉语  <NA>  <NA>  <NA>  <NA>  Han4 y… 漢語    汉语
-#> 7 1              1       7 的    <NA>  <NA>  <NA>  <NA>  di4     的      的
-#> 8 1              1       8 语态  <NA>  <NA>  <NA>  <NA>  yu3 ta… 語態    语态
-#> 9 1              1       9 分析  <NA>  <NA>  <NA>  <NA>  fen1 x… 分析    分析
-#> # … with 1 more variable: definition <chr>, and abbreviated variable names
-#> #   ¹​sentence_id, ²​token_id, ³​pinyin_pron, ⁴​traditional_char_form,
-#> #   ⁵​simplified_char_form
 
 
 ## mecab-ko-dic
-gibasa::tokenize("하네다공항한정토트백", sys_dic = "/Downloads/mecab-ko-dic") |>
+gibasa::tokenize("하네다공항한정토트백", sys_dic = file.path("mecab/mecab-ko-dic")) |>
   gibasa::prettify(into = gibasa::get_dict_features("ko-dic"))
-#> # A tibble: 4 × 12
-#>   doc_id sentence_id token_id token  POS   meaning prese…¹ reading type  first…²
-#>   <fct>        <int>    <int> <chr>  <chr> <chr>   <chr>   <chr>   <chr> <chr>
-#> 1 1                1        1 하네다 NNP   인명    F       하네다  <NA>  <NA>
-#> 2 1                1        2 공항   NNG   장소    T       공항    <NA>  <NA>
-#> 3 1                1        3 한정   NNG   <NA>    T       한정    <NA>  <NA>
-#> 4 1                1        4 토트백 NNG   <NA>    T       토트백  Comp… <NA>
-#> # … with 2 more variables: last_pos <chr>, expression <chr>, and abbreviated
-#> #   variable names ¹​presence, ²​first_pos
+```
+
+## Build dictionaries
+
+### Build a system dictionary
+
+```{r}
+## build a new ipadic in temporary directory
+build_sys_dic(
+  dic_dir = file.path("mecab/ipadic-eucjp"), # replace here with path to your source dictionary
+  out_dir = tempdir(),
+  encoding = "euc-jp" # encoding of source csv files
+)
+
+## copy the 'dicrc' file
+file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
+
+dictionary_info(sys_dic = tempdir())
+```
+
+### Build a user dictionary
+
+```{r}
+## write a csv file and compile it into a user dictionary
+writeLines(
+  c(
+    "月ノ,1290,1290,4579,名詞,固有名詞,人名,姓,*,*,つきの,ツキノ,ツキノ",
+    "美兎,1291,1291,8561,名詞,固有名詞,人名,名,*,*,みと,ミト,ミト"
+  ),
+  con = (csv_file <- tempfile(fileext = ".csv"))
+)
+build_user_dic(
+  dic_dir = file.path("mecab/ipadic-eucjp"),
+  file = (user_dic <- tempfile(fileext = ".dic")),
+  csv_file = csv_file,
+  encoding = "utf8"
+)
+
+tokenize("月ノ美兎は箱の中", sys_dic = tempdir(), user_dic = user_dic)
 ```
 
 ## License

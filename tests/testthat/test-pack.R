@@ -18,6 +18,6 @@ test_that("packing into ngrams works", {
   res <-
     testdata[["tokens"]] |>
     dplyr::filter(as.integer(doc_id) < 5) |>
-    pack()
+    pack(n = 2)
   expect_snapshot_value(res, style = "json2", cran = FALSE)
 })

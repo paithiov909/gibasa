@@ -77,7 +77,7 @@ prettify <- function(tbl,
 #' "naist11", "sudachi", and "ipa".
 #'
 #' @seealso See also
-#' \href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{'CC-CEDICT-MeCab'},
+#' \href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{'CC-CEDICT-MeCab'}
 #' and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{'mecab-ko-dic'}.
 #' @param dict Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
 #' "cc-cedict", "ko-dic", "naist11", or "sudachi".

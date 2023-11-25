@@ -25,11 +25,11 @@ String or symbol; column name where to get texts to be tokenized.}
 \item{docid_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
 String or symbol; column name where to get identifiers of texts.}
 
-\item{sys_dic}{Character scalar; path to the system dictionary for mecab.
+\item{sys_dic}{Character scalar; path to the system dictionary for 'MeCab'.
 Note that the system dictionary is expected to be compiled with UTF-8,
 not Shift-JIS or other encodings.}
 
-\item{user_dic}{Character scalar; path to the user dictionary for mecab.}
+\item{user_dic}{Character scalar; path to the user dictionary for 'MeCab'.}
 
 \item{split}{Logical. When passed as \code{TRUE}, the function internally splits the sentences
 into sub-sentences using \code{stringi::stri_split_boundaries(type = "sentence")}.}

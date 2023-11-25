@@ -1,3 +1,7 @@
+# gibasa 0.9.6
+
+* Added wrappers around dictionary compiler of MeCab.
+
 # gibasa 0.9.5
 
 * Removed audubon dependency for maintainability.
