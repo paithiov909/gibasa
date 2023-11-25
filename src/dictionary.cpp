@@ -61,7 +61,8 @@ int calcCost(const std::string &w, const std::string &feature, int factor,
 }
 
 int progress_bar_darts(size_t current, size_t total) {
-  return progress_bar("emitting double-array", current, total);
+  // return progress_bar("emitting double-array", current, total);
+  return 1;
 }
 
 template <typename T1, typename T2>
