@@ -24,11 +24,11 @@ namespace gibasa {
         }
     }
 
-    inline bool dict_index_sys(std::string dic_dir, std::string out_dir, std::string encoding) {
+    inline bool dict_index_sys(const std::string& dic_dir, const std::string& out_dir, const std::string& encoding) {
         typedef SEXP(*Ptr_dict_index_sys)(SEXP,SEXP,SEXP);
         static Ptr_dict_index_sys p_dict_index_sys = NULL;
         if (p_dict_index_sys == NULL) {
-            validateSignature("bool(*dict_index_sys)(std::string,std::string,std::string)");
+            validateSignature("bool(*dict_index_sys)(const std::string&,const std::string&,const std::string&)");
             p_dict_index_sys = (Ptr_dict_index_sys)R_GetCCallable("gibasa", "_gibasa_dict_index_sys");
         }
         RObject rcpp_result_gen;
@@ -45,11 +45,11 @@ namespace gibasa {
         return Rcpp::as<bool >(rcpp_result_gen);
     }
 
-    inline bool dict_index_user(std::string dic_dir, std::string file, std::string csv_file, std::string encoding) {
+    inline bool dict_index_user(const std::string& dic_dir, const std::string& file, const std::string& csv_file, const std::string& encoding) {
         typedef SEXP(*Ptr_dict_index_user)(SEXP,SEXP,SEXP,SEXP);
         static Ptr_dict_index_user p_dict_index_user = NULL;
         if (p_dict_index_user == NULL) {
-            validateSignature("bool(*dict_index_user)(std::string,std::string,std::string,std::string)");
+            validateSignature("bool(*dict_index_user)(const std::string&,const std::string&,const std::string&,const std::string&)");
             p_dict_index_user = (Ptr_dict_index_user)R_GetCCallable("gibasa", "_gibasa_dict_index_user");
         }
         RObject rcpp_result_gen;
@@ -66,11 +66,11 @@ namespace gibasa {
         return Rcpp::as<bool >(rcpp_result_gen);
     }
 
-    inline Rcpp::DataFrame dictionary_info(std::string sys_dic = "", std::string user_dic = "") {
+    inline Rcpp::DataFrame dictionary_info(const std::string& sys_dic = "", const std::string& user_dic = "") {
         typedef SEXP(*Ptr_dictionary_info)(SEXP,SEXP);
         static Ptr_dictionary_info p_dictionary_info = NULL;
         if (p_dictionary_info == NULL) {
-            validateSignature("Rcpp::DataFrame(*dictionary_info)(std::string,std::string)");
+            validateSignature("Rcpp::DataFrame(*dictionary_info)(const std::string&,const std::string&)");
             p_dictionary_info = (Ptr_dictionary_info)R_GetCCallable("gibasa", "_gibasa_dictionary_info");
         }
         RObject rcpp_result_gen;
@@ -87,11 +87,11 @@ namespace gibasa {
         return Rcpp::as<Rcpp::DataFrame >(rcpp_result_gen);
     }
 
-    inline int transition_cost(unsigned short rcAttr, unsigned short lcAttr, std::string sys_dic = "", std::string user_dic = "") {
+    inline int transition_cost(unsigned short rcAttr, unsigned short lcAttr, const std::string& sys_dic = "", const std::string& user_dic = "") {
         typedef SEXP(*Ptr_transition_cost)(SEXP,SEXP,SEXP,SEXP);
         static Ptr_transition_cost p_transition_cost = NULL;
         if (p_transition_cost == NULL) {
-            validateSignature("int(*transition_cost)(unsigned short,unsigned short,std::string,std::string)");
+            validateSignature("int(*transition_cost)(unsigned short,unsigned short,const std::string&,const std::string&)");
             p_transition_cost = (Ptr_transition_cost)R_GetCCallable("gibasa", "_gibasa_transition_cost");
         }
         RObject rcpp_result_gen;
@@ -108,11 +108,11 @@ namespace gibasa {
         return Rcpp::as<int >(rcpp_result_gen);
     }
 
-    inline Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text, std::string sys_dic = "", std::string user_dic = "", Rcpp::LogicalVector partial = 0) {
+    inline Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text, const std::string& sys_dic = "", const std::string& user_dic = "", Rcpp::LogicalVector partial = 0) {
         typedef SEXP(*Ptr_posDebugRcpp)(SEXP,SEXP,SEXP,SEXP);
         static Ptr_posDebugRcpp p_posDebugRcpp = NULL;
         if (p_posDebugRcpp == NULL) {
-            validateSignature("Rcpp::DataFrame(*posDebugRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector)");
+            validateSignature("Rcpp::DataFrame(*posDebugRcpp)(const std::vector<std::string>&,const std::string&,const std::string&,Rcpp::LogicalVector)");
             p_posDebugRcpp = (Ptr_posDebugRcpp)R_GetCCallable("gibasa", "_gibasa_posDebugRcpp");
         }
         RObject rcpp_result_gen;
@@ -129,11 +129,11 @@ namespace gibasa {
         return Rcpp::as<Rcpp::DataFrame >(rcpp_result_gen);
     }
 
-    inline Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text, std::string sys_dic = "", std::string user_dic = "", Rcpp::LogicalVector partial = 0, std::size_t grain_size = 1) {
+    inline Rcpp::DataFrame posParallelRcpp(const std::vector<std::string>& text, const std::string& sys_dic = "", const std::string& user_dic = "", Rcpp::LogicalVector partial = 0, const std::size_t& grain_size = 1) {
         typedef SEXP(*Ptr_posParallelRcpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_posParallelRcpp p_posParallelRcpp = NULL;
         if (p_posParallelRcpp == NULL) {
-            validateSignature("Rcpp::DataFrame(*posParallelRcpp)(std::vector<std::string>,std::string,std::string,Rcpp::LogicalVector,std::size_t)");
+            validateSignature("Rcpp::DataFrame(*posParallelRcpp)(const std::vector<std::string>&,const std::string&,const std::string&,Rcpp::LogicalVector,const std::size_t&)");
             p_posParallelRcpp = (Ptr_posParallelRcpp)R_GetCCallable("gibasa", "_gibasa_posParallelRcpp");
         }
         RObject rcpp_result_gen;

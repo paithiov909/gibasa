@@ -82,11 +82,11 @@ struct TextParse : public RcppParallel::Worker {
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::DataFrame posParallelRcpp(std::vector<std::string> text,
-                                std::string sys_dic = "",
-                                std::string user_dic = "",
+Rcpp::DataFrame posParallelRcpp(const std::vector<std::string>& text,
+                                const std::string& sys_dic = "",
+                                const std::string& user_dic = "",
                                 Rcpp::LogicalVector partial = 0,
-                                std::size_t grain_size = 1) {
+                                const std::size_t& grain_size = 1) {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {

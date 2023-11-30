@@ -144,14 +144,14 @@ class DictionaryComplier {
       }
     }
 
-    Rcpp::Rcout << "\ndone!\n";
+    Rcpp::Rcout << "\ndone!" << "\n";
 
     return 0;
   }
 };
 
-#undef DCONF
-#undef OCONF
+// #undef DCONF
+// #undef OCONF
 }  // namespace MeCab
 
 //' Build system dictionary
@@ -168,8 +168,8 @@ class DictionaryComplier {
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-bool dict_index_sys(std::string dic_dir, std::string out_dir,
-                    std::string encoding) {
+bool dict_index_sys(const std::string& dic_dir, const std::string& out_dir,
+                    const std::string& encoding) {
   std::vector<std::string> args;
   args.push_back("mecab-dict-index");
   if (dic_dir != "") {
@@ -222,8 +222,8 @@ bool dict_index_sys(std::string dic_dir, std::string out_dir,
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-bool dict_index_user(std::string dic_dir, std::string file,
-                     std::string csv_file, std::string encoding) {
+bool dict_index_user(const std::string& dic_dir, const std::string& file,
+                     const std::string& csv_file, const std::string& encoding) {
   std::vector<std::string> args;
   args.push_back("mecab-dict-index");
   if (dic_dir != "") {

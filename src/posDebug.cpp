@@ -17,8 +17,8 @@ using namespace Rcpp;
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::DataFrame dictionary_info(std::string sys_dic = "",
-                                std::string user_dic = "") {
+Rcpp::DataFrame dictionary_info(const std::string& sys_dic = "",
+                                const std::string& user_dic = "") {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -89,7 +89,7 @@ Rcpp::DataFrame dictionary_info(std::string sys_dic = "",
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
 int transition_cost(unsigned short rcAttr, unsigned short lcAttr,
-                    std::string sys_dic = "", std::string user_dic = "") {
+                    const std::string& sys_dic = "", const std::string& user_dic = "") {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -136,9 +136,9 @@ int transition_cost(unsigned short rcAttr, unsigned short lcAttr,
 //
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Rcpp::DataFrame posDebugRcpp(std::vector<std::string> text,
-                             std::string sys_dic = "",
-                             std::string user_dic = "",
+Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
+                             const std::string& sys_dic = "",
+                             const std::string& user_dic = "",
                              Rcpp::LogicalVector partial = 0) {
   std::vector<std::string> args;
   args.push_back("mecab");
