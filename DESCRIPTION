@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternative 'Rcpp' Wrapper of 'MeCab'
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
