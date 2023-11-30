@@ -313,7 +313,7 @@ file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/RtmpoYB70E/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/Rtmp0cbg9P/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -322,8 +322,8 @@ dictionary_info(sys_dic = tempdir())
 ## write a csv file and compile it into a user dictionary
 writeLines(
   c(
-    "月ノ,1290,1290,4579,名詞,固有名詞,人名,姓,*,*,つきの,ツキノ,ツキノ",
-    "美兎,1291,1291,8561,名詞,固有名詞,人名,名,*,*,みと,ミト,ミト"
+    "月ノ,1290,1290,4579,名詞,固有名詞,人名,姓,*,*,月ノ,ツキノ,ツキノ",
+    "美兎,1291,1291,8561,名詞,固有名詞,人名,名,*,*,美兎,ミト,ミト"
   ),
   con = (csv_file <- tempfile(fileext = ".csv"))
 )
@@ -333,19 +333,19 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/RtmpoYB70E/file662a4b1cf241.csv ... 2
+#> reading /tmp/Rtmp0cbg9P/file47f219330137.csv ... 2
 #> 
 #> done!
 
 tokenize("月ノ美兎は箱の中", sys_dic = tempdir(), user_dic = user_dic)
 #> # A tibble: 6 × 5
-#>   doc_id sentence_id token_id token feature                                    
-#>   <fct>        <int>    <int> <chr> <chr>                                      
-#> 1 1                1        1 月ノ  名詞,固有名詞,人名,姓,*,*,つきの,ツキノ,ツ…
-#> 2 1                1        2 美兎  名詞,固有名詞,人名,名,*,*,みと,ミト,ミト   
-#> 3 1                1        3 は    助詞,係助詞,*,*,*,*,は,ハ,ワ               
-#> 4 1                1        4 箱    名詞,一般,*,*,*,*,箱,ハコ,ハコ             
-#> 5 1                1        5 の    助詞,連体化,*,*,*,*,の,ノ,ノ               
+#>   doc_id sentence_id token_id token feature                                     
+#>   <fct>        <int>    <int> <chr> <chr>                                       
+#> 1 1                1        1 月ノ  名詞,固有名詞,人名,姓,*,*,月ノ,ツキノ,ツキノ
+#> 2 1                1        2 美兎  名詞,固有名詞,人名,名,*,*,美兎,ミト,ミト    
+#> 3 1                1        3 は    助詞,係助詞,*,*,*,*,は,ハ,ワ                
+#> 4 1                1        4 箱    名詞,一般,*,*,*,*,箱,ハコ,ハコ              
+#> 5 1                1        5 の    助詞,連体化,*,*,*,*,の,ノ,ノ                
 #> 6 1                1        6 中    名詞,非自立,副詞可能,*,*,*,中,ナカ,ナカ
 ```
 
