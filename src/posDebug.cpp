@@ -167,8 +167,8 @@ Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
   std::vector<std::string> surfaces;
   std::vector<std::string> features;
   std::vector<unsigned char> stats;
-  std::vector<unsigned short> rcAttr;
   std::vector<unsigned short> lcAttr;
+  std::vector<unsigned short> rcAttr;
   std::vector<float> alpha;
   std::vector<float> beta;
   std::vector<unsigned char> isbest;
@@ -187,7 +187,7 @@ Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
   }
   lattice->add_request_type(MECAB_MARGINAL_PROB);
 
-  for (size_t i = 0; i < text.size(); ++i) {
+  for (std::size_t i = 0; i < text.size(); ++i) {
     if (i % 100 == 0) checkUserInterrupt();
 
     std::string input = text[i];
@@ -212,8 +212,8 @@ Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
       surfaces.push_back(surface);
       features.push_back(feature);
       stats.push_back(node->stat);
-      rcAttr.push_back(node->rcAttr);
       lcAttr.push_back(node->lcAttr);
+      rcAttr.push_back(node->rcAttr);
       alpha.push_back(node->alpha);
       beta.push_back(node->beta);
       isbest.push_back(node->isbest);
@@ -229,8 +229,8 @@ Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
 
   return Rcpp::DataFrame::create(
       _["doc_id"] = docids, _["pos_id"] = posids, _["surface"] = surfaces,
-      _["feature"] = features, _["stat"] = stats, _["rcAttr"] = rcAttr,
-      _["lcAttr"] = lcAttr, _["alpha"] = alpha, _["beta"] = beta,
+      _["feature"] = features, _["stat"] = stats, _["lcAttr"] = lcAttr,
+      _["rcAttr"] = rcAttr, _["alpha"] = alpha, _["beta"] = beta,
       _["is_best"] = isbest, _["prob"] = prob, _["wcost"] = wcost,
       _["cost"] = cost);
 }

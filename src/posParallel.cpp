@@ -34,14 +34,14 @@ struct TextParse : public RcppParallel::Worker {
     if (*partial_) {
       lattice->add_request_type(MECAB_PARTIAL);
     }
-    for (size_t i = begin; i < end; ++i) {
+    for (std::size_t i = begin; i < end; ++i) {
       if (*partial_) {
         lattice->set_sentence(((*sentences_)[i] + "\nEOS").c_str());
       } else {
         lattice->set_sentence((*sentences_)[i].c_str());
       }
       if (tagger->parse(lattice)) {
-        const size_t len = lattice->size();
+        const std::size_t len = lattice->size();
         std::vector<std::tuple<std::string, std::string>> parsed;
         parsed.reserve(len);
 
@@ -128,7 +128,7 @@ Rcpp::DataFrame posParallelRcpp(const std::vector<std::string>& text,
   MeCab::deleteModel(model);
 
   // make columns for result data.frame.
-  for (size_t k = 0; k < results.size(); ++k) {
+  for (std::size_t k = 0; k < results.size(); ++k) {
     // check user interrupt (Ctrl+C).
     if (k % 1000 == 0) checkUserInterrupt();
 

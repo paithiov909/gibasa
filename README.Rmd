@@ -75,7 +75,9 @@ res <- gibasa::tokenize(
   data.frame(
     doc_id = seq_along(gibasa::ginga[5:8]),
     text = gibasa::ginga[5:8]
-  )
+  ),
+  text,
+  doc_id
 )
 res
 ```

@@ -94,7 +94,9 @@ res <- gibasa::tokenize(
   data.frame(
     doc_id = seq_along(gibasa::ginga[5:8]),
     text = gibasa::ginga[5:8]
-  )
+  ),
+  text,
+  doc_id
 )
 res
 #> # A tibble: 187 × 5
@@ -313,7 +315,7 @@ file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/Rtmp0cbg9P/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/RtmpHYI78Z/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -333,7 +335,7 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/Rtmp0cbg9P/file47f219330137.csv ... 2
+#> reading /tmp/RtmpHYI78Z/file46ab361f0ebe.csv ... 2
 #> 
 #> done!
 

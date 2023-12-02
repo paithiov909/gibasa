@@ -1,14 +1,17 @@
-## Notes
+# gibasa 1.0.1
+
 This release contains patches to 
 suppress warnings in 'r-devel-linux-x86_64-debian-clang' and 'r-devel-linux-x86_64-fedora-clang'.
 
 ## Test environments
+
 - R-hub ubuntu-gcc-release (r-release)
 - R-hub debian-clang-devel (r-devel)
 - R-hub windows-x86_64-oldrel (r-oldrel)
 - R-hub windows-x86_64-devel (r-devel)
 
 ## R CMD check results
+
 * On ubuntu-gcc-release (r-release)
   checking installed package size ... NOTE
     installed size is 18.9Mb
@@ -38,4 +41,5 @@ suppress warnings in 'r-devel-linux-x86_64-debian-clang' and 'r-devel-linux-x86_
 0 errors | 0 warnings | 5 notes
 
 ## revdepcheck
+
 There are currently no downstream dependencies for this package.
