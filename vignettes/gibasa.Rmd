@@ -90,25 +90,29 @@ gibasa::pack(res, POS1)
 
 ```r
 dat <- data.frame(
-  doc_id = seq_along(audubon::polano[5:800]),
-  text = audubon::polano[5:800]
+    doc_id = seq_along(gibasa::ginga),
+    text = gibasa::ginga
 )
 
 gibasa <- function() {
-  gibasa::tokenize(dat) |>
-    gibasa::prettify(col_select = "POS1")
+    gibasa::tokenize(dat) |>
+        gibasa::prettify(col_select = "POS1") |>
+        dplyr::mutate(doc_id = as.integer(doc_id)) |>
+        dplyr::select(doc_id, token, POS1) |>
+        as.data.frame()
 }
 
 rmecab <- function() {
-  purrr::imap_dfr(
-    RMeCab::RMeCabDF(dat, 2),
-    ~ data.frame(doc_id = .y, token = unname(.x), POS1 = names(.x))
-  )
+    purrr::imap_dfr(
+        RMeCab::RMeCabDF(dat, 2),
+        ~ data.frame(doc_id = .y, token = unname(.x), POS1 = names(.x))
+    )
 }
 
 bench <- microbenchmark::microbenchmark(gibasa(),
                                         rmecab(),
-                                        times = 20L)
+                                        times = 20L,
+                                        check = "equal")
 ggplot2::autoplot(bench)
 ```
 
@@ -205,7 +209,6 @@ tbl |>
 ```{r cast_corpus}
 corp <- tbl |>
   dplyr::mutate(
-    text = audubon::strj_normalize(text),
     chunk = dplyr::ntile(doc_id, 10)
   ) |>
   dplyr::group_by(chunk) |>
