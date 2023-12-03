@@ -8,8 +8,8 @@
 <meta name="description" content="制約付き解析（部分解析）について">
 <title>How to Use Partial Parsing Mode • gibasa</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="How to Use Partial Parsing Mode">
 <meta property="og:description" content="制約付き解析（部分解析）について">
@@ -31,7 +31,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>How to Use Partial Parsing Mode</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2023-07-09</h4>
+            <h4 data-toc-skip class="date">2023-12-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/partial.Rmd" class="external-link"><code>vignettes/partial.Rmd</code></a></small>
       <div class="d-none name"><code>partial.Rmd</code></div>
@@ -115,7 +115,7 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/posDebugRcpp.html">posDebugRcpp</a></span><span class="op">(</span><span class="st">"月ノ美兎は箱の中"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">is_best</span> <span class="op">==</span> <span class="st">"01"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    doc_id pos_id surface                                 feature stat rcAttr</span></span>
+<span><span class="co">#&gt;    doc_id pos_id surface                                 feature stat lcAttr</span></span>
 <span><span class="co">#&gt; 1       1      0                         BOS/EOS,*,*,*,*,*,*,*,*   02      0</span></span>
 <span><span class="co">#&gt; 2       1     38      月          名詞,一般,*,*,*,*,月,ツキ,ツキ   00   1285</span></span>
 <span><span class="co">#&gt; 3       1      4      ノ              記号,一般,*,*,*,*,ノ,ノ,ノ   00      5</span></span>
@@ -126,7 +126,7 @@
 <span><span class="co">#&gt; 8       1     24      の            助詞,連体化,*,*,*,*,の,ノ,ノ   00    368</span></span>
 <span><span class="co">#&gt; 9       1     66      中 名詞,非自立,副詞可能,*,*,*,中,ナカ,ナカ   00   1313</span></span>
 <span><span class="co">#&gt; 10      1      0                         BOS/EOS,*,*,*,*,*,*,*,*   03      0</span></span>
-<span><span class="co">#&gt;    lcAttr     alpha      beta is_best prob wcost  cost</span></span>
+<span><span class="co">#&gt;    rcAttr     alpha      beta is_best prob wcost  cost</span></span>
 <span><span class="co">#&gt; 1       0      0.00 -22144.50      01    0     0     0</span></span>
 <span><span class="co">#&gt; 2    1285  -6190.50 -15954.00      01    1  8537  8254</span></span>
 <span><span class="co">#&gt; 3       5  -8874.75 -13269.75      01    1  4929 11833</span></span>
@@ -144,7 +144,7 @@
 <p>そこで、「月ノ美兎」という語彙を形態素断片として与えてみます。なお、<code>posDebugRcpp</code>では、<code>partial=TRUE</code>にすると<code>-a</code>に相当するオプションは無効になり、最適解のみが出力されます。</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/posDebugRcpp.html">posDebugRcpp</a></span><span class="op">(</span><span class="st">"月ノ美兎\t名詞,固有名詞,人名,*,*,*\nは箱の中"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id pos_id  surface                                 feature stat rcAttr</span></span>
+<span><span class="co">#&gt;   doc_id pos_id  surface                                 feature stat lcAttr</span></span>
 <span><span class="co">#&gt; 1      1      0                          BOS/EOS,*,*,*,*,*,*,*,*   02      0</span></span>
 <span><span class="co">#&gt; 2      1     42 月ノ美兎           名詞,固有名詞,人名,一般,*,*,*   01   1289</span></span>
 <span><span class="co">#&gt; 3      1     16       は            助詞,係助詞,*,*,*,*,は,ハ,ワ   00    261</span></span>
@@ -152,7 +152,7 @@
 <span><span class="co">#&gt; 5      1     24       の            助詞,連体化,*,*,*,*,の,ノ,ノ   00    368</span></span>
 <span><span class="co">#&gt; 6      1     66       中 名詞,非自立,副詞可能,*,*,*,中,ナカ,ナカ   00   1313</span></span>
 <span><span class="co">#&gt; 7      1      0                          BOS/EOS,*,*,*,*,*,*,*,*   03      0</span></span>
-<span><span class="co">#&gt;   lcAttr     alpha      beta is_best prob wcost  cost</span></span>
+<span><span class="co">#&gt;   rcAttr     alpha      beta is_best prob wcost  cost</span></span>
 <span><span class="co">#&gt; 1      0      0.00 -16275.00      01    0     0     0</span></span>
 <span><span class="co">#&gt; 2   1289 -12134.25  -4140.75      01    1 17340 16179</span></span>
 <span><span class="co">#&gt; 3    261 -12225.75  -4049.25      01    1  3865 16301</span></span>
@@ -163,7 +163,7 @@
 <p>これでひとまず期待どおりに解析することができました。こうした使い方のほかに、形態素断片の素性パターンにワイルドカード（<code>*</code>）を使うと、その単語を切り出しながら品詞については適当なものを付与させることができます。以下では「月ノ美兎」については常に単語として切り出しながら、品詞は適当なものを付与させています。</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/posDebugRcpp.html">posDebugRcpp</a></span><span class="op">(</span><span class="st">"月ノ美兎\t*\nは箱の中"</span>, partial <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   doc_id pos_id  surface                                 feature stat rcAttr</span></span>
+<span><span class="co">#&gt;   doc_id pos_id  surface                                 feature stat lcAttr</span></span>
 <span><span class="co">#&gt; 1      1      0                          BOS/EOS,*,*,*,*,*,*,*,*   02      0</span></span>
 <span><span class="co">#&gt; 2      1     38 月ノ美兎                     名詞,一般,*,*,*,*,*   01   1285</span></span>
 <span><span class="co">#&gt; 3      1     16       は            助詞,係助詞,*,*,*,*,は,ハ,ワ   00    261</span></span>
@@ -171,7 +171,7 @@
 <span><span class="co">#&gt; 5      1     24       の            助詞,連体化,*,*,*,*,の,ノ,ノ   00    368</span></span>
 <span><span class="co">#&gt; 6      1     66       中 名詞,非自立,副詞可能,*,*,*,中,ナカ,ナカ   00   1313</span></span>
 <span><span class="co">#&gt; 7      1      0                          BOS/EOS,*,*,*,*,*,*,*,*   03      0</span></span>
-<span><span class="co">#&gt;   lcAttr     alpha      beta is_best prob wcost  cost</span></span>
+<span><span class="co">#&gt;   rcAttr     alpha      beta is_best prob wcost  cost</span></span>
 <span><span class="co">#&gt; 1      0      0.00 -12421.50      01    0     0     0</span></span>
 <span><span class="co">#&gt; 2   1285  -8357.25  -4064.25      01    1 11426 11143</span></span>
 <span><span class="co">#&gt; 3    261  -8372.25  -4049.25      01    1  3865 11163</span></span>

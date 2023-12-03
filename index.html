@@ -11,8 +11,8 @@
     analysis.">
 <title>An Alternative Rcpp Wrapper of MeCab • gibasa</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="An Alternative Rcpp Wrapper of MeCab">
 <meta property="og:description" content="A plain Rcpp wrapper of MeCab that can segment Chinese,
@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,16 +109,19 @@ flowchart of a text analysis that combines gibasa and other packages
 </h2>
 <p>You can install binary package via <a href="https://cran.r-project.org/package=gibasa" class="external-link">CRAN</a> or <a href="https://paithiov909.r-universe.dev/gibasa" class="external-link">r-universe</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install gibasa from r-universe repository</span></span>
+<code class="sourceCode R"><span><span class="co">## Install gibasa from r-universe repository</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gibasa"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://paithiov909.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Or build from source package</span></span>
+<span><span class="co">## Or build from source package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>MECAB_DEFAULT_RC <span class="op">=</span> <span class="st">"/fullpath/to/your/mecabrc"</span><span class="op">)</span> <span class="co"># if necessary</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"paithiov909/gibasa"</span><span class="op">)</span></span></code></pre></div>
 <p>To use gibasa package requires the <a href="https://taku910.github.io/mecab/" class="external-link">MeCab</a> library and its dictionary installed and available.</p>
 <p>In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself.</p>
 <p>In case using Windows, use installer <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7WElGUGt6ejlpVXc" class="external-link">built for 32bit</a> or <a href="https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2" class="external-link">built for 64bit</a>. Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.</p>
-<p>As of v0.9.4 above, gibasa looks at the file specified by the environment variable <code>MECABRC</code> or the file located at <code>~/.mecabrc</code>. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.</p>
+<p>As of v0.9.4, gibasa looks at the file specified by the environment variable <code>MECABRC</code> or the file located at <code>~/.mecabrc</code>. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.</p>
+<p>For example, to install and use the <a href="https://pypi.org/project/ipadic/" class="external-link">ipadic</a> from PyPI, run</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-m</span> pip install ipadic</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-c</span> <span class="st">"import ipadic; print('dicdir=' + ipadic.DICDIR);"</span> <span class="op">&gt;</span> ~/.mecabrc</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -126,12 +129,14 @@ flowchart of a text analysis that combines gibasa and other packages
 <div class="section level3">
 <h3 id="tokenize-sentences">Tokenize sentences<a class="anchor" aria-label="anchor" href="#tokenize-sentences"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu">gibasa</span><span class="fu">::</span><span class="va"><a href="reference/ginga.html">ginga</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>    text <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="va"><a href="reference/ginga.html">ginga</a></span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">text</span>,</span>
+<span>  <span class="va">doc_id</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">res</span></span>
 <span><span class="co">#&gt; # A tibble: 187 × 5</span></span>
@@ -152,7 +157,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <div class="section level3">
 <h3 id="prettify-output">Prettify output<a class="anchor" aria-label="anchor" href="#prettify-output"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 187 × 13</span></span>
 <span><span class="co">#&gt;    doc_id sentence_id token_id token        POS1   POS2  POS3  POS4  X5StageUse1</span></span>
@@ -219,7 +224,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <div class="section level3">
 <h3 id="pack-output">Pack output<a class="anchor" aria-label="anchor" href="#pack-output"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
@@ -246,58 +251,142 @@ flowchart of a text analysis that combines gibasa and other packages
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>
 </h3>
 <p>IPA, UniDic, <a href="https://github.com/ueda-keisuke/CC-CEDICT-MeCab" class="external-link">CC-CEDICT-MeCab</a>, and <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/" class="external-link">mecab-ko-dic</a> schemes are supported.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## UniDic 2.1.2</span></span>
-<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/unidic-lite"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/unidic-lite"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 30</span></span>
-<span><span class="co">#&gt;   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  cType cForm lForm lemma</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 1              1       1 あの  感動… フィ… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  アノ  あの </span></span>
-<span><span class="co">#&gt; 2 1              1       2 イー… 名詞  普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 3 1              1       3 の    助詞  格助… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ノ    の   </span></span>
-<span><span class="co">#&gt; 4 1              1       4 すき… 動詞  一般  &lt;NA&gt;  &lt;NA&gt;  五段… 連用… スキ… 透き…</span></span>
-<span><span class="co">#&gt; 5 1              1       5 た    助動… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  助動… 連体… タ    た   </span></span>
-<span><span class="co">#&gt; 6 1              1       6 風    名詞  普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  カゼ  風   </span></span>
-<span><span class="co">#&gt; # … with 18 more variables: orth &lt;chr&gt;, pron &lt;chr&gt;, orthBase &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt;   doc_id sentence_id token_id token   POS1   POS2  POS3  POS4  cType cForm lForm</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 1                1        1 あの    感動詞 フィ… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  アノ </span></span>
+<span><span class="co">#&gt; 2 1                1        2 イーハ… 名詞   普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 3 1                1        3 の      助詞   格助… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ノ   </span></span>
+<span><span class="co">#&gt; 4 1                1        4 すきと… 動詞   一般  &lt;NA&gt;  &lt;NA&gt;  五段… 連用… スキ…</span></span>
+<span><span class="co">#&gt; 5 1                1        5 た      助動詞 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  助動… 連体… タ   </span></span>
+<span><span class="co">#&gt; 6 1                1        6 風      名詞   普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  カゼ </span></span>
+<span><span class="co">#&gt; # ℹ 19 more variables: lemma &lt;chr&gt;, orth &lt;chr&gt;, pron &lt;chr&gt;, orthBase &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   pronBase &lt;chr&gt;, goshu &lt;chr&gt;, iType &lt;chr&gt;, iForm &lt;chr&gt;, fType &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   fForm &lt;chr&gt;, kana &lt;chr&gt;, kanaBase &lt;chr&gt;, form &lt;chr&gt;, formBase &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   iConType &lt;chr&gt;, fConType &lt;chr&gt;, aType &lt;chr&gt;, aConType &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   aModeType &lt;chr&gt;, and abbreviated variable names ¹​sentence_id, ²​token_id</span></span>
+<span><span class="co">#&gt; #   aModeType &lt;chr&gt;</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## CC-CEDICT</span></span>
-<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"它可以进行日语和汉语的语态分析"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/cc-cedict"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"它可以进行日语和汉语的语态分析"</span>, sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/cc-cedict"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"cc-cedict"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 9 × 12</span></span>
-<span><span class="co">#&gt;   doc_id sentenc…¹ token…² token POS1  POS2  POS3  POS4  pinyi…³ tradi…⁴ simpl…⁵</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;      &lt;int&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 1              1       1 它    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ta1     它      它     </span></span>
-<span><span class="co">#&gt; 2 1              1       2 可以  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ke3 yi3 可以    可以   </span></span>
-<span><span class="co">#&gt; 3 1              1       3 进行  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  jin4 x… 進行    进行   </span></span>
-<span><span class="co">#&gt; 4 1              1       4 日语  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  Ri4 yu3 日語    日语   </span></span>
-<span><span class="co">#&gt; 5 1              1       5 和    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  he2     龢      和     </span></span>
-<span><span class="co">#&gt; 6 1              1       6 汉语  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  Han4 y… 漢語    汉语   </span></span>
-<span><span class="co">#&gt; 7 1              1       7 的    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  di4     的      的     </span></span>
-<span><span class="co">#&gt; 8 1              1       8 语态  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  yu3 ta… 語態    语态   </span></span>
-<span><span class="co">#&gt; 9 1              1       9 分析  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  fen1 x… 分析    分析   </span></span>
-<span><span class="co">#&gt; # … with 1 more variable: definition &lt;chr&gt;, and abbreviated variable names</span></span>
-<span><span class="co">#&gt; #   ¹​sentence_id, ²​token_id, ³​pinyin_pron, ⁴​traditional_char_form,</span></span>
-<span><span class="co">#&gt; #   ⁵​simplified_char_form</span></span>
+<span><span class="co">#&gt;   doc_id sentence_id token_id token POS1  POS2  POS3  POS4  pinyin_pron</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      </span></span>
+<span><span class="co">#&gt; 1 1                1        1 它    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ta1        </span></span>
+<span><span class="co">#&gt; 2 1                1        2 可以  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ke3 yi3    </span></span>
+<span><span class="co">#&gt; 3 1                1        3 进行  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  jin4 xing2 </span></span>
+<span><span class="co">#&gt; 4 1                1        4 日语  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  Ri4 yu3    </span></span>
+<span><span class="co">#&gt; 5 1                1        5 和    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  he2        </span></span>
+<span><span class="co">#&gt; 6 1                1        6 汉语  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  Han4 yu3   </span></span>
+<span><span class="co">#&gt; 7 1                1        7 的    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  di4        </span></span>
+<span><span class="co">#&gt; 8 1                1        8 语态  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  yu3 tai4   </span></span>
+<span><span class="co">#&gt; 9 1                1        9 分析  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  fen1 xi1   </span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: traditional_char_form &lt;chr&gt;, simplified_char_form &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   definition &lt;chr&gt;</span></span>
 <span></span>
 <span></span>
 <span><span class="co">## mecab-ko-dic</span></span>
-<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"하네다공항한정토트백"</span>, sys_dic <span class="op">=</span> <span class="st">"/Downloads/mecab-ko-dic"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"하네다공항한정토트백"</span>, sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/mecab-ko-dic"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"ko-dic"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 12</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id token  POS   meaning prese…¹ reading type  first…²</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 1                1        1 하네다 NNP   인명    F       하네다  &lt;NA&gt;  &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 2 1                1        2 공항   NNG   장소    T       공항    &lt;NA&gt;  &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 3 1                1        3 한정   NNG   &lt;NA&gt;    T       한정    &lt;NA&gt;  &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 4 1                1        4 토트백 NNG   &lt;NA&gt;    T       토트백  Comp… &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; # … with 2 more variables: last_pos &lt;chr&gt;, expression &lt;chr&gt;, and abbreviated</span></span>
-<span><span class="co">#&gt; #   variable names ¹​presence, ²​first_pos</span></span></code></pre></div>
+<span><span class="co">#&gt;   doc_id sentence_id token_id token  POS   meaning presence reading type    </span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;   </span></span>
+<span><span class="co">#&gt; 1 1                1        1 하네다 NNP   인명    F        하네다  &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt; 2 1                1        2 공항   NNG   장소    T        공항    &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt; 3 1                1        3 한정   NNG   &lt;NA&gt;    T        한정    &lt;NA&gt;    </span></span>
+<span><span class="co">#&gt; 4 1                1        4 토트백 NNG   &lt;NA&gt;    T        토트백  Compound</span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: first_pos &lt;chr&gt;, last_pos &lt;chr&gt;, expression &lt;chr&gt;</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="build-dictionaries">Build dictionaries<a class="anchor" aria-label="anchor" href="#build-dictionaries"></a>
+</h2>
+<div class="section level3">
+<h3 id="build-a-system-dictionary">Build a system dictionary<a class="anchor" aria-label="anchor" href="#build-a-system-dictionary"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## build a new ipadic in temporary directory</span></span>
+<span><span class="fu"><a href="reference/build_sys_dic.html">build_sys_dic</a></span><span class="op">(</span></span>
+<span>  dic_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/ipadic-eucjp"</span><span class="op">)</span>, <span class="co"># replace here with path to your source dictionary</span></span>
+<span>  out_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="st">"euc-jp"</span> <span class="co"># encoding of source csv files</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/unk.def ... 40</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Adverb.csv ... 3032</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Conjunction.csv ... 171</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Suffix.csv ... 1393</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.adverbal.csv ... 795</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.others.csv ... 151</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.org.csv ... 16668</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Verb.csv ... 130750</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.place.csv ... 72999</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.csv ... 60477</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Adnominal.csv ... 135</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.number.csv ... 42</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.verbal.csv ... 12146</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Filler.csv ... 19</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Others.csv ... 2</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.adjv.csv ... 3328</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Interjection.csv ... 252</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Postp-col.csv ... 91</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.nai.csv ... 42</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Prefix.csv ... 221</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.name.csv ... 34202</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Symbol.csv ... 208</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Adj.csv ... 27210</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.demonst.csv ... 120</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Noun.proper.csv ... 27327</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Postp.csv ... 146</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/Auxil.csv ... 199</span></span>
+<span><span class="co">#&gt; reading mecab/ipadic-eucjp/matrix.def ... 1316x1316</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; done!</span></span>
+<span></span>
+<span><span class="co">## copy the 'dicrc' file</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/ipadic-eucjp/dicrc"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/dictionary_info.html">dictionary_info</a></span><span class="op">(</span>sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                 file_path charset lsize rsize   size type version</span></span>
+<span><span class="co">#&gt; 1 /tmp/RtmpHYI78Z/sys.dic    utf8  1316  1316 392126    0     102</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="build-a-user-dictionary">Build a user dictionary<a class="anchor" aria-label="anchor" href="#build-a-user-dictionary"></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## write a csv file and compile it into a user dictionary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"月ノ,1290,1290,4579,名詞,固有名詞,人名,姓,*,*,月ノ,ツキノ,ツキノ"</span>,</span>
+<span>    <span class="st">"美兎,1291,1291,8561,名詞,固有名詞,人名,名,*,*,美兎,ミト,ミト"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  con <span class="op">=</span> <span class="op">(</span><span class="va">csv_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/build_user_dic.html">build_user_dic</a></span><span class="op">(</span></span>
+<span>  dic_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/ipadic-eucjp"</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="op">(</span><span class="va">user_dic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".dic"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  csv_file <span class="op">=</span> <span class="va">csv_file</span>,</span>
+<span>  encoding <span class="op">=</span> <span class="st">"utf8"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; reading /tmp/RtmpHYI78Z/file46ab361f0ebe.csv ... 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; done!</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"月ノ美兎は箱の中"</span>, sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, user_dic <span class="op">=</span> <span class="va">user_dic</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 5</span></span>
+<span><span class="co">#&gt;   doc_id sentence_id token_id token feature                                     </span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                                       </span></span>
+<span><span class="co">#&gt; 1 1                1        1 月ノ  名詞,固有名詞,人名,姓,*,*,月ノ,ツキノ,ツキノ</span></span>
+<span><span class="co">#&gt; 2 1                1        2 美兎  名詞,固有名詞,人名,名,*,*,美兎,ミト,ミト    </span></span>
+<span><span class="co">#&gt; 3 1                1        3 は    助詞,係助詞,*,*,*,*,は,ハ,ワ                </span></span>
+<span><span class="co">#&gt; 4 1                1        4 箱    名詞,一般,*,*,*,*,箱,ハコ,ハコ              </span></span>
+<span><span class="co">#&gt; 5 1                1        5 の    助詞,連体化,*,*,*,*,の,ノ,ノ                </span></span>
+<span><span class="co">#&gt; 6 1                1        6 中    名詞,非自立,副詞可能,*,*,*,中,ナカ,ナカ</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
