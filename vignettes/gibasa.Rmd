@@ -133,7 +133,7 @@ ggplot2::autoplot(bench)
 
 ```{r load_dataset}
 tmp <- tempfile(fileext = ".zip")
-download.file("https://github.com/paithiov909/shiryo/raw/main/data/aozora.csv.zip", tmp)
+download.file("https://github.com/paithiov909/shiryo/raw/main/docs/data/aozora.csv.zip", tmp)
 
 tbl <- readr::read_csv(tmp, col_types = "cccf") |>
   dplyr::mutate(author = as.factor(author))
