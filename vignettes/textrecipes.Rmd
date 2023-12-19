@@ -95,7 +95,7 @@ NUM_TERMS <- 100L
 
 corpus_spec <-
   parsnip::boost_tree(
-    trees = NUM_TERMS,
+    trees = !!NUM_TERMS, # model_specに外にある変数を与える場合には、このようにinjectionします
     tree_depth = tune::tune(),
     mtry = tune::tune(),
     min_n = 5,
@@ -104,7 +104,7 @@ corpus_spec <-
   ) |>
   parsnip::set_engine(
     "xgboost",
-    nthread = max(1, parallel::detectCores() - 1, na.rm = TRUE)
+    nthread = !!max(1, parallel::detectCores() - 1, na.rm = TRUE)
   ) |>
   parsnip::set_mode("classification")
 
