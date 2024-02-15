@@ -64,7 +64,7 @@ global_idf2 <- function(sp) {
 # probabilistic idf
 global_idf3 <- function(sp) {
   df <- count_nnzero(sp)
-  purrr::set_names(log2(nrow(sp - df) / df), colnames(sp))
+  purrr::set_names(log2((nrow(sp) - df) / df), colnames(sp))
 }
 
 # entropy
