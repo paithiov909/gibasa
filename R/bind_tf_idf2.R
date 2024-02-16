@@ -43,12 +43,17 @@ cast_sparse <- function(data, row, column, value, ...) {
   ret
 }
 
+
+count_nnzero <- function(sp) {
+  Matrix::colSums((sp > 0) * 1, na.rm = TRUE)
+}
+
 booled_freq <- function(v) {
   as.numeric(v > 0)
 }
 
-count_nnzero <- function(sp) {
-  Matrix::colSums((sp > 0) * 1, na.rm = TRUE)
+global_df <- function(sp) {
+  purrr::set_names(count_nnzero(sp) / nrow(sp), colnames(sp))
 }
 
 # inverse document frequency smooth
@@ -78,15 +83,15 @@ global_entropy <- function(sp) {
 #'
 #' Calculates and binds the term frequency, inverse document frequency,
 #' and TF-IDF of the dataset.
-#' This function experimentally supports 3 types of term frequencies
-#' and 4 types of inverse document frequencies,
-#' which are implemented in 'RMeCab' package.
+#' This function experimentally supports 4 types of term frequencies
+#' and 5 types of inverse document frequencies.
 #'
 #' @details
 #' Types of term frequency can be switched with `tf` argument:
 #' * `tf` is term frequency (not raw count of terms).
 #' * `tf2` is logarithmic term frequency of which base is `exp(1)`.
 #' * `tf3` is binary-weighted term frequency.
+#' * `itf` is inverse term frequency. Use with `idf="df"`.
 #'
 #' Types of inverse document frequencies can be switched with `idf` argument:
 #' * `idf` is inverse document frequency of which base is 2, with smoothed.
@@ -94,14 +99,15 @@ global_entropy <- function(sp) {
 #' * `idf2` is global frequency IDF.
 #' * `idf3` is probabilistic IDF of which base is 2.
 #' * `idf4` is global entropy, not IDF in actual.
+#' * `df` is document frequency. Use with `tf="itf"`.
 #'
 #' @param tbl A tidy text dataset.
 #' @param term <[`data-masked`][rlang::args_data_masking]>
-#' Column containing terms as string or symbol.
+#' Column containing terms.
 #' @param document <[`data-masked`][rlang::args_data_masking]>
-#' Column containing document IDs as string or symbol.
+#' Column containing document IDs.
 #' @param n <[`data-masked`][rlang::args_data_masking]>
-#' Column containing document-term counts as string or symbol.
+#' Column containing document-term counts.
 #' @param tf Method for computing term frequency.
 #' @param idf Method for computing inverse document frequency.
 #' @param norm Logical; If passed as `TRUE`, TF-IDF values are normalized
@@ -130,8 +136,8 @@ bind_tf_idf2 <- function(tbl,
                          term = "token",
                          document = "doc_id",
                          n = "n",
-                         tf = c("tf", "tf2", "tf3"),
-                         idf = c("idf", "idf2", "idf3", "idf4"),
+                         tf = c("tf", "tf2", "tf3", "itf"),
+                         idf = c("idf", "idf2", "idf3", "idf4", "df"),
                          norm = FALSE,
                          rmecab_compat = TRUE) {
   tf <- rlang::arg_match(tf)
@@ -153,13 +159,17 @@ bind_tf_idf2 <- function(tbl,
       switch(tf,
         tf = sum(x),
         tf2 = log(x + 1),
-        tf3 = booled_freq(x)
+        tf3 = booled_freq(x),
+        itf = sum(x)
       )
     }
   )
 
   if (identical(tf, "tf")) {
     tbl <- dplyr::mutate(tbl, tf = .data$n / as.numeric(doc_totals[documents]))
+  } else if (identical(tf, "itf")) {
+    tbl <-
+      dplyr::mutate(tbl, tf = log(as.numeric(doc_totals[documents]) / .data$n))
   } else {
     tbl <- dplyr::mutate(tbl, tf = purrr::flatten_dbl(doc_totals))
   }
@@ -174,7 +184,8 @@ bind_tf_idf2 <- function(tbl,
     idf = global_idf(sp),
     idf2 = global_idf2(sp),
     idf3 = global_idf3(sp),
-    idf4 = global_entropy(sp)
+    idf4 = global_entropy(sp),
+    df = global_df(sp)
   )
   tbl <- dplyr::mutate(tbl,
     idf = as.numeric(idf[terms]),

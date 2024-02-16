@@ -83,3 +83,13 @@ test_that("tf*idf*norm works", {
     dplyr::arrange(testdata[["tf*idf*norm"]], doc_id, token, tf_idf)
   )
 })
+
+### itf*df ----
+test_that("itf*df works", {
+  res <-
+    bind_tf_idf2(df, tf = "itf", idf = "df") |>
+    dplyr::select(doc_id, tf_idf) |>
+    dplyr::arrange(doc_id, tf_idf) |>
+    dplyr::filter(as.integer(doc_id) < 5)
+  expect_snapshot_value(res, style = "json2", cran = FALSE)
+})
