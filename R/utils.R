@@ -74,10 +74,12 @@ is.blank <- function(x) {
   UseMethod("is.blank", x)
 }
 
+#' @export
 is.blank.default <- function(x) {
   is.na(x) | is.nan(x)
 }
 
+#' @export
 is.blank.character <- function(x) {
   is.na(x) | stringi::stri_isempty(x)
 }

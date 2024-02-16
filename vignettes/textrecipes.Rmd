@@ -108,16 +108,15 @@ corpus_spec <-
   ) |>
   parsnip::set_mode("classification")
 
-space_tokenizer <- function(x) {
-  strsplit(x, " +")
-}
-
 corpus_rec <-
   recipes::recipe(
     category ~ text,
     data = corpus_train
   ) |>
-  textrecipes::step_tokenize(text, custom_token = space_tokenizer) |>
+  textrecipes::step_tokenize(
+    text,
+    custom_token = \(x) strsplit(x, " +")
+  ) |>
   textrecipes::step_tokenfilter(
     text,
     max_times = nrow(corpus_train),
