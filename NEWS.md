@@ -1,3 +1,10 @@
+# gibasa (development version)
+
+* Corrected probabilistic IDF calculation by `global_idf3`.
+* Refactored `bind_tf_idf2`.
+  * Changed behavior when `norm=TRUE`. Cosine nomalization is now performed on `tf_idf` values as in the RMeCab package.
+  * Added `tf="itf"` and `idf="df"` options.
+
 # gibasa 1.0.1
 
 * Added wrappers around dictionary compiler of MeCab.

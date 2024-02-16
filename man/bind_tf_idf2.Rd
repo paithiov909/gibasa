@@ -9,8 +9,8 @@ bind_tf_idf2(
   term = "token",
   document = "doc_id",
   n = "n",
-  tf = c("tf", "tf2", "tf3"),
-  idf = c("idf", "idf2", "idf3", "idf4"),
+  tf = c("tf", "tf2", "tf3", "itf"),
+  idf = c("idf", "idf2", "idf3", "idf4", "df"),
   norm = FALSE,
   rmecab_compat = TRUE
 )
@@ -19,20 +19,20 @@ bind_tf_idf2(
 \item{tbl}{A tidy text dataset.}
 
 \item{term}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-Column containing terms as string or symbol.}
+Column containing terms.}
 
 \item{document}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-Column containing document IDs as string or symbol.}
+Column containing document IDs.}
 
 \item{n}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-Column containing document-term counts as string or symbol.}
+Column containing document-term counts.}
 
 \item{tf}{Method for computing term frequency.}
 
 \item{idf}{Method for computing inverse document frequency.}
 
-\item{norm}{Logical; If passed as \code{TRUE}, the raw term counts are normalized
-being divided with L2 norms before computing IDF values.}
+\item{norm}{Logical; If passed as \code{TRUE}, TF-IDF values are normalized
+being divided with L2 norms.}
 
 \item{rmecab_compat}{Logical; If passed as \code{TRUE}, computes values while
 taking care of compatibility with 'RMeCab'.
@@ -46,9 +46,8 @@ A data.frame.
 \description{
 Calculates and binds the term frequency, inverse document frequency,
 and TF-IDF of the dataset.
-This function experimentally supports 3 types of term frequencies
-and 4 types of inverse document frequencies,
-which are implemented in 'RMeCab' package.
+This function experimentally supports 4 types of term frequencies
+and 5 types of inverse document frequencies.
 }
 \details{
 Types of term frequency can be switched with \code{tf} argument:
@@ -56,6 +55,7 @@ Types of term frequency can be switched with \code{tf} argument:
 \item \code{tf} is term frequency (not raw count of terms).
 \item \code{tf2} is logarithmic term frequency of which base is \code{exp(1)}.
 \item \code{tf3} is binary-weighted term frequency.
+\item \code{itf} is inverse term frequency. Use with \code{idf="df"}.
 }
 
 Types of inverse document frequencies can be switched with \code{idf} argument:
@@ -65,6 +65,7 @@ Types of inverse document frequencies can be switched with \code{idf} argument:
 \item \code{idf2} is global frequency IDF.
 \item \code{idf3} is probabilistic IDF of which base is 2.
 \item \code{idf4} is global entropy, not IDF in actual.
+\item \code{df} is document frequency. Use with \code{tf="itf"}.
 }
 }
 \examples{
