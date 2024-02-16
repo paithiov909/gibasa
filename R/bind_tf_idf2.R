@@ -104,8 +104,8 @@ global_entropy <- function(sp) {
 #' Column containing document-term counts as string or symbol.
 #' @param tf Method for computing term frequency.
 #' @param idf Method for computing inverse document frequency.
-#' @param norm Logical; If passed as `TRUE`, the raw term counts are normalized
-#' being divided with L2 norms before computing IDF values.
+#' @param norm Logical; If passed as `TRUE`, TF-IDF values are normalized
+#' being divided with L2 norms.
 #' @param rmecab_compat Logical; If passed as `TRUE`, computes values while
 #' taking care of compatibility with 'RMeCab'.
 #' Note that 'RMeCab' always computes IDF values using term frequency
@@ -170,9 +170,6 @@ bind_tf_idf2 <- function(tbl,
     sp <- cast_sparse(tbl, !!document, !!term, !!n_col)
   }
 
-  if (isTRUE(norm)) {
-    sp <- Matrix::t(Matrix::t(sp) * (1 / sqrt(Matrix::rowSums((sp * sp)))))
-  }
   idf <- switch(idf,
     idf = global_idf(sp),
     idf2 = global_idf2(sp),
@@ -184,5 +181,11 @@ bind_tf_idf2 <- function(tbl,
     tf_idf = .data$tf * .data$idf
   )
 
-  tbl
+  if (!isTRUE(norm)) {
+    return(tbl)
+  }
+  dplyr::mutate(tbl,
+    tf_idf = .data$tf_idf / norm(.data$tf_idf, type = "2"),
+    .by = as_name(document)
+  )
 }

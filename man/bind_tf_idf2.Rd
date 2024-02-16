@@ -31,8 +31,8 @@ Column containing document-term counts as string or symbol.}
 
 \item{idf}{Method for computing inverse document frequency.}
 
-\item{norm}{Logical; If passed as \code{TRUE}, the raw term counts are normalized
-being divided with L2 norms before computing IDF values.}
+\item{norm}{Logical; If passed as \code{TRUE}, TF-IDF values are normalized
+being divided with L2 norms.}
 
 \item{rmecab_compat}{Logical; If passed as \code{TRUE}, computes values while
 taking care of compatibility with 'RMeCab'.
