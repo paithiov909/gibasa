@@ -78,7 +78,7 @@ dictionary is in a different location than the default, create a mecabrc
 file and specify where the dictionary is located.
 
 For example, to install and use the
-[ipadic](https://pypi.org/project/ipadic/) from PyPI, run
+[ipadic](https://pypi.org/project/ipadic/) from PyPI, run:
 
 ``` sh
 $ python3 -m pip install ipadic
@@ -315,7 +315,7 @@ file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/RtmpHYI78Z/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/RtmpqB7E2w/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -335,7 +335,7 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/RtmpHYI78Z/file46ab361f0ebe.csv ... 2
+#> reading /tmp/RtmpqB7E2w/file7f01ffa2fde.csv ... 2
 #> 
 #> done!
 

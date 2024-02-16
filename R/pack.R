@@ -66,7 +66,7 @@ pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
 
 #' Ngrams tokenizer
 #'
-#' Make an ngram tokenizer function.
+#' Makes an ngram tokenizer function.
 #'
 #' @param n Integer.
 #' @returns ngram tokenizer function

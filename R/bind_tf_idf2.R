@@ -95,7 +95,7 @@ global_entropy <- function(sp) {
 #'
 #' Types of inverse document frequencies can be switched with `idf` argument:
 #' * `idf` is inverse document frequency of which base is 2, with smoothed.
-#' 'smoothed' here means just adding 1 to raw counts after logarithmizing.
+#' 'smoothed' here means just adding 1 to raw values after logarithmizing.
 #' * `idf2` is global frequency IDF.
 #' * `idf3` is probabilistic IDF of which base is 2.
 #' * `idf4` is global entropy, not IDF in actual.

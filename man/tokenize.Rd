@@ -20,10 +20,10 @@ tokenize(
 \item{x}{A data.frame like object or a character vector to be tokenized.}
 
 \item{text_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-String or symbol; column name where to get texts to be tokenized.}
+String or symbol; column containing texts to be tokenized.}
 
 \item{docid_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-String or symbol; column name where to get identifiers of texts.}
+String or symbol; column containing document IDs.}
 
 \item{sys_dic}{Character scalar; path to the system dictionary for 'MeCab'.
 Note that the system dictionary is expected to be compiled with UTF-8,

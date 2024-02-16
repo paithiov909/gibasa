@@ -5,7 +5,7 @@
 #'
 #' @param tbl A data.frame that has feature column to be prettified.
 #' @param col <[`data-masked`][rlang::args_data_masking]>
-#' Column name where to be prettified.
+#' Column containing features to be prettified.
 #' @param into Character vector that is used as column names of
 #' features.
 #' @param col_select Character or integer vector that will be kept

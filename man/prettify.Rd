@@ -16,7 +16,7 @@ prettify(
 \item{tbl}{A data.frame that has feature column to be prettified.}
 
 \item{col}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-Column name where to be prettified.}
+Column containing features to be prettified.}
 
 \item{into}{Character vector that is used as column names of
 features.}

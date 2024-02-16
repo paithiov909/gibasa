@@ -8,8 +8,10 @@
 #' Running this function will create 4 files:
 #' 'char.bin', 'matrix.bin', 'sys.dic', and 'unk.dic' in `out_dir`.
 #'
-#' To use these compiled dictionary, you also need create a `dicrc` file in `out_dir`.
-#' A `dicrc` file is included in source dictionaries, so you can just copy it to `out_dir`.
+#' To use these compiled dictionary,
+#' you also need create a `dicrc` file in `out_dir`.
+#' A `dicrc` file is included in source dictionaries,
+#' so you can just copy it to `out_dir`.
 #'
 #' @inheritParams dict_index_sys
 #' @returns A `TRUE` is invisibly returned if dictionary is successfully built.

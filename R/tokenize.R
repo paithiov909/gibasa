@@ -2,9 +2,9 @@
 #'
 #' @param x A data.frame like object or a character vector to be tokenized.
 #' @param text_field <[`data-masked`][rlang::args_data_masking]>
-#' String or symbol; column name where to get texts to be tokenized.
+#' String or symbol; column containing texts to be tokenized.
 #' @param docid_field <[`data-masked`][rlang::args_data_masking]>
-#' String or symbol; column name where to get identifiers of texts.
+#' String or symbol; column containing document IDs.
 #' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.

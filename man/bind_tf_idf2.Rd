@@ -61,7 +61,7 @@ Types of term frequency can be switched with \code{tf} argument:
 Types of inverse document frequencies can be switched with \code{idf} argument:
 \itemize{
 \item \code{idf} is inverse document frequency of which base is 2, with smoothed.
-'smoothed' here means just adding 1 to raw counts after logarithmizing.
+'smoothed' here means just adding 1 to raw values after logarithmizing.
 \item \code{idf2} is global frequency IDF.
 \item \code{idf3} is probabilistic IDF of which base is 2.
 \item \code{idf4} is global entropy, not IDF in actual.

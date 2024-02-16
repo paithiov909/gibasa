@@ -15,9 +15,10 @@ as_tokens(
 \item{tbl}{A tibble of tokens out of \code{tokenize()}.}
 
 \item{token_field}{<\code{\link[rlang:args_data_masking]{data-masked}}>
-Column name that contains tokens.}
+Column containing tokens.}
 
-\item{pos_field}{Feature name that will be kept as the names
+\item{pos_field}{Column containing features
+that will be kept as the names of tokens.
 of tokens. If you don't need them, give a \code{NULL} for this argument.}
 
 \item{nm}{Names of returned list.

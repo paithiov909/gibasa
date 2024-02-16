@@ -13,7 +13,7 @@ ngram_tokenizer(n = 1L)
 ngram tokenizer function
 }
 \description{
-Make an ngram tokenizer function.
+Makes an ngram tokenizer function.
 }
 \examples{
 bigram <- ngram_tokenizer(2)

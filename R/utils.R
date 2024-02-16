@@ -2,8 +2,9 @@
 #'
 #' @param tbl A tibble of tokens out of \code{tokenize()}.
 #' @param token_field <[`data-masked`][rlang::args_data_masking]>
-#' Column name that contains tokens.
-#' @param pos_field Feature name that will be kept as the names
+#' Column containing tokens.
+#' @param pos_field Column containing features
+#' that will be kept as the names of tokens.
 #' of tokens. If you don't need them, give a `NULL` for this argument.
 #' @param nm Names of returned list.
 #' If left with `NULL`, "doc_id" field of `tbl` is used instead.
@@ -51,7 +52,7 @@ as_tokens <- function(tbl,
 #' @param x Object to check its emptiness.
 #' @param trim Logical.
 #' @param ... Additional arguments for \code{base::sapply()}.
-#' @returns Logical.
+#' @returns Logicals.
 #' @export
 #' @examples
 #' is_blank(list(c(a = "", b = NA_character_), NULL))

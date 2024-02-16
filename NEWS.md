@@ -1,8 +1,8 @@
-# gibasa (development version)
+# gibasa 1.1.0
 
 * Corrected probabilistic IDF calculation by `global_idf3`.
 * Refactored `bind_tf_idf2`.
-  * Changed behavior when `norm=TRUE`. Cosine nomalization is now performed on `tf_idf` values as in the RMeCab package.
+  * **Breaking Change**: Changed behavior when `norm=TRUE`. Cosine nomalization is now performed on `tf_idf` values as in the RMeCab package.
   * Added `tf="itf"` and `idf="df"` options.
 
 # gibasa 1.0.1
@@ -32,7 +32,7 @@
 
 # gibasa 0.8.0
 
-* [Breaking Change] Changed numbering style of 'sentence_id' when `split` is `FALSE`.
+* **Breaking Change**: Changed numbering style of 'sentence_id' when `split` is `FALSE`.
 * Added `grain_size` argument to `tokenize`.
 * Added new `bind_lr` function.
 

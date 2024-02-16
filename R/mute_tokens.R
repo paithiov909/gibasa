@@ -1,6 +1,6 @@
 #' Mute tokens by condition
 #'
-#' Permutes tokens in the tidy text dataset with a string scalar
+#' Replaces tokens in the tidy text dataset with a string scalar
 #' only if they are matched to an expression.
 #'
 #' @param tbl A tidy text dataset.

@@ -59,7 +59,7 @@ In case using Windows, use installer [built for 32bit](https://drive.google.com/
 
 As of v0.9.4, gibasa looks at the file specified by the environment variable `MECABRC` or the file located at `~/.mecabrc`. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.
 
-For example, to install and use the [ipadic](https://pypi.org/project/ipadic/) from PyPI, run
+For example, to install and use the [ipadic](https://pypi.org/project/ipadic/) from PyPI, run:
 
 ```sh
 $ python3 -m pip install ipadic
