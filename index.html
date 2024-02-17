@@ -20,7 +20,7 @@
     is to provide an alternative to tidytext using morphological
     analysis.">
 <meta property="og:image" content="https://paithiov909.github.io/gibasa/reference/figures/tidytext_fig5_1_mod.drawio.png">
-<meta property="og:image:alt" content="Gibasa is a plain ‘Rcpp’ interface to ‘MeCab’, CJK tokenizer and morphological analysis tool for R">
+<meta property="og:image:alt" content="Gibasa is a plain 'Rcpp' wrapper of 'MeCab', a morphological analyzer for CJK text">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@paithiov909">
 <meta name="twitter:site" content="@paithiov909">
@@ -37,7 +37,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,7 +119,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <p>In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself.</p>
 <p>In case using Windows, use installer <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7WElGUGt6ejlpVXc" class="external-link">built for 32bit</a> or <a href="https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2" class="external-link">built for 64bit</a>. Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.</p>
 <p>As of v0.9.4, gibasa looks at the file specified by the environment variable <code>MECABRC</code> or the file located at <code>~/.mecabrc</code>. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.</p>
-<p>For example, to install and use the <a href="https://pypi.org/project/ipadic/" class="external-link">ipadic</a> from PyPI, run</p>
+<p>For example, to install and use the <a href="https://pypi.org/project/ipadic/" class="external-link">ipadic</a> from PyPI, run:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-m</span> pip install ipadic</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-c</span> <span class="st">"import ipadic; print('dicdir=' + ipadic.DICDIR);"</span> <span class="op">&gt;</span> ~/.mecabrc</span></code></pre></div>
 </div>
@@ -353,7 +353,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span></span>
 <span><span class="fu"><a href="reference/dictionary_info.html">dictionary_info</a></span><span class="op">(</span>sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                 file_path charset lsize rsize   size type version</span></span>
-<span><span class="co">#&gt; 1 /tmp/RtmpHYI78Z/sys.dic    utf8  1316  1316 392126    0     102</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 /tmp/RtmpqB7E2w/sys.dic    utf8  1316  1316 392126    0     102</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="build-a-user-dictionary">Build a user dictionary<a class="anchor" aria-label="anchor" href="#build-a-user-dictionary"></a>
@@ -373,7 +373,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span>  csv_file <span class="op">=</span> <span class="va">csv_file</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf8"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; reading /tmp/RtmpHYI78Z/file46ab361f0ebe.csv ... 2</span></span>
+<span><span class="co">#&gt; reading /tmp/RtmpqB7E2w/file7f01ffa2fde.csv ... 2</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; done!</span></span>
 <span></span>
