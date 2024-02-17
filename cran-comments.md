@@ -1,7 +1,4 @@
-# gibasa 1.0.1
-
-This release contains patches to 
-suppress warnings in 'r-devel-linux-x86_64-debian-clang' and 'r-devel-linux-x86_64-fedora-clang'.
+# gibasa 1.1.0
 
 ## Test environments
 
@@ -17,8 +14,6 @@ suppress warnings in 'r-devel-linux-x86_64-debian-clang' and 'r-devel-linux-x86_
     installed size is 18.9Mb
     sub-directories of 1Mb or more:
       libs  18.5Mb
-
-  > the actual binary package size is much smaller than this note.
 
 * On ubuntu-gcc-release (r-release), debian-clang-devel (r-devel), windows-x86_64-oldrel (r-oldrel), windows-x86_64-devel (r-devel)
   checking for GNU extensions in Makefiles ... NOTE
