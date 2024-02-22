@@ -84,7 +84,7 @@
       <img src="" class="logo" alt=""><h1>Text Mining with quanteda and gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2024-02-17</h4>
+            <h4 data-toc-skip class="date">2024-02-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/quanteda.Rmd" class="external-link"><code>vignettes/quanteda.Rmd</code></a></small>
       <div class="d-none name"><code>quanteda.Rmd</code></div>
@@ -369,16 +369,16 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span>  x <span class="op">=</span> <span class="va">tcm</span>,</span>
 <span>  n_iter <span class="op">=</span> <span class="fl">10L</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; INFO  [04:14:11.706] epoch 1, loss 0.1516</span></span>
-<span><span class="co">#&gt; INFO  [04:14:13.250] epoch 2, loss 0.0973</span></span>
-<span><span class="co">#&gt; INFO  [04:14:14.757] epoch 3, loss 0.0840</span></span>
-<span><span class="co">#&gt; INFO  [04:14:16.281] epoch 4, loss 0.0763</span></span>
-<span><span class="co">#&gt; INFO  [04:14:17.780] epoch 5, loss 0.0711</span></span>
-<span><span class="co">#&gt; INFO  [04:14:19.269] epoch 6, loss 0.0673</span></span>
-<span><span class="co">#&gt; INFO  [04:14:20.766] epoch 7, loss 0.0645</span></span>
-<span><span class="co">#&gt; INFO  [04:14:22.259] epoch 8, loss 0.0623</span></span>
-<span><span class="co">#&gt; INFO  [04:14:23.761] epoch 9, loss 0.0605</span></span>
-<span><span class="co">#&gt; INFO  [04:14:25.258] epoch 10, loss 0.0589</span></span>
+<span><span class="co">#&gt; INFO  [05:18:51.529] epoch 1, loss 0.1517</span></span>
+<span><span class="co">#&gt; INFO  [05:18:53.070] epoch 2, loss 0.0973</span></span>
+<span><span class="co">#&gt; INFO  [05:18:54.584] epoch 3, loss 0.0840</span></span>
+<span><span class="co">#&gt; INFO  [05:18:56.097] epoch 4, loss 0.0762</span></span>
+<span><span class="co">#&gt; INFO  [05:18:57.628] epoch 5, loss 0.0711</span></span>
+<span><span class="co">#&gt; INFO  [05:18:59.139] epoch 6, loss 0.0673</span></span>
+<span><span class="co">#&gt; INFO  [05:19:00.655] epoch 7, loss 0.0645</span></span>
+<span><span class="co">#&gt; INFO  [05:19:02.164] epoch 8, loss 0.0623</span></span>
+<span><span class="co">#&gt; INFO  [05:19:03.679] epoch 9, loss 0.0604</span></span>
+<span><span class="co">#&gt; INFO  [05:19:05.190] epoch 10, loss 0.0589</span></span>
 <span></span>
 <span><span class="va">wv</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">wv_main</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">glove</span><span class="op">$</span><span class="va">components</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -405,7 +405,9 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggrepel</span><span class="fu">::</span><span class="fu"><a href="https://ggrepel.slowkow.com/reference/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">rowname</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_d</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"turbo"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_d</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"turbo"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: ggrepel: 3 unlabeled data points (too many overlaps). Consider</span></span>
+<span><span class="co">#&gt; increasing max.overlaps</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/umap-1.png" width="700"></p>
 </div>
 <div class="section level2">
@@ -416,14 +418,14 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
 <span><span class="co">#&gt;  version  R version 4.3.2 (2023-10-31)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 22.04.3 LTS</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 22.04.4 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
 <span><span class="co">#&gt;  language en</span></span>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-02-17</span></span>
+<span><span class="co">#&gt;  date     2024-02-22</span></span>
 <span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/bin/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
@@ -442,7 +444,6 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span><span class="co">#&gt;  codetools             0.2-19     <span style="color: #555555;">2023-02-01</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.3.2)</span></span></span>
 <span><span class="co">#&gt;  colorspace            2.1-0      <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  crayon                1.5.2      <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  crosstalk             1.2.1      <span style="color: #555555;">2023-11-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  data.table            1.15.0     <span style="color: #555555;">2024-01-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  desc                  1.4.3      <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  digest                0.6.34     <span style="color: #555555;">2024-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -463,7 +464,7 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span><span class="co">#&gt;  ggpubr                0.6.0      <span style="color: #555555;">2023-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggrepel               0.9.5      <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggsignif              0.6.4      <span style="color: #555555;">2022-10-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  gibasa                1.1.0      <span style="color: #555555;">2024-02-17</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;  gibasa                1.1.0      <span style="color: #555555;">2024-02-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;  glmnet                4.1-8      <span style="color: #555555;">2023-08-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  glue                  1.7.0      <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  gtable                0.3.4      <span style="color: #555555;">2023-08-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -477,7 +478,7 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span><span class="co">#&gt;  knitr                 1.45       <span style="color: #555555;">2023-10-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  labeling              0.4.3      <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lattice               0.21-9     <span style="color: #555555;">2023-10-01</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">2024.02.04</span> <span style="color: #555555;">2024-02-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@0f566b0)</span></span></span>
+<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">2024.02.04</span> <span style="color: #555555;">2024-02-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@0f566b0)</span></span></span>
 <span><span class="co">#&gt;  lgr                   0.4.4      <span style="color: #555555;">2022-09-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  LiblineaR             2.10-23    <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lifecycle             1.0.4      <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -545,7 +546,7 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 <span><span class="co">#&gt;  xfun                  0.42       <span style="color: #555555;">2024-02-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  yaml                  2.3.8      <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmpjaypw5/temp_libpath399e171731ce</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmpg4SFeV/temp_libpath3b0d450c7ffe</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.3.2/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.3.2/lib/R/library</span></span></span>
