@@ -335,8 +335,16 @@ dat |>
 
 ```{r}
 toks |>
-  dplyr::reframe(doc_id = doc_id, token = list(token)) |>
-  tibble::enframe() |>
+  dplyr::filter(
+    pos %in% c(
+      "名詞",
+      "地名", "人名", "組織名", "固有名詞",
+      "動詞", "未知語"
+    ),
+    stringr::str_detect(token, "^[[:alnum:]]{2,}$")
+  ) |>
+  dplyr::reframe(token = list(token), .by = doc_id) |>
+  tibble::deframe() |>
   quanteda::as.tokens()
 ```
 
