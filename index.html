@@ -92,12 +92,12 @@
 </h2>
 <p>Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a morphological analyzer for CJK text.</p>
 <p>Part-of-speech tagging with morphological analyzers is useful for processing CJK text data. This is because most words in CJK text are not separated by whitespaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> may split them into wrong tokens.</p>
-<p>The main goal of gibasa package is to provide an alternative to <code>tidytext::unnest_tokens</code> for CJK text data. For this goal, gibasa provides three main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
+<p>The main goal of gibasa package is to provide an alternative to <code><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html" class="external-link">tidytext::unnest_tokens</a></code> for CJK text data. For this goal, gibasa provides three main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
 <figure><img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt="flowchart of a text analysis that combines gibasa and other packages"><figcaption aria-hidden="true">
 flowchart of a text analysis that combines gibasa and other packages
 </figcaption></figure><ul>
 <li>
-<code><a href="reference/tokenize.html">gibasa::tokenize</a></code> takes a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code>tidytext::unnest_tokens</code> with it for tokenizing CJK text.</li>
+<code><a href="reference/tokenize.html">gibasa::tokenize</a></code> takes a TIF-compliant data.frame of corpus, returning tokens as format that known as ‘tidy text data’, so that users can replace <code><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html" class="external-link">tidytext::unnest_tokens</a></code> with it for tokenizing CJK text.</li>
 <li>
 <code><a href="reference/prettify.html">gibasa::prettify</a></code> turns tagged features into columns.</li>
 <li>
@@ -120,8 +120,8 @@ flowchart of a text analysis that combines gibasa and other packages
 <p>In case using Windows, use installer <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7WElGUGt6ejlpVXc" class="external-link">built for 32bit</a> or <a href="https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2" class="external-link">built for 64bit</a>. Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.</p>
 <p>As of v0.9.4, gibasa looks at the file specified by the environment variable <code>MECABRC</code> or the file located at <code>~/.mecabrc</code>. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.</p>
 <p>For example, to install and use the <a href="https://pypi.org/project/ipadic/" class="external-link">ipadic</a> from PyPI, run:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-m</span> pip install ipadic</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-c</span> <span class="st">"import ipadic; print('dicdir=' + ipadic.DICDIR);"</span> <span class="op">&gt;</span> ~/.mecabrc</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-m</span> pip install ipadic</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-c</span> <span class="st">"import ipadic; print('dicdir=' + ipadic.DICDIR);"</span> <span class="op">&gt;</span> ~/.mecabrc</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>

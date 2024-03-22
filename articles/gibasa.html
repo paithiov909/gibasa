@@ -78,13 +78,13 @@
 
 
 
-<script src="gibasa_files/core-js-2.5.3/shim.min.js"></script><script src="gibasa_files/react-18.2.0/react.min.js"></script><script src="gibasa_files/react-18.2.0/react-dom.min.js"></script><script src="gibasa_files/reactwidget-1.0.0/react-tools.js"></script><script src="gibasa_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><link href="gibasa_files/reactable-0.4.4/reactable.css" rel="stylesheet">
-<script src="gibasa_files/reactable-binding-0.4.4/reactable.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction to gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2024-02-22</h4>
+            <h4 data-toc-skip class="date">2024-03-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/gibasa.Rmd" class="external-link"><code>vignettes/gibasa.Rmd</code></a></small>
       <div class="d-none name"><code>gibasa.Rmd</code></div>
@@ -96,7 +96,7 @@
 <h2 id="gibasaパッケージについて">gibasaパッケージについて<a class="anchor" aria-label="anchor" href="#gibasa%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"></a>
 </h2>
 <p>gibasaは、Rから<a href="https://taku910.github.io/mecab/" class="external-link">MeCab</a>を利用して形態素解析をおこなうためのパッケージです。</p>
-<p>モチベーションとしては、<code>tidytext::unnest_tokens</code>を意識した処理をMeCabを利用しつつできるようにしたいということで開発しています。</p>
+<p>モチベーションとしては、<code><a href="https://rdrr.io/pkg/tidytext/man/unnest_tokens.html" class="external-link">tidytext::unnest_tokens</a></code>を意識した処理をMeCabを利用しつつできるようにしたいということで開発しています。</p>
 <div class="section level3">
 <h3 id="インストールの仕方">インストールの仕方<a class="anchor" aria-label="anchor" href="#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%AE%E4%BB%95%E6%96%B9"></a>
 </h3>
@@ -208,8 +208,17 @@ textのかたちにできます（以下の例ではIPA辞書を使っていま�
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 4      記号 名詞 助詞 副詞 副詞 動詞 助動詞 助動詞 助詞 記号 動詞 助詞 動詞 …</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="ベンチマーク">ベンチマーク<a class="anchor" aria-label="anchor" href="#%E3%83%99%E3%83%B3%E3%83%81%E3%83%9E%E3%83%BC%E3%82%AF"></a>
+<h3 id="詳しい使い方">詳しい使い方<a class="anchor" aria-label="anchor" href="#%E8%A9%B3%E3%81%97%E3%81%84%E4%BD%BF%E3%81%84%E6%96%B9"></a>
 </h3>
+<p>より詳しい使い方については、次のサイトを参照してください。</p>
+<ul>
+<li><a href="https://paithiov909.github.io/textmining-ja/" class="external-link">RとMeCabによる日本語テキストマイニングの前処理</a></li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2 id="ベンチマーク">ベンチマーク<a class="anchor" aria-label="anchor" href="#%E3%83%99%E3%83%B3%E3%83%81%E3%83%9E%E3%83%BC%E3%82%AF"></a>
+</h2>
 <p><a href="https://tokyor.connpass.com/event/244200/" class="external-link">TokyoR
 #98</a>での<a href="https://paithiov909.github.io/shiryo/gibasa/#11" class="external-link">LTのスライド</a>でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもMeCabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -238,307 +247,9 @@ textのかたちにできます（以下の例ではIPA辞書を使っていま�
 <span>                                        times <span class="op">=</span> <span class="fl">20L</span>,</span>
 <span>                                        check <span class="op">=</span> <span class="st">"equal"</span><span class="op">)</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">bench</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="https://raw.githack.com/paithiov909/gibasa/main/man/figures/benchmark1.png" alt=""><p class="caption">benchmark1</p>
+<div class="float">
+<img src="https://rawcdn.githack.com/paithiov909/gibasa/7a3c17e807c3dda473f79f11b539a3e446e3ae6a/man/figures/benchmark1.png" alt="benchmark1"><div class="figcaption">benchmark1</div>
 </div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="デモ使用するデータ">デモ：使用するデータ<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%A2%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF"></a>
-</h2>
-<p>以下では、gibasaを利用した分析のデモとして、gibasaによるテキストの前処理からLDAによるトピックモデリングまでを試してみます。ここでは、以下の10人の作家による文章を使います。</p>
-<ul>
-<li>芥川龍之介（芥川竜之介）</li>
-<li>太宰治</li>
-<li>泉鏡花</li>
-<li>菊池寛</li>
-<li>森鴎外</li>
-<li>夏目漱石</li>
-<li>岡本綺堂</li>
-<li>佐々木味津三</li>
-<li>島崎藤村</li>
-<li>海野十三</li>
-</ul>
-<p>青空文庫で公開されているこれらの作家の文章のうち「新字新仮名」のものはあわせて1000篇ほどあるようですが、このうち699篇をランダムに抽出したデータセットをあらかじめ用意しました。次のようにしてダウンロードして読み込みます。</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".zip"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file</a></span><span class="op">(</span><span class="st">"https://github.com/paithiov909/shiryo/raw/main/docs/data/aozora.csv.zip"</span>, <span class="va">tmp</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="va">tmp</span>, col_types <span class="op">=</span> <span class="st">"cccf"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>author <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">author</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>このデータセットの<code>text</code>列には、それぞれの文章の本文のうち、会話文以外の段落だけをひとまとめにした文字列が含まれています。</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 699</span></span>
-<span><span class="co">#&gt; Columns: 4</span></span>
-<span><span class="co">#&gt; $ doc_id <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "25", "29", "32", "33", "35", "38", "39", "50", "56", "59", "63…</span></span>
-<span><span class="co">#&gt; $ title  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "文学好きの家庭から", "カルメン", "大導寺信輔の半生", "第四の夫…</span></span>
-<span><span class="co">#&gt; $ text   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "　私の家は代々お奥坊主だったのですが、父も母もはなはだ特徴のな…</span></span>
-<span><span class="co">#&gt; $ author <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> 芥川竜之介, 芥川竜之介, 芥川竜之介, 芥川竜之介, 芥川竜之介, 芥…</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="デモ前処理分かち書きのコツ">デモ：前処理（分かち書き）のコツ<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%A2%E5%89%8D%E5%87%A6%E7%90%86%E5%88%86%E3%81%8B%E3%81%A1%E6%9B%B8%E3%81%8D%E3%81%AE%E3%82%B3%E3%83%84"></a>
-</h2>
-<p>これを前処理（分かち書き）していくのですが、実際上の注意点として、これよりももっと大規模な分量のテキストデータを一気に<code><a href="../reference/tokenize.html">gibasa::tokenize</a></code>にわたす場合、メモリ不足になってしまい、結果が返ってこない可能性があります。</p>
-<p>たとえば、このデータセットの<code>text</code>列について、文字数を確認すると、おおよそ次のような分量があります。</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>nchar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">author</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    nchar_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    nchar_median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    nchar_min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    nchar_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    n <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">trunc</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 6</span></span></span>
-<span><span class="co">#&gt;    author       nchar_mean nchar_median nchar_min nchar_max     n</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 芥川竜之介         <span style="text-decoration: underline;">5</span>802         <span style="text-decoration: underline;">4</span>073       392     <span style="text-decoration: underline;">38</span>265    81</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 太宰治             <span style="text-decoration: underline;">9</span>320         <span style="text-decoration: underline;">3</span>865        95    <span style="text-decoration: underline;">100</span>124   117</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 岡本綺堂          <span style="text-decoration: underline;">12</span>391        <span style="text-decoration: underline;">10</span>208       558    <span style="text-decoration: underline;">108</span>472   133</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 菊池寛            <span style="text-decoration: underline;">20</span>994        <span style="text-decoration: underline;">11</span>819      <span style="text-decoration: underline;">1</span>244    <span style="text-decoration: underline;">220</span>311    47</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 泉鏡花            <span style="text-decoration: underline;">19</span>403        <span style="text-decoration: underline;">13</span>428      <span style="text-decoration: underline;">2</span>194    <span style="text-decoration: underline;">126</span>786    66</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 佐々木味津三       <span style="text-decoration: underline;">9</span>938         <span style="text-decoration: underline;">9</span>724      <span style="text-decoration: underline;">6</span>171     <span style="text-decoration: underline;">15</span>695    32</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 森鴎外            <span style="text-decoration: underline;">20</span>505         <span style="text-decoration: underline;">7</span>212       780    <span style="text-decoration: underline;">247</span>694    43</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 夏目漱石          <span style="text-decoration: underline;">23</span>484         <span style="text-decoration: underline;">5</span>718       432    <span style="text-decoration: underline;">243</span>570    56</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 島崎藤村          <span style="text-decoration: underline;">46</span>506        <span style="text-decoration: underline;">13</span>518      <span style="text-decoration: underline;">1</span>047    <span style="text-decoration: underline;">199</span>333    17</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 海野十三          <span style="text-decoration: underline;">20</span>015        <span style="text-decoration: underline;">11</span>824       824    <span style="text-decoration: underline;">115</span>979   107</span></span></code></pre></div>
-<p>このデータセット中で、文字数ベースでもっとも分量が多い文章は、森鴎外『ファウスト』です。とりあえず『ファウスト』のみについて<code><a href="../reference/tokenize.html">gibasa::tokenize</a></code>してみると、これだけですでに152,000トークンあります。これくらいの分量の文章はデータセット中にほかにもあるようなので、このデータセット全部を分かち書きするとしたら、総トークン数の目安として45万トークンくらいは軽く超えてきそうです。</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="va">title</span> <span class="op">==</span> <span class="st">"ファウスト"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>nchar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">!</span><span class="va">text</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;   doc_id title      author  nchar</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 50909  ファウスト 森鴎外 <span style="text-decoration: underline;">247</span>694</span></span>
-<span></span>
-<span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="va">title</span> <span class="op">==</span> <span class="st">"ファウスト"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/tokenize.html">tokenize</a></span><span class="op">(</span>split <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 152619</span></span></code></pre></div>
-<p><code><a href="../reference/tokenize.html">gibasa::tokenize</a></code>は<code>text_field</code>引数で指定した列に含まれる総トークン数行×3列のデータフレームを戻り値として返します。その戻り値に対して何も考えずに<code><a href="../reference/prettify.html">gibasa::prettify</a></code>すると、<code>feature</code>列がさらに複数列に分割されるため、総トークン数が45万行あればそれだけでも45万行×十数列のデータフレームになります。どのくらいの規模のtidy
-textを扱うかは、使用している環境のスペックに応じて加減するようにしてください。</p>
-<p>ここでは、ひとまず単純に形態素解析するテキストの分量を減らします。以下では、文章あたりの文字数が5000字よりも少ないデータだけを使うことにします。これでも、全部で228篇あります。</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">5000</span><span class="op">)</span></span>
-<span><span class="va">tbl</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>nchar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">text</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">author</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    nchar_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    nchar_median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    nchar_min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    nchar_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">nchar</span><span class="op">)</span>,</span>
-<span>    n <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">trunc</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9 × 6</span></span></span>
-<span><span class="co">#&gt;   author     nchar_mean nchar_median nchar_min nchar_max     n</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 芥川竜之介       <span style="text-decoration: underline;">2</span>337         <span style="text-decoration: underline;">2</span>167       392      <span style="text-decoration: underline;">4</span>811    49</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 太宰治           <span style="text-decoration: underline;">1</span>691         <span style="text-decoration: underline;">1</span>294        95      <span style="text-decoration: underline;">4</span>584    63</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 岡本綺堂         <span style="text-decoration: underline;">2</span>850         <span style="text-decoration: underline;">2</span>740       558      <span style="text-decoration: underline;">4</span>979    32</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 菊池寛           <span style="text-decoration: underline;">2</span>857         <span style="text-decoration: underline;">2</span>197      <span style="text-decoration: underline;">1</span>244      <span style="text-decoration: underline;">4</span>601     7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 泉鏡花           <span style="text-decoration: underline;">3</span>731         <span style="text-decoration: underline;">4</span>002      <span style="text-decoration: underline;">2</span>194      <span style="text-decoration: underline;">4</span>800    12</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 森鴎外           <span style="text-decoration: underline;">2</span>427         <span style="text-decoration: underline;">2</span>166       780      <span style="text-decoration: underline;">4</span>574    12</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> 夏目漱石         <span style="text-decoration: underline;">2</span>337         <span style="text-decoration: underline;">1</span>829       432      <span style="text-decoration: underline;">4</span>720    24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> 島崎藤村         <span style="text-decoration: underline;">1</span>978         <span style="text-decoration: underline;">2</span>172      <span style="text-decoration: underline;">1</span>047      <span style="text-decoration: underline;">2</span>993     5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">9</span> 海野十三         <span style="text-decoration: underline;">2</span>949         <span style="text-decoration: underline;">2</span>475       824      <span style="text-decoration: underline;">4</span>728    24</span></span></code></pre></div>
-<p>実際に大規模なテキストデータを形態素解析するにあたっては、最終的に欲しいかたちのデータになるように元のデータセットを小分けにしながら処理するのが有効かもしれません。</p>
-<p>たとえば、ここでは、トークンのなかでも未知語でないもので、かつ、名詞・形容詞・動詞についてのみを、辞書に収録されている原形で抽出し、品詞情報とあわせて「/」で区切ったタグ付き単語の分かち書きにしています。このとき、以下のように、<code>chunk</code>という新しくつくった列についてグルーピングし、適当なサイズのまとまりごとに<code>text</code>列を処理しています。</p>
-<p>また、このとき<code>col_select</code>引数をわたさずに<code><a href="../reference/prettify.html">gibasa::prettify</a></code>すると、いちいち9列ある素性（IPA辞書の場合）をすべてパースしてしまいます。必要な列だけをパースしたほうがメモリ使用量的により安心なため、なるべく後から処理に使う列だけをこまめに指定するようにしてください。</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">corp</span> <span class="op">&lt;-</span> <span class="va">tbl</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    chunk <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ntile.html" class="external-link">ntile</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">chunk</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_map.html" class="external-link">group_map</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">idx</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>      doc_id <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">doc_id</span>,</span>
-<span>      text <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">text</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/prettify.html">prettify</a></span><span class="op">(</span>col_select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POS1"</span>, <span class="st">"Original"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
-<span>        <span class="va">POS1</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"名詞"</span>, <span class="st">"形容詞"</span>, <span class="st">"動詞"</span><span class="op">)</span>,</span>
-<span>        <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Original</span><span class="op">)</span></span>
-<span>      <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>token <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="va">Original</span>, <span class="va">POS1</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>      <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/pack.html">pack</a></span><span class="op">(</span><span class="va">token</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="va">doc_id</span>, <span class="va">author</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"doc_id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/corpus.html" class="external-link">corpus</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in .recacheSubclasses(def@className, def, env): undefined subclass</span></span>
-<span><span class="co">#&gt; "ndiMatrix" of class "replValueSp"; definition not updated</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">corp</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Corpus consisting of 6 documents and 1 docvar.</span></span>
-<span><span class="co">#&gt; 100 :</span></span>
-<span><span class="co">#&gt; "むかし/名詞 むかし/名詞 むかし/名詞 深い/形容詞 山/名詞 奥/名詞 大きい/形容詞 桃/名詞 木/名詞 一/名詞..."</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 102 :</span></span>
-<span><span class="co">#&gt; "書/名詞 紀/名詞 よる/動詞 日本/名詞 推古天皇/名詞 三/名詞 十/名詞 五/名詞 年/名詞 春/名詞 二月/名詞..."</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 103 :</span></span>
-<span><span class="co">#&gt; "冬/名詞 夜/名詞 私/名詞 旧友/名詞 村上/名詞 一/名詞 しょ/名詞 銀座/名詞 通り/名詞 歩く/動詞 いる/動..."</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 107 :</span></span>
-<span><span class="co">#&gt; "僕/名詞 何/名詞 雑木/名詞 生える/動詞 寂しい/形容詞 崖/名詞 上/名詞 歩く/動詞 行く/動詞 崖/名詞 下/..."</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 109 :</span></span>
-<span><span class="co">#&gt; "舎/名詞 衛/名詞 城/名詞 人口/名詞 多い/形容詞 都/名詞 城/名詞 面積/名詞 人口/名詞 多い/形容詞 割/名..."</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; 110 :</span></span>
-<span><span class="co">#&gt; "馬返し/名詞 すぎる/動詞 行く/動詞 大谷/名詞 川/名詞 見える/動詞 所/名詞 出る/動詞 落葉/名詞 埋もれる/..."</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="デモlda">デモ：LDA<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%A2lda"></a>
-</h2>
-<p>ここまでで抽出した文書から関心のある品詞だけを分かち書きにしつつ、quantedaのコーパスオブジェクトのかたちにしました。ここからはquantedaの関数を使いながら、簡単に<code><a href="https://rdrr.io/pkg/topicmodels/man/lda.html" class="external-link">topicmodels::LDA</a></code>によるLDAの実行までを試してみます。</p>
-<p>quantedaでこのようなかたちのコーパスから文書単語行列を得るには、次のようにします。この時点で、トークン数（異なり語の数）は17,000語ほどあります。</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dtm</span> <span class="op">&lt;-</span> <span class="va">corp</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/tokens.html" class="external-link">tokens</a></span><span class="op">(</span>what <span class="op">=</span> <span class="st">"fastestword"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/ndoc.html" class="external-link">nfeat</a></span><span class="op">(</span><span class="va">dtm</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 17756</span></span></code></pre></div>
-<p>これくらいであればこのままでもよさそうですが、もう少し語彙を減らしたい場合、たとえば、次のように<code><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">quanteda::dfm_trim</a></code>します。これで、ここでは4,000語くらいまで語彙を減らすことができました。</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dtm</span> <span class="op">&lt;-</span> <span class="va">dtm</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">5L</span>, max_termfreq <span class="op">=</span> <span class="fl">50L</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/ndoc.html" class="external-link">nfeat</a></span><span class="op">(</span><span class="va">dtm</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 4101</span></span></code></pre></div>
-<p><code><a href="https://quanteda.io/reference/convert.html" class="external-link">quanteda::convert</a></code>でdfmオブジェクトを変換して<code><a href="https://rdrr.io/pkg/topicmodels/man/lda.html" class="external-link">topicmodels::LDA</a></code>にわたします。</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lda_res</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/convert.html" class="external-link">convert</a></span><span class="op">(</span><span class="va">dtm</span>, to <span class="op">=</span> <span class="st">"topicmodels"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">topicmodels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/topicmodels/man/lda.html" class="external-link">LDA</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
-<p>割り当てられたトピックを確認してみます。それぞれの文章の内容についてあまり理解していないため、ここではそれぞれのトピックの解釈はしませんが、比較的作家ごとにまとまって一つのトピックに属しているようにも見えます。</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">topics</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu">topicmodels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/topicmodels/man/get.html" class="external-link">topics</a></span><span class="op">(</span><span class="va">lda_res</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">enframe</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"doc_id"</span>, value <span class="op">=</span> <span class="st">"topic"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">right_join</a></span><span class="op">(</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">tbl</span>, <span class="op">!</span><span class="va">text</span><span class="op">)</span>,</span>
-<span>    by <span class="op">=</span> <span class="st">"doc_id"</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">topic</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">reactable</span><span class="fu">::</span><span class="fu"><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable</a></span><span class="op">(</span></span>
-<span>  <span class="va">topics</span>,</span>
-<span>  filterable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  searchable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  compact <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<div class="reactable html-widget html-fill-item" id="htmlwidget-f8ea7103aabbb784185c" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f8ea7103aabbb784185c">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"doc_id":["102","138","144","1343","1388","1592","1593","1596","1598","1600","1603","1604","1605","18349","18359","2599","24457","284","296","303","33","310","42353","42354","42357","42360","42369","42371","42372","43069","43071","43365","43371","43573","43590","43718","45484","45509","45674","45675","499","50105","53185","92","56511","109","140","1387","1599","1601","1608","18351","243","2050","2264","2313","2315","2372","2373","2376","2383","2396","2668","2669","2670","2672","2673","2674","2675","2676","2679","2681","2682","2686","4090","33218","42358","42364","42365","42368","42370","43361","43368","43377","43383","43388","43665","45271","45511","45673","45689","46591","46597","47148","48329","49540","89","766","787","872","58611","58613","100","110","119","125","129","131","1059","1061","1239","181","1562","1589","1590","1602","254","2079","2294","2374","2597","24449","261","274","280","292","35","3343","3357","3426","3520","42355","42362","43366","43373","43386","43632","43732","45691","46599","48031","48388","4999","50052","88","688","777","784","795","107","113","150","1188","167","176","1572","25","187","2317","2692","2949","3050","309","3427","3647","43016","43017","43042","43050","43362","43369","43375","43382","43629","43667","43762","45254","46459","47337","48327","48332","49520","49521","49529","49530","49545","49550","49560","49562","50913","51214","52238","56463","96","685","797","877","57476","103","142","175","241","2274","29","3051","3229","3342","3346","3359","4306","43090","43470","43838","45688","48036","49522","49523","49528","49534","49541","49547","49551","49563","50910","63","74","56512","59435"],"topic":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],"title":["貉","三右衛門の罪","仙人","我が馬券哲学","志賀直哉氏の作品","一日の労苦","一歩前進二歩退却","容貌","一問一答","芸術ぎらい","かくめい","小説の面白さ","徒党について","困惑の弁","作家の像","食堂","古典竜頭蛇尾","禁酒の心","雌に就いて","女人訓戒","第四の夫から","フォスフォレッスセンス","女人創造","鬱屈禍","「グッド・バイ」作者の言葉","新しい形の個人主義","創作余談","答案落第","返事","一つの約束","炎天汗談","格さんと食慾","久米正雄氏の事","春昼","名士訪問記","科学時潮","牛","放し鰻","私信","自信の無さ","勝負事","金時計","幸福","蜘蛛の糸","餅を買う女","尼提","猿蟹合戦","私の日常道徳","天狗","わが半生を語る","パウロの混乱","「晩年」と「女生徒」","眉山","空車","失敗園","『東洋美術図譜』","戦争からきた行き違い","明治座の所感を虚子君に問れて","虚子君へ","博士問題の成行","学者と名誉","文芸の主義","『土』に就て","岡本一平著並画『探訪画趣』序","木下杢太郎『唐草表紙』序","『吾輩は猫である』下篇自序","入社の辞","元日","余と万年筆","落第","文士の生活","文芸は男子一生の事業とするに足らざる乎","長塚節氏の小説「土」","骸骨館","世界怪談名作集","中国怪奇小説集","「晩年」に就いて","緒方氏を殺した者","織田君の死","政治家と家庭","多頭蛇哲学","兄貴のような心持","「菊池寛全集」の序","佐藤春夫氏の事","滝田哲太郎氏","夏目先生と滝田さん","『十八時の音楽浴』の作者の言葉","夏目漱石論","平造とお鶴","私の著作集","砂子屋","奉行と人相学","青森","『吾輩は猫である』上篇自序","おばけずきのいわれ少々と処女作","読書雑感","校正後に","コンラッドの描きたる自然について","博士問題とマードック先生と余","幸運の黒子","江戸推理川柳抄","探偵小説と犯罪事件","桃太郎","日光小品","お時儀","おしの","或恋愛小説","老年","走ラヌ名馬","雛がたり","殺人の涯","槍が岳に登った記","朝","悶悶日記","思案の敗北","小志","デカダン抗議","余興","やんぬる哉","足袋","木精","春","母","女類","喝采","リイズ","英雄の器","人造人間戦車の機密","空気男","若菜のうち","一九五〇年の殺人","豊島与志雄著『高尾ざんげ』解説","田舎者","鴨猟","小杉未醒氏","出来上った人","最小人間の怪","寒山拾得縁起","横綱","純真","木曽の怪物","幼い頃の記憶","世界怪談名作集","三人の訪問者","黄粱夢","杯","京に着ける夕","三山居士","子規の画","年末の一日","沼地","葬儀記","星あかり","点鬼簿","運","I can speak","文学好きの家庭から","百合","待つ","田端日記","朝飯","洪水大陸を呑む","親という二字","栃の実","海の使者","トロッコ","蜜柑","池袋の怪","河童小僧","飯田蛇笏","久保田万太郎氏","剛才人と柔才人と","滝田哲太郎君","白銅貨の効用","あの世から便りをする話","成層圏飛行と私のメモ","花子","秋草","一寸怪","一景話題","遠野の奇聞","私の机","我家の園芸","亡びゆく花","風呂を買うまで","正月の思い出","郊外生活の一年","叔父と甥と","磯部の若葉","釣","雑信一束","『火星兵団』の作者の言葉","深川の老漁夫","松江印象記","サフラン","初秋の一日","千年後の世界","木精（三尺角拾遺）","妙な話","青年と死","海のほとり","美男子と煙草","雀こ","カルメン","密林荘事件","氷河期の怪人","のろのろ砲弾の驚異","毒瓦斯発明官","沈没男","形","栗の花","世界怪談名作集","三重宙返りの記","五所川原","小坂部伝説","妖怪漫談","雪の一日","三崎町の原","はなしの話","当今の劇壇をこのままに","島原の夢","源之助の一生","米国の松王劇","不苦心談","じゅりあの・吉助","片恋","四谷怪談異説","兎と亀"],"author":["芥川竜之介","芥川竜之介","芥川竜之介","菊池寛","菊池寛","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","森鴎外","太宰治","太宰治","太宰治","太宰治","芥川竜之介","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","太宰治","芥川竜之介","芥川竜之介","太宰治","海野十三","海野十三","岡本綺堂","岡本綺堂","太宰治","太宰治","菊池寛","泉鏡花","島崎藤村","芥川竜之介","岡本綺堂","芥川竜之介","芥川竜之介","菊池寛","太宰治","太宰治","太宰治","太宰治","太宰治","森鴎外","太宰治","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","森鴎外","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","夏目漱石","海野十三","岡本綺堂","岡本綺堂","太宰治","太宰治","太宰治","太宰治","太宰治","芥川竜之介","芥川竜之介","芥川竜之介","芥川竜之介","芥川竜之介","海野十三","森鴎外","岡本綺堂","太宰治","太宰治","菊池寛","太宰治","夏目漱石","泉鏡花","岡本綺堂","芥川竜之介","夏目漱石","夏目漱石","海野十三","海野十三","海野十三","芥川竜之介","芥川竜之介","芥川竜之介","芥川竜之介","芥川竜之介","芥川竜之介","太宰治","泉鏡花","海野十三","芥川竜之介","太宰治","太宰治","太宰治","太宰治","太宰治","森鴎外","太宰治","島崎藤村","森鴎外","太宰治","太宰治","太宰治","太宰治","太宰治","芥川竜之介","海野十三","海野十三","泉鏡花","海野十三","太宰治","太宰治","芥川竜之介","芥川竜之介","芥川竜之介","海野十三","森鴎外","太宰治","太宰治","岡本綺堂","泉鏡花","岡本綺堂","島崎藤村","芥川竜之介","森鴎外","夏目漱石","夏目漱石","夏目漱石","芥川竜之介","芥川竜之介","芥川竜之介","泉鏡花","芥川竜之介","芥川竜之介","太宰治","芥川竜之介","芥川竜之介","太宰治","芥川竜之介","島崎藤村","海野十三","太宰治","泉鏡花","泉鏡花","芥川竜之介","芥川竜之介","岡本綺堂","岡本綺堂","芥川竜之介","芥川竜之介","芥川竜之介","芥川竜之介","海野十三","海野十三","海野十三","森鴎外","島崎藤村","泉鏡花","泉鏡花","泉鏡花","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","森鴎外","芥川竜之介","海野十三","岡本綺堂","芥川竜之介","森鴎外","夏目漱石","海野十三","泉鏡花","芥川竜之介","芥川竜之介","芥川竜之介","太宰治","太宰治","芥川竜之介","海野十三","海野十三","海野十三","海野十三","海野十三","菊池寛","岡本綺堂","岡本綺堂","海野十三","太宰治","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","岡本綺堂","森鴎外","芥川竜之介","芥川竜之介","岡本綺堂","菊池寛"]},"columns":[{"id":"doc_id","name":"doc_id","type":"character"},{"id":"topic","name":"topic","type":"numeric"},{"id":"title","name":"title","type":"character"},{"id":"author","name":"author","type":"factor"}],"filterable":true,"searchable":true,"compact":true,"dataKey":"a3744b38dd9456cf588e43ff5d62772c"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
-</div>
-<div class="section level2">
-<h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
-</h2>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R version 4.3.2 (2023-10-31)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 22.04.4 LTS</span></span>
-<span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
-<span><span class="co">#&gt;  ui       X11</span></span>
-<span><span class="co">#&gt;  language en</span></span>
-<span><span class="co">#&gt;  collate  C.UTF-8</span></span>
-<span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
-<span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-02-22</span></span>
-<span><span class="co">#&gt;  pandoc   2.19.2 @ /usr/bin/ (via rmarkdown)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
-<span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package     </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version</span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  bit            4.0.5   <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  bit64          4.0.5   <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  bslib          0.6.1   <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  cachem         1.0.8   <span style="color: #555555;">2023-05-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  cli            3.6.2   <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  crayon         1.5.2   <span style="color: #555555;">2022-09-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  desc           1.4.3   <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  digest         0.6.34  <span style="color: #555555;">2024-01-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  dplyr          1.1.4   <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ellipsis       0.3.2   <span style="color: #555555;">2021-04-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  evaluate       0.23    <span style="color: #555555;">2023-11-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fansi          1.0.6   <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fastmap        1.1.1   <span style="color: #555555;">2023-02-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fastmatch      1.1-4   <span style="color: #555555;">2023-08-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fs             1.6.3   <span style="color: #555555;">2023-07-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  generics       0.1.3   <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  gibasa         1.1.0   <span style="color: #555555;">2024-02-22</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
-<span><span class="co">#&gt;  glue           1.7.0   <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  hms            1.1.3   <span style="color: #555555;">2023-03-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  htmltools      0.5.7   <span style="color: #555555;">2023-11-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  htmlwidgets    1.6.4   <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  jquerylib      0.1.4   <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  jsonlite       1.8.8   <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  knitr          1.45    <span style="color: #555555;">2023-10-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  lattice        0.21-9  <span style="color: #555555;">2023-10-01</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  lifecycle      1.0.4   <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  magrittr       2.0.3   <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  Matrix         1.6-1.1 <span style="color: #555555;">2023-09-18</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.3.2)</span></span></span>
-<span><span class="co">#&gt;  memoise        2.0.1   <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  modeltools     0.2-23  <span style="color: #555555;">2020-03-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  NLP            0.2-1   <span style="color: #555555;">2020-10-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  pillar         1.9.0   <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  pkgconfig      2.0.3   <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  pkgdown        2.0.7   <span style="color: #555555;">2022-12-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.0.7)</span></span></span>
-<span><span class="co">#&gt;  purrr          1.0.2   <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  quanteda       3.3.1   <span style="color: #555555;">2023-05-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R.cache        0.16.0  <span style="color: #555555;">2022-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R.methodsS3    1.8.2   <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R.oo           1.26.0  <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R.utils        2.12.3  <span style="color: #555555;">2023-11-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R6             2.5.1   <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ragg           1.2.7   <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  Rcpp           1.0.12  <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  RcppParallel   5.1.7   <span style="color: #555555;">2023-02-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  reactable      0.4.4   <span style="color: #555555;">2023-03-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  reactR         0.5.0   <span style="color: #555555;">2023-10-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  readr          2.1.5   <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  rlang          1.1.3   <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  rmarkdown      2.25    <span style="color: #555555;">2023-09-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  sass           0.4.8   <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  sessioninfo    1.2.2   <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.2)</span></span></span>
-<span><span class="co">#&gt;  slam           0.1-50  <span style="color: #555555;">2022-01-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  stopwords      2.3     <span style="color: #555555;">2021-10-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  stringi        1.8.3   <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  stringr        1.5.1   <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  styler         1.10.2  <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.10.2)</span></span></span>
-<span><span class="co">#&gt;  systemfonts    1.0.5   <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  textshaping    0.3.7   <span style="color: #555555;">2023-10-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  tibble         3.2.1   <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  tidyselect     1.2.0   <span style="color: #555555;">2022-10-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  tm             0.7-11  <span style="color: #555555;">2023-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  topicmodels    0.2-16  <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  tzdb           0.4.0   <span style="color: #555555;">2023-05-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  utf8           1.2.4   <span style="color: #555555;">2023-10-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  vctrs          0.6.5   <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  vroom          1.6.5   <span style="color: #555555;">2023-12-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  withr          3.0.0   <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  xfun           0.42    <span style="color: #555555;">2024-02-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  xml2           1.3.6   <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  yaml           2.3.8   <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmpg4SFeV/temp_libpath3b0d450c7ffe</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.3.2/lib/R/site-library</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.3.2/lib/R/library</span></span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
