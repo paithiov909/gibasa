@@ -39,10 +39,8 @@ tidymodels::tidymodels_prefer()
 [ldccr](https://github.com/paithiov909/ldccr)でデータフレームにします。
 
 ```{r prep_corpus_1}
-if (requireNamespace("ldccr", quietly = TRUE)) {
-  tbl <- ldccr::read_ldnws() |>
-    dplyr::mutate(doc_id = as.character(dplyr::row_number()))
-}
+tbl <- ldccr::read_ldnws() |>
+  dplyr::mutate(doc_id = as.character(dplyr::row_number()))
 ```
 
 ここでは、KH Coderの品詞体系における名詞・地名・人名・組織名・固有名詞・動詞・未知語を抽出し、IPA辞書に収録されている語については原形にしながら分かち書きにします。
@@ -55,7 +53,7 @@ corp <- tbl |>
       stringi::stri_replace_all_regex("[\\s]{2,}", "\n") |>
       stringi::stri_trim_both(),
     chunk = dplyr::ntile(dplyr::row_number(), 10)
-  ) |> 
+  ) |>
   dplyr::group_by(chunk) |>
   dplyr::group_modify(\(df, idx) {
     data.frame(
