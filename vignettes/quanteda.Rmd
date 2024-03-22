@@ -27,17 +27,6 @@ require("ggplot2", quietly = TRUE)
 
 - [Cookbook to Draw KHCoder-like Visualizations Using R](https://paithiov909.github.io/textvis-recipes/)
 
-以下のパッケージについては、ここではGitHubからインストールできるものを使っています。
-
-- [paithiov909/ldccr](https://github.com/paithiov909/ldccr)
-
-これは、次のようにしてインストールできます。
-
-```r
-# Install ldccr in R:
-install.packages("ldccr", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
-```
-
 ちなみに、quantedaは[stringi](https://stringi.gagolewski.com/)をラップした関数によって日本語の文書でも分かち書きできるので、手元の辞書に収録されている表現どおりに分かち書きしたい場合や、品詞情報が欲しい場合でないかぎりは、形態素解析器を使うメリットはあまりないかもしれません。stringiが利用しているICUの[Boundary Analysis](https://unicode-org.github.io/icu/userguide/boundaryanalysis/)の仕様については、[UAX#29](https://www.unicode.org/reports/tr29/#Word_Boundaries)などを参照してください。
 
 ---
@@ -48,20 +37,18 @@ gibasaによる形態素解析の結果をquantedaなどと組み合わせて使
 
 TIFというのは、2017年に[rOpenSci Text Workshop](https://textworkshop17.ropensci.org/)で整備された、テキスト分析用のRパッケージのデザインパターンのようなものです。TIFでは、コーパス（corpus）、トークン（token）、文書単語行列（dtm）という3種類のオブジェクトの形式が定義されており、異なるパッケージ間で同様の形式を扱うようにすることで、複数のパッケージを通じて便利にテキスト分析を進められるようになっています。
 
-このうち、「コーパス」は、文書の集合をデータフレームあるいは名前付きベクトルの形式で保持したものです。
+このうち「コーパス」は、文書の集合をデータフレームあるいは名前付きベクトルの形式で保持したものです。
 
 [ldccr](https://github.com/paithiov909/ldccr)では、[livedoorニュースコーパス](https://www.rondhuit.com/download.html#ldcc)をデータフレームの形式のコーパスとして読み込むことができます。より厳密に言うと、データフレーム形式のコーパスは、少なくとも`doc_id`と`text`という列を含むデータフレームなので、`doc_id`列は自分でつくる必要があります。コーパスにおける`doc_id`列は、文書によって一意なID列（character型である必要がある）で、`text`列は文書本体になります。「少なくとも」なので、このほかの列にここでの`category`列のような文書のメタ情報などが含まれる場合があります。
 
 ```{r tidy_data_1}
-if (requireNamespace("ldccr", quietly = TRUE)) {
-  tbl <- ldccr::read_ldnws() |>
-    dplyr::mutate(doc_id = as.character(dplyr::row_number()))
+tbl <- ldccr::read_ldnws() |>
+  dplyr::mutate(doc_id = as.character(dplyr::row_number()))
 
-  tbl
-}
+tbl
 ```
 
-ちなみに、livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。
+livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。
 
 - トピックニュース
 - Sports Watch
@@ -126,7 +113,9 @@ toks
 
 ## Tidy textからdfmへの変換
 
-さて、実際にこうしたトークンをいろいろと分析するには、トークンを品詞などによって取捨選択しながら、分析したい単位ごとにグルーピングして集計する必要があります。簡単に集計するだけであれば、次のようにdplyrの関数を使って集計することができます。こうした文書ID・単語と、単語の文書内頻度の3つ組のかたちをしたデータフレームは、summarized textという呼び方をすることがあるようです。
+さて、実際にこういったトークンからさまざまな分析をするには、トークンを品詞などによって取捨選択しながら、分析したい単位ごとにグルーピングして集計する必要があります。
+
+簡単に集計するだけであれば、次のようにdplyrの関数を使って集計することができます。こうした文書ID、単語と、単語の文書内頻度の3つ組のかたちをしたデータフレームは、summarized textという呼び方をすることがあるようです。
 
 ```{r}
 toks |>
@@ -206,7 +195,7 @@ dfm <- toks |>
 
 dfmオブジェクトは`quanteda::dfm_*`という名前の関数を使って語彙を減らしたり、単語頻度に重みづけをしたりすることができます。
 
-ここでは、`quanteda.textstats_simil()`で単語間の類似度を得て、階層的クラスタリングをしてみます。
+ここでは`quanteda.textstats::textstat_simil()`で単語間の類似度を得て、階層的クラスタリングをしてみます。
 
 ```{r hclust_2}
 clusters <- dfm |>
@@ -251,7 +240,7 @@ dfm <- dfm |>
   tidytext::cast_dfm(category, term, count)
 ```
 
-ここでは、`quanteda.textmodels::textmodel_ca()`を使ってdfmオブジェクトを対応分析にかけます。この関数の戻り値はcaパッケージのオブジェクトとの互換性があるため、`library(ca)`としてから`plot()`に渡すことでバイプロットを描画することができます。
+ここでは、`quanteda.textmodels::textmodel_ca()`を使ってdfmオブジェクトを対応分析にかけます。この関数の戻り値はcaパッケージのオブジェクトと互換性があるため、`library(ca)`としてから`plot()`に渡すことでバイプロットを描画することができます。
 
 ```{r ca_2}
 ca_fit <- dfm |>
@@ -349,7 +338,7 @@ toks |>
   quanteda::as.tokens()
 ```
 
-一度にぜんぶ覚えるのはむずかしいでしょうが、こうした変換の方法を一通り覚えておくと、Rでテキストデータを扱うためのさまざまなバッケージについて、臨機応変に使いこなせるようになるはずです。少しずつでも、ぜひマスターしてください。
+一度にぜんぶ覚えるのはむずかしいでしょうが、こうした変換の方法を一通り覚えておくと、Rでテキストデータを扱うためのさまざまなバッケージについて、臨機応変に使いこなせるようになるはずです。少しずつでも、ぜひマスターしてみてください。
 
 ## セッション情報
 
