@@ -100,14 +100,6 @@
 <li><a href="https://paithiov909.github.io/textvis-recipes/" class="external-link">Cookbook to
 Draw KHCoder-like Visualizations Using R</a></li>
 </ul>
-<p>以下のパッケージについては、ここではGitHubからインストールできるものを使っています。</p>
-<ul>
-<li><a href="https://github.com/paithiov909/ldccr" class="external-link">paithiov909/ldccr</a></li>
-</ul>
-<p>これは、次のようにしてインストールできます。</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install ldccr in R:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"ldccr"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://paithiov909.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>ちなみに、quantedaは<a href="https://stringi.gagolewski.com/" class="external-link">stringi</a>をラップした関数によって日本語の文書でも分かち書きできるので、手元の辞書に収録されている表現どおりに分かち書きしたい場合や、品詞情報が欲しい場合でないかぎりは、形態素解析器を使うメリットはあまりないかもしれません。stringiが利用しているICUの<a href="https://unicode-org.github.io/icu/userguide/boundaryanalysis/" class="external-link">Boundary
 Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/tr29/#Word_Boundaries" class="external-link">UAX#29</a>などを参照してください。</p>
 <hr>
@@ -119,15 +111,11 @@ Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/
 Formats（TIF）</a>という仕様に沿ったかたちのオブジェクトとしてテキストデータをもつことを意識すると便利です。</p>
 <p>TIFというのは、2017年に<a href="https://textworkshop17.ropensci.org/" class="external-link">rOpenSci Text
 Workshop</a>で整備された、テキスト分析用のRパッケージのデザインパターンのようなものです。TIFでは、コーパス（corpus）、トークン（token）、文書単語行列（dtm）という3種類のオブジェクトの形式が定義されており、異なるパッケージ間で同様の形式を扱うようにすることで、複数のパッケージを通じて便利にテキスト分析を進められるようになっています。</p>
-<p>このうち、「コーパス」は、文書の集合をデータフレームあるいは名前付きベクトルの形式で保持したものです。</p>
+<p>このうち「コーパス」は、文書の集合をデータフレームあるいは名前付きベクトルの形式で保持したものです。</p>
 <p><a href="https://github.com/paithiov909/ldccr" class="external-link">ldccr</a>では、<a href="https://www.rondhuit.com/download.html#ldcc" class="external-link">livedoorニュースコーパス</a>をデータフレームの形式のコーパスとして読み込むことができます。より厳密に言うと、データフレーム形式のコーパスは、少なくとも<code>doc_id</code>と<code>text</code>という列を含むデータフレームなので、<code>doc_id</code>列は自分でつくる必要があります。コーパスにおける<code>doc_id</code>列は、文書によって一意なID列（character型である必要がある）で、<code>text</code>列は文書本体になります。「少なくとも」なので、このほかの列にここでの<code>category</code>列のような文書のメタ情報などが含まれる場合があります。</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ldccr"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu">ldccr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ldccr/man/read_ldnws.html" class="external-link">read_ldnws</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">tbl</span></span>
-<span><span class="op">}</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu">ldccr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ldccr/man/read_ldnws.html" class="external-link">read_ldnws</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>doc_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Parsing dokujo-tsushin...</span></span>
 <span><span class="co">#&gt; Parsing it-life-hack...</span></span>
 <span><span class="co">#&gt; Parsing kaden-channel...</span></span>
@@ -138,21 +126,23 @@ Workshop</a>で整備された、テキスト分析用のRパッケージのデ�
 <span><span class="co">#&gt; Parsing sports-watch...</span></span>
 <span><span class="co">#&gt; Parsing topic-news...</span></span>
 <span><span class="co">#&gt; Done.</span></span>
+<span></span>
+<span><span class="va">tbl</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,376 × 6</span></span></span>
 <span><span class="co">#&gt;    category       file_path                       source time_stamp body  doc_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>友…  1     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ネ…  2     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>相…  3     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ム…  4     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>税…  5     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>読…  6     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>大…  7     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>結…  8     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>お…  9     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dokujo-tsushin /tmp/RtmpGVaBGd/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>初…  10    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>友…  1     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ネ…  2     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>相…  3     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ム…  4     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>税…  5     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>読…  6     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>大…  7     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>結…  8     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>お…  9     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dokujo-tsushin /tmp/RtmpKySGL1/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>初…  10    </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,366 more rows</span></span></span></code></pre></div>
-<p>ちなみに、livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。</p>
+<p>livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。</p>
 <ul>
 <li>トピックニュース</li>
 <li>Sports Watch</li>
@@ -168,7 +158,7 @@ Workshop</a>で整備された、テキスト分析用のRパッケージのデ�
 <p>ここではKH
 Coderで採用されている品詞体系を参考に、形態素解析された語の品詞情報を適当な値に置き換えています。なお、こうしたデータフレームの形式のトークンは、しばしばtidy
 textとも呼ばれます。</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toks</span> <span class="op">&lt;-</span> <span class="va">tbl</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">category</span>, <span class="va">body</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -231,9 +221,10 @@ textとも呼ばれます。</p>
 <div class="section level2">
 <h2 id="tidy-textからdfmへの変換">Tidy textからdfmへの変換<a class="anchor" aria-label="anchor" href="#tidy-text%E3%81%8B%E3%82%89dfm%E3%81%B8%E3%81%AE%E5%A4%89%E6%8F%9B"></a>
 </h2>
-<p>さて、実際にこうしたトークンをいろいろと分析するには、トークンを品詞などによって取捨選択しながら、分析したい単位ごとにグルーピングして集計する必要があります。簡単に集計するだけであれば、次のようにdplyrの関数を使って集計することができます。こうした文書ID・単語と、単語の文書内頻度の3つ組のかたちをしたデータフレームは、summarized
+<p>さて、実際にこういったトークンからさまざまな分析をするには、トークンを品詞などによって取捨選択しながら、分析したい単位ごとにグルーピングして集計する必要があります。</p>
+<p>簡単に集計するだけであれば、次のようにdplyrの関数を使って集計することができます。こうした文書ID、単語と、単語の文書内頻度の3つ組のかたちをしたデータフレームは、summarized
 textという呼び方をすることがあるようです。</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"その他"</span>, <span class="st">"タグ"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">token</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -254,7 +245,7 @@ textという呼び方をすることがあるようです。</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,035,522 more rows</span></span></span></code></pre></div>
 <p>一方で、たとえば、特定のトークンの連なりは連語と見なして一つのトークンとして集計したいといった場合には、dplyrだけで集計するのはなかなか大変です。そういったより複雑なケースでは、quantedaの枠組みと組み合わせて使ったほうが便利なことがあります。</p>
 <p>たとえば、IPA辞書では正しく解析されない「スマートフォン」といった語について、形態素解析した結果を確認した後に再度まとめあげて集計したい場合、quantedaを使うと次のように書くことができます。また、ここでは、うまく「記号」として解析されなかった記号類を除外するために、正規表現にマッチするトークンだけに絞り込んで集計しています。</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfm</span> <span class="op">&lt;-</span> <span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"その他"</span>, <span class="st">"タグ"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/pack.html">pack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -283,7 +274,7 @@ textという呼び方をすることがあるようです。</p>
 <p><code><a href="https://quanteda.io/reference/dfm.html" class="external-link">quanteda::dfm()</a></code>の戻り値は「文書単語行列（dtm）」を疎行列オブジェクト（dgCMatrix
 of ‘Matrix’
 package）として保持したものです（厳密には、dgCMatrixをスロットに持っているS4オブジェクト）。dfmオブジェクトは、<code>qunateda.textstats::textstat_frequency()</code>などを使って、さらに集計することができます。</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_frequency.html" class="external-link">textstat_frequency</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -320,7 +311,7 @@ package）として保持したものです（厳密には、dgCMatrixをスロ�
 </h2>
 <p>quantedaにおけるdfmオブジェクトは<code><a href="https://rdrr.io/pkg/tidytext/man/document_term_casters.html" class="external-link">tidytext::cast_dfm()</a></code>を使ってsummarized
 textを変換することによって得ることもできます。</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfm</span> <span class="op">&lt;-</span> <span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -337,8 +328,8 @@ textを変換することによって得ることもできます。</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">token</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidytext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/document_term_casters.html" class="external-link">cast_dfm</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">token</span>, <span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <p>dfmオブジェクトは<code>quanteda::dfm_*</code>という名前の関数を使って語彙を減らしたり、単語頻度に重みづけをしたりすることができます。</p>
-<p>ここでは、<code>quanteda.textstats_simil()</code>で単語間の類似度を得て、階層的クラスタリングをしてみます。</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>ここでは<code><a href="https://quanteda.io/reference/textstat_simil.html" class="external-link">quanteda.textstats::textstat_simil()</a></code>で単語間の類似度を得て、階層的クラスタリングをしてみます。</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">40</span>, termfreq_type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"boolean"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -372,7 +363,7 @@ textを変換することによって得ることもできます。</p>
 <p>dfmオブジェクトは<code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidytext::tidy()</a></code>でsummarized
 textのかたちに変換することができます。<code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidytext::tidy()</a></code>と<code><a href="https://rdrr.io/pkg/tidytext/man/document_term_casters.html" class="external-link">tidytext::cast_dfm()</a></code>をあわせて使うことで、dfmオブジェクトとsummarized
 textのあいだで自由に変換しあうことができます。</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfm</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span></span>
 <span>    min_termfreq <span class="op">=</span> <span class="fl">50</span>,</span>
@@ -386,8 +377,8 @@ textのあいだで自由に変換しあうことができます。</p>
 <span>    by <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/join_by.html" class="external-link">join_by</a></span><span class="op">(</span><span class="va">document</span> <span class="op">==</span> <span class="va">doc_id</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidytext</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidytext/man/document_term_casters.html" class="external-link">cast_dfm</a></span><span class="op">(</span><span class="va">category</span>, <span class="va">term</span>, <span class="va">count</span><span class="op">)</span></span></code></pre></div>
-<p>ここでは、<code><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">quanteda.textmodels::textmodel_ca()</a></code>を使ってdfmオブジェクトを対応分析にかけます。この関数の戻り値はcaパッケージのオブジェクトとの互換性があるため、<code><a href="http://www.carme-n.org/" class="external-link">library(ca)</a></code>としてから<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>に渡すことでバイプロットを描画することができます。</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>ここでは、<code><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">quanteda.textmodels::textmodel_ca()</a></code>を使ってdfmオブジェクトを対応分析にかけます。この関数の戻り値はcaパッケージのオブジェクトと互換性があるため、<code><a href="http://www.carme-n.org/" class="external-link">library(ca)</a></code>としてから<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>に渡すことでバイプロットを描画することができます。</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ca_fit</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda.textmodels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">textmodel_ca</a></span><span class="op">(</span>nd <span class="op">=</span> <span class="fl">2</span>, sparse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -395,7 +386,7 @@ textのあいだで自由に変換しあうことができます。</p>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ca_fit</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/ca_2-1.png" width="700"></p>
 <p>より見やすい表現としては、次のようにしてggplot2でバイプロットを描画することもできます。</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu">colSums</span><span class="op">(</span><span class="va">dfm</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">make_ca_plot_df</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ca.plot.obj</span>, <span class="va">row.lab</span> <span class="op">=</span> <span class="st">"Rows"</span>, <span class="va">col.lab</span> <span class="op">=</span> <span class="st">"Columns"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -474,7 +465,7 @@ Object」と「Document-Term
 Matrix」として図示されているのがquantedaにおけるオブジェクトになります。ちなみに、この図中にはありませんが、tidy
 textからコーパスやsummarized
 textのかたちを経ずにquantedaのtokensオブジェクトに変換するには、たとえば次のようにします。</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -527,12 +518,12 @@ textのかたちを経ずにquantedaのtokensオブジェクトに変換する�
 <span><span class="co">#&gt; [ ... and 105 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [ reached max_ndoc ... 5,894 more documents ]</span></span></code></pre></div>
-<p>一度にぜんぶ覚えるのはむずかしいでしょうが、こうした変換の方法を一通り覚えておくと、Rでテキストデータを扱うためのさまざまなバッケージについて、臨機応変に使いこなせるようになるはずです。少しずつでも、ぜひマスターしてください。</p>
+<p>一度にぜんぶ覚えるのはむずかしいでしょうが、こうした変換の方法を一通り覚えておくと、Rでテキストデータを扱うためのさまざまなバッケージについて、臨機応変に使いこなせるようになるはずです。少しずつでも、ぜひマスターしてみてください。</p>
 </div>
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
 </h2>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
@@ -642,7 +633,7 @@ textのかたちを経ずにquantedaのtokensオブジェクトに変換する�
 <span><span class="co">#&gt;  xfun                  0.42       <span style="color: #555555;">2024-02-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  yaml                  2.3.8      <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp8YW5UC/temp_libpath37801a0d5688</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp3iUVta/temp_libpath36246d61d957</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.3.3/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.3.3/lib/R/library</span></span></span>
