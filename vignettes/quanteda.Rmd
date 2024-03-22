@@ -161,9 +161,10 @@ dfm
 
 ```{r scatter_plot_2}
 dat <- dfm |>
-  quanteda.textstats::textstat_frequency()
+  quanteda.textstats::textstat_frequency() |>
+  dplyr::as_tibble()
 
-dat
+head(dat)
 
 dat |>
   ggplot(aes(x = frequency, y = docfreq)) +
