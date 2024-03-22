@@ -38,7 +38,7 @@ LinkingTo:
     RcppParallel
 Config/Needs/website: ggdendro, ggh4x, gghighlight, ggrepel, quanteda,
     quanteda.textmodels, quanteda.textstats, ca, tidytext, stringr,
-    textrecipes, tidymodels, xgboost, paithiov909/ldccr
+    textrecipes, text2vec, tidymodels, xgboost, paithiov909/ldccr
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
