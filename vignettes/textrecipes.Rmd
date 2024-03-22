@@ -45,34 +45,69 @@ if (requireNamespace("ldccr", quietly = TRUE)) {
 }
 ```
 
-ここでは、名詞・形容詞・動詞のみ抽出し、IPA辞書に収録されている語については原形にしながら分かち書きにします。このとき、漢字だけで書かれている名詞の連続については複合名詞と見なし、ひとつのトークンとします。
+ここでは、KH Coderの品詞体系における名詞・地名・人名・組織名・固有名詞・動詞・未知語を抽出し、IPA辞書に収録されている語については原形にしながら分かち書きにします。
 
 ```{r prep_corpus_2}
-corpus <- tbl |>
+corp <- tbl |>
   dplyr::mutate(
-    text = stringi::stri_trans_nfkc(body),
+    text = stringi::stri_trans_nfkc(body) |>
+      stringi::stri_replace_all_regex("(https?\\://[[:alnum:]\\.\\-_/]+)", "\nURL\tタグ\n") |>
+      stringi::stri_replace_all_regex("[\\s]{2,}", "\n") |>
+      stringi::stri_trim_both(),
     chunk = dplyr::ntile(dplyr::row_number(), 10)
-  ) |>
+  ) |> 
   dplyr::group_by(chunk) |>
-  dplyr::group_map(function(df, idx) {
+  dplyr::group_modify(\(df, idx) {
     data.frame(
       doc_id = df$doc_id,
       text = df$text
     ) |>
-      gibasa::tokenize() |>
-      gibasa::prettify(col_select = c("POS1", "Original")) |>
+      gibasa::tokenize(text, partial = TRUE) |>
+      gibasa::prettify(
+        col_select = c("POS1", "POS2", "POS3", "Original")
+      ) |>
       dplyr::mutate(
-        token = dplyr::if_else(is.na(Original), token, Original)
+        pos = dplyr::case_when(
+          (POS1 == "タグ") ~ "タグ",
+          (is.na(Original) & stringr::str_detect(token, "^[[:alpha:]]+$")) ~ "未知語",
+          (POS1 == "感動詞") ~ "感動詞",
+          (POS1 == "名詞" & POS2 == "一般" & stringr::str_detect(token, "^[\\p{Han}]{1}$")) ~ "名詞C",
+          (POS1 == "名詞" & POS2 == "一般" & stringr::str_detect(token, "^[\\p{Hiragana}]+$")) ~ "名詞B",
+          (POS1 == "名詞" & POS2 == "一般") ~ "名詞",
+          (POS1 == "名詞" & POS2 == "固有名詞" & POS3 == "地域") ~ "地名",
+          (POS1 == "名詞" & POS2 == "固有名詞" & POS3 == "人名") ~ "人名",
+          (POS1 == "名詞" & POS2 == "固有名詞" & POS3 == "組織") ~ "組織名",
+          (POS1 == "名詞" & POS2 == "形容動詞語幹") ~ "形容動詞",
+          (POS1 == "名詞" & POS2 == "ナイ形容詞語幹") ~ "ナイ形容詞",
+          (POS1 == "名詞" & POS2 == "固有名詞") ~ "固有名詞",
+          (POS1 == "名詞" & POS2 == "サ変接続") ~ "サ変名詞",
+          (POS1 == "名詞" & POS2 == "副詞可能") ~ "副詞可能",
+          (POS1 == "動詞" & POS2 == "自立" & stringr::str_detect(token, "^[\\p{Hiragana}]+$")) ~ "動詞B",
+          (POS1 == "動詞" & POS2 == "自立") ~ "動詞",
+          (POS1 == "形容詞" & stringr::str_detect(token, "^[\\p{Hiragana}]+$")) ~ "形容詞B",
+          (POS1 == "形容詞" & POS2 == "非自立") ~ "形容詞（非自立）",
+          (POS1 == "形容詞") ~ "形容詞",
+          (POS1 == "副詞" & stringr::str_detect(token, "^[\\p{Hiragana}]+$")) ~ "副詞B",
+          (POS1 == "副詞") ~ "副詞",
+          (POS1 == "助動詞" & Original %in% c("ない", "まい", "ぬ", "ん")) ~ "否定助動詞",
+          .default = "その他"
+        )
       ) |>
-      gibasa::mute_tokens(
-        !POS1 %in% c("名詞", "形容詞", "動詞")
-      ) |>
-      gibasa::collapse_tokens(
-        POS1 == "名詞" & stringr::str_detect(token, "^[\\p{Han}]+$")
-      ) |>
-      gibasa::pack()
+        dplyr::filter(
+          pos %in% c(
+            "名詞",
+            "地名", "人名", "組織名", "固有名詞",
+            "動詞", "未知語"
+          )
+        ) |>
+        dplyr::mutate(
+          doc_id = droplevels(doc_id),
+          token = dplyr::if_else(is.na(Original), token, Original),
+          token = paste(token, pos, sep = "/")
+        ) |>
+        gibasa::pack()
   }) |>
-  purrr::list_rbind() |>
+  dplyr::ungroup() |>
   dplyr::left_join(dplyr::select(tbl, doc_id, category), by = "doc_id")
 ```
 
@@ -81,9 +116,9 @@ corpus <- tbl |>
 データを分割します。
 
 ```{r prep_data}
-corpus_split <- rsample::initial_split(corpus, prop = .8, strata = "category")
-corpus_train <- rsample::training(corpus_split)
-corpus_test <- rsample::testing(corpus_split)
+corp_split <- rsample::initial_split(corp, prop = .8, strata = "category")
+corp_train <- rsample::training(corp_split)
+corp_test <- rsample::testing(corp_split)
 ```
 
 以下のレシピとモデルで学習します。ここでは、ハッシュトリックを使っています。
@@ -93,7 +128,7 @@ corpus_test <- rsample::testing(corpus_split)
 ```{r prep_model}
 NUM_TERMS <- 100L
 
-corpus_spec <-
+corp_spec <-
   parsnip::boost_tree(
     trees = !!NUM_TERMS, # model_specに外にある変数を与える場合には、このようにinjectionします
     tree_depth = tune::tune(),
@@ -108,10 +143,10 @@ corpus_spec <-
   ) |>
   parsnip::set_mode("classification")
 
-corpus_rec <-
+corp_rec <-
   recipes::recipe(
     category ~ text,
-    data = corpus_train
+    data = corp_train
   ) |>
   textrecipes::step_tokenize(
     text,
@@ -119,26 +154,26 @@ corpus_rec <-
   ) |>
   textrecipes::step_tokenfilter(
     text,
-    max_times = nrow(corpus_train),
+    max_times = nrow(corp_train),
     max_tokens = NUM_TERMS * 5
   ) |>
   textrecipes::step_texthash(text, num_terms = NUM_TERMS)
 ```
 
 ```{r workflow}
-corpus_wflow <-
+corp_wflow <-
   workflows::workflow() |>
-  workflows::add_model(corpus_spec) |>
-  workflows::add_recipe(corpus_rec)
+  workflows::add_model(corp_spec) |>
+  workflows::add_recipe(corp_rec)
 ```
 
-F値をメトリクスにして学習します。3分割CVで、簡単にですが、ハイパーパラメータ探索をします。
+F値をメトリクスにして学習します。5分割CVで、簡単にですが、ハイパーパラメータ探索をします。
 
 ```{r tune_wl}
-corpus_tune_res <-
-  corpus_wflow |>
+corp_tune_res <-
+  corp_wflow |>
   tune::tune_grid(
-    resamples = rsample::vfold_cv(corpus_train, strata = category, v = 3L),
+    resamples = rsample::vfold_cv(corp_train, strata = category, v = 5L),
     grid = dials::grid_latin_hypercube(
       dials::tree_depth(),
       dials::mtry(range = c(30L, NUM_TERMS)),
@@ -152,22 +187,22 @@ corpus_tune_res <-
 ハイパラ探索の要約を確認します。
 
 ```{r autoplot}
-ggplot2::autoplot(corpus_tune_res)
+ggplot2::autoplot(corp_tune_res)
 ```
 
 `fit`します。
 
 ```{r fit_wl}
-corpus_wflow <-
-  tune::finalize_workflow(corpus_wflow, tune::select_best(corpus_tune_res, metric = "f_meas"))
+corp_wflow <-
+  tune::finalize_workflow(corp_wflow, tune::select_best(corp_tune_res, metric = "f_meas"))
 
-corpus_fit <- tune::last_fit(corpus_wflow, corpus_split)
+corp_fit <- tune::last_fit(corp_wflow, corp_split)
 ```
 
 学習したモデルの精度を見てみます。
 
 ```{r pred_wl}
-corpus_fit |>
+corp_fit |>
   tune::collect_predictions() |>
   yardstick::f_meas(truth = category, estimate = .pred_class)
 ```

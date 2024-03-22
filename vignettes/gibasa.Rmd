@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-set.seed(38466)
 ```
 
 ## gibasaパッケージについて
@@ -84,7 +83,13 @@ gibasa::pack(res)
 gibasa::pack(res, POS1)
 ```
 
-### ベンチマーク
+### 詳しい使い方
+
+より詳しい使い方については、次のサイトを参照してください。
+
+- [RとMeCabによる日本語テキストマイニングの前処理](https://paithiov909.github.io/textmining-ja/)
+
+## ベンチマーク
 
 [TokyoR #98](https://tokyor.connpass.com/event/244200/)での[LTのスライド](https://paithiov909.github.io/shiryo/gibasa/#11)でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもMeCabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。
 
@@ -116,177 +121,4 @@ bench <- microbenchmark::microbenchmark(gibasa(),
 ggplot2::autoplot(bench)
 ```
 
-![benchmark1](https://raw.githack.com/paithiov909/gibasa/main/man/figures/benchmark1.png)
-
-## デモ：使用するデータ
-
-以下では、gibasaを利用した分析のデモとして、gibasaによるテキストの前処理からLDAによるトピックモデリングまでを試してみます。ここでは、以下の10人の作家による文章を使います。
-
-- 芥川龍之介（芥川竜之介）
-- 太宰治
-- 泉鏡花
-- 菊池寛
-- 森鴎外
-- 夏目漱石
-- 岡本綺堂
-- 佐々木味津三
-- 島崎藤村
-- 海野十三
-
-青空文庫で公開されているこれらの作家の文章のうち「新字新仮名」のものはあわせて1000篇ほどあるようですが、このうち699篇をランダムに抽出したデータセットをあらかじめ用意しました。次のようにしてダウンロードして読み込みます。
-
-```{r load_dataset}
-tmp <- tempfile(fileext = ".zip")
-download.file("https://github.com/paithiov909/shiryo/raw/main/docs/data/aozora.csv.zip", tmp)
-
-tbl <- readr::read_csv(tmp, col_types = "cccf") |>
-  dplyr::mutate(author = as.factor(author))
-```
-
-このデータセットの`text`列には、それぞれの文章の本文のうち、会話文以外の段落だけをひとまとめにした文字列が含まれています。
-
-```{r glimpse_dataset}
-dplyr::glimpse(tbl)
-```
-
-## デモ：前処理（分かち書き）のコツ
-
-これを前処理（分かち書き）していくのですが、実際上の注意点として、これよりももっと大規模な分量のテキストデータを一気に`gibasa::tokenize`にわたす場合、メモリ不足になってしまい、結果が返ってこない可能性があります。
-
-たとえば、このデータセットの`text`列について、文字数を確認すると、おおよそ次のような分量があります。
-
-```{r nchar_dataset1}
-tbl |>
-  dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::group_by(author) |>
-  dplyr::summarise(
-    nchar_mean = mean(nchar),
-    nchar_median = median(nchar),
-    nchar_min = min(nchar),
-    nchar_max = max(nchar),
-    n = dplyr::n()
-  ) |>
-  dplyr::mutate(across(where(is.numeric), trunc))
-```
-
-このデータセット中で、文字数ベースでもっとも分量が多い文章は、森鴎外『ファウスト』です。とりあえず『ファウスト』のみについて`gibasa::tokenize`してみると、これだけですでに152,000トークンあります。これくらいの分量の文章はデータセット中にほかにもあるようなので、このデータセット全部を分かち書きするとしたら、総トークン数の目安として45万トークンくらいは軽く超えてきそうです。
-
-```{r nchar_dataset2}
-dplyr::filter(tbl, title == "ファウスト") |>
-  dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::select(!text)
-
-dplyr::filter(tbl, title == "ファウスト") |>
-  gibasa::tokenize(split = TRUE) |>
-  nrow()
-```
-
-`gibasa::tokenize`は`text_field`引数で指定した列に含まれる総トークン数行×3列のデータフレームを戻り値として返します。その戻り値に対して何も考えずに`gibasa::prettify`すると、`feature`列がさらに複数列に分割されるため、総トークン数が45万行あればそれだけでも45万行×十数列のデータフレームになります。どのくらいの規模のtidy textを扱うかは、使用している環境のスペックに応じて加減するようにしてください。
-
-ここでは、ひとまず単純に形態素解析するテキストの分量を減らします。以下では、文章あたりの文字数が5000字よりも少ないデータだけを使うことにします。これでも、全部で228篇あります。
-
-```{r nchar_dataset3}
-tbl <- dplyr::filter(tbl, nchar(text) < 5000)
-tbl |>
-  dplyr::mutate(nchar = nchar(text)) |>
-  dplyr::group_by(author) |>
-  dplyr::summarise(
-    nchar_mean = mean(nchar),
-    nchar_median = median(nchar),
-    nchar_min = min(nchar),
-    nchar_max = max(nchar),
-    n = dplyr::n()
-  ) |>
-  dplyr::mutate(across(where(is.numeric), trunc))
-```
-
-実際に大規模なテキストデータを形態素解析するにあたっては、最終的に欲しいかたちのデータになるように元のデータセットを小分けにしながら処理するのが有効かもしれません。
-
-たとえば、ここでは、トークンのなかでも未知語でないもので、かつ、名詞・形容詞・動詞についてのみを、辞書に収録されている原形で抽出し、品詞情報とあわせて「/」で区切ったタグ付き単語の分かち書きにしています。このとき、以下のように、`chunk`という新しくつくった列についてグルーピングし、適当なサイズのまとまりごとに`text`列を処理しています。
-
-また、このとき`col_select`引数をわたさずに`gibasa::prettify`すると、いちいち9列ある素性（IPA辞書の場合）をすべてパースしてしまいます。必要な列だけをパースしたほうがメモリ使用量的により安心なため、なるべく後から処理に使う列だけをこまめに指定するようにしてください。
-
-```{r cast_corpus}
-corp <- tbl |>
-  dplyr::mutate(
-    chunk = dplyr::ntile(doc_id, 10)
-  ) |>
-  dplyr::group_by(chunk) |>
-  dplyr::group_map(function(df, idx) {
-    data.frame(
-      doc_id = df$doc_id,
-      text = df$text
-    ) |>
-      gibasa::tokenize() |>
-      gibasa::prettify(col_select = c("POS1", "Original")) |>
-      dplyr::filter(
-        POS1 %in% c("名詞", "形容詞", "動詞"),
-        !is.na(Original)
-      ) |>
-      dplyr::mutate(token = stringr::str_c(Original, POS1, sep = "/")) |>
-      gibasa::pack(token)
-  }) |>
-  purrr::list_rbind() |>
-  dplyr::left_join(dplyr::select(tbl, doc_id, author), by = "doc_id") |>
-  quanteda::corpus()
-
-head(corp)
-```
-
-## デモ：LDA
-
-ここまでで抽出した文書から関心のある品詞だけを分かち書きにしつつ、quantedaのコーパスオブジェクトのかたちにしました。ここからはquantedaの関数を使いながら、簡単に`topicmodels::LDA`によるLDAの実行までを試してみます。
-
-quantedaでこのようなかたちのコーパスから文書単語行列を得るには、次のようにします。この時点で、トークン数（異なり語の数）は17,000語ほどあります。
-
-```{r cast_dtm}
-dtm <- corp |>
-  quanteda::tokens(what = "fastestword") |>
-  quanteda::dfm() |>
-  quanteda::dfm_weight()
-
-quanteda::nfeat(dtm)
-```
-
-これくらいであればこのままでもよさそうですが、もう少し語彙を減らしたい場合、たとえば、次のように`quanteda::dfm_trim`します。これで、ここでは4,000語くらいまで語彙を減らすことができました。
-
-```{r trim_dtm}
-dtm <- dtm |>
-  quanteda::dfm_trim(min_termfreq = 5L, max_termfreq = 50L)
-
-quanteda::nfeat(dtm)
-```
-
-`quanteda::convert`でdfmオブジェクトを変換して`topicmodels::LDA`にわたします。
-
-```{r lda}
-lda_res <-
-  quanteda::convert(dtm, to = "topicmodels") |>
-  topicmodels::LDA(k = 5)
-```
-
-割り当てられたトピックを確認してみます。それぞれの文章の内容についてあまり理解していないため、ここではそれぞれのトピックの解釈はしませんが、比較的作家ごとにまとまって一つのトピックに属しているようにも見えます。
-
-```{r topics}
-topics <-
-  topicmodels::topics(lda_res) |>
-  tibble::enframe(name = "doc_id", value = "topic") |>
-  dplyr::right_join(
-    dplyr::select(tbl, !text),
-    by = "doc_id"
-  ) |>
-  dplyr::arrange(topic)
-
-reactable::reactable(
-  topics,
-  filterable = TRUE,
-  searchable = TRUE,
-  compact = TRUE
-)
-```
-
-## セッション情報
-
-```{r info}
-sessioninfo::session_info()
-```
+![benchmark1](https://rawcdn.githack.com/paithiov909/gibasa/7a3c17e807c3dda473f79f11b539a3e446e3ae6a/man/figures/benchmark1.png)
