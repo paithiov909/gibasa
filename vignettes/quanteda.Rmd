@@ -43,7 +43,8 @@ TIFというのは、2017年に[rOpenSci Text Workshop](https://textworkshop17.r
 
 ```{r tidy_data_1}
 tbl <- ldccr::read_ldnws() |>
-  dplyr::mutate(doc_id = as.character(dplyr::row_number()))
+  dplyr::mutate(doc_id = as.character(dplyr::row_number())) |>
+  dplyr::rename(text = body)
 
 tbl
 ```
@@ -66,15 +67,15 @@ livedoorニュースコーパスは文書分類をおこなうことを主な目
 
 ```{r tidy_data_2}
 toks <- tbl |>
-  dplyr::select(doc_id, category, body) |>
+  dplyr::select(doc_id, category, text) |>
   dplyr::slice_sample(prop = .8) |>
   dplyr::mutate(
-    body = stringi::stri_trans_nfkc(body) |>
+    text = stringi::stri_trans_nfkc(text) |>
       stringi::stri_replace_all_regex("(https?\\://[[:alnum:]\\.\\-_/]+)", "\nURL\tタグ\n") |>
       stringi::stri_replace_all_regex("[\\s]{2,}", "\n") |>
       stringi::stri_trim_both()
   ) |>
-  gibasa::tokenize(body, partial = TRUE) |>
+  gibasa::tokenize(text, partial = TRUE) |>
   gibasa::prettify(
     col_select = c("POS1", "POS2", "POS3", "Original")
   ) |>
@@ -146,7 +147,7 @@ dfm <- toks |>
 dfm
 ```
 
-`quanteda::dfm()`の戻り値は「文書単語行列（dtm）」を疎行列オブジェクト（dgCMatrix of 'Matrix' package）として保持したものです（厳密には、dgCMatrixをスロットに持っているS4オブジェクト）。dfmオブジェクトは、`qunateda.textstats::textstat_frequency()`などを使って、さらに集計することができます。
+`quanteda::dfm()`の戻り値は「文書単語行列（dtm）」を疎行列オブジェクト（dgCMatrix of 'Matrix' package）として保持したものです（厳密には、dgCMatrixをスロットにもっているS4オブジェクト）。dfmオブジェクトは、`qunateda.textstats::textstat_frequency()`などを使って、さらに集計することができます。
 
 ```{r scatter_plot_2}
 dat <- dfm |>
@@ -173,7 +174,7 @@ dat |>
 
 ## Summarized textからdfmへの変換
 
-quantedaにおけるdfmオブジェクトは`tidytext::cast_dfm()`を使ってsummarized textを変換することによって得ることもできます。
+「文書単語行列（dtm）」は、トークンを集計した結果を縦長のデータフレームとしてもっているsummarized textを横に展開したものだと理解できます。両者は表現が異なるだけで、もっているデータとしては同じものであるため、quantedaにおけるdfmオブジェクトは`tidytext::cast_dfm()`を使ってsummarized textを変換することによって得ることもできます。
 
 ```{r hclust_1}
 dfm <- toks |>
@@ -202,6 +203,7 @@ clusters <- dfm |>
   quanteda::dfm_trim(min_termfreq = 40, termfreq_type = "rank") |>
   quanteda::dfm_weight(scheme = "boolean") |>
   quanteda.textstats::textstat_simil(margin = "features", method = "dice") |>
+  rlang::as_function(~ 1 - .)() |>
   as.dist() |>
   hclust(method = "ward.D2")
 
@@ -227,7 +229,7 @@ dfmオブジェクトは`tidytext::tidy()`でsummarized textのかたちに変�
 ```{r ca_1}
 dfm <- dfm |>
   quanteda::dfm_trim(
-    min_termfreq = 50,
+    min_termfreq = 40,
     termfreq_type = "rank"
   ) |>
   tidytext::tidy() |>
@@ -321,7 +323,7 @@ dat |>
 
 ![flowchart of a text analysis that combines gibasa and other packages](https://rawcdn.githack.com/paithiov909/gibasa/7a3c17e807c3dda473f79f11b539a3e446e3ae6a/man/figures/tidytext_fig5_1_mod.drawio.png)
 
-この図では「Text Data」として括られているのがTIFにおけるコーパスで、最下段の「Corpus Object」と「Document-Term Matrix」として図示されているのがquantedaにおけるオブジェクトになります。ちなみに、この図中にはありませんが、tidy textからコーパスやsummarized textのかたちを経ずにquantedaのtokensオブジェクトに変換するには、たとえば次のようにします。
+この図では「Text Data」として括られているのがTIFにおけるコーパスで、最下段の「Corpus Object」と「Document-Term Matrix」として図示されているのがquantedaにおけるオブジェクトになります。ちなみに、この図中にはありませんが、tidy textからコーパスのかたちを経ずにquantedaのtokensオブジェクトに変換するには、たとえば次のようにします。
 
 ```{r}
 toks |>
