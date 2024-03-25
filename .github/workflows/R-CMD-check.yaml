@@ -63,7 +63,7 @@ jobs:
         run: |
           python3 -m pip install ipadic
           python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > $RUNNER_TEMP/mecabrc
-          echo "MECABRC='${RUNNER_TEMP}/mecabrc'" >> $GITHUB_ENV
+          echo "MECABRC='$RUNNER_TEMP/mecabrc'" >> $env:GITHUB_ENV
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         env:

@@ -12,6 +12,12 @@ test_that("tokenize fails", {
   expect_error(suppressWarnings(
     tokenize(character(0), sys_dic = "/dict/dir/doesnt/exist")
   ))
+})
+
+test_that("tokenize warns if invalid strings are passed", {
+  skip_on_cran()
+  skip_if_no_dict()
+
   ## This behaviors are derived from a bug of MeCab.
   ## A sentence fragment before a morpheme fragment cannot end with spaces.
   expect_warning(
