@@ -223,7 +223,8 @@ Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
     } catch (const std::exception& e) {
       std::string err = e.what();
       err += " Parsing failed at sentence: %s";
-      Rcpp::stop(err.c_str(), i + 1);
+      Rcpp::warning(err.c_str(), i + 1);
+      continue;
     }
   }
 

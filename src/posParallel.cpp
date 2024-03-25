@@ -11,13 +11,13 @@
 
 using namespace Rcpp;
 
-struct TextParse : public RcppParallel::Worker {
+struct TextParser : public RcppParallel::Worker {
   const std::vector<std::string>* sentences_;
   std::vector<std::vector<std::tuple<std::string, std::string>>>& results_;
   MeCab::Model* model_;
   const bool* partial_;
 
-  TextParse(
+  TextParser(
       const std::vector<std::string>* sentences,
       std::vector<std::vector<std::tuple<std::string, std::string>>>& results,
       MeCab::Model* model, const bool* is_partial_mode)
@@ -48,15 +48,17 @@ struct TextParse : public RcppParallel::Worker {
 
           node = lattice->bos_node();
 
+          std::string morph;
+          std::string features;
+
           for (; node; node = node->next) {
             if (node->stat == MECAB_BOS_NODE)
               ;
             else if (node->stat == MECAB_EOS_NODE)
               ;
             else {
-              std::string morph =
-                  std::string(node->surface).substr(0, node->length);
-              std::string features = std::string(node->feature);
+              morph = std::string(node->surface).substr(0, node->length);
+              features = std::string(node->feature);
               parsed.push_back(std::make_tuple(morph, features));
             }
           }
@@ -128,7 +130,7 @@ Rcpp::DataFrame posParallelRcpp(const std::vector<std::string>& text,
 
   bool is_partial_mode = is_true(all(partial)) ? true : false;
 
-  TextParse text_parse(&text, results, model, &is_partial_mode);
+  TextParser text_parse(&text, results, model, &is_partial_mode);
   RcppParallel::parallelFor(0, text.size(), text_parse, grain_size);
 
   // clean
