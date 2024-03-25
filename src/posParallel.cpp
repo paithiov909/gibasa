@@ -40,26 +40,33 @@ struct TextParse : public RcppParallel::Worker {
       } else {
         lattice->set_sentence((*sentences_)[i].c_str());
       }
-      if (tagger->parse(lattice)) {
-        const std::size_t len = lattice->size();
-        std::vector<std::tuple<std::string, std::string>> parsed;
-        parsed.reserve(len);
+      try {
+        if (tagger->parse(lattice)) {
+          const std::size_t len = lattice->size();
+          std::vector<std::tuple<std::string, std::string>> parsed;
+          parsed.reserve(len);
 
-        node = lattice->bos_node();
+          node = lattice->bos_node();
 
-        for (; node; node = node->next) {
-          if (node->stat == MECAB_BOS_NODE)
-            ;
-          else if (node->stat == MECAB_EOS_NODE)
-            ;
-          else {
-            std::string morph =
-                std::string(node->surface).substr(0, node->length);
-            std::string features = std::string(node->feature);
-            parsed.push_back(std::make_tuple(morph, features));
+          for (; node; node = node->next) {
+            if (node->stat == MECAB_BOS_NODE)
+              ;
+            else if (node->stat == MECAB_EOS_NODE)
+              ;
+            else {
+              std::string morph =
+                  std::string(node->surface).substr(0, node->length);
+              std::string features = std::string(node->feature);
+              parsed.push_back(std::make_tuple(morph, features));
+            }
           }
+          results_[i] = parsed;
         }
-        results_[i] = parsed;
+      } catch (const std::exception& e) {
+        std::string err = e.what();
+        err += " Parsing failed at sentence: %s";
+        Rcpp::warning(err.c_str(), i + 1);
+        continue;
       }
     }
     MeCab::deleteLattice(lattice);

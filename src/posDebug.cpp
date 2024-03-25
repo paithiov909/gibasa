@@ -1,7 +1,6 @@
 #define R_NO_REMAP
 
 #include <Rcpp.h>
-
 #include "mecab.h"
 
 using namespace Rcpp;
@@ -89,7 +88,8 @@ Rcpp::DataFrame dictionary_info(const std::string& sys_dic = "",
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
 int transition_cost(unsigned short rcAttr, unsigned short lcAttr,
-                    const std::string& sys_dic = "", const std::string& user_dic = "") {
+                    const std::string& sys_dic = "",
+                    const std::string& user_dic = "") {
   std::vector<std::string> args;
   args.push_back("mecab");
   if (sys_dic != "") {
@@ -194,32 +194,36 @@ Rcpp::DataFrame posDebugRcpp(const std::vector<std::string>& text,
     if (is_true(all(partial))) input += "\nEOS";
 
     lattice->set_sentence(input.c_str());
-    if (!tagger->parse(lattice)) {
-      std::string err = MeCab::getLastError();
-      Rcpp::stop(err);
-    }
-    node = lattice->bos_node();
+    try {
+      if (tagger->parse(lattice)) {
+        node = lattice->bos_node();
 
-    std::string surface;
-    std::string feature;
+        std::string surface;
+        std::string feature;
 
-    for (; node; node = node->next) {
-      surface = std::string(node->surface).substr(0, node->length);
-      feature = std::string(node->feature);
+        for (; node; node = node->next) {
+          surface = std::string(node->surface).substr(0, node->length);
+          feature = std::string(node->feature);
 
-      docids.push_back(i + 1);
-      posids.push_back(node->posid);
-      surfaces.push_back(surface);
-      features.push_back(feature);
-      stats.push_back(node->stat);
-      lcAttr.push_back(node->lcAttr);
-      rcAttr.push_back(node->rcAttr);
-      alpha.push_back(node->alpha);
-      beta.push_back(node->beta);
-      isbest.push_back(node->isbest);
-      prob.push_back(node->prob);
-      wcost.push_back(node->wcost);
-      cost.push_back(node->cost);
+          docids.push_back(i + 1);
+          posids.push_back(node->posid);
+          surfaces.push_back(surface);
+          features.push_back(feature);
+          stats.push_back(node->stat);
+          lcAttr.push_back(node->lcAttr);
+          rcAttr.push_back(node->rcAttr);
+          alpha.push_back(node->alpha);
+          beta.push_back(node->beta);
+          isbest.push_back(node->isbest);
+          prob.push_back(node->prob);
+          wcost.push_back(node->wcost);
+          cost.push_back(node->cost);
+        }
+      }
+    } catch (const std::exception& e) {
+      std::string err = e.what();
+      err += " Parsing failed at sentence: %s";
+      Rcpp::stop(err.c_str(), i + 1);
     }
   }
 

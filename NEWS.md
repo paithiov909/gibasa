@@ -1,3 +1,7 @@
+# gibasa (development version)
+
+* `tokenize` now warns rather than throws an error when an invalid input is given during partial parsing. With this change, `tokenize` is no longer entirely aborted even if an invalid string is given. Parsing of those strings is simply skipped.
+
 # gibasa 1.1.0
 
 * Corrected probabilistic IDF calculation by `global_idf3`.
