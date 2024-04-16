@@ -18,10 +18,13 @@ test_that("tokenize warns if invalid strings are passed", {
   skip_on_cran()
   skip_if_no_dict()
 
-  ## This behaviors are derived from a bug of MeCab.
+  ## These behaviors are derived from a bug of MeCab.
   ## A sentence fragment before a morpheme fragment cannot end with spaces.
   expect_warning(
-    tokenize("aaa \nbbb\tTAG", partial = TRUE)
+    ## Suppressing messages from 'Rcerr'
+    capture.output({
+      invisible(tokenize("aaa \nbbb\tTAG", partial = TRUE))
+    }, type = "message")
   )
 })
 
