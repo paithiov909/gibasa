@@ -63,5 +63,5 @@ test_that("get_dict_features works", {
   expect_equal(length(get_dict_features("cc-cedict")), 8L)
   expect_equal(length(get_dict_features("ko-dic")), 8L)
   expect_equal(length(get_dict_features("naist11")), 11L)
-  expect_equal(length(get_dict_features("sudachi")), 6L)
+  expect_equal(length(get_dict_features("sudachi")), 9L)
 })
