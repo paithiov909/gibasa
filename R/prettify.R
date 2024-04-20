@@ -126,7 +126,7 @@ get_dict_features <- function(dict = c(
       "POS1", "POS2", "POS3", "POS4", "X5StageUse1", "X5StageUse2", "Original", "Yomi1", "Yomi2", "Info", "Misc"
     )),
     dict == "sudachi" ~ list(c(
-      "POS1", "POS2", "POS3", "POS4", "cType", "cForm"
+      "POS1", "POS2", "POS3", "POS4", "cType", "cForm", "dictionary_form", "normalized_form", "reading_form"
     )),
     TRUE ~ list(c("POS1", "POS2", "POS3", "POS4", "X5StageUse1", "X5StageUse2", "Original", "Yomi1", "Yomi2"))
   )
