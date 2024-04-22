@@ -45,7 +45,7 @@ pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
     tbl %>%
       dplyr::reframe(
         text = .data[[pull]] %>%
-          stringi::stri_omit_empty_na() %>%
+          stringi::stri_remove_empty_na() %>%
           stringi::stri_c(collapse = .collapse),
         .by = "doc_id"
       ) %>%
