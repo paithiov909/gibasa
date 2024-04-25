@@ -55,7 +55,6 @@ prettify <- function(tbl,
         stringi::stri_c(into, collapse = ","),
         dplyr::pull(tbl, {{ col }})
       ) %>%
-      stringi::stri_c(collapse = "\n") %>%
       I() %>%
       readr::read_delim(
         delim = delim,
