@@ -36,9 +36,10 @@ df <- tokenize(
 ) |>
   prettify(col_select = "POS1")
 
-head(collapse_tokens(
+collapse_tokens(
   df,
   POS1 == "\u540d\u8a5e" & stringr::str_detect(token, "^[\\\\p{Han}]+$")
-))
+) |>
+  head()
 }
 }

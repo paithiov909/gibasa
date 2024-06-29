@@ -15,13 +15,14 @@
 #' \dontrun{
 #' df <- tokenize(
 #'   data.frame(
-#'     doc_id = seq_along(ginga[5:8]),
+#'     doc_id = seq_along(5:8),
 #'     text = ginga[5:8]
 #'   )
 #' ) |>
 #'   prettify(col_select = "POS1")
 #'
-#' head(mute_tokens(df, POS1 %in% c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e")))
+#' mute_tokens(df, POS1 %in% c("\u52a9\u8a5e", "\u52a9\u52d5\u8a5e")) |>
+#'   head()
 #' }
 mute_tokens <- function(tbl,
                         condition,
