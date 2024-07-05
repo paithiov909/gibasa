@@ -52,7 +52,7 @@ lex_density <- function(vec,
   } else {
     num_of_contents <- length(subset(vec, vec %in% contents_words))
   }
-  if (!missing(targets)) {
+  if (!is.null(targets)) {
     if (isTRUE(negate[2])) {
       vec <- subset(vec, !vec %in% targets)
     } else {
