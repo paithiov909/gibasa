@@ -71,14 +71,20 @@ prettify <- function(tbl,
 #' Get dictionary features
 #'
 #' Returns names of dictionary features.
-#' Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
-#' "unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
-#' "naist11", "sudachi", and "ipa".
+#' Currently supports
+#' "unidic17" (2.1.2 src schema),
+#' "unidic26" (2.1.2 bin schema),
+#' "unidic29" (schema used in 2.2.0, 2.3.0),
+#' "cc-cedict",
+#' "ko-dic" (mecab-ko-dic),
+#' "naist11",
+#' "sudachi", and "ipa".
 #'
 #' @seealso See also
 #' \href{https://github.com/ueda-keisuke/CC-CEDICT-MeCab}{'CC-CEDICT-MeCab'}
 #' and \href{https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/}{'mecab-ko-dic'}.
-#' @param dict Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
+#' @param dict Character scalar;
+#' one of "ipa", "unidic17", "unidic26", "unidic29",
 #' "cc-cedict", "ko-dic", "naist11", or "sudachi".
 #' @returns A character vector.
 #' @export

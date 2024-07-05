@@ -9,12 +9,14 @@
 #' Note that the system dictionary is expected to be compiled with UTF-8,
 #' not Shift-JIS or other encodings.
 #' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.
-#' @param split Logical. When passed as `TRUE`, the function internally splits the sentences
-#' into sub-sentences using \code{stringi::stri_split_boundaries(type = "sentence")}.
-#' @param partial Logical. When passed as `TRUE`, activates partial parsing mode.
+#' @param split Logical. When passed as `TRUE`, the function
+#' internally splits the sentences into sub-sentences
+#' using \code{stringi::stri_split_boundaries(type = "sentence")}.
+#' @param partial Logical. When passed as `TRUE`, activates
+#' partial parsing mode.
 #' To activate this feature, remember that all spaces at the start and end of
 #' the input chunks are already squashed. In particular, trailing spaces
-#' of chunks sometimes cause fatal errors.
+#' of chunks sometimes cause errors when parsing.
 #' @param grain_size Integer value larger than 1.
 #' This argument is internally passed to `RcppParallel::parallelFor` function.
 #' Setting a larger chunk size could improve the performance in some cases.
@@ -132,7 +134,8 @@ tagger_impl <- function(sentences,
   if (isTRUE(split)) {
     res <-
       lapply(seq_along(sentences), function(i) {
-        vec <- stringi::stri_split_boundaries(sentences[i], type = "sentence") %>%
+        vec <-
+          stringi::stri_split_boundaries(sentences[i], type = "sentence") %>%
           unlist()
         dplyr::bind_cols(
           data.frame(doc_id = docnames[i]),

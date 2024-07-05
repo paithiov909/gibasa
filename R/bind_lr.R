@@ -12,7 +12,8 @@
 #' @param term <[`data-masked`][rlang::args_data_masking]>
 #' Column containing terms.
 #' @param lr_mode Method for computing 'FL' and 'FR' values.
-#' `n` is equivalent to 'LN' and 'RN', and `dn` is equivalent to 'LDN' and 'RDN'.
+#' `n` is equivalent to 'LN' and 'RN',
+#' and `dn` is equivalent to 'LDN' and 'RDN'.
 #' @param avg_rate Weight of the 'LR' value.
 #' @returns A data.frame.
 #' @export

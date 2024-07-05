@@ -14,7 +14,8 @@
 #' The data.frame of tokens here is a data.frame object
 #' compatible with the TIF.
 #'
-#' A TIF valid data.frame of tokens are expected to have one unique key column (named `doc_id`)
+#' A TIF valid data.frame of tokens is expected to have
+#' one unique key column (named `doc_id`)
 #' of each text and several feature columns of each tokens.
 #' The feature columns must contain at least `token` itself.
 #'

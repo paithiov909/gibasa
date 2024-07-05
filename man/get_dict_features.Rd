@@ -10,7 +10,8 @@ get_dict_features(
 )
 }
 \arguments{
-\item{dict}{Character scalar; one of "ipa", "unidic17", "unidic26", "unidic29",
+\item{dict}{Character scalar;
+one of "ipa", "unidic17", "unidic26", "unidic29",
 "cc-cedict", "ko-dic", "naist11", or "sudachi".}
 }
 \value{
@@ -18,9 +19,14 @@ A character vector.
 }
 \description{
 Returns names of dictionary features.
-Currently supports "unidic17" (2.1.2 src schema), "unidic26" (2.1.2 bin schema),
-"unidic29" (schema used in 2.2.0, 2.3.0), "cc-cedict", "ko-dic" (mecab-ko-dic),
-"naist11", "sudachi", and "ipa".
+Currently supports
+"unidic17" (2.1.2 src schema),
+"unidic26" (2.1.2 bin schema),
+"unidic29" (schema used in 2.2.0, 2.3.0),
+"cc-cedict",
+"ko-dic" (mecab-ko-dic),
+"naist11",
+"sudachi", and "ipa".
 }
 \examples{
 get_dict_features("ipa")

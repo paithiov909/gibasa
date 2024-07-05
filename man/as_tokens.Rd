@@ -19,7 +19,7 @@ Column containing tokens.}
 
 \item{pos_field}{Column containing features
 that will be kept as the names of tokens.
-of tokens. If you don't need them, give a \code{NULL} for this argument.}
+If you don't need them, give a \code{NULL} for this argument.}
 
 \item{nm}{Names of returned list.
 If left with \code{NULL}, "doc_id" field of \code{tbl} is used instead.}
