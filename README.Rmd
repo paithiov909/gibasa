@@ -53,7 +53,7 @@ remotes::install_github("paithiov909/gibasa")
 
 To use gibasa package requires the [MeCab](https://taku910.github.io/mecab/) library and its dictionary installed and available.
 
-In case using Linux or OSX, you can install them with their package managers, or build and install from the source by yourself.
+In case using Linux or macOS, you can install them with their package managers, or build and install from the source by yourself.
 
 In case using Windows, use installer [built for 32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc) or [built for 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2). Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
