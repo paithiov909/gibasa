@@ -136,7 +136,7 @@ tagger_impl <- function(sentences,
       lapply(seq_along(sentences), function(i) {
         vec <-
           stringi::stri_split_boundaries(sentences[i], type = "sentence") %>%
-          unlist()
+          unlist(use.names = FALSE)
         dplyr::bind_cols(
           data.frame(doc_id = docnames[i]),
           posParallelRcpp(vec, sys_dic, user_dic, partial, grain_size)
