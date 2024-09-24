@@ -22,11 +22,11 @@ knitr::opts_chunk$set(
 
 gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形態素解析をおこなうためのパッケージです。
 
-モチベーションとしては、`tidytext::unnest_tokens`を意識した処理をMeCabを利用しつつできるようにしたいということで開発しています。
+モチベーションとしては、`tidytext::unnest_tokens`を意識した処理をMeCabを利用しつつできるようにしたいということで開発しています。また、gibasaはv0.5.0からMeCabのソースコードをソースパッケージ内に含んでいるため、ビルドするのにMeCabのバイナリファイルを必要としないという長所があります。
 
 ### インストールの仕方
 
-[CRAN](https://cran.r-project.org/package=gibasa)のほか、[r-universe](https://paithiov909.r-universe.dev/ui#package:gibasa)からもインストールできます。
+[CRAN](https://cran.r-project.org/package=gibasa)のほか、[r-universe](https://paithiov909.r-universe.dev/gibasa)からもインストールできます。
 
 ```r
 # Install gibasa from r-universe repository
@@ -41,6 +41,33 @@ remotes::install_github("paithiov909/gibasa")
 ```
 
 Windowsの場合、ソースビルドには[Rtools](https://cran.r-project.org/bin/windows/Rtools/)が必要です。また、インストールの方法によらず、gibasaを使用するにはMeCabの辞書が必要なため、[これ](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2)などを使ってMeCabをインストールしておいてください。
+
+なお、v0.9.4から、オリジナルのMeCabと同様に`mecabrc`ファイルを参照できるようになったため、辞書と`mecabrc`ファイルが適切に配置されていれば、MeCabのバイナリががなくても形態素解析が可能になっています。`mecabrc`ファイルは、環境変数`MECABRC`で指定されたファイルか、`~/.mecabrc`というファイルが参照されます。
+
+たとえば、IPA辞書（[ipadic](https://pypi.org/project/ipadic/)）をPyPIからダウンロードして利用するには、ターミナルから次のコマンドを実行します。
+
+```shell
+$ python3 -m pip install ipadic
+$ python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > ~/.mecabrc
+```
+
+また、gibasaはMeCabのシステム辞書をビルドする機能もラップしているため、辞書のソースファイルを用意できれば、パッケージのインストール後に辞書を配置することによっても使用可能になります。たとえば、[kelpbeds](https://paithiov909.r-universe.dev/kelpbeds)というパッケージを利用してIPA辞書を配置して使えるようにするには、次のようにします。
+
+```r
+install.packages("kelpbeds", repos = c("https://paithiov909.r-universe.dev", "https://cran.r-project.org"))
+
+dic_dir <- fs::dir_create(file.path(Sys.getenv("HOME"), "ipadic-utf8"))
+kelpbeds::prep_ipadic(dic_dir)
+gibasa::build_sys_dic(
+  dic_dir = dic_dir,
+  out_dir = dic_dir,
+  encoding = "utf8"
+)
+readr::write_lines(
+  paste0("dicdir=", dic_dir),
+  file.path(Sys.getenv("HOME"), ".mecabrc")
+)
+```
 
 ### 基本的な使い方
 

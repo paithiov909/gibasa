@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![gibasa status
-badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-universe.dev)
+badge](https://paithiov909.r-universe.dev/badges/gibasa)](https://paithiov909.r-universe.dev/gibasa)
 ![GitHub](https://img.shields.io/github/license/paithiov909/gibasa)
 [![R-CMD-check](https://github.com/paithiov909/gibasa/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/gibasa/actions)
 [![codecov](https://codecov.io/gh/paithiov909/gibasa/branch/main/graph/badge.svg)](https://app.codecov.io/gh/paithiov909/gibasa)
@@ -135,9 +135,6 @@ gibasa::prettify(res)
 #> # ℹ 177 more rows
 #> # ℹ 4 more variables: X5StageUse2 <chr>, Original <chr>, Yomi1 <chr>,
 #> #   Yomi2 <chr>
-```
-
-``` r
 gibasa::prettify(res, col_select = 1:3)
 #> # A tibble: 187 × 7
 #>    doc_id sentence_id token_id token        POS1   POS2   POS3 
@@ -153,9 +150,6 @@ gibasa::prettify(res, col_select = 1:3)
 #>  9 1                1        9 。           記号   句点   <NA> 
 #> 10 1                1       10 それ         名詞   代名詞 一般 
 #> # ℹ 177 more rows
-```
-
-``` r
 gibasa::prettify(res, col_select = c(1, 3, 5))
 #> # A tibble: 187 × 7
 #>    doc_id sentence_id token_id token        POS1   POS3  X5StageUse1
@@ -171,9 +165,6 @@ gibasa::prettify(res, col_select = c(1, 3, 5))
 #>  9 1                1        9 。           記号   <NA>  <NA>       
 #> 10 1                1       10 それ         名詞   一般  <NA>       
 #> # ℹ 177 more rows
-```
-
-``` r
 gibasa::prettify(res, col_select = c("POS1", "Original"))
 #> # A tibble: 187 × 6
 #>    doc_id sentence_id token_id token        POS1   Original
@@ -203,9 +194,6 @@ gibasa::pack(res)
 #> 2 2      　 ところが 先生 は 早く も それ を 見つけ た の でし た 。            
 #> 3 3      「 ジョバンニ さん 。 あなた は わかっ て いる の でしょ う 」         
 #> 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と も…
-```
-
-``` r
 
 dplyr::mutate(
   res,
@@ -245,9 +233,6 @@ gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic 
 #> #   fForm <chr>, kana <chr>, kanaBase <chr>, form <chr>, formBase <chr>,
 #> #   iConType <chr>, fConType <chr>, aType <chr>, aConType <chr>,
 #> #   aModeType <chr>
-```
-
-``` r
 
 
 ## CC-CEDICT
@@ -267,9 +252,6 @@ gibasa::tokenize("它可以进行日语和汉语的语态分析", sys_dic = file
 #> 9 1                1        9 分析  <NA>  <NA>  <NA>  <NA>  fen1 xi1   
 #> # ℹ 3 more variables: traditional_char_form <chr>, simplified_char_form <chr>,
 #> #   definition <chr>
-```
-
-``` r
 
 
 ## mecab-ko-dic
@@ -326,20 +308,14 @@ build_sys_dic(
 #> reading mecab/ipadic-eucjp/matrix.def ... 1316x1316
 #> 
 #> done!
-```
-
-``` r
 
 ## copy the 'dicrc' file
 file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 #> [1] TRUE
-```
-
-``` r
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/Rtmpdv4Hz8/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/RtmpuSNdPN/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -359,12 +335,9 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/Rtmpdv4Hz8/file7e382367d347.csv ... 2
+#> reading /tmp/RtmpuSNdPN/filecdc7258bd5e.csv ... 2
 #> 
 #> done!
-```
-
-``` r
 
 tokenize("月ノ美兎は箱の中", sys_dic = tempdir(), user_dic = user_dic)
 #> # A tibble: 6 × 5
