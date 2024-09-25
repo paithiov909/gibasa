@@ -1,108 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/404.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/articles/gibasa.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/articles/partial.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/articles/quanteda.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/articles/textrecipes.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/index.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/as_tokens.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/bind_lr.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/bind_tf_idf2.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/build_sys_dic.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/build_user_dic.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/collapse_tokens.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/dict_index_sys.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/dict_index_user.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/dictionary_info.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/gbs_tokenize.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/get_dict_features.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/get_transition_cost.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/gibasa-package.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/ginga.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/is_blank.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/lex_density.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/mute_tokens.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/ngram_tokenizer.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/pack.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/posDebugRcpp.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/posParallelRcpp.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/prettify.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/tokenize.html</loc>
-  </url>
-  <url>
-    <loc>https://paithiov909.github.io/gibasa/reference/transition_cost.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://paithiov909.github.io/gibasa/404.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/LICENSE.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/articles/gibasa.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/articles/index.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/articles/partial.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/articles/quanteda.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/articles/textrecipes.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/authors.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/index.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/news/index.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/as_tokens.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/bind_lr.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/bind_tf_idf2.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/build_sys_dic.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/build_user_dic.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/collapse_tokens.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/dict_index_sys.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/dict_index_user.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/dictionary_info.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/gbs_tokenize.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/get_dict_features.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/get_transition_cost.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/gibasa-package.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/ginga.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/index.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/is_blank.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/lex_density.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/mute_tokens.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/ngram_tokenizer.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/pack.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/posDebugRcpp.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/posParallelRcpp.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/prettify.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/tokenize.html</loc></url>
+<url><loc>https://paithiov909.github.io/gibasa/reference/transition_cost.html</loc></url>
 </urlset>
+

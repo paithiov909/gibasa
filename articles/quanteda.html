@@ -5,74 +5,58 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="R（quanteda）によるテキスト解析">
 <title>Text Mining with quanteda and gibasa • gibasa</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Text Mining with quanteda and gibasa">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Text Mining with quanteda and gibasa">
+<meta name="description" content="R（quanteda）によるテキスト解析">
 <meta property="og:description" content="R（quanteda）によるテキスト解析">
 <meta property="og:image" content="https://paithiov909.github.io/gibasa/reference/figures/tidytext_fig5_1_mod.drawio.png">
 <meta property="og:image:alt" content="Gibasa is a plain 'Rcpp' wrapper of 'MeCab', a morphological analyzer for CJK text">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@paithiov909">
 <meta name="twitter:site" content="@paithiov909">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../articles/gibasa.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../articles/gibasa.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/partial.html">How to Use Partial Parsing Mode</a>
-    <a class="dropdown-item" href="../articles/quanteda.html">Text Mining with quanteda and gibasa</a>
-    <a class="dropdown-item" href="../articles/textrecipes.html">Supervised Learning Using tidymodels and gibasa</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/partial.html">How to Use Partial Parsing Mode</a></li>
+    <li><a class="dropdown-item" href="../articles/quanteda.html">Text Mining with quanteda and gibasa</a></li>
+    <li><a class="dropdown-item" href="../articles/textrecipes.html">Supervised Learning Using tidymodels and gibasa</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/paithiov909/gibasa/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/paithiov909/gibasa/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -81,12 +65,13 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Text Mining with quanteda and gibasa</h1>
+
+      <h1>Text Mining with quanteda and gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2024-07-06</h4>
+            <h4 data-toc-skip class="date">2024-09-25</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/HEAD/vignettes/quanteda.Rmd" class="external-link"><code>vignettes/quanteda.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/main/vignettes/quanteda.Rmd" class="external-link"><code>vignettes/quanteda.Rmd</code></a></small>
       <div class="d-none name"><code>quanteda.Rmd</code></div>
     </div>
 
@@ -126,23 +111,22 @@ Workshop</a>で整備された、テキスト分析用のRパッケージのデ�
 <span><span class="co">#&gt; Parsing smax...</span></span>
 <span><span class="co">#&gt; Parsing sports-watch...</span></span>
 <span><span class="co">#&gt; Parsing topic-news...</span></span>
-<span><span class="co">#&gt; Done.</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Done.</span></span>
+<span></span>
 <span><span class="va">tbl</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,376 × 6</span></span></span>
 <span><span class="co">#&gt;    category       file_path                       source time_stamp text  doc_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>友…  1     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ネ…  2     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>相…  3     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ム…  4     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>税…  5     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>読…  6     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>大…  7     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>結…  8     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>お…  9     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dokujo-tsushin /tmp/RtmpkS5SNZ/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>初…  10    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>友…  1     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ネ…  2     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>相…  3     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ム…  4     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>税…  5     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>読…  6     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>大…  7     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>結…  8     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>お…  9     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>初…  10    </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,366 more rows</span></span></span></code></pre></div>
 <p>livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。</p>
 <ul>
@@ -160,7 +144,7 @@ Workshop</a>で整備された、テキスト分析用のRパッケージのデ�
 <p>ここではKH
 Coderで採用されている品詞体系を参考に、形態素解析された語の品詞情報を適当な値に置き換えています。なお、こうしたデータフレームの形式のトークンは、しばしばtidy
 textとも呼ばれます。</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toks</span> <span class="op">&lt;-</span> <span class="va">tbl</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">category</span>, <span class="va">text</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -226,12 +210,12 @@ textとも呼ばれます。</p>
 <p>さて、実際にこういったトークンからさまざまな分析をするには、トークンを品詞などによって取捨選択しながら、分析したい単位ごとにグルーピングして集計する必要があります。</p>
 <p>簡単に集計するだけであれば、次のようにdplyrの関数を使って集計することができます。こうした文書ID、単語と、単語の文書内頻度の3つ組のかたちをしたデータフレームは、summarized
 textという呼び方をすることがあるようです。</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"その他"</span>, <span class="st">"タグ"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">token</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,035,532 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,035,533 × 3</span></span></span>
 <span><span class="co">#&gt;    doc_id token            n</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 5681   /              607</span></span>
@@ -244,10 +228,10 @@ textという呼び方をすることがあるようです。</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 5699   :              101</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 5699   .               97</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 5134   HTC             94</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,035,522 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,035,523 more rows</span></span></span></code></pre></div>
 <p>一方で、たとえば、特定のトークンの連なりは連語と見なして一つのトークンとして集計したいといった場合には、dplyrだけで集計するのはなかなか大変です。そういったより複雑なケースでは、quantedaの枠組みと組み合わせて使ったほうが便利なことがあります。</p>
 <p>たとえば、IPA辞書では正しく解析されない「スマートフォン」といった語について、形態素解析した結果を確認した後に再度まとめあげて集計したい場合、quantedaを使うと次のように書くことができます。また、ここでは、うまく「記号」として解析されなかった記号類を除外するために、正規表現にマッチするトークンだけに絞り込んで集計しています。</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfm</span> <span class="op">&lt;-</span> <span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"その他"</span>, <span class="st">"タグ"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="../reference/pack.html">pack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -276,7 +260,7 @@ textという呼び方をすることがあるようです。</p>
 <p><code><a href="https://quanteda.io/reference/dfm.html" class="external-link">quanteda::dfm()</a></code>の戻り値は「文書単語行列（dtm）」を疎行列オブジェクト（dgCMatrix
 of ‘Matrix’
 package）として保持したものです（厳密には、dgCMatrixをスロットにもっているS4オブジェクト）。dfmオブジェクトは、<code>qunateda.textstats::textstat_frequency()</code>などを使って、さらに集計することができます。</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda.textstats</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/textstat_frequency.html" class="external-link">textstat_frequency</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -290,9 +274,8 @@ package）として保持したものです（厳密には、dgCMatrixをスロ�
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> なっ         <span style="text-decoration: underline;">8</span>733     3    <span style="text-decoration: underline;">3</span>936 all  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ある         <span style="text-decoration: underline;">7</span>426     4    <span style="text-decoration: underline;">3</span>317 all  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> なる         <span style="text-decoration: underline;">6</span>648     5    <span style="text-decoration: underline;">3</span>285 all  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> できる       <span style="text-decoration: underline;">6</span>344     6    <span style="text-decoration: underline;">2</span>610 all</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> できる       <span style="text-decoration: underline;">6</span>344     6    <span style="text-decoration: underline;">2</span>610 all</span></span>
+<span></span>
 <span><span class="va">dat</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">frequency</span>, y <span class="op">=</span> <span class="va">docfreq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_jitter</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -315,7 +298,7 @@ package）として保持したものです（厳密には、dgCMatrixをスロ�
 <p>「文書単語行列（dtm）」は、トークンを集計した結果を縦長のデータフレームとしてもっているsummarized
 textを横に展開したものだと理解できます。両者は表現が異なるだけで、もっているデータとしては同じものであるため、quantedaにおけるdfmオブジェクトは<code><a href="https://juliasilge.github.io/tidytext/reference/document_term_casters.html" class="external-link">tidytext::cast_dfm()</a></code>を使ってsummarized
 textを変換することによって得ることもできます。</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfm</span> <span class="op">&lt;-</span> <span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -333,7 +316,7 @@ textを変換することによって得ることもできます。</p>
 <span>  <span class="fu">tidytext</span><span class="fu">::</span><span class="fu"><a href="https://juliasilge.github.io/tidytext/reference/document_term_casters.html" class="external-link">cast_dfm</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">token</span>, <span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <p>dfmオブジェクトは<code>quanteda::dfm_*</code>という名前の関数を使って語彙を減らしたり、単語頻度に重みづけをしたりすることができます。</p>
 <p>ここでは<code><a href="https://quanteda.io/reference/textstat_simil.html" class="external-link">quanteda.textstats::textstat_simil()</a></code>で単語間の類似度を得て、階層的クラスタリングをしてみます。</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clusters</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span>min_termfreq <span class="op">=</span> <span class="fl">40</span>, termfreq_type <span class="op">=</span> <span class="st">"rank"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_weight.html" class="external-link">dfm_weight</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"boolean"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -368,7 +351,7 @@ textを変換することによって得ることもできます。</p>
 <p>dfmオブジェクトは<code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidytext::tidy()</a></code>でsummarized
 textのかたちに変換することができます。<code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidytext::tidy()</a></code>と<code><a href="https://juliasilge.github.io/tidytext/reference/document_term_casters.html" class="external-link">tidytext::cast_dfm()</a></code>をあわせて使うことで、dfmオブジェクトとsummarized
 textのあいだで自由に変換しあうことができます。</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfm</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html" class="external-link">dfm_trim</a></span><span class="op">(</span></span>
 <span>    min_termfreq <span class="op">=</span> <span class="fl">40</span>,</span>
@@ -383,7 +366,7 @@ textのあいだで自由に変換しあうことができます。</p>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidytext</span><span class="fu">::</span><span class="fu"><a href="https://juliasilge.github.io/tidytext/reference/document_term_casters.html" class="external-link">cast_dfm</a></span><span class="op">(</span><span class="va">category</span>, <span class="va">term</span>, <span class="va">count</span><span class="op">)</span></span></code></pre></div>
 <p>ここでは、<code><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">quanteda.textmodels::textmodel_ca()</a></code>を使ってdfmオブジェクトを対応分析にかけます。この関数の戻り値はcaパッケージのオブジェクトと互換性があるため、<code><a href="http://www.carme-n.org/" class="external-link">library(ca)</a></code>としてから<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>に渡すことでバイプロットを描画することができます。</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ca_fit</span> <span class="op">&lt;-</span> <span class="va">dfm</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda.textmodels</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/quanteda.textmodels/man/textmodel_ca.html" class="external-link">textmodel_ca</a></span><span class="op">(</span>nd <span class="op">=</span> <span class="fl">2</span>, sparse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -391,7 +374,7 @@ textのあいだで自由に変換しあうことができます。</p>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ca_fit</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/ca_2-1.png" width="700"></p>
 <p>より見やすい表現としては、次のようにしてggplot2でバイプロットを描画することもできます。</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tf</span> <span class="op">&lt;-</span> <span class="fu">quanteda</span><span class="fu">::</span><span class="fu">colSums</span><span class="op">(</span><span class="va">dfm</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">make_ca_plot_df</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ca.plot.obj</span>, <span class="va">row.lab</span> <span class="op">=</span> <span class="st">"Rows"</span>, <span class="va">col.lab</span> <span class="op">=</span> <span class="st">"Columns"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -469,7 +452,7 @@ Data」として括られているのがTIFにおけるコーパスで、最下�
 Object」と「Document-Term
 Matrix」として図示されているのがquantedaにおけるオブジェクトになります。ちなみに、この図中にはありませんが、tidy
 textからコーパスのかたちを経ずにquantedaのtokensオブジェクトに変換するには、たとえば次のようにします。</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toks</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>    <span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -527,36 +510,36 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
 </h2>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
 <span><span class="co">#&gt;  version  R version 4.4.1 (2024-06-14)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 22.04.4 LTS</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 22.04.5 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
 <span><span class="co">#&gt;  language en</span></span>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-07-06</span></span>
+<span><span class="co">#&gt;  date     2024-09-25</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package            </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  bit                   4.0.5      <span style="color: #555555;">2022-11-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  bit64                 4.0.5      <span style="color: #555555;">2020-08-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  bslib                 0.7.0      <span style="color: #555555;">2024-03-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bit                   4.5.0      <span style="color: #555555;">2024-09-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bit64                 4.5.2      <span style="color: #555555;">2024-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bslib                 0.8.0      <span style="color: #555555;">2024-07-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ca                  * 0.71.1     <span style="color: #555555;">2020-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  cachem                1.1.0      <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  cli                   3.6.3      <span style="color: #555555;">2024-06-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  codetools             0.2-20     <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
-<span><span class="co">#&gt;  colorspace            2.1-0      <span style="color: #555555;">2023-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  colorspace            2.1-1      <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  crayon                1.5.3      <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  desc                  1.4.3      <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  digest                0.6.36     <span style="color: #555555;">2024-06-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  digest                0.6.37     <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  dplyr                 1.1.4      <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  evaluate              0.24.0     <span style="color: #555555;">2024-06-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  evaluate              1.0.0      <span style="color: #555555;">2024-09-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  fansi                 1.0.6      <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  farver                2.1.2      <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  fastmap               1.2.0      <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -568,8 +551,8 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span><span class="co">#&gt;  ggh4x                 0.2.8      <span style="color: #555555;">2024-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  gghighlight           0.4.1      <span style="color: #555555;">2023-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggplot2             * 3.5.1      <span style="color: #555555;">2024-04-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ggrepel               0.9.5      <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  gibasa                1.1.1      <span style="color: #555555;">2024-07-06</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;  ggrepel               0.9.6      <span style="color: #555555;">2024-09-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  gibasa                1.1.1      <span style="color: #555555;">2024-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;  glmnet                4.1-8      <span style="color: #555555;">2023-08-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  glue                  1.7.0      <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  gtable                0.3.5      <span style="color: #555555;">2024-04-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -580,12 +563,12 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span><span class="co">#&gt;  iterators             1.0.14     <span style="color: #555555;">2022-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  janeaustenr           1.0.0      <span style="color: #555555;">2022-08-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jquerylib             0.1.4      <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  jsonlite              1.8.8      <span style="color: #555555;">2023-12-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  knitr                 1.47       <span style="color: #555555;">2024-05-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  jsonlite              1.8.9      <span style="color: #555555;">2024-09-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  knitr                 1.48       <span style="color: #555555;">2024-07-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  labeling              0.4.3      <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lattice               0.22-6     <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
-<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">2024.04.24</span> <span style="color: #555555;">2024-07-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@c76c3a6)</span></span></span>
-<span><span class="co">#&gt;  LiblineaR             2.10-23    <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">2024.07.07</span> <span style="color: #555555;">2024-09-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@52c44ce)</span></span></span>
+<span><span class="co">#&gt;  LiblineaR             2.10-24    <span style="color: #555555;">2024-09-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  lifecycle             1.0.4      <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  magrittr              2.0.3      <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  MASS                  7.3-60.2   <span style="color: #555555;">2024-04-26</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
@@ -595,30 +578,30 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span><span class="co">#&gt;  nsyllable             1.0.1      <span style="color: #555555;">2022-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  pillar                1.9.0      <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  pkgconfig             2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  pkgdown               2.0.9      <span style="color: #555555;">2024-04-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.0.9)</span></span></span>
+<span><span class="co">#&gt;  pkgdown               2.1.1      <span style="color: #555555;">2024-09-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.1.1)</span></span></span>
 <span><span class="co">#&gt;  proxyC                0.4.1      <span style="color: #555555;">2024-04-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  purrr                 1.0.2      <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  quanteda              4.0.2      <span style="color: #555555;">2024-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  quanteda.textmodels   0.9.7      <span style="color: #555555;">2024-04-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  quanteda.textstats    0.97       <span style="color: #555555;">2024-04-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda              4.1.0      <span style="color: #555555;">2024-09-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda.textmodels   0.9.9      <span style="color: #555555;">2024-09-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda.textstats    0.97.2     <span style="color: #555555;">2024-09-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.cache               0.16.0     <span style="color: #555555;">2022-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.methodsS3           1.8.2      <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.oo                  1.26.0     <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.utils               2.12.3     <span style="color: #555555;">2023-11-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R6                    2.5.1      <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ragg                  1.3.2      <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  Rcpp                  1.0.12     <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  RcppParallel          5.1.7      <span style="color: #555555;">2023-02-27</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ragg                  1.3.3      <span style="color: #555555;">2024-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  Rcpp                  1.0.13     <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RcppParallel          5.1.9      <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  readr                 2.1.5      <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  rlang                 1.1.4      <span style="color: #555555;">2024-06-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  rmarkdown             2.27       <span style="color: #555555;">2024-05-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  RSpectra              0.16-1     <span style="color: #555555;">2022-04-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rmarkdown             2.28       <span style="color: #555555;">2024-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RSpectra              0.16-2     <span style="color: #555555;">2024-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  sass                  0.4.9      <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  scales                1.3.0      <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  sessioninfo           1.2.2      <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.2)</span></span></span>
 <span><span class="co">#&gt;  shape                 1.4.6.1    <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  SnowballC             0.7.1      <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  SparseM               1.84       <span style="color: #555555;">2024-06-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  SparseM               1.84-2     <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stopwords             2.3        <span style="color: #555555;">2021-10-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stringi               1.8.4      <span style="color: #555555;">2024-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stringr               1.5.1      <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -634,18 +617,18 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span><span class="co">#&gt;  utf8                  1.2.4      <span style="color: #555555;">2023-10-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  vctrs                 0.6.5      <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  vroom                 1.6.5      <span style="color: #555555;">2023-12-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  withr                 3.0.0      <span style="color: #555555;">2024-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  xfun                  0.45       <span style="color: #555555;">2024-06-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  yaml                  2.3.8      <span style="color: #555555;">2023-12-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  withr                 3.0.1      <span style="color: #555555;">2024-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  xfun                  0.47       <span style="color: #555555;">2024-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  yaml                  2.3.10     <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpXlVEqU/temp_libpath373979b9d0e0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpfQqVIM/temp_libpath379a7f7fb937</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.4.1/lib/R/site-library</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.4.1/lib/R/library</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre></div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -656,15 +639,15 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
