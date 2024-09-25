@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternative 'Rcpp' Wrapper of 'MeCab'
-Version: 1.1.1
+Version: 1.1.1.9000
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
@@ -28,7 +28,8 @@ Imports:
     readr,
     rlang (>= 0.4.11),
     stringi,
-    utils
+    utils,
+    vctrs
 Suggests:
     roxygen2,
     testthat (>= 3.0.0),

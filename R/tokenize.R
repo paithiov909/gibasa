@@ -133,16 +133,29 @@ tagger_impl <- function(sentences,
 
   if (isTRUE(split)) {
     res <-
-      lapply(seq_along(sentences), function(i) {
-        vec <-
-          stringi::stri_split_boundaries(sentences[i], type = "sentence") %>%
-          unlist(use.names = FALSE)
-        dplyr::bind_cols(
-          data.frame(doc_id = docnames[i]),
-          posParallelRcpp(vec, sys_dic, user_dic, partial, grain_size)
-        )
-      }) %>%
-      purrr::list_rbind()
+      stringi::stri_split_boundaries(sentences, type = "sentence") %>%
+      rlang::as_function(~ {
+        sizes <- vctrs::list_sizes(.)
+        posParallelRcpp(
+          unlist(., use.names = FALSE),
+          sys_dic,
+          user_dic,
+          partial,
+          grain_size
+        ) %>%
+          dplyr::left_join(
+            data.frame(
+              doc_id = rep(docnames, sizes),
+              sentence_id = seq_len(sum(sizes))
+            ),
+            by = "sentence_id"
+          )
+      })() %>%
+      dplyr::mutate(
+        sentence_id = dplyr::consecutive_id(.data$sentence_id),
+        .by = .data$doc_id
+      ) %>%
+      dplyr::relocate("doc_id", dplyr::everything())
   } else {
     res <-
       posParallelRcpp(sentences, sys_dic, user_dic, partial, grain_size) %>%
