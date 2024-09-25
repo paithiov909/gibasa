@@ -39,11 +39,11 @@ as_tokens <- function(tbl,
   if (is.null(pos_field)) {
     tbl[[token_field]] %>%
       split(tbl[[col_names]]) %>%
-      purrr::set_names(nm)
+      rlang::set_names(nm)
   } else {
-    purrr::set_names(tbl[[token_field]], tbl[[pos_field]]) %>%
+    rlang::set_names(tbl[[token_field]], tbl[[pos_field]]) %>%
       split(tbl[[col_names]]) %>%
-      purrr::set_names(nm)
+      rlang::set_names(nm)
   }
 }
 

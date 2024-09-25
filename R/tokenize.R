@@ -153,7 +153,7 @@ tagger_impl <- function(sentences,
       })() %>%
       dplyr::mutate(
         sentence_id = dplyr::consecutive_id(.data$sentence_id),
-        .by = .data$doc_id
+        .by = "doc_id"
       ) %>%
       dplyr::relocate("doc_id", dplyr::everything())
   } else {

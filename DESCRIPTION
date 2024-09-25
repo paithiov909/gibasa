@@ -22,7 +22,6 @@ Depends:
 Imports:
     dplyr,
     Matrix,
-    purrr,
     Rcpp,
     RcppParallel,
     readr,

@@ -53,12 +53,12 @@ booled_freq <- function(v) {
 }
 
 global_df <- function(sp) {
-  purrr::set_names(count_nnzero(sp) / nrow(sp), colnames(sp))
+  rlang::set_names(count_nnzero(sp) / nrow(sp), colnames(sp))
 }
 
 # inverse document frequency smooth
 global_idf <- function(sp) {
-  purrr::set_names(log2(nrow(sp) / count_nnzero(sp)) + 1, colnames(sp))
+  rlang::set_names(log2(nrow(sp) / count_nnzero(sp)) + 1, colnames(sp))
 }
 
 # global frequency idf
@@ -69,7 +69,7 @@ global_idf2 <- function(sp) {
 # probabilistic idf
 global_idf3 <- function(sp) {
   df <- count_nnzero(sp)
-  purrr::set_names(log2((nrow(sp) - df) / df), colnames(sp))
+  rlang::set_names(log2((nrow(sp) - df) / df), colnames(sp))
 }
 
 # entropy
@@ -172,7 +172,7 @@ bind_tf_idf2 <- function(tbl,
     tbl <-
       dplyr::mutate(tbl, tf = log(as.numeric(doc_totals[documents]) / .data$n))
   } else {
-    tbl <- dplyr::mutate(tbl, tf = purrr::flatten_dbl(doc_totals))
+    tbl <- dplyr::mutate(tbl, tf = as.numeric(unlist(doc_totals, use.names = FALSE)))
   }
 
   if (isTRUE(rmecab_compat)) {
