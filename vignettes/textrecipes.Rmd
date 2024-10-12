@@ -172,7 +172,7 @@ corp_tune_res <-
   corp_wflow |>
   tune::tune_grid(
     resamples = rsample::vfold_cv(corp_train, strata = category, v = 5L),
-    grid = dials::grid_latin_hypercube(
+    grid = dials::grid_space_filling(
       dials::tree_depth(),
       dials::mtry(range = c(30L, NUM_TERMS)),
       size = 10L
