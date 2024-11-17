@@ -1,7 +1,7 @@
 Type: Package
 Package: gibasa
 Title: An Alternative 'Rcpp' Wrapper of 'MeCab'
-Version: 1.1.1.9001
+Version: 1.1.1.9002
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
@@ -18,7 +18,7 @@ License: GPL (>= 3)
 URL: https://paithiov909.github.io/gibasa/
 BugReports: https://github.com/paithiov909/gibasa/issues
 Depends:
-    R (>= 2.10)
+    R (>= 4.2)
 Imports:
     dplyr,
     Matrix,
@@ -26,9 +26,7 @@ Imports:
     RcppParallel,
     readr,
     rlang (>= 0.4.11),
-    stringi,
-    utils,
-    vctrs
+    stringi
 Suggests:
     roxygen2,
     testthat (>= 3.0.0),

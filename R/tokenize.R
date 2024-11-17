@@ -135,7 +135,7 @@ tagger_impl <- function(sentences,
     res <-
       stringi::stri_split_boundaries(sentences, type = "sentence") %>%
       rlang::as_function(~ {
-        sizes <- vctrs::list_sizes(.)
+        sizes <- lengths(.)
         posParallelRcpp(
           unlist(., use.names = FALSE),
           sys_dic,
