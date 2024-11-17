@@ -24,7 +24,6 @@ jobs:
           - {os: ubuntu-latest,   r: 'release'}
 
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
       RCMDCHECK_LOAD_CHECK_ENV: true
 
@@ -78,5 +77,7 @@ jobs:
 
       - name: Codecov
         if: ${{ matrix.config.os == 'ubuntu-latest' }}
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: covr::codecov()
         shell: Rscript {0}
