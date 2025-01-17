@@ -1,5 +1,7 @@
 // [[Rcpp::depends(RcppParallel)]]
+#ifndef R_NO_REMAP
 #define R_NO_REMAP
+#endif
 
 #include <Rcpp.h>
 #include <RcppParallel.h>
