@@ -4,13 +4,39 @@
 \alias{dictionary_info}
 \title{Get dictionary information}
 \arguments{
-\item{sys_dic}{String scalar.}
+\item{sys_dic}{Character scalar; path to the system dictionary for 'MeCab'.}
 
-\item{user_dic}{String scalar.}
+\item{user_dic}{Character scalar; path to the user dictionary for 'MeCab'.}
 }
 \value{
-data.frame.
+A data.frame (or \code{NULL} if there is no dictionary configured at all).
 }
 \description{
-Get dictionary information
+Returns all dictionary information under the current configuration.
+}
+\details{
+To use the \code{tokenize} function, there should be a system dictionary for 'MeCab'
+specified in some 'mecabrc' configuration files
+with a line \verb{dicdir=<path/to/dir/dictionary/included>}.
+This function can be used to check if such a configuration file exists.
+
+Currently, this package detects 'mecabrc' configuration files
+that are stored in the user's home directory
+or the file specified by the \code{MECABRC} environment variable.
+
+If there are no such configuration files, the package tries to fall back
+to the 'mecabrc' file that is included with default installations of 'MeCab',
+but this fallback is not guaranteed to work in all cases.
+
+In case there are no 'mecabrc' files available at all, this function will return \code{NULL}.
+
+Note that in this case, the \code{tokenize} function will not work
+even if a system dictionary is manually specified via the \code{sys_dic} argument.
+In such a case, you should mock up a 'mecabrc' file to temporarily use the dictionary.
+See examples for \code{build_sys_dic} and \code{build_user_dic} for details.
+}
+\examples{
+\dontrun{
+dictionary_info()
+}
 }

@@ -50,7 +50,9 @@ as_tokens <- function(tbl,
 #' Check if scalars are blank
 #'
 #' @param x Object to check its emptiness.
-#' @param trim Logical.
+#' @param trim Logical. If passed as `TRUE`
+#' and the object is a character vector,
+#' `stringi::stri_trim()` is applied before checking.
 #' @param ... Additional arguments for \code{base::sapply()}.
 #' @returns Logicals.
 #' @export
@@ -89,7 +91,6 @@ is.blank.character <- function(x) {
 #'
 #' @inherit transition_cost
 #' @inheritParams transition_cost
-#' @keywords internal
 #' @export
 get_transition_cost <- function(rcAttr,
                                 lcAttr,

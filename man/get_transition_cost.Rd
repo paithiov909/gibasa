@@ -7,18 +7,19 @@
 get_transition_cost(rcAttr, lcAttr, sys_dic = "", user_dic = "")
 }
 \arguments{
-\item{rcAttr}{Integer.}
+\item{rcAttr}{Integer; the right context attribute ID of the right-hand side of the transition.}
 
-\item{lcAttr}{Integer.}
+\item{lcAttr}{Integer; the left context attribute ID of the left-hand side of the transition.}
 
-\item{sys_dic}{String.}
+\item{sys_dic}{Character scalar; path to the system dictionary for 'MeCab'.}
 
-\item{user_dic}{String.}
+\item{user_dic}{Character scalar; path to the user dictionary for 'MeCab'.}
 }
 \value{
-Numeric.
+An integer scalar.
 }
 \description{
-Get transition cost between pos attributes
+Gets transition cost between two pos attributes for a given dictionary.
+Note that the valid range of pos attributes differs depending on the dictionary.
+If \code{rcAttr} or \code{lcAttr} is out of range, this function will be aborted.
 }
-\keyword{internal}

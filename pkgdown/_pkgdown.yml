@@ -1,6 +1,7 @@
 url: https://paithiov909.github.io/gibasa/
 template:
   bootstrap: 5
+  light-switch: true
   opengraph:
     image:
       src: man/figures/tidytext_fig5_1_mod.drawio.png

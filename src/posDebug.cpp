@@ -9,10 +9,36 @@ using namespace Rcpp;
 
 //' Get dictionary information
 //'
-//' @param sys_dic String scalar.
-//' @param user_dic String scalar.
-//' @returns data.frame.
+//' Returns all dictionary information under the current configuration.
 //'
+//' @details
+//' To use the `tokenize` function, there should be a system dictionary for 'MeCab'
+//' specified in some 'mecabrc' configuration files
+//' with a line `dicdir=<path/to/dir/dictionary/included>`.
+//' This function can be used to check if such a configuration file exists.
+//'
+//' Currently, this package detects 'mecabrc' configuration files
+//' that are stored in the user's home directory
+//' or the file specified by the `MECABRC` environment variable.
+//'
+//' If there are no such configuration files, the package tries to fall back
+//' to the 'mecabrc' file that is included with default installations of 'MeCab',
+//' but this fallback is not guaranteed to work in all cases.
+//'
+//' In case there are no 'mecabrc' files available at all, this function will return `NULL`.
+//'
+//' Note that in this case, the `tokenize` function will not work
+//' even if a system dictionary is manually specified via the `sys_dic` argument.
+//' In such a case, you should mock up a 'mecabrc' file to temporarily use the dictionary.
+//' See examples for `build_sys_dic` and `build_user_dic` for details.
+//'
+//' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
+//' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.
+//' @returns A data.frame (or `NULL` if there is no dictionary configured at all).
+//' @examples
+//' \dontrun{
+//' dictionary_info()
+//' }
 //' @name dictionary_info
 //' @export
 //
@@ -78,11 +104,15 @@ Rcpp::DataFrame dictionary_info(const std::string& sys_dic = "",
 
 //' Get transition cost between pos attributes
 //'
-//' @param rcAttr Integer.
-//' @param lcAttr Integer.
-//' @param sys_dic String.
-//' @param user_dic String.
-//' @returns Numeric.
+//' Gets transition cost between two pos attributes for a given dictionary.
+//' Note that the valid range of pos attributes differs depending on the dictionary.
+//' If `rcAttr` or `lcAttr` is out of range, this function will be aborted.
+//'
+//' @param rcAttr Integer; the right context attribute ID of the right-hand side of the transition.
+//' @param lcAttr Integer; the left context attribute ID of the left-hand side of the transition.
+//' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
+//' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.
+//' @returns An integer scalar.
 //'
 //' @name transition_cost
 //' @keywords internal
@@ -126,11 +156,12 @@ int transition_cost(unsigned short rcAttr, unsigned short lcAttr,
 //' and returns all possible results out of the tokenization process.
 //' The returned data.frame contains additional attributes for debug usage.
 //'
-//' @param text String.
-//' @param sys_dic String.
-//' @param user_dic String.
-//' @param partial Logical.
-//' @returns data.frame.
+//' @param text A character vector to be tokenized.
+//' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
+//' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.
+//' @param partial Logical; If `TRUE`, activates partial parsing mode.
+//' @param grain_size Integer value larger than 1.
+//' @returns A data.frame.
 //'
 //' @name posDebugRcpp
 //' @keywords internal

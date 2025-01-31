@@ -8,7 +8,7 @@
 #' A logical expression.
 #' @param .as String with which tokens are replaced
 #' when they are matched to condition.
-#' The default value is `NA_character`.
+#' The default value is `NA_character_`.
 #' @returns A data.frame.
 #' @export
 #' @examples

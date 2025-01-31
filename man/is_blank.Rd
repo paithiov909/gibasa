@@ -9,7 +9,9 @@ is_blank(x, trim = TRUE, ...)
 \arguments{
 \item{x}{Object to check its emptiness.}
 
-\item{trim}{Logical.}
+\item{trim}{Logical. If passed as \code{TRUE}
+and the object is a character vector,
+\code{stringi::stri_trim()} is applied before checking.}
 
 \item{...}{Additional arguments for \code{base::sapply()}.}
 }

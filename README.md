@@ -67,8 +67,6 @@ In case using Linux or macOS, you can install them with their package
 managers, or build and install from the source by yourself.
 
 In case using Windows, use installer [built for
-32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc)
-or [built for
 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2).
 Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
@@ -107,11 +105,11 @@ res
 #>  3 1                1        3 が           助詞,格助詞,一般,*,*,*,が,ガ,ガ     
 #>  4 1                1        4 手           名詞,一般,*,*,*,*,手,テ,テ          
 #>  5 1                1        5 を           助詞,格助詞,一般,*,*,*,を,ヲ,ヲ     
-#>  6 1                1        6 あげ         動詞,自立,*,*,一段,連用形,あげる,ア…
-#>  7 1                1        7 まし         助動詞,*,*,*,特殊・マス,連用形,ます…
-#>  8 1                1        8 た           助動詞,*,*,*,特殊・タ,基本形,た,タ,…
+#>  6 1                1        6 あげ         動詞,自立,*,*,一段,連用形,あげる,アゲ,アゲ……
+#>  7 1                1        7 まし         助動詞,*,*,*,特殊・マス,連用形,ます,マシ,マシ……
+#>  8 1                1        8 た           助動詞,*,*,*,特殊・タ,基本形,た,タ,タ……
 #>  9 1                1        9 。           記号,句点,*,*,*,*,。,。,。          
-#> 10 1                1       10 それ         名詞,代名詞,一般,*,*,*,それ,ソレ,ソ…
+#> 10 1                1       10 それ         名詞,代名詞,一般,*,*,*,それ,ソレ,ソレ……
 #> # ℹ 177 more rows
 ```
 
@@ -124,14 +122,14 @@ gibasa::prettify(res)
 #>    <fct>        <int>    <int> <chr>        <chr>  <chr> <chr> <chr> <chr>      
 #>  1 1                1        1 　           記号   空白  <NA>  <NA>  <NA>       
 #>  2 1                1        2 カムパネルラ 名詞   一般  <NA>  <NA>  <NA>       
-#>  3 1                1        3 が           助詞   格助… 一般  <NA>  <NA>       
+#>  3 1                1        3 が           助詞   格助詞…… 一般  <NA>  <NA>       
 #>  4 1                1        4 手           名詞   一般  <NA>  <NA>  <NA>       
-#>  5 1                1        5 を           助詞   格助… 一般  <NA>  <NA>       
+#>  5 1                1        5 を           助詞   格助詞…… 一般  <NA>  <NA>       
 #>  6 1                1        6 あげ         動詞   自立  <NA>  <NA>  一段       
 #>  7 1                1        7 まし         助動詞 <NA>  <NA>  <NA>  特殊・マス 
 #>  8 1                1        8 た           助動詞 <NA>  <NA>  <NA>  特殊・タ   
 #>  9 1                1        9 。           記号   句点  <NA>  <NA>  <NA>       
-#> 10 1                1       10 それ         名詞   代名… 一般  <NA>  <NA>       
+#> 10 1                1       10 それ         名詞   代名詞…… 一般  <NA>  <NA>       
 #> # ℹ 177 more rows
 #> # ℹ 4 more variables: X5StageUse2 <chr>, Original <chr>, Yomi1 <chr>,
 #> #   Yomi2 <chr>
@@ -190,10 +188,10 @@ gibasa::pack(res)
 #> # A tibble: 4 × 2
 #>   doc_id text                                                                   
 #>   <fct>  <chr>                                                                  
-#> 1 1      　 カムパネルラ が 手 を あげ まし た 。 それ から 四 、 五 人 手 を … 
+#> 1 1      　 カムパネルラ が 手 を あげ まし た 。 それ から 四 、 五 人 手 を あげ まし た 。 ジョバンニ も 手 を あげよ う…
 #> 2 2      　 ところが 先生 は 早く も それ を 見つけ た の でし た 。            
 #> 3 3      「 ジョバンニ さん 。 あなた は わかっ て いる の でしょ う 」         
-#> 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と も…
+#> 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と もう はっきり と それ を 答える こと が でき ない…
 
 dplyr::mutate(
   res,
@@ -203,9 +201,9 @@ dplyr::mutate(
   gibasa::pack() |>
   head(1L)
 #> # A tibble: 1 × 2
-#>   doc_id text                                                                  
-#>   <fct>  <chr>                                                                 
-#> 1 1      　/記号 カムパネルラ/名詞 が/助詞 手/名詞 を/助詞 あげる/動詞 ます/助…
+#>   doc_id text                                                                   
+#>   <fct>  <chr>                                                                  
+#> 1 1      　/記号 カムパネルラ/名詞 が/助詞 手/名詞 を/助詞 あげる/動詞 ます/助動詞 た/助動詞 。/記号 それ/名詞 から/助詞 四/名…
 ```
 
 ### Change dictionary
@@ -220,14 +218,14 @@ schemes are supported.
 gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = file.path("mecab/unidic-lite")) |>
   gibasa::prettify(into = gibasa::get_dict_features("unidic26"))
 #> # A tibble: 6 × 30
-#>   doc_id sentence_id token_id token   POS1   POS2  POS3  POS4  cType cForm lForm
-#>   <fct>        <int>    <int> <chr>   <chr>  <chr> <chr> <chr> <chr> <chr> <chr>
-#> 1 1                1        1 あの    感動詞 フィ… <NA>  <NA>  <NA>  <NA>  アノ 
-#> 2 1                1        2 イーハ… 名詞   普通… 一般  <NA>  <NA>  <NA>  <NA> 
-#> 3 1                1        3 の      助詞   格助… <NA>  <NA>  <NA>  <NA>  ノ   
-#> 4 1                1        4 すきと… 動詞   一般  <NA>  <NA>  五段… 連用… スキ…
-#> 5 1                1        5 た      助動詞 <NA>  <NA>  <NA>  助動… 連体… タ   
-#> 6 1                1        6 風      名詞   普通… 一般  <NA>  <NA>  <NA>  カゼ 
+#>   doc_id sentence_id token_id token    POS1  POS2  POS3  POS4  cType cForm lForm
+#>   <fct>        <int>    <int> <chr>    <chr> <chr> <chr> <chr> <chr> <chr> <chr>
+#> 1 1                1        1 あの     感動詞…… フィラー… <NA>  <NA>  <NA>  <NA>  アノ 
+#> 2 1                1        2 イーハトーヴォ… 名詞  普通名詞… 一般  <NA>  <NA>  <NA>  <NA> 
+#> 3 1                1        3 の       助詞  格助詞…… <NA>  <NA>  <NA>  <NA>  ノ   
+#> 4 1                1        4 すきとおっ…… 動詞  一般  <NA>  <NA>  五段-ラ… 連用形-… スキトオ…
+#> 5 1                1        5 た       助動詞…… <NA>  <NA>  <NA>  助動詞-… 連体形-… タ   
+#> 6 1                1        6 風       名詞  普通名詞… 一般  <NA>  <NA>  <NA>  カゼ 
 #> # ℹ 19 more variables: lemma <chr>, orth <chr>, pron <chr>, orthBase <chr>,
 #> #   pronBase <chr>, goshu <chr>, iType <chr>, iForm <chr>, fType <chr>,
 #> #   fForm <chr>, kana <chr>, kanaBase <chr>, form <chr>, formBase <chr>,
@@ -315,7 +313,7 @@ file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/RtmpuSNdPN/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/RtmppTajmu/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -335,7 +333,7 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/RtmpuSNdPN/filecdc7258bd5e.csv ... 2
+#> reading /tmp/RtmppTajmu/file44df7eb293db.csv ... 2
 #> 
 #> done!
 

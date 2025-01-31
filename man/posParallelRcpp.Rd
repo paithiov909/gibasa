@@ -4,20 +4,21 @@
 \alias{posParallelRcpp}
 \title{Call tagger inside 'RcppParallel::parallelFor' and return a data.frame.}
 \arguments{
-\item{text}{Character vector.}
+\item{text}{A character vector to be tokenized.}
 
-\item{sys_dic}{String scalar.}
+\item{sys_dic}{Character scalar; path to the system dictionary for 'MeCab'.}
 
-\item{user_dic}{String scalar.}
+\item{user_dic}{Character scalar; path to the user dictionary for 'MeCab'.}
 
-\item{partial}{Logical.}
+\item{partial}{Logical; If \code{TRUE}, activates partial parsing mode.}
 
-\item{grain_size}{Integer (larger than 1).}
+\item{grain_size}{Integer value larger than 1.}
 }
 \value{
-data.frame.
+A data.frame.
 }
 \description{
-Call tagger inside 'RcppParallel::parallelFor' and return a data.frame.
+This function is an internal function called by \code{tokenize()}.
+For common usage, use \code{tokenize()} instead.
 }
 \keyword{internal}

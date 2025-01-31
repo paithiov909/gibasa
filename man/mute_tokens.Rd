@@ -14,7 +14,7 @@ A logical expression.}
 
 \item{.as}{String with which tokens are replaced
 when they are matched to condition.
-The default value is \code{NA_character}.}
+The default value is \code{NA_character_}.}
 }
 \value{
 A data.frame.

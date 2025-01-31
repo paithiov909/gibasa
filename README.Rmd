@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-pkgload::load_all()
+pkgload::load_all(export_all = FALSE)
 ```
 
 # gibasa
@@ -55,7 +55,7 @@ To use gibasa package requires the [MeCab](https://taku910.github.io/mecab/) lib
 
 In case using Linux or macOS, you can install them with their package managers, or build and install from the source by yourself.
 
-In case using Windows, use installer [built for 32bit](https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7WElGUGt6ejlpVXc) or [built for 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2). Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
+In case using Windows, use installer [built for 64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2). Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
 As of v0.9.4, gibasa looks at the file specified by the environment variable `MECABRC` or the file located at `~/.mecabrc`. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.
 

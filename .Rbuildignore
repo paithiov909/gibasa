@@ -4,12 +4,11 @@
 ^LICENSE\.md$
 ^\.github$
 ^\.vscode$
-^_pkgdown\.yml$
 ^codecov\.yml$
 ^renovate\.json$
+^cran-comments\.md$
 ^docs$
 ^mecab$
 ^pkgdown$
 ^vignettes$
-^cran-comments\.md$
 ^CRAN-SUBMISSION$

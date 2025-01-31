@@ -4,16 +4,18 @@
 \alias{posDebugRcpp}
 \title{Tokenizer for debug use}
 \arguments{
-\item{text}{String.}
+\item{text}{A character vector to be tokenized.}
 
-\item{sys_dic}{String.}
+\item{sys_dic}{Character scalar; path to the system dictionary for 'MeCab'.}
 
-\item{user_dic}{String.}
+\item{user_dic}{Character scalar; path to the user dictionary for 'MeCab'.}
 
-\item{partial}{Logical.}
+\item{partial}{Logical; If \code{TRUE}, activates partial parsing mode.}
+
+\item{grain_size}{Integer value larger than 1.}
 }
 \value{
-data.frame.
+A data.frame.
 }
 \description{
 Tokenizes a character vector
