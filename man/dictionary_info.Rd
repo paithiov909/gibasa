@@ -9,7 +9,7 @@
 \item{user_dic}{Character scalar; path to the user dictionary for 'MeCab'.}
 }
 \value{
-A data.frame (or \code{NULL} if there is no dictionary configured at all).
+A data.frame (an empty data.frame if there is no dictionary configured at all).
 }
 \description{
 Returns all dictionary information under the current configuration.
@@ -28,7 +28,8 @@ If there are no such configuration files, the package tries to fall back
 to the 'mecabrc' file that is included with default installations of 'MeCab',
 but this fallback is not guaranteed to work in all cases.
 
-In case there are no 'mecabrc' files available at all, this function will return \code{NULL}.
+In case there are no 'mecabrc' files available at all,
+this function will return an empty data.frame.
 
 Note that in this case, the \code{tokenize} function will not work
 even if a system dictionary is manually specified via the \code{sys_dic} argument.

@@ -54,7 +54,8 @@ dict_index_user <- function(dic_dir, file, csv_file, encoding) {
 #' to the 'mecabrc' file that is included with default installations of 'MeCab',
 #' but this fallback is not guaranteed to work in all cases.
 #'
-#' In case there are no 'mecabrc' files available at all, this function will return `NULL`.
+#' In case there are no 'mecabrc' files available at all,
+#' this function will return an empty data.frame.
 #'
 #' Note that in this case, the `tokenize` function will not work
 #' even if a system dictionary is manually specified via the `sys_dic` argument.
@@ -63,7 +64,7 @@ dict_index_user <- function(dic_dir, file, csv_file, encoding) {
 #'
 #' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
 #' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.
-#' @returns A data.frame (or `NULL` if there is no dictionary configured at all).
+#' @returns A data.frame (an empty data.frame if there is no dictionary configured at all).
 #' @examples
 #' \dontrun{
 #' dictionary_info()
