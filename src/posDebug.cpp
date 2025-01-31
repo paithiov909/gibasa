@@ -12,7 +12,7 @@ using namespace Rcpp;
 //' Returns all dictionary information under the current configuration.
 //'
 //' @details
-//' To use the `tokenize` function, there should be a system dictionary for 'MeCab'
+//' To use the `tokenize()` function, there should be a system dictionary for 'MeCab'
 //' specified in some 'mecabrc' configuration files
 //' with a line `dicdir=<path/to/dir/dictionary/included>`.
 //' This function can be used to check if such a configuration file exists.
@@ -28,10 +28,10 @@ using namespace Rcpp;
 //' In case there are no 'mecabrc' files available at all,
 //' this function will return an empty data.frame.
 //'
-//' Note that in this case, the `tokenize` function will not work
+//' Note that in this case, the `tokenize()` function will not work
 //' even if a system dictionary is manually specified via the `sys_dic` argument.
 //' In such a case, you should mock up a 'mecabrc' file to temporarily use the dictionary.
-//' See examples for `build_sys_dic` and `build_user_dic` for details.
+//' See examples for `build_sys_dic()` and `build_user_dic()` for details.
 //'
 //' @param sys_dic Character scalar; path to the system dictionary for 'MeCab'.
 //' @param user_dic Character scalar; path to the user dictionary for 'MeCab'.

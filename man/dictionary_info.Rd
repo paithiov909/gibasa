@@ -15,7 +15,7 @@ A data.frame (an empty data.frame if there is no dictionary configured at all).
 Returns all dictionary information under the current configuration.
 }
 \details{
-To use the \code{tokenize} function, there should be a system dictionary for 'MeCab'
+To use the \code{tokenize()} function, there should be a system dictionary for 'MeCab'
 specified in some 'mecabrc' configuration files
 with a line \verb{dicdir=<path/to/dir/dictionary/included>}.
 This function can be used to check if such a configuration file exists.
@@ -31,10 +31,10 @@ but this fallback is not guaranteed to work in all cases.
 In case there are no 'mecabrc' files available at all,
 this function will return an empty data.frame.
 
-Note that in this case, the \code{tokenize} function will not work
+Note that in this case, the \code{tokenize()} function will not work
 even if a system dictionary is manually specified via the \code{sys_dic} argument.
 In such a case, you should mock up a 'mecabrc' file to temporarily use the dictionary.
-See examples for \code{build_sys_dic} and \code{build_user_dic} for details.
+See examples for \code{build_sys_dic()} and \code{build_user_dic()} for details.
 }
 \examples{
 \dontrun{
