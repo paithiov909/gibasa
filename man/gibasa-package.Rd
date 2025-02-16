@@ -6,7 +6,7 @@
 \alias{gibasa-package}
 \title{gibasa: An Alternative 'Rcpp' Wrapper of 'MeCab'}
 \description{
-A plain 'Rcpp' wrapper of 'MeCab' that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to 'tidytext' using morphological analysis.
+A plain 'Rcpp' wrapper for 'MeCab' that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to 'tidytext' using morphological analysis.
 }
 \seealso{
 Useful links:

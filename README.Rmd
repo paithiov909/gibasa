@@ -26,7 +26,7 @@ pkgload::load_all(export_all = FALSE)
 
 ## Overview
 
-Gibasa is a plain 'Rcpp' wrapper of 'MeCab', a morphological analyzer for CJK text.
+gibasa is a plain 'Rcpp' wrapper for 'MeCab', a morphological analyzer for CJK text.
 
 Part-of-speech tagging with morphological analyzers is useful for processing CJK text data. This is because most words in CJK text are not separated by whitespaces and `tokenizers::tokenize_words` may split them into wrong tokens.
 

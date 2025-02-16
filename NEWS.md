@@ -1,4 +1,4 @@
-# gibasa (development version)
+# gibasa 1.1.2
 
 * Refactored `tagger_impl` to improve performance of `tokenize(split = TRUE)`.
 

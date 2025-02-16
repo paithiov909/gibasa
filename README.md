@@ -16,7 +16,7 @@ badge](https://cranlogs.r-pkg.org/badges/gibasa)](https://cran.r-project.org/pac
 
 ## Overview
 
-Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a morphological analyzer
+gibasa is a plain ‘Rcpp’ wrapper for ‘MeCab’, a morphological analyzer
 for CJK text.
 
 Part-of-speech tagging with morphological analyzers is useful for
@@ -313,7 +313,7 @@ file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/RtmppTajmu/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/RtmpbSOJoV/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -333,7 +333,7 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/RtmppTajmu/file44df7eb293db.csv ... 2
+#> reading /tmp/RtmpbSOJoV/file3cc651e5053d.csv ... 2
 #> 
 #> done!
 

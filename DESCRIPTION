@@ -1,16 +1,16 @@
 Type: Package
 Package: gibasa
 Title: An Alternative 'Rcpp' Wrapper of 'MeCab'
-Version: 1.1.1.9004
+Version: 1.1.2
 Authors@R: c(
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre")),
     person("Shogo", "Ichinose", role = "aut"),
     person("Taku", "Kudo", role = "aut"),
     person("Jorge", "Nocedal", role = "ctb"),
-    person("Nippon Telegraph", "and Telephone Corporation", role = "cph")
+    person("Nippon Telegraph and Telephone Corporation", role = "cph")
   )
 Maintainer: Akiru Kato <paithiov909@gmail.com>
-Description: A plain 'Rcpp' wrapper of 'MeCab' that can segment Chinese,
+Description: A plain 'Rcpp' wrapper for 'MeCab' that can segment Chinese,
     Japanese, and Korean text into tokens. The main goal of this package
     is to provide an alternative to 'tidytext' using morphological
     analysis.
@@ -42,6 +42,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-SystemRequirements:
-    GNU make,
-    MeCab (libmecab-dev (deb), mecab-devel (rpm))
+SystemRequirements: GNU make, MeCab (libmecab-dev (deb), mecab-devel(rpm))
