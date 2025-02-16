@@ -1,5 +1,6 @@
 # gibasa 1.1.2
 
+* Bumped minimum R version to 4.2.0.
 * Refactored `tagger_impl` to improve performance of `tokenize(split = TRUE)`.
 
 # gibasa 1.1.1
