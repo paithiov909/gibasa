@@ -6,10 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Text Mining with quanteda and gibasa • gibasa</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Text Mining with quanteda and gibasa">
 <meta name="description" content="R（quanteda）によるテキスト解析">
 <meta property="og:description" content="R（quanteda）によるテキスト解析">
@@ -23,11 +23,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/paithiov909/gibasa/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -69,7 +77,7 @@
       <h1>Text Mining with quanteda and gibasa</h1>
                         <h4 data-toc-skip class="author">paithiov909</h4>
             
-            <h4 data-toc-skip class="date">2024-09-25</h4>
+            <h4 data-toc-skip class="date">2025-02-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/paithiov909/gibasa/blob/main/vignettes/quanteda.Rmd" class="external-link"><code>vignettes/quanteda.Rmd</code></a></small>
       <div class="d-none name"><code>quanteda.Rmd</code></div>
@@ -114,20 +122,20 @@ Workshop</a>で整備された、テキスト分析用のRパッケージのデ�
 <span><span class="co">#&gt; Done.</span></span>
 <span></span>
 <span><span class="va">tbl</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,376 × 6</span></span></span>
-<span><span class="co">#&gt;    category       file_path                       source time_stamp text  doc_id</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>友…  1     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ネ…  2     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>相…  3     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>ム…  4     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>税…  5     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>読…  6     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>大…  7     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>結…  8     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-2… <span style="color: #949494;">"</span>お…  9     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dokujo-tsushin /tmp/RtmpIivrHL/text/dokujo-ts… http:… 2010-05-3… <span style="color: #949494;">"</span>初…  10    </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,366 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,367 × 7</span></span></span>
+<span><span class="co">#&gt;    file_path                       source time_stamp title text  category doc_id</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… 友人代表… <span style="color: #949494;">"</span>友人代… dokujo-… 1     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… ネットで… <span style="color: #949494;">"</span>ネット… dokujo-… 2     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… <span style="color: #949494;">"</span>相次ぐ… dokujo-… 3     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… ムダな抵… <span style="color: #949494;">"</span>ムダな… dokujo-… 4     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… 税金を払… <span style="color: #949494;">"</span>税金を… dokujo-… 5     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-3… 読んでみ… <span style="color: #949494;">"</span>読んで… dokujo-… 6     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… 大人にな… <span style="color: #949494;">"</span>大人に… dokujo-… 7     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… 結婚して… <span style="color: #949494;">"</span>結婚し… dokujo-… 8     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-2… お肌に優… <span style="color: #949494;">"</span>お肌に… dokujo-… 9     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> /tmp/RtmpATONmL/text/dokujo-ts… http:… 2010-05-3… 初回デー… <span style="color: #949494;">"</span>初回デ… dokujo-… 10    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,357 more rows</span></span></span></code></pre></div>
 <p>livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。</p>
 <ul>
 <li>トピックニュース</li>
@@ -189,20 +197,20 @@ textとも呼ばれます。</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>original <span class="op">=</span> <span class="va">Original</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">toks</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3,915,857 × 6</span></span></span>
-<span><span class="co">#&gt;    doc_id category       token_id token  pos      original</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2736   livedoor-homme        1 &lt;      サ変名詞 <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2736   livedoor-homme        2 コラム 名詞     コラム  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2736   livedoor-homme        3 &gt;      サ変名詞 <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2736   livedoor-homme        4 名手   名詞     名手    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2736   livedoor-homme        5 が     その他   が      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2736   livedoor-homme        6 愛し   動詞     愛す    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2736   livedoor-homme        7 た     その他   た      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2736   livedoor-homme        8 パター 名詞     パター  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2736   livedoor-homme        9 【     その他   【      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2736   livedoor-homme       10 ゴルフ 名詞     ゴルフ  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3,915,847 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3,932,690 × 6</span></span></span>
+<span><span class="co">#&gt;    doc_id category       token_id token              pos      original    </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2736   livedoor-homme        1 インタビュー       サ変名詞 インタビュー</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2736   livedoor-homme        2 :                  サ変名詞 <span style="color: #BB0000;">NA</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2736   livedoor-homme        3 シーバスリーガル   未知語   <span style="color: #BB0000;">NA</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2736   livedoor-homme        4 マスターブレンダー 未知語   <span style="color: #BB0000;">NA</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2736   livedoor-homme        5 コリン             人名     コリン      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2736   livedoor-homme        6 ・                 その他   ・          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2736   livedoor-homme        7 スコット           人名     スコット    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2736   livedoor-homme        8 プレミアム         名詞     プレミアム  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2736   livedoor-homme        9 ウイスキー         名詞     ウイスキー  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2736   livedoor-homme       10 として             その他   として      </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3,932,680 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tidy-textからdfmへの変換">Tidy textからdfmへの変換<a class="anchor" aria-label="anchor" href="#tidy-text%E3%81%8B%E3%82%89dfm%E3%81%B8%E3%81%AE%E5%A4%89%E6%8F%9B"></a>
@@ -215,20 +223,20 @@ textという呼び方をすることがあるようです。</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"その他"</span>, <span class="st">"タグ"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">doc_id</span>, <span class="va">token</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,035,533 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,037,324 × 3</span></span></span>
 <span><span class="co">#&gt;    doc_id token            n</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 5681   /              607</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 5681   ソフトバンク   508</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 5196   /              204</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 5081   ,              126</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 5544   )              120</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 5544   (              119</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1461   し             111</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 5699   :              101</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 5699   .               97</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 5134   HTC             94</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,035,523 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 5674   /              607</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 5674   ソフトバンク   508</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 5189   /              204</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 5074   ,              126</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 5559   (              125</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 5559   )              124</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 5537   )              120</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 5537   (              119</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1460   し             111</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 5692   :              101</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,037,314 more rows</span></span></span></code></pre></div>
 <p>一方で、たとえば、特定のトークンの連なりは連語と見なして一つのトークンとして集計したいといった場合には、dplyrだけで集計するのはなかなか大変です。そういったより複雑なケースでは、quantedaの枠組みと組み合わせて使ったほうが便利なことがあります。</p>
 <p>たとえば、IPA辞書では正しく解析されない「スマートフォン」といった語について、形態素解析した結果を確認した後に再度まとめあげて集計したい場合、quantedaを使うと次のように書くことができます。また、ここでは、うまく「記号」として解析されなかった記号類を除外するために、正規表現にマッチするトークンだけに絞り込んで集計しています。</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -247,16 +255,24 @@ textという呼び方をすることがあるようです。</p>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/dfm.html" class="external-link">dfm</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dfm</span></span>
-<span><span class="co">#&gt; Document-feature matrix of: 5,900 documents, 57,383 features (99.74% sparse) and 0 docvars.</span></span>
+<span><span class="co">#&gt; Document-feature matrix of: 5,893 documents, 57,645 features (99.74% sparse) and 0 docvars.</span></span>
 <span><span class="co">#&gt;       features</span></span>
-<span><span class="co">#&gt; docs   コラム 名手 愛し パター ゴルフ 特集 パッティング 持つ 不思議 難し</span></span>
-<span><span class="co">#&gt;   2736      1    8    1     18     12    2            9    2      2    1</span></span>
-<span><span class="co">#&gt;   2838      0    0    0      0      0    0            0    1      0    0</span></span>
-<span><span class="co">#&gt;   3570      0    0    0      0      0    1            0    0      0    0</span></span>
-<span><span class="co">#&gt;   1524      0    0    0      0      0    0            0    0      0    0</span></span>
-<span><span class="co">#&gt;   3643      0    0    0      0      0    0            0    0      0    0</span></span>
-<span><span class="co">#&gt;   7150      0    0    1      0      0    0            0    0      0    0</span></span>
-<span><span class="co">#&gt; [ reached max_ndoc ... 5,894 more documents, reached max_nfeat ... 57,373 more features ]</span></span></code></pre></div>
+<span><span class="co">#&gt; docs   インタビュー シーバスリーガル マスターブレンダー コリン スコット</span></span>
+<span><span class="co">#&gt;   2736            1               14                  3      3        9</span></span>
+<span><span class="co">#&gt;   2838            0                0                  0      0        0</span></span>
+<span><span class="co">#&gt;   3570            0                0                  0      0        0</span></span>
+<span><span class="co">#&gt;   1524            0                0                  0      0        0</span></span>
+<span><span class="co">#&gt;   3643            0                0                  0      0        0</span></span>
+<span><span class="co">#&gt;   7150            0                0                  0      0        0</span></span>
+<span><span class="co">#&gt;       features</span></span>
+<span><span class="co">#&gt; docs   プレミアム ウイスキー 世界中 愛さ 歴史</span></span>
+<span><span class="co">#&gt;   2736          3          6      2    2    3</span></span>
+<span><span class="co">#&gt;   2838          0          0      0    0    0</span></span>
+<span><span class="co">#&gt;   3570          0          0      0    0    0</span></span>
+<span><span class="co">#&gt;   1524          0          0      0    0    0</span></span>
+<span><span class="co">#&gt;   3643          0          0      1    0    0</span></span>
+<span><span class="co">#&gt;   7150          0          0      0    0    0</span></span>
+<span><span class="co">#&gt; [ reached max_ndoc ... 5,887 more documents, reached max_nfeat ... 57,635 more features ]</span></span></code></pre></div>
 <p><code><a href="https://quanteda.io/reference/dfm.html" class="external-link">quanteda::dfm()</a></code>の戻り値は「文書単語行列（dtm）」を疎行列オブジェクト（dgCMatrix
 of ‘Matrix’
 package）として保持したものです（厳密には、dgCMatrixをスロットにもっているS4オブジェクト）。dfmオブジェクトは、<code>qunateda.textstats::textstat_frequency()</code>などを使って、さらに集計することができます。</p>
@@ -269,12 +285,12 @@ package）として保持したものです（厳密には、dgCMatrixをスロ�
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   feature frequency  rank docfreq group</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> する        <span style="text-decoration: underline;">21</span>936     1    <span style="text-decoration: underline;">5</span>200 all  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ない        <span style="text-decoration: underline;">20</span>669     2    <span style="text-decoration: underline;">4</span>681 all  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> なっ         <span style="text-decoration: underline;">8</span>733     3    <span style="text-decoration: underline;">3</span>936 all  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ある         <span style="text-decoration: underline;">7</span>426     4    <span style="text-decoration: underline;">3</span>317 all  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> なる         <span style="text-decoration: underline;">6</span>648     5    <span style="text-decoration: underline;">3</span>285 all  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> できる       <span style="text-decoration: underline;">6</span>344     6    <span style="text-decoration: underline;">2</span>610 all</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> する        <span style="text-decoration: underline;">22</span>068     1    <span style="text-decoration: underline;">5</span>204 all  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ない        <span style="text-decoration: underline;">20</span>800     2    <span style="text-decoration: underline;">4</span>650 all  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> なっ         <span style="text-decoration: underline;">8</span>666     3    <span style="text-decoration: underline;">3</span>904 all  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ある         <span style="text-decoration: underline;">7</span>472     4    <span style="text-decoration: underline;">3</span>317 all  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> なる         <span style="text-decoration: underline;">6</span>738     5    <span style="text-decoration: underline;">3</span>292 all  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> できる       <span style="text-decoration: underline;">6</span>482     6    <span style="text-decoration: underline;">2</span>622 all</span></span>
 <span></span>
 <span><span class="va">dat</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">frequency</span>, y <span class="op">=</span> <span class="va">docfreq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -338,6 +354,18 @@ textを変換することによって得ることもできます。</p>
 <span>  <span class="fu">ggh4x</span><span class="fu">::</span><span class="fu"><a href="https://teunbrand.github.io/ggh4x/reference/scale_dendrogram.html" class="external-link">scale_y_dendrogram</a></span><span class="op">(</span>hclust <span class="op">=</span> <span class="va">clusters</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"出現回数"</span>, y <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: `scale_y_dendrogram()` was deprecated in ggh4x 0.3.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `legendry::scale_y_dendro()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
+<span><span class="co">#&gt; Warning: `guide_dendro()` was deprecated in ggh4x 0.3.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `legendry::guide_axis_dendro()` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">ggh4x</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/teunbrand/ggh4x/issues&gt;</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; Warning: The S3 guide system was deprecated in ggplot2 3.5.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> It has been replaced by a ggproto system that can be extended.</span></span>
 <span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
@@ -435,7 +463,7 @@ textのあいだで自由に変換しあうことができます。</p>
 <span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Dimension 2 ("</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">signif</a></span><span class="op">(</span><span class="va">dim_var_percs</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"%)"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_classic</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: ggrepel: 15 unlabeled data points (too many overlaps). Consider</span></span>
+<span><span class="co">#&gt; Warning: ggrepel: 7 unlabeled data points (too many overlaps). Consider</span></span>
 <span><span class="co">#&gt; increasing max.overlaps</span></span></code></pre></div>
 <p><img src="quanteda_files/figure-html/ca_3-1.png" width="700"></p>
 </div>
@@ -465,98 +493,94 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/reframe.html" class="external-link">reframe</a></span><span class="op">(</span>token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">token</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">doc_id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">deframe</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">quanteda</span><span class="fu">::</span><span class="fu"><a href="https://quanteda.io/reference/as.tokens.html" class="external-link">as.tokens</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Tokens consisting of 5,900 documents.</span></span>
+<span><span class="co">#&gt; Tokens consisting of 5,893 documents.</span></span>
 <span><span class="co">#&gt; 2736 :</span></span>
-<span><span class="co">#&gt;  [1] "コラム"       "名手"         "愛し"         "パター"       "ゴルフ"      </span></span>
-<span><span class="co">#&gt;  [6] "パッティング" "持つ"         "ゴルフ"       "スポーツ"     "魅力"        </span></span>
-<span><span class="co">#&gt; [11] "一つ"         "ドライバー"  </span></span>
-<span><span class="co">#&gt; [ ... and 231 more ]</span></span>
+<span><span class="co">#&gt;  [1] "シーバスリーガル"   "マスターブレンダー" "コリン"            </span></span>
+<span><span class="co">#&gt;  [4] "スコット"           "プレミアム"         "ウイスキー"        </span></span>
+<span><span class="co">#&gt;  [7] "世界中"             "愛さ"               "シーバスリーガル"  </span></span>
+<span><span class="co">#&gt; [10] "歴史"               "持つ"               "ブランド"          </span></span>
+<span><span class="co">#&gt; [ ... and 132 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 2838 :</span></span>
-<span><span class="co">#&gt;  [1] "プリウス"               "最大"                   "ライバル"              </span></span>
-<span><span class="co">#&gt;  [4] "エクステンデッドレンジ" "EV"                     "パシフィコ横浜"        </span></span>
-<span><span class="co">#&gt;  [7] "行わ"                   "クルマ"                 "テクノロジー"          </span></span>
-<span><span class="co">#&gt; [10] "クルマ"                 "シボレー"               "ボルト"                </span></span>
-<span><span class="co">#&gt; [ ... and 139 more ]</span></span>
+<span><span class="co">#&gt;  [1] "得る"               "プロフェッショナル" "スキル"            </span></span>
+<span><span class="co">#&gt;  [4] "vol"                "本質"               "探る"              </span></span>
+<span><span class="co">#&gt;  [7] "自分"               "足り"               "スキル"            </span></span>
+<span><span class="co">#&gt; [10] "見え"               "プロフェッショナル" "ビジネス"          </span></span>
+<span><span class="co">#&gt; [ ... and 282 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 3570 :</span></span>
-<span><span class="co">#&gt;  [1] "東日本"     "大震災"     "マスコミ"   "災害"       "語る"      </span></span>
-<span><span class="co">#&gt;  [6] "映画"       "東日本"     "大震災"     "経と"       "NHK"       </span></span>
-<span><span class="co">#&gt; [11] "音楽"       "メッセージ"</span></span>
-<span><span class="co">#&gt; [ ... and 149 more ]</span></span>
+<span><span class="co">#&gt;  [1] "韓国"   "サニー" "永遠"   "仲間"   "洋楽"   "彩る"   "予告編" "韓国"  </span></span>
+<span><span class="co">#&gt;  [9] "世代"   "超え"   "口コミ" "広がり"</span></span>
+<span><span class="co">#&gt; [ ... and 120 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 1524 :</span></span>
-<span><span class="co">#&gt;  [1] "ターガス"           "USB"                "ポートリプリケータ"</span></span>
-<span><span class="co">#&gt;  [4] "ビューアー"         "無償"               "ゲット"            </span></span>
-<span><span class="co">#&gt;  [7] "ターガス"           "言え"               "PC"                </span></span>
-<span><span class="co">#&gt; [10] "ノート"             "PC"                 "富む"              </span></span>
-<span><span class="co">#&gt; [ ... and 317 more ]</span></span>
+<span><span class="co">#&gt;  [1] "ぉっくす" "ミニ"     "ゅうす"   "ぉっくす" "じゅん"   "びちう"  </span></span>
+<span><span class="co">#&gt;  [7] "アキバ"   "会え"     "待っ"     "楽しみ"   "ミニ"     "ヒエー"  </span></span>
+<span><span class="co">#&gt; [ ... and 18 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 3643 :</span></span>
-<span><span class="co">#&gt;  [1] "DAIGO"              "ウルトラマン"       "ウルトラマン"      </span></span>
-<span><span class="co">#&gt;  [4] "シリーズ"           "最新"               "ウルトラマンサーガ"</span></span>
-<span><span class="co">#&gt;  [7] "全国"               "ウルトラマン"       "DAIGO"             </span></span>
-<span><span class="co">#&gt; [10] "剛士"               "杉浦"               "太陽"              </span></span>
-<span><span class="co">#&gt; [ ... and 143 more ]</span></span>
+<span><span class="co">#&gt;  [1] "中村"         "玉緒"         "グフフッ"     "日本"         "アカデミー"  </span></span>
+<span><span class="co">#&gt;  [6] "自身"         "オスカー"     "女優"         "映画"         "マーガレット"</span></span>
+<span><span class="co">#&gt; [11] "サッチャー"   "都内"        </span></span>
+<span><span class="co">#&gt; [ ... and 137 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; 7150 :</span></span>
-<span><span class="co">#&gt;  [1] "DV"     "早乙女" "太一"   "西山"   "茉希"   "驚き"   "俳優"   "早乙女"</span></span>
-<span><span class="co">#&gt;  [9] "太一"   "東京"   "明治"   "舞台"  </span></span>
-<span><span class="co">#&gt; [ ... and 105 more ]</span></span>
+<span><span class="co">#&gt;  [1] "片山"     "さつき"   "吉本興業" "感じ"     "吉本興業" "お笑い"  </span></span>
+<span><span class="co">#&gt;  [7] "芸人"     "次長"     "課長"     "河本"     "準一"     "母親"    </span></span>
+<span><span class="co">#&gt; [ ... and 56 more ]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [ reached max_ndoc ... 5,894 more documents ]</span></span></code></pre></div>
+<span><span class="co">#&gt; [ reached max_ndoc ... 5,887 more documents ]</span></span></code></pre></div>
 <p>一度にぜんぶ覚えるのはむずかしいでしょうが、こうした変換の方法を一通り覚えておくと、Rでテキストデータを扱うためのさまざまなバッケージについて、臨機応変に使いこなせるようになるはずです。少しずつでも、ぜひマスターしてみてください。</p>
 </div>
 <div class="section level2">
 <h2 id="セッション情報">セッション情報<a class="anchor" aria-label="anchor" href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3%E6%83%85%E5%A0%B1"></a>
 </h2>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://sessioninfo.r-lib.org/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Session info ───────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">setting </span> <span style="color: #555555; font-style: italic;">value</span></span></span>
-<span><span class="co">#&gt;  version  R version 4.4.1 (2024-06-14)</span></span>
-<span><span class="co">#&gt;  os       Ubuntu 22.04.5 LTS</span></span>
+<span><span class="co">#&gt;  version  R version 4.4.2 (2024-10-31)</span></span>
+<span><span class="co">#&gt;  os       Ubuntu 24.04.1 LTS</span></span>
 <span><span class="co">#&gt;  system   x86_64, linux-gnu</span></span>
 <span><span class="co">#&gt;  ui       X11</span></span>
 <span><span class="co">#&gt;  language en</span></span>
 <span><span class="co">#&gt;  collate  C.UTF-8</span></span>
 <span><span class="co">#&gt;  ctype    C.UTF-8</span></span>
 <span><span class="co">#&gt;  tz       UTC</span></span>
-<span><span class="co">#&gt;  date     2024-09-25</span></span>
+<span><span class="co">#&gt;  date     2025-02-16</span></span>
 <span><span class="co">#&gt;  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt;  quarto   NA</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">─ Packages ───────────────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">#&gt;  <span style="color: #555555; font-style: italic;">package            </span> <span style="color: #555555; font-style: italic;">*</span> <span style="color: #555555; font-style: italic;">version   </span> <span style="color: #555555; font-style: italic;">date (UTC)</span> <span style="color: #555555; font-style: italic;">lib</span> <span style="color: #555555; font-style: italic;">source</span></span></span>
-<span><span class="co">#&gt;  bit                   4.5.0      <span style="color: #555555;">2024-09-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  bit64                 4.5.2      <span style="color: #555555;">2024-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  bslib                 0.8.0      <span style="color: #555555;">2024-07-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bit                   4.5.0.1    <span style="color: #555555;">2024-12-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bit64                 4.6.0-1    <span style="color: #555555;">2025-01-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  bslib                 0.9.0      <span style="color: #555555;">2025-01-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ca                  * 0.71.1     <span style="color: #555555;">2020-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  cachem                1.1.0      <span style="color: #555555;">2024-05-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  cli                   3.6.3      <span style="color: #555555;">2024-06-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  codetools             0.2-20     <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  cli                   3.6.4      <span style="color: #555555;">2025-02-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  codetools             0.2-20     <span style="color: #555555;">2024-03-31</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.2)</span></span></span>
 <span><span class="co">#&gt;  colorspace            2.1-1      <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  crayon                1.5.3      <span style="color: #555555;">2024-06-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  desc                  1.4.3      <span style="color: #555555;">2023-12-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  digest                0.6.37     <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  dplyr                 1.1.4      <span style="color: #555555;">2023-11-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  evaluate              1.0.0      <span style="color: #555555;">2024-09-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fansi                 1.0.6      <span style="color: #555555;">2023-12-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  evaluate              1.0.3      <span style="color: #555555;">2025-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  farver                2.1.2      <span style="color: #555555;">2024-05-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  fastmap               1.2.0      <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fastmatch             1.1-4      <span style="color: #555555;">2023-08-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  fastmatch             1.1-6      <span style="color: #555555;">2024-12-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  foreach               1.5.2      <span style="color: #555555;">2022-02-02</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  fs                    1.6.4      <span style="color: #555555;">2024-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  fs                    1.6.5      <span style="color: #555555;">2024-10-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  generics              0.1.3      <span style="color: #555555;">2022-07-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggdendro              0.2.0      <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  ggh4x                 0.2.8      <span style="color: #555555;">2024-01-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  ggh4x                 0.3.0      <span style="color: #555555;">2024-12-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  gghighlight           0.4.1      <span style="color: #555555;">2023-12-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggplot2             * 3.5.1      <span style="color: #555555;">2024-04-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ggrepel               0.9.6      <span style="color: #555555;">2024-09-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  gibasa                1.1.1      <span style="color: #555555;">2024-09-25</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
+<span><span class="co">#&gt;  gibasa                1.1.2      <span style="color: #555555;">2025-02-16</span> <span style="color: #555555;">[1]</span> <span style="color: #BB00BB; font-weight: bold;">local</span></span></span>
 <span><span class="co">#&gt;  glmnet                4.1-8      <span style="color: #555555;">2023-08-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  glue                  1.7.0      <span style="color: #555555;">2024-01-09</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  gtable                0.3.5      <span style="color: #555555;">2024-04-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  highr                 0.11       <span style="color: #555555;">2024-05-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  glue                  1.8.0      <span style="color: #555555;">2024-09-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  gtable                0.3.6      <span style="color: #555555;">2024-10-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  hms                   1.1.3      <span style="color: #555555;">2023-03-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  htmltools             0.5.8.1    <span style="color: #555555;">2024-04-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  htmlwidgets           1.6.4      <span style="color: #555555;">2023-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -564,51 +588,49 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span><span class="co">#&gt;  janeaustenr           1.0.0      <span style="color: #555555;">2022-08-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jquerylib             0.1.4      <span style="color: #555555;">2021-04-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  jsonlite              1.8.9      <span style="color: #555555;">2024-09-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  knitr                 1.48       <span style="color: #555555;">2024-07-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  knitr                 1.49       <span style="color: #555555;">2024-11-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  labeling              0.4.3      <span style="color: #555555;">2023-08-29</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  lattice               0.22-6     <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
-<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">2024.07.07</span> <span style="color: #555555;">2024-09-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@52c44ce)</span></span></span>
-<span><span class="co">#&gt;  LiblineaR             2.10-24    <span style="color: #555555;">2024-09-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  lattice               0.22-6     <span style="color: #555555;">2024-03-20</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.2)</span></span></span>
+<span><span class="co">#&gt;  ldccr                 <span style="color: #BB00BB; font-weight: bold;">2025.02.02</span> <span style="color: #555555;">2025-02-16</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">Github (paithiov909/ldccr@82bcbc7)</span></span></span>
 <span><span class="co">#&gt;  lifecycle             1.0.4      <span style="color: #555555;">2023-11-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  magrittr              2.0.3      <span style="color: #555555;">2022-03-30</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  MASS                  7.3-60.2   <span style="color: #555555;">2024-04-26</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
-<span><span class="co">#&gt;  Matrix                1.7-0      <span style="color: #555555;">2024-04-26</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
+<span><span class="co">#&gt;  MASS                  7.3-61     <span style="color: #555555;">2024-06-13</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.2)</span></span></span>
+<span><span class="co">#&gt;  Matrix                1.7-1      <span style="color: #555555;">2024-10-18</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.2)</span></span></span>
 <span><span class="co">#&gt;  memoise               2.0.1      <span style="color: #555555;">2021-11-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  munsell               0.5.1      <span style="color: #555555;">2024-04-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  nsyllable             1.0.1      <span style="color: #555555;">2022-02-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  pillar                1.9.0      <span style="color: #555555;">2023-03-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  pillar                1.10.1     <span style="color: #555555;">2025-01-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  pkgconfig             2.0.3      <span style="color: #555555;">2019-09-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  pkgdown               2.1.1      <span style="color: #555555;">2024-09-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@2.1.1)</span></span></span>
 <span><span class="co">#&gt;  proxyC                0.4.1      <span style="color: #555555;">2024-04-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  purrr                 1.0.2      <span style="color: #555555;">2023-08-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  quanteda              4.1.0      <span style="color: #555555;">2024-09-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  quanteda.textmodels   0.9.9      <span style="color: #555555;">2024-09-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  purrr                 1.0.4      <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda              4.2.0      <span style="color: #555555;">2025-01-08</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  quanteda.textmodels   0.9.10     <span style="color: #555555;">2025-02-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  quanteda.textstats    0.97.2     <span style="color: #555555;">2024-09-03</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.cache               0.16.0     <span style="color: #555555;">2022-07-21</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.methodsS3           1.8.2      <span style="color: #555555;">2022-06-13</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R.oo                  1.26.0     <span style="color: #555555;">2024-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  R.oo                  1.27.0     <span style="color: #555555;">2024-11-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  R.utils               2.12.3     <span style="color: #555555;">2023-11-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  R6                    2.5.1      <span style="color: #555555;">2021-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  R6                    2.6.1      <span style="color: #555555;">2025-02-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  ragg                  1.3.3      <span style="color: #555555;">2024-09-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  Rcpp                  1.0.13     <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  RcppParallel          5.1.9      <span style="color: #555555;">2024-08-19</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  Rcpp                  1.0.14     <span style="color: #555555;">2025-01-12</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  RcppParallel          5.1.10     <span style="color: #555555;">2025-01-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  readr                 2.1.5      <span style="color: #555555;">2024-01-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  rlang                 1.1.4      <span style="color: #555555;">2024-06-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  rmarkdown             2.28       <span style="color: #555555;">2024-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rlang                 1.1.5      <span style="color: #555555;">2025-01-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  rmarkdown             2.29       <span style="color: #555555;">2024-11-04</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  RSpectra              0.16-2     <span style="color: #555555;">2024-07-18</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  sass                  0.4.9      <span style="color: #555555;">2024-03-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  scales                1.3.0      <span style="color: #555555;">2023-11-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  sessioninfo           1.2.2      <span style="color: #555555;">2021-12-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.2)</span></span></span>
+<span><span class="co">#&gt;  sessioninfo           1.2.3      <span style="color: #555555;">2025-02-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.2.3)</span></span></span>
 <span><span class="co">#&gt;  shape                 1.4.6.1    <span style="color: #555555;">2024-02-23</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  SnowballC             0.7.1      <span style="color: #555555;">2023-04-25</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  SparseM               1.84-2     <span style="color: #555555;">2024-07-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stopwords             2.3        <span style="color: #555555;">2021-10-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stringi               1.8.4      <span style="color: #555555;">2024-05-06</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  stringr               1.5.1      <span style="color: #555555;">2023-11-14</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  styler                1.10.3     <span style="color: #555555;">2024-04-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">any (@1.10.3)</span></span></span>
-<span><span class="co">#&gt;  survival              3.6-4      <span style="color: #555555;">2024-04-24</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.1)</span></span></span>
-<span><span class="co">#&gt;  systemfonts           1.1.0      <span style="color: #555555;">2024-05-15</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  textshaping           0.4.0      <span style="color: #555555;">2024-05-24</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  survival              3.7-0      <span style="color: #555555;">2024-06-05</span> <span style="color: #555555;">[4]</span> <span style="color: #555555;">CRAN (R 4.4.2)</span></span></span>
+<span><span class="co">#&gt;  systemfonts           1.2.1      <span style="color: #555555;">2025-01-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  textshaping           1.0.0      <span style="color: #555555;">2025-01-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  tibble                3.2.1      <span style="color: #555555;">2023-03-20</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  tidyselect            1.2.1      <span style="color: #555555;">2024-03-11</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  tidytext              0.4.2      <span style="color: #555555;">2024-04-10</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
@@ -617,14 +639,15 @@ textからコーパスのかたちを経ずにquantedaのtokensオブジェク�
 <span><span class="co">#&gt;  utf8                  1.2.4      <span style="color: #555555;">2023-10-22</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  vctrs                 0.6.5      <span style="color: #555555;">2023-12-01</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  vroom                 1.6.5      <span style="color: #555555;">2023-12-05</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  withr                 3.0.1      <span style="color: #555555;">2024-07-31</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
-<span><span class="co">#&gt;  xfun                  0.47       <span style="color: #555555;">2024-08-17</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  withr                 3.0.2      <span style="color: #555555;">2024-10-28</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
+<span><span class="co">#&gt;  xfun                  0.50       <span style="color: #555555;">2025-01-07</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt;  yaml                  2.3.10     <span style="color: #555555;">2024-07-26</span> <span style="color: #555555;">[2]</span> <span style="color: #BB00BB; font-weight: bold;">RSPM</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/RtmpfQqVIM/temp_libpath379a7f7fb937</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [1] /tmp/Rtmp4QNEc9/temp_libpath3c8a7819d6e9</span></span></span>
 <span><span class="co">#&gt; <span style="color: #555555;"> [2] /home/runner/work/_temp/Library</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.4.1/lib/R/site-library</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.4.1/lib/R/library</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [3] /opt/R/4.4.2/lib/R/site-library</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;"> [4] /opt/R/4.4.2/lib/R/library</span></span></span>
+<span><span class="co">#&gt;  <span style="color: #BBBBBB; background-color: #BB0000;">*</span> ── Packages attached to the search path.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB; font-weight: bold;">──────────────────────────────────────────────────────────────────────────────</span></span></span></code></pre></div>
 </div>

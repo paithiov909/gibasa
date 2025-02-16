@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>An Alternative Rcpp Wrapper of MeCab • gibasa</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="An Alternative Rcpp Wrapper of MeCab">
-<meta name="description" content="A plain Rcpp wrapper of MeCab that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to tidytext using morphological analysis.">
-<meta property="og:description" content="A plain Rcpp wrapper of MeCab that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to tidytext using morphological analysis.">
+<meta name="description" content="A plain Rcpp wrapper for MeCab that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to tidytext using morphological analysis.">
+<meta property="og:description" content="A plain Rcpp wrapper for MeCab that can segment Chinese, Japanese, and Korean text into tokens. The main goal of this package is to provide an alternative to tidytext using morphological analysis.">
 <meta property="og:image" content="https://paithiov909.github.io/gibasa/reference/figures/tidytext_fig5_1_mod.drawio.png">
 <meta property="og:image:alt" content="Gibasa is a plain 'Rcpp' wrapper of 'MeCab', a morphological analyzer for CJK text">
 <meta name="twitter:card" content="summary_large_image">
@@ -23,11 +23,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">gibasa</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,14 @@
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/paithiov909/gibasa/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
+<li><button class="dropdown-item" data-bs-theme-value="light"><span class="fa fa-sun"></span> Light</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="dark"><span class="fa fa-moon"></span> Dark</button></li>
+    <li><button class="dropdown-item" data-bs-theme-value="auto"><span class="fa fa-adjust"></span> Auto</button></li>
+  </ul>
+</li>
       </ul>
 </div>
 
@@ -68,7 +76,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>Gibasa is a plain ‘Rcpp’ wrapper of ‘MeCab’, a morphological analyzer for CJK text.</p>
+<p>gibasa is a plain ‘Rcpp’ wrapper for ‘MeCab’, a morphological analyzer for CJK text.</p>
 <p>Part-of-speech tagging with morphological analyzers is useful for processing CJK text data. This is because most words in CJK text are not separated by whitespaces and <code><a href="https://docs.ropensci.org/tokenizers/reference/basic-tokenizers.html" class="external-link">tokenizers::tokenize_words</a></code> may split them into wrong tokens.</p>
 <p>The main goal of gibasa package is to provide an alternative to <code><a href="https://juliasilge.github.io/tidytext/reference/unnest_tokens.html" class="external-link">tidytext::unnest_tokens</a></code> for CJK text data. For this goal, gibasa provides three main functions: <code><a href="reference/tokenize.html">gibasa::tokenize</a></code>, <code><a href="reference/prettify.html">gibasa::prettify</a></code>, and <code><a href="reference/pack.html">gibasa::pack</a></code>.</p>
 <figure><img src="reference/figures/tidytext_fig5_1_mod.drawio.png" alt="flowchart of a text analysis that combines gibasa and other packages"><figcaption aria-hidden="true">
@@ -95,7 +103,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"paithiov909/gibasa"</span><span class="op">)</span></span></code></pre></div>
 <p>To use gibasa package requires the <a href="https://taku910.github.io/mecab/" class="external-link">MeCab</a> library and its dictionary installed and available.</p>
 <p>In case using Linux or macOS, you can install them with their package managers, or build and install from the source by yourself.</p>
-<p>In case using Windows, use installer <a href="https://drive.google.com/uc?export=download&amp;id=0B4y35FiV1wh7WElGUGt6ejlpVXc" class="external-link">built for 32bit</a> or <a href="https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2" class="external-link">built for 64bit</a>. Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.</p>
+<p>In case using Windows, use installer <a href="https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2" class="external-link">built for 64bit</a>. Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.</p>
 <p>As of v0.9.4, gibasa looks at the file specified by the environment variable <code>MECABRC</code> or the file located at <code>~/.mecabrc</code>. If the MeCab dictionary is in a different location than the default, create a mecabrc file and specify where the dictionary is located.</p>
 <p>For example, to install and use the <a href="https://pypi.org/project/ipadic/" class="external-link">ipadic</a> from PyPI, run:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">$</span> python3 <span class="at">-m</span> pip install ipadic</span>
@@ -125,11 +133,11 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt;  3 1                1        3 が           助詞,格助詞,一般,*,*,*,が,ガ,ガ     </span></span>
 <span><span class="co">#&gt;  4 1                1        4 手           名詞,一般,*,*,*,*,手,テ,テ          </span></span>
 <span><span class="co">#&gt;  5 1                1        5 を           助詞,格助詞,一般,*,*,*,を,ヲ,ヲ     </span></span>
-<span><span class="co">#&gt;  6 1                1        6 あげ         動詞,自立,*,*,一段,連用形,あげる,ア…</span></span>
-<span><span class="co">#&gt;  7 1                1        7 まし         助動詞,*,*,*,特殊・マス,連用形,ます…</span></span>
-<span><span class="co">#&gt;  8 1                1        8 た           助動詞,*,*,*,特殊・タ,基本形,た,タ,…</span></span>
+<span><span class="co">#&gt;  6 1                1        6 あげ         動詞,自立,*,*,一段,連用形,あげる,アゲ,アゲ……</span></span>
+<span><span class="co">#&gt;  7 1                1        7 まし         助動詞,*,*,*,特殊・マス,連用形,ます,マシ,マシ……</span></span>
+<span><span class="co">#&gt;  8 1                1        8 た           助動詞,*,*,*,特殊・タ,基本形,た,タ,タ……</span></span>
 <span><span class="co">#&gt;  9 1                1        9 。           記号,句点,*,*,*,*,。,。,。          </span></span>
-<span><span class="co">#&gt; 10 1                1       10 それ         名詞,代名詞,一般,*,*,*,それ,ソレ,ソ…</span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞,代名詞,一般,*,*,*,それ,ソレ,ソレ……</span></span>
 <span><span class="co">#&gt; # ℹ 177 more rows</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -142,14 +150,14 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt;    &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      </span></span>
 <span><span class="co">#&gt;  1 1                1        1 　           記号   空白  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
 <span><span class="co">#&gt;  2 1                1        2 カムパネルラ 名詞   一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  3 1                1        3 が           助詞   格助… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  3 1                1        3 が           助詞   格助詞…… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
 <span><span class="co">#&gt;  4 1                1        4 手           名詞   一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt;  5 1                1        5 を           助詞   格助… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt;  5 1                1        5 を           助詞   格助詞…… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
 <span><span class="co">#&gt;  6 1                1        6 あげ         動詞   自立  &lt;NA&gt;  &lt;NA&gt;  一段       </span></span>
 <span><span class="co">#&gt;  7 1                1        7 まし         助動詞 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  特殊・マス </span></span>
 <span><span class="co">#&gt;  8 1                1        8 た           助動詞 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  特殊・タ   </span></span>
 <span><span class="co">#&gt;  9 1                1        9 。           記号   句点  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;       </span></span>
-<span><span class="co">#&gt; 10 1                1       10 それ         名詞   代名… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; 10 1                1       10 それ         名詞   代名詞…… 一般  &lt;NA&gt;  &lt;NA&gt;       </span></span>
 <span><span class="co">#&gt; # ℹ 177 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 4 more variables: X5StageUse2 &lt;chr&gt;, Original &lt;chr&gt;, Yomi1 &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   Yomi2 &lt;chr&gt;</span></span>
@@ -208,10 +216,10 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="co">#&gt; # A tibble: 4 × 2</span></span>
 <span><span class="co">#&gt;   doc_id text                                                                   </span></span>
 <span><span class="co">#&gt;   &lt;fct&gt;  &lt;chr&gt;                                                                  </span></span>
-<span><span class="co">#&gt; 1 1      　 カムパネルラ が 手 を あげ まし た 。 それ から 四 、 五 人 手 を … </span></span>
+<span><span class="co">#&gt; 1 1      　 カムパネルラ が 手 を あげ まし た 。 それ から 四 、 五 人 手 を あげ まし た 。 ジョバンニ も 手 を あげよ う…</span></span>
 <span><span class="co">#&gt; 2 2      　 ところが 先生 は 早く も それ を 見つけ た の でし た 。            </span></span>
 <span><span class="co">#&gt; 3 3      「 ジョバンニ さん 。 あなた は わかっ て いる の でしょ う 」         </span></span>
-<span><span class="co">#&gt; 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と も…</span></span>
+<span><span class="co">#&gt; 4 4      　 ジョバンニ は 勢い よく 立ちあがり まし た が 、 立っ て みる と もう はっきり と それ を 答える こと が でき ない…</span></span>
 <span></span>
 <span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>  <span class="va">res</span>,</span>
@@ -221,9 +229,9 @@ flowchart of a text analysis that combines gibasa and other packages
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/pack.html">pack</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
-<span><span class="co">#&gt;   doc_id text                                                                  </span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;  &lt;chr&gt;                                                                 </span></span>
-<span><span class="co">#&gt; 1 1      　/記号 カムパネルラ/名詞 が/助詞 手/名詞 を/助詞 あげる/動詞 ます/助…</span></span></code></pre></div>
+<span><span class="co">#&gt;   doc_id text                                                                   </span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;chr&gt;                                                                  </span></span>
+<span><span class="co">#&gt; 1 1      　/記号 カムパネルラ/名詞 が/助詞 手/名詞 を/助詞 あげる/動詞 ます/助動詞 た/助動詞 。/記号 それ/名詞 から/助詞 四/名…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="change-dictionary">Change dictionary<a class="anchor" aria-label="anchor" href="#change-dictionary"></a>
@@ -234,14 +242,14 @@ flowchart of a text analysis that combines gibasa and other packages
 <span><span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/tokenize.html">tokenize</a></span><span class="op">(</span><span class="st">"あのイーハトーヴォのすきとおった風"</span>, sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"mecab/unidic-lite"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/prettify.html">prettify</a></span><span class="op">(</span>into <span class="op">=</span> <span class="fu">gibasa</span><span class="fu">::</span><span class="fu"><a href="reference/get_dict_features.html">get_dict_features</a></span><span class="op">(</span><span class="st">"unidic26"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 30</span></span>
-<span><span class="co">#&gt;   doc_id sentence_id token_id token   POS1   POS2  POS3  POS4  cType cForm lForm</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span><span class="co">#&gt; 1 1                1        1 あの    感動詞 フィ… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  アノ </span></span>
-<span><span class="co">#&gt; 2 1                1        2 イーハ… 名詞   普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
-<span><span class="co">#&gt; 3 1                1        3 の      助詞   格助… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ノ   </span></span>
-<span><span class="co">#&gt; 4 1                1        4 すきと… 動詞   一般  &lt;NA&gt;  &lt;NA&gt;  五段… 連用… スキ…</span></span>
-<span><span class="co">#&gt; 5 1                1        5 た      助動詞 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  助動… 連体… タ   </span></span>
-<span><span class="co">#&gt; 6 1                1        6 風      名詞   普通… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  カゼ </span></span>
+<span><span class="co">#&gt;   doc_id sentence_id token_id token    POS1  POS2  POS3  POS4  cType cForm lForm</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;        &lt;int&gt;    &lt;int&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span><span class="co">#&gt; 1 1                1        1 あの     感動詞…… フィラー… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  アノ </span></span>
+<span><span class="co">#&gt; 2 1                1        2 イーハトーヴォ… 名詞  普通名詞… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; </span></span>
+<span><span class="co">#&gt; 3 1                1        3 の       助詞  格助詞…… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  ノ   </span></span>
+<span><span class="co">#&gt; 4 1                1        4 すきとおっ…… 動詞  一般  &lt;NA&gt;  &lt;NA&gt;  五段-ラ… 連用形-… スキトオ…</span></span>
+<span><span class="co">#&gt; 5 1                1        5 た       助動詞…… &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  助動詞-… 連体形-… タ   </span></span>
+<span><span class="co">#&gt; 6 1                1        6 風       名詞  普通名詞… 一般  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  カゼ </span></span>
 <span><span class="co">#&gt; # ℹ 19 more variables: lemma &lt;chr&gt;, orth &lt;chr&gt;, pron &lt;chr&gt;, orthBase &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   pronBase &lt;chr&gt;, goshu &lt;chr&gt;, iType &lt;chr&gt;, iForm &lt;chr&gt;, fType &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   fForm &lt;chr&gt;, kana &lt;chr&gt;, kanaBase &lt;chr&gt;, form &lt;chr&gt;, formBase &lt;chr&gt;,</span></span>
@@ -331,7 +339,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span></span>
 <span><span class="fu"><a href="reference/dictionary_info.html">dictionary_info</a></span><span class="op">(</span>sys_dic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                 file_path charset lsize rsize   size type version</span></span>
-<span><span class="co">#&gt; 1 /tmp/RtmpuSNdPN/sys.dic    utf8  1316  1316 392126    0     102</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 /tmp/RtmpbSOJoV/sys.dic    utf8  1316  1316 392126    0     102</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="build-a-user-dictionary">Build a user dictionary<a class="anchor" aria-label="anchor" href="#build-a-user-dictionary"></a>
@@ -351,7 +359,7 @@ flowchart of a text analysis that combines gibasa and other packages
 <span>  csv_file <span class="op">=</span> <span class="va">csv_file</span>,</span>
 <span>  encoding <span class="op">=</span> <span class="st">"utf8"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; reading /tmp/RtmpuSNdPN/filecdc7258bd5e.csv ... 2</span></span>
+<span><span class="co">#&gt; reading /tmp/RtmpbSOJoV/file3cc651e5053d.csv ... 2</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; done!</span></span>
 <span></span>
