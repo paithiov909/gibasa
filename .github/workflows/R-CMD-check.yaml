@@ -52,7 +52,7 @@ jobs:
           sudo make install
           cd ../../
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         if: ${{ matrix.config.os == 'windows-latest' }}
         with:
           python-version: '3.13'
