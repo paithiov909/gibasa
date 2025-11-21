@@ -1,12 +1,12 @@
 pandoc: 3.1.11
-pkgdown: 2.1.1
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   gibasa: gibasa.html
   partial: partial.html
   quanteda: quanteda.html
   textrecipes: textrecipes.html
-last_built: 2025-02-16T09:56Z
+last_built: 2025-11-21T11:23Z
 urls:
   reference: https://paithiov909.github.io/gibasa/reference
   article: https://paithiov909.github.io/gibasa/articles
