@@ -44,16 +44,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
