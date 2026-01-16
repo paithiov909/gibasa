@@ -197,7 +197,7 @@ corp_fit |>
 #> # A tibble: 1 × 3
 #>   .metric .estimator .estimate
 #>   <chr>   <chr>          <dbl>
-#> 1 f_meas  macro          0.852
+#> 1 f_meas  macro          0.850
 ```
 
 ## セッション情報
@@ -214,7 +214,7 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2025-11-21
+#>  date     2026-01-16
 #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -223,7 +223,7 @@ sessioninfo::session_info()
 #>  backports      1.5.0      2024-05-23 [1] RSPM
 #>  bit            4.6.0      2025-03-06 [1] RSPM
 #>  bit64          4.6.0-1    2025-01-16 [1] RSPM
-#>  broom        * 1.0.10     2025-09-13 [1] RSPM
+#>  broom        * 1.0.11     2025-12-04 [1] RSPM
 #>  bslib          0.9.0      2025-01-30 [1] RSPM
 #>  cachem         1.1.0      2024-05-16 [1] RSPM
 #>  class          7.3-23     2025-01-01 [3] CRAN (R 4.5.2)
@@ -231,7 +231,7 @@ sessioninfo::session_info()
 #>  codetools      0.2-20     2024-03-31 [3] CRAN (R 4.5.2)
 #>  conflicted     1.2.0      2023-02-01 [1] RSPM
 #>  crayon         1.5.3      2024-06-20 [1] RSPM
-#>  data.table     1.17.8     2025-07-10 [1] RSPM
+#>  data.table     1.18.0     2025-12-24 [1] RSPM
 #>  desc           1.4.3      2023-12-10 [1] RSPM
 #>  dials        * 1.4.2      2025-09-04 [1] RSPM
 #>  DiceDesign     1.10       2023-12-07 [1] RSPM
@@ -244,10 +244,10 @@ sessioninfo::session_info()
 #>  fs             1.6.6      2025-04-12 [1] RSPM
 #>  furrr          0.3.1      2022-08-15 [1] RSPM
 #>  future         1.68.0     2025-11-17 [1] RSPM
-#>  future.apply   1.20.0     2025-06-06 [1] RSPM
+#>  future.apply   1.20.1     2025-12-09 [1] RSPM
 #>  generics       0.1.4      2025-05-09 [1] RSPM
 #>  ggplot2      * 4.0.1      2025-11-14 [1] RSPM
-#>  gibasa         1.1.2      2025-11-21 [1] local
+#>  gibasa         1.1.2      2026-01-16 [1] local
 #>  globals        0.18.0     2025-05-08 [1] RSPM
 #>  glue           1.8.0      2024-09-30 [1] RSPM
 #>  gower          1.0.2      2024-12-17 [1] RSPM
@@ -255,19 +255,19 @@ sessioninfo::session_info()
 #>  gtable         0.3.6      2024-10-25 [1] RSPM
 #>  hardhat        1.4.2      2025-08-20 [1] RSPM
 #>  hms            1.1.4      2025-10-17 [1] RSPM
-#>  htmltools      0.5.8.1    2024-04-04 [1] RSPM
-#>  infer        * 1.0.9      2025-06-26 [1] RSPM
+#>  htmltools      0.5.9      2025-12-04 [1] RSPM
+#>  infer        * 1.1.0      2025-12-18 [1] RSPM
 #>  ipred          0.9-15     2024-07-18 [1] RSPM
 #>  jquerylib      0.1.4      2021-04-26 [1] RSPM
 #>  jsonlite       2.0.0      2025-03-27 [1] RSPM
-#>  knitr          1.50       2025-03-16 [1] RSPM
+#>  knitr          1.51       2025-12-20 [1] RSPM
 #>  labeling       0.4.3      2023-08-29 [1] RSPM
 #>  lattice        0.22-7     2025-04-02 [3] CRAN (R 4.5.2)
 #>  lava           1.8.2      2025-10-30 [1] RSPM
-#>  ldccr          2025.10.17 2025-11-21 [1] Github (paithiov909/ldccr@b362f2f)
+#>  ldccr          2026.01.16 2026-01-16 [1] Github (paithiov909/ldccr@6341f7b)
 #>  lgr            0.5.0      2025-07-23 [1] RSPM
 #>  lhs            1.2.0      2024-06-30 [1] RSPM
-#>  lifecycle      1.0.4      2023-11-07 [1] RSPM
+#>  lifecycle      1.0.5      2026-01-08 [1] RSPM
 #>  listenv        0.10.0     2025-11-02 [1] RSPM
 #>  lubridate      1.9.4      2024-12-08 [1] RSPM
 #>  magrittr       2.0.4      2025-09-12 [1] RSPM
@@ -277,22 +277,22 @@ sessioninfo::session_info()
 #>  mlapi          0.1.1      2022-04-24 [1] RSPM
 #>  modeldata    * 1.5.1      2025-08-22 [1] RSPM
 #>  nnet           7.3-20     2025-01-01 [3] CRAN (R 4.5.2)
-#>  parallelly     1.45.1     2025-07-24 [1] RSPM
-#>  parsnip      * 1.3.3      2025-08-31 [1] RSPM
+#>  parallelly     1.46.1     2026-01-08 [1] RSPM
+#>  parsnip      * 1.4.1      2026-01-11 [1] RSPM
 #>  pillar         1.11.1     2025-09-17 [1] RSPM
 #>  pkgconfig      2.0.3      2019-09-22 [1] RSPM
 #>  pkgdown        2.2.0      2025-11-06 [1] any (@2.2.0)
 #>  prodlim        2025.04.28 2025-04-28 [1] RSPM
-#>  purrr        * 1.2.0      2025-11-04 [1] RSPM
+#>  purrr        * 1.2.1      2026-01-09 [1] RSPM
 #>  R6             2.6.1      2025-02-15 [1] RSPM
 #>  ragg           1.5.0      2025-09-02 [1] RSPM
 #>  RColorBrewer   1.1-3      2022-04-03 [1] RSPM
-#>  Rcpp           1.1.0      2025-07-02 [1] RSPM
+#>  Rcpp           1.1.1      2026-01-10 [1] RSPM
 #>  RcppParallel   5.1.11-1   2025-08-27 [1] RSPM
 #>  readr          2.1.6      2025-11-14 [1] RSPM
 #>  recipes      * 1.3.1      2025-05-21 [1] RSPM
 #>  RhpcBLASctl    0.23-42    2023-02-11 [1] RSPM
-#>  rlang          1.1.6      2025-04-11 [1] RSPM
+#>  rlang          1.1.7      2026-01-09 [1] RSPM
 #>  rmarkdown      2.30       2025-09-28 [1] RSPM
 #>  rpart          4.1.24     2025-01-07 [3] CRAN (R 4.5.2)
 #>  rsample      * 1.3.1      2025-07-29 [1] RSPM
@@ -303,18 +303,18 @@ sessioninfo::session_info()
 #>  scales       * 1.4.0      2025-04-24 [1] RSPM
 #>  sessioninfo    1.2.3      2025-02-05 [1] any (@1.2.3)
 #>  sfd            0.1.0      2024-01-08 [1] RSPM
-#>  sparsevctrs    0.3.4      2025-05-25 [1] RSPM
+#>  sparsevctrs    0.3.5      2025-12-09 [1] RSPM
 #>  stringi        1.8.7      2025-03-27 [1] RSPM
 #>  stringr        1.6.0      2025-11-04 [1] RSPM
 #>  survival       3.8-3      2024-12-17 [3] CRAN (R 4.5.2)
 #>  systemfonts    1.3.1      2025-10-01 [1] RSPM
 #>  tailor       * 0.1.0      2025-08-25 [1] RSPM
-#>  text2vec       0.6.4      2023-11-09 [1] RSPM
+#>  text2vec       0.6.6      2025-12-01 [1] RSPM
 #>  textrecipes    1.1.0      2025-03-18 [1] RSPM
 #>  textshaping    1.0.4      2025-10-10 [1] RSPM
-#>  tibble         3.3.0      2025-06-08 [1] RSPM
+#>  tibble         3.3.1      2026-01-11 [1] RSPM
 #>  tidymodels   * 1.4.1      2025-09-08 [1] RSPM
-#>  tidyr        * 1.3.1      2024-01-24 [1] RSPM
+#>  tidyr        * 1.3.2      2025-12-19 [1] RSPM
 #>  tidyselect     1.2.1      2024-03-11 [1] RSPM
 #>  timechange     0.3.0      2024-01-18 [1] RSPM
 #>  timeDate       4051.111   2025-10-17 [1] RSPM
@@ -322,13 +322,13 @@ sessioninfo::session_info()
 #>  tzdb           0.5.0      2025-03-15 [1] RSPM
 #>  utf8           1.2.6      2025-06-08 [1] RSPM
 #>  vctrs          0.6.5      2023-12-01 [1] RSPM
-#>  vroom          1.6.6      2025-09-19 [1] RSPM
+#>  vroom          1.6.7      2025-11-28 [1] RSPM
 #>  withr          3.0.2      2024-10-28 [1] RSPM
 #>  workflows    * 1.3.0      2025-08-27 [1] RSPM
 #>  workflowsets * 1.1.1      2025-05-27 [1] RSPM
-#>  xfun           0.54       2025-10-30 [1] RSPM
-#>  xgboost        1.7.11.1   2025-05-15 [1] RSPM
-#>  yaml           2.3.10     2024-07-26 [1] RSPM
+#>  xfun           0.55       2025-12-16 [1] RSPM
+#>  xgboost        3.1.3.1    2026-01-12 [1] RSPM
+#>  yaml           2.3.12     2025-12-10 [1] RSPM
 #>  yardstick    * 1.3.2      2025-01-22 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library

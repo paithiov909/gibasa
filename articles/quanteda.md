@@ -44,16 +44,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/RtmpOyw6am/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/Rtmp6Y5yFr/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -294,7 +294,7 @@ dfm |>
   theme_bw()
 #> Warning: `scale_y_dendrogram()` was deprecated in ggh4x 0.3.0.
 #> ℹ Please use `legendry::scale_y_dendro()` instead.
-#> This warning is displayed once every 8 hours.
+#> This warning is displayed once per session.
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 #> generated.
 #> Warning: `label` cannot be a <ggplot2::element_blank> object.
@@ -488,7 +488,7 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2025-11-21
+#>  date     2026-01-16
 #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -516,21 +516,21 @@ sessioninfo::session_info()
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
 #>  ggplot2             * 4.0.1      2025-11-14 [1] RSPM
 #>  ggrepel               0.9.6      2024-09-07 [1] RSPM
-#>  gibasa                1.1.2      2025-11-21 [1] local
+#>  gibasa                1.1.2      2026-01-16 [1] local
 #>  glmnet                4.1-10     2025-07-17 [1] RSPM
 #>  glue                  1.8.0      2024-09-30 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM
 #>  hms                   1.1.4      2025-10-17 [1] RSPM
-#>  htmltools             0.5.8.1    2024-04-04 [1] RSPM
+#>  htmltools             0.5.9      2025-12-04 [1] RSPM
 #>  iterators             1.0.14     2022-02-05 [1] RSPM
 #>  janeaustenr           1.0.0      2022-08-26 [1] RSPM
 #>  jquerylib             0.1.4      2021-04-26 [1] RSPM
 #>  jsonlite              2.0.0      2025-03-27 [1] RSPM
-#>  knitr                 1.50       2025-03-16 [1] RSPM
+#>  knitr                 1.51       2025-12-20 [1] RSPM
 #>  labeling              0.4.3      2023-08-29 [1] RSPM
 #>  lattice               0.22-7     2025-04-02 [3] CRAN (R 4.5.2)
-#>  ldccr                 2025.10.17 2025-11-21 [1] Github (paithiov909/ldccr@b362f2f)
-#>  lifecycle             1.0.4      2023-11-07 [1] RSPM
+#>  ldccr                 2026.01.16 2026-01-16 [1] Github (paithiov909/ldccr@6341f7b)
+#>  lifecycle             1.0.5      2026-01-08 [1] RSPM
 #>  magrittr              2.0.4      2025-09-12 [1] RSPM
 #>  Matrix                1.7-4      2025-08-28 [3] CRAN (R 4.5.2)
 #>  memoise               2.0.1      2021-11-26 [1] RSPM
@@ -539,17 +539,17 @@ sessioninfo::session_info()
 #>  pkgconfig             2.0.3      2019-09-22 [1] RSPM
 #>  pkgdown               2.2.0      2025-11-06 [1] any (@2.2.0)
 #>  proxyC                0.5.2      2025-04-25 [1] RSPM
-#>  purrr                 1.2.0      2025-11-04 [1] RSPM
+#>  purrr                 1.2.1      2026-01-09 [1] RSPM
 #>  quanteda              4.3.1      2025-07-10 [1] RSPM
 #>  quanteda.textmodels   0.9.10     2025-02-10 [1] RSPM
 #>  quanteda.textstats    0.97.2     2024-09-03 [1] RSPM
 #>  R6                    2.6.1      2025-02-15 [1] RSPM
 #>  ragg                  1.5.0      2025-09-02 [1] RSPM
 #>  RColorBrewer          1.1-3      2022-04-03 [1] RSPM
-#>  Rcpp                  1.1.0      2025-07-02 [1] RSPM
+#>  Rcpp                  1.1.1      2026-01-10 [1] RSPM
 #>  RcppParallel          5.1.11-1   2025-08-27 [1] RSPM
 #>  readr                 2.1.6      2025-11-14 [1] RSPM
-#>  rlang                 1.1.6      2025-04-11 [1] RSPM
+#>  rlang                 1.1.7      2026-01-09 [1] RSPM
 #>  rmarkdown             2.30       2025-09-28 [1] RSPM
 #>  RSpectra              0.16-2     2024-07-18 [1] RSPM
 #>  S7                    0.2.1      2025-11-14 [1] RSPM
@@ -564,17 +564,17 @@ sessioninfo::session_info()
 #>  survival              3.8-3      2024-12-17 [3] CRAN (R 4.5.2)
 #>  systemfonts           1.3.1      2025-10-01 [1] RSPM
 #>  textshaping           1.0.4      2025-10-10 [1] RSPM
-#>  tibble                3.3.0      2025-06-08 [1] RSPM
+#>  tibble                3.3.1      2026-01-11 [1] RSPM
 #>  tidyselect            1.2.1      2024-03-11 [1] RSPM
 #>  tidytext              0.4.3      2025-07-25 [1] RSPM
 #>  tokenizers            0.3.0      2022-12-22 [1] RSPM
 #>  tzdb                  0.5.0      2025-03-15 [1] RSPM
 #>  utf8                  1.2.6      2025-06-08 [1] RSPM
 #>  vctrs                 0.6.5      2023-12-01 [1] RSPM
-#>  vroom                 1.6.6      2025-09-19 [1] RSPM
+#>  vroom                 1.6.7      2025-11-28 [1] RSPM
 #>  withr                 3.0.2      2024-10-28 [1] RSPM
-#>  xfun                  0.54       2025-10-30 [1] RSPM
-#>  yaml                  2.3.10     2024-07-26 [1] RSPM
+#>  xfun                  0.55       2025-12-16 [1] RSPM
+#>  yaml                  2.3.12     2025-12-10 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library
 #>  [2] /opt/R/4.5.2/lib/R/site-library
