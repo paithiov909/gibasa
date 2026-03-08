@@ -33,17 +33,17 @@ collapse_tokens <- function(tbl,
                             condition,
                             .collapse = "") {
   condition <- enquo(condition)
-  tbl %>%
-    dplyr::group_by(.data$doc_id, .data$sentence_id) %>%
+  tbl |>
+    dplyr::group_by(.data$doc_id, .data$sentence_id) |>
     dplyr::mutate(
       gbs_flag = dplyr::if_else(!!condition, 0L, .data$token_id),
       token_id = with(rle(.data$gbs_flag), rep(seq_along(values), lengths))
-    ) %>%
-    dplyr::group_by(.data$doc_id, .data$sentence_id, .data$token_id) %>%
+    ) |>
+    dplyr::group_by(.data$doc_id, .data$sentence_id, .data$token_id) |>
     dplyr::reframe(
-      token = .data$token %>%
-        stringi::stri_remove_empty_na() %>%
+      token = .data$token |>
+        stringi::stri_remove_empty_na() |>
         stringi::stri_c(collapse = .collapse)
-    ) %>%
+    ) |>
     dplyr::mutate(token = dplyr::na_if(.data$token, ""))
 }

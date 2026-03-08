@@ -52,7 +52,7 @@ build_sys_dic <- function(dic_dir, out_dir, encoding) {
     out_dir = path.expand(out_dir),
     encoding = encoding
   )
-  return(invisible(cond))
+  invisible(cond)
 }
 
 #' Build user dictionary
@@ -124,5 +124,5 @@ build_user_dic <- function(dic_dir, file, csv_file, encoding) {
     csv_file = path.expand(csv_file),
     encoding = encoding
   )
-  return(invisible(cond))
+  invisible(cond)
 }
