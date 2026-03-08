@@ -16,18 +16,21 @@ badge](https://cranlogs.r-pkg.org/badges/gibasa)](https://cran.r-project.org/pac
 
 ## Overview
 
-gibasa is a plain ‘Rcpp’ wrapper for ‘MeCab’, a morphological analyzer
-for CJK text.
+gibasa is a lightweight **Rcpp wrapper for MeCab**, a morphological
+analyzer for CJK text.
 
-Part-of-speech tagging with morphological analyzers is useful for
-processing CJK text data. This is because most words in CJK text are not
-separated by whitespaces and `tokenizers::tokenize_words` may split them
-into wrong tokens.
+Morphological analysis is essential when processing CJK languages
+because words are typically not separated by whitespace. Simple
+tokenizers such as `tokenizers::tokenize_words()` may therefore split
+text into incorrect tokens.
 
-The main goal of gibasa package is to provide an alternative to
-`tidytext::unnest_tokens` for CJK text data. For this goal, gibasa
-provides three main functions: `gibasa::tokenize`, `gibasa::prettify`,
-and `gibasa::pack`.
+The goal of gibasa is to provide a **tidytext-style tokenization
+workflow for CJK text**. To support this workflow, gibasa provides three
+main functions:
+
+- `gibasa::tokenize()` — tokenize text using MeCab
+- `gibasa::prettify()` — expand MeCab feature strings into columns
+- `gibasa::pack()` — reconstruct whitespace-separated text
 
 <figure>
 <img src="man/figures/tidytext_fig5_1_mod.drawio.png"
@@ -36,47 +39,53 @@ alt="flowchart of a text analysis that combines gibasa and other packages" />
 combines gibasa and other packages</figcaption>
 </figure>
 
-- `gibasa::tokenize` takes a TIF-compliant data.frame of corpus,
-  returning tokens as format that known as ‘tidy text data’, so that
-  users can replace `tidytext::unnest_tokens` with it for tokenizing CJK
-  text.
-- `gibasa::prettify` turns tagged features into columns.
-- `gibasa::pack` takes a ‘tidy text data’, typically returning
-  space-separated corpus.
+`tokenize()` converts a TIF-compliant data frame into tidy token data so
+that it can be used as a drop-in alternative to
+`tidytext::unnest_tokens()` for CJK text processing.
+
+`prettify()` parses the feature string returned by MeCab and splits it
+into structured columns.
+
+`pack()` performs the reverse transformation and reconstructs a
+whitespace-separated corpus from tidy tokens.
 
 ## Installation
 
-You can install binary package via
+You can install gibasa from
 [CRAN](https://cran.r-project.org/package=gibasa) or
 [r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ``` r
-## Install gibasa from r-universe repository
-install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
+## Install gibasa from r-universe
+install.packages(
+  "gibasa",
+  repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org")
+)
 
-## Or build from source package
+## Or install the development version
 Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
 remotes::install_github("paithiov909/gibasa")
 ```
 
-To use gibasa package requires the
-[MeCab](https://taku910.github.io/mecab/) library and its dictionary
-installed and available.
+To use gibasa, a MeCab dictionary must be available on the system.
 
-In case using Linux or macOS, you can install them with their package
-managers, or build and install from the source by yourself.
+On Linux and macOS, MeCab and dictionaries can usually be installed
+using the system package manager. On Windows, use the installer
+available
+[here](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2).
 
-In case using Windows, use installer [built for
-64bit](https://github.com/ikegami-yukino/mecab/releases/tag/v0.996.2).
 Note that gibasa requires a UTF-8 dictionary, not a Shift-JIS one.
 
-As of v0.9.4, gibasa looks at the file specified by the environment
-variable `MECABRC` or the file located at `~/.mecabrc`. If the MeCab
-dictionary is in a different location than the default, create a mecabrc
-file and specify where the dictionary is located.
+Since v0.9.4, gibasa reads configuration from either
 
-For example, to install and use the
-[ipadic](https://pypi.org/project/ipadic/) from PyPI, run:
+- the file specified by the `MECABRC` environment variable, or
+- `~/.mecabrc`
+
+If your dictionary is installed in a non-standard location, create a
+mecabrc file that specifies the dictionary directory.
+
+For a quick IPA dictionary setup, you can use
+[ipadic](https://pypi.org/project/ipadic/) from PyPI.
 
 ``` sh
 $ python3 -m pip install ipadic
@@ -208,10 +217,12 @@ dplyr::mutate(
 
 ### Change dictionary
 
-IPA, UniDic,
-[CC-CEDICT-MeCab](https://github.com/ueda-keisuke/CC-CEDICT-MeCab), and
-[mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/)
-schemes are supported.
+gibasa supports several dictionary schemes including:
+
+- IPA
+- UniDic
+- [CC-CEDICT-MeCab](https://github.com/ueda-keisuke/CC-CEDICT-MeCab)
+- [mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/)
 
 ``` r
 ## UniDic 2.1.2
@@ -313,7 +324,7 @@ file.copy(file.path("mecab/ipadic-eucjp/dicrc"), tempdir())
 
 dictionary_info(sys_dic = tempdir())
 #>                 file_path charset lsize rsize   size type version
-#> 1 /tmp/RtmpbSOJoV/sys.dic    utf8  1316  1316 392126    0     102
+#> 1 /tmp/Rtmp5oy3pj/sys.dic    utf8  1316  1316 392126    0     102
 ```
 
 ### Build a user dictionary
@@ -333,7 +344,7 @@ build_user_dic(
   csv_file = csv_file,
   encoding = "utf8"
 )
-#> reading /tmp/RtmpbSOJoV/file3cc651e5053d.csv ... 2
+#> reading /tmp/Rtmp5oy3pj/fileb3c375808b27.csv ... 2
 #> 
 #> done!
 
