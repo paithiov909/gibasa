@@ -33,11 +33,7 @@
 #'   # mocking a 'mecabrc' file to temporarily use the dictionary
 #'   withr::with_envvar(
 #'     c(
-#'       "MECABRC" = if (.Platform$OS.type == "windows") {
-#'         "nul"
-#'       } else {
-#'         "/dev/null"
-#'       },
+#'       "MECABRC" = nullfile(),
 #'       "RCPP_PARALLEL_BACKEND" = "tinythread"
 #'     ),
 #'     {
@@ -104,11 +100,7 @@ build_sys_dic <- function(dic_dir, out_dir, encoding) {
 #'   # mocking a 'mecabrc' file to temporarily use the dictionary
 #'   withr::with_envvar(
 #'     c(
-#'       "MECABRC" = if (.Platform$OS.type == "windows") {
-#'         "nul"
-#'       } else {
-#'         "/dev/null"
-#'       },
+#'       "MECABRC" = nullfile(),
 #'       "RCPP_PARALLEL_BACKEND" = "tinythread"
 #'     ),
 #'     {
