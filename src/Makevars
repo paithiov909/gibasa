@@ -11,7 +11,6 @@ endif
 endif
 
 # https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Using-pthreads
-CXX_STD = CXX17
 PKG_CPPFLAGS = -pthread
 PKG_CXXFLAGS = -DSTRICT_R_HEADERS \
 	-DHAVE_GETENV -DHAVE_ICONV -DHAVE_PTHREAD_H \
