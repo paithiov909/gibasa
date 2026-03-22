@@ -11,7 +11,7 @@ A plain 'Rcpp' wrapper for 'MeCab' that can segment Chinese, Japanese, and Korea
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://paithiov909.github.io/gibasa/}
+  \item \url{https://github.com/paithiov909/gibasa}
   \item Report bugs at \url{https://github.com/paithiov909/gibasa/issues}
 }
 

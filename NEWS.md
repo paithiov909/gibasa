@@ -1,3 +1,7 @@
+# gibasa 1.1.3
+
+* Upkeep with Rcpp v1.1.1.
+
 # gibasa 1.1.2
 
 * Bumped minimum R version to 4.2.0.
