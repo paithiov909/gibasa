@@ -44,16 +44,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/RtmpSadWwN/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -148,7 +148,7 @@ toks |>
   dplyr::filter(!pos %in% c("その他", "タグ")) |>
   dplyr::count(doc_id, token) |>
   dplyr::arrange(dplyr::desc(n))
-#> # A tibble: 1,037,325 × 3
+#> # A tibble: 1,037,324 × 3
 #>    doc_id token            n
 #>    <fct>  <chr>        <int>
 #>  1 5674   /              607
@@ -161,7 +161,7 @@ toks |>
 #>  8 5537   (              119
 #>  9 1460   し             111
 #> 10 5692   :              101
-#> # ℹ 1,037,315 more rows
+#> # ℹ 1,037,314 more rows
 ```
 
 一方で、たとえば、特定のトークンの連なりは連語と見なして一つのトークンとして集計したいといった場合には、dplyrだけで集計するのはなかなか大変です。そういったより複雑なケースでは、quantedaの枠組みと組み合わせて使ったほうが便利なことがあります。
@@ -399,8 +399,6 @@ dat |>
     y = paste0("Dimension 2 (", signif(dim_var_percs[2], 3), "%)")
   ) +
   theme_classic()
-#> Warning: ggrepel: 7 unlabeled data points (too many overlaps). Consider
-#> increasing max.overlaps
 ```
 
 ![](quanteda_files/figure-html/ca_3-1.png)
@@ -480,7 +478,7 @@ toks |>
 sessioninfo::session_info()
 #> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value
-#>  version  R version 4.5.2 (2025-10-31)
+#>  version  R version 4.5.3 (2026-03-11)
 #>  os       Ubuntu 24.04.3 LTS
 #>  system   x86_64, linux-gnu
 #>  ui       X11
@@ -488,7 +486,7 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-01-16
+#>  date     2026-03-22
 #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -496,27 +494,27 @@ sessioninfo::session_info()
 #>  package             * version    date (UTC) lib source
 #>  bit                   4.6.0      2025-03-06 [1] RSPM
 #>  bit64                 4.6.0-1    2025-01-16 [1] RSPM
-#>  bslib                 0.9.0      2025-01-30 [1] RSPM
+#>  bslib                 0.10.0     2026-01-26 [1] RSPM
 #>  ca                  * 0.71.1     2020-01-24 [1] RSPM
 #>  cachem                1.1.0      2024-05-16 [1] RSPM
 #>  cli                   3.6.5      2025-04-23 [1] RSPM
-#>  codetools             0.2-20     2024-03-31 [3] CRAN (R 4.5.2)
+#>  codetools             0.2-20     2024-03-31 [3] CRAN (R 4.5.3)
 #>  crayon                1.5.3      2024-06-20 [1] RSPM
 #>  desc                  1.4.3      2023-12-10 [1] RSPM
 #>  digest                0.6.39     2025-11-19 [1] RSPM
-#>  dplyr                 1.1.4      2023-11-17 [1] RSPM
+#>  dplyr                 1.2.0      2026-02-03 [1] RSPM
 #>  evaluate              1.0.5      2025-08-27 [1] RSPM
 #>  farver                2.1.2      2024-05-13 [1] RSPM
 #>  fastmap               1.2.0      2024-05-15 [1] RSPM
-#>  fastmatch             1.1-6      2024-12-23 [1] RSPM
+#>  fastmatch             1.1-8      2026-01-17 [1] RSPM
 #>  foreach               1.5.2      2022-02-02 [1] RSPM
-#>  fs                    1.6.6      2025-04-12 [1] RSPM
+#>  fs                    1.6.7      2026-03-06 [1] RSPM
 #>  generics              0.1.4      2025-05-09 [1] RSPM
 #>  ggh4x                 0.3.1      2025-05-30 [1] RSPM
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
-#>  ggplot2             * 4.0.1      2025-11-14 [1] RSPM
-#>  ggrepel               0.9.6      2024-09-07 [1] RSPM
-#>  gibasa                1.1.2      2026-01-16 [1] local
+#>  ggplot2             * 4.0.2      2026-02-03 [1] RSPM
+#>  ggrepel               0.9.8      2026-03-17 [1] RSPM
+#>  gibasa                1.1.2.9000 2026-03-22 [1] local
 #>  glmnet                4.1-10     2025-07-17 [1] RSPM
 #>  glue                  1.8.0      2024-09-30 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM
@@ -528,11 +526,11 @@ sessioninfo::session_info()
 #>  jsonlite              2.0.0      2025-03-27 [1] RSPM
 #>  knitr                 1.51       2025-12-20 [1] RSPM
 #>  labeling              0.4.3      2023-08-29 [1] RSPM
-#>  lattice               0.22-7     2025-04-02 [3] CRAN (R 4.5.2)
-#>  ldccr                 2026.01.16 2026-01-16 [1] Github (paithiov909/ldccr@6341f7b)
+#>  lattice               0.22-9     2026-02-09 [3] CRAN (R 4.5.3)
+#>  ldccr                 2026.01.16 2026-03-22 [1] Github (paithiov909/ldccr@6341f7b)
 #>  lifecycle             1.0.5      2026-01-08 [1] RSPM
 #>  magrittr              2.0.4      2025-09-12 [1] RSPM
-#>  Matrix                1.7-4      2025-08-28 [3] CRAN (R 4.5.2)
+#>  Matrix                1.7-4      2025-08-28 [3] CRAN (R 4.5.3)
 #>  memoise               2.0.1      2021-11-26 [1] RSPM
 #>  nsyllable             1.0.1      2022-02-28 [1] RSPM
 #>  pillar                1.11.1     2025-09-17 [1] RSPM
@@ -544,11 +542,11 @@ sessioninfo::session_info()
 #>  quanteda.textmodels   0.9.10     2025-02-10 [1] RSPM
 #>  quanteda.textstats    0.97.2     2024-09-03 [1] RSPM
 #>  R6                    2.6.1      2025-02-15 [1] RSPM
-#>  ragg                  1.5.0      2025-09-02 [1] RSPM
+#>  ragg                  1.5.1      2026-03-06 [1] RSPM
 #>  RColorBrewer          1.1-3      2022-04-03 [1] RSPM
 #>  Rcpp                  1.1.1      2026-01-10 [1] RSPM
-#>  RcppParallel          5.1.11-1   2025-08-27 [1] RSPM
-#>  readr                 2.1.6      2025-11-14 [1] RSPM
+#>  RcppParallel          5.1.11-2   2026-03-05 [1] RSPM
+#>  readr                 2.2.0      2026-02-19 [1] RSPM
 #>  rlang                 1.1.7      2026-01-09 [1] RSPM
 #>  rmarkdown             2.30       2025-09-28 [1] RSPM
 #>  RSpectra              0.16-2     2024-07-18 [1] RSPM
@@ -561,24 +559,24 @@ sessioninfo::session_info()
 #>  stopwords             2.3        2021-10-28 [1] RSPM
 #>  stringi               1.8.7      2025-03-27 [1] RSPM
 #>  stringr               1.6.0      2025-11-04 [1] RSPM
-#>  survival              3.8-3      2024-12-17 [3] CRAN (R 4.5.2)
-#>  systemfonts           1.3.1      2025-10-01 [1] RSPM
-#>  textshaping           1.0.4      2025-10-10 [1] RSPM
+#>  survival              3.8-6      2026-01-16 [3] CRAN (R 4.5.3)
+#>  systemfonts           1.3.2      2026-03-05 [1] RSPM
+#>  textshaping           1.0.5      2026-03-06 [1] RSPM
 #>  tibble                3.3.1      2026-01-11 [1] RSPM
 #>  tidyselect            1.2.1      2024-03-11 [1] RSPM
 #>  tidytext              0.4.3      2025-07-25 [1] RSPM
 #>  tokenizers            0.3.0      2022-12-22 [1] RSPM
 #>  tzdb                  0.5.0      2025-03-15 [1] RSPM
 #>  utf8                  1.2.6      2025-06-08 [1] RSPM
-#>  vctrs                 0.6.5      2023-12-01 [1] RSPM
-#>  vroom                 1.6.7      2025-11-28 [1] RSPM
+#>  vctrs                 0.7.1      2026-01-23 [1] RSPM
+#>  vroom                 1.7.0      2026-01-27 [1] RSPM
 #>  withr                 3.0.2      2024-10-28 [1] RSPM
-#>  xfun                  0.55       2025-12-16 [1] RSPM
+#>  xfun                  0.57       2026-03-20 [1] RSPM
 #>  yaml                  2.3.12     2025-12-10 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library
-#>  [2] /opt/R/4.5.2/lib/R/site-library
-#>  [3] /opt/R/4.5.2/lib/R/library
+#>  [2] /opt/R/4.5.3/lib/R/site-library
+#>  [3] /opt/R/4.5.3/lib/R/library
 #>  * ── Packages attached to the search path.
 #> 
 #> ──────────────────────────────────────────────────────────────────────────────

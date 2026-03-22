@@ -80,11 +80,7 @@ if (requireNamespace("withr")) {
   # mocking a 'mecabrc' file to temporarily use the dictionary
   withr::with_envvar(
     c(
-      "MECABRC" = if (.Platform$OS.type == "windows") {
-        "nul"
-      } else {
-        "/dev/null"
-      },
+      "MECABRC" = nullfile(),
       "RCPP_PARALLEL_BACKEND" = "tinythread"
     ),
     {
@@ -97,7 +93,7 @@ if (requireNamespace("withr")) {
 #> reading /home/runner/work/_temp/Library/gibasa/latin/matrix.def ... 1x1
 #> 
 #> done!
-#> reading /tmp/Rtmp7Cvk6g/file1bf0592bbe7f.csv ... 5
+#> reading /tmp/Rtmp1B1oID/file1ebc33a236e1.csv ... 5
 #> 
 #> done!
 #> # A tibble: 5 × 5

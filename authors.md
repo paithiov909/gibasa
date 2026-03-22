@@ -18,13 +18,13 @@ Source:
 [`DESCRIPTION`](https://github.com/paithiov909/gibasa/blob/main/DESCRIPTION)
 
 Kato A, Ichinose S, Kudo T (2026). *gibasa: An Alternative 'Rcpp'
-Wrapper of 'MeCab'*. R package version 1.1.2,
+Wrapper of 'MeCab'*. R package version 1.1.2.9000,
 <https://paithiov909.github.io/gibasa/>.
 
     @Manual{,
       title = {gibasa: An Alternative 'Rcpp' Wrapper of 'MeCab'},
       author = {Akiru Kato and Shogo Ichinose and Taku Kudo},
       year = {2026},
-      note = {R package version 1.1.2},
+      note = {R package version 1.1.2.9000},
       url = {https://paithiov909.github.io/gibasa/},
     }
