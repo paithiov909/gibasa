@@ -6,7 +6,7 @@ cast_sparse <- function(data, row, column, value, ...) {
     value_col <- 1
   }
 
-  data <- dplyr::ungroup(data) %>%
+  data <- dplyr::ungroup(data) |>
     dplyr::distinct(!!sym(row_col), !!sym(column_col), .keep_all = TRUE)
 
   row_names <- dplyr::pull(data, row_col)

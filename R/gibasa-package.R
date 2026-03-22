@@ -2,7 +2,6 @@
 #' @import Rcpp
 #' @importFrom RcppParallel RcppParallelLibs
 #' @importFrom rlang enquo enquos ensym sym .data .env := as_name
-#' @importFrom dplyr %>%
 #' @useDynLib gibasa, .registration = TRUE
 "_PACKAGE"
 

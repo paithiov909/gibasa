@@ -43,24 +43,24 @@
 pack <- function(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ") {
   pull <- enquo(pull)
   if (n < 2L) {
-    tbl %>%
+    tbl |>
       dplyr::reframe(
-        text = .data[[pull]] %>%
-          stringi::stri_remove_empty_na() %>%
+        text = .data[[pull]] |>
+          stringi::stri_remove_empty_na() |>
           stringi::stri_c(collapse = .collapse),
         .by = "doc_id"
-      ) %>%
+      ) |>
       dplyr::as_tibble()
   } else {
     make_ngram <- ngram_tokenizer(n)
-    tbl %>%
+    tbl |>
       dplyr::reframe(
-        text = .data[[pull]] %>%
-          stringi::stri_remove_empty_na() %>%
-          make_ngram(sep = sep) %>%
+        text = .data[[pull]] |>
+          stringi::stri_remove_empty_na() |>
+          make_ngram(sep = sep) |>
           stringi::stri_c(collapse = .collapse),
         .by = "doc_id"
-      ) %>%
+      ) |>
       dplyr::as_tibble()
   }
 }

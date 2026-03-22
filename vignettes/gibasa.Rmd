@@ -71,7 +71,7 @@ readr::write_lines(
 
 ### 基本的な使い方
 
-gibasaは、次にあげる関数を使って、CJKテキストの分かち書きをすることができるというパッケージです。
+gibasaは、次にあげる関数を使って、CJKテキストの分かち書きをすることができるパッケージです。
 
 - `gibasa::tokenize`
 - `gibasa::prettify`
@@ -115,37 +115,3 @@ gibasa::pack(res, POS1)
 より詳しい使い方については、次のサイトを参照してください。
 
 - [RとMeCabによる日本語テキストマイニングの前処理](https://paithiov909.github.io/textmining-ja/)
-
-## ベンチマーク
-
-[TokyoR #98](https://tokyor.connpass.com/event/244200/)での[LTのスライド](https://paithiov909.github.io/shiryo/gibasa/#11)でも紹介しましたが、ある程度の分量がある文字列ベクトルに対して、ごくふつうに形態素解析だけをやるかぎりにおいては、RMeCabよりもgibasaのほうが解析速度が速いと思います（というより、RMeCabでもMeCabを呼んでいる部分はおそらく十分速いのですが、欲しいかたちに加工するためのRの処理に時間がかかることが多いです）。
-
-```r
-dat <- data.frame(
-    doc_id = seq_along(gibasa::ginga),
-    text = gibasa::ginga
-)
-
-gibasa <- function() {
-    gibasa::tokenize(dat) |>
-        gibasa::prettify(col_select = "POS1") |>
-        dplyr::mutate(doc_id = as.integer(doc_id)) |>
-        dplyr::select(doc_id, token, POS1) |>
-        as.data.frame()
-}
-
-rmecab <- function() {
-    purrr::imap_dfr(
-        RMeCab::RMeCabDF(dat, 2),
-        ~ data.frame(doc_id = .y, token = unname(.x), POS1 = names(.x))
-    )
-}
-
-bench <- microbenchmark::microbenchmark(gibasa(),
-                                        rmecab(),
-                                        times = 20L,
-                                        check = "equal")
-ggplot2::autoplot(bench)
-```
-
-![benchmark1](https://rawcdn.githack.com/paithiov909/gibasa/7a3c17e807c3dda473f79f11b539a3e446e3ae6a/man/figures/benchmark1.png)

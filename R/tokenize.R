@@ -76,10 +76,10 @@ tokenize.default <- function(x,
     col_u <- unique(x[[col_names]])
   }
 
-  tbl <- x %>%
-    dplyr::select(-!!text_field) %>%
-    dplyr::mutate(dplyr::across(!!docid_field, ~ factor(., col_u))) %>%
-    dplyr::rename(doc_id = {{ docid_field }}) %>%
+  tbl <- x |>
+    dplyr::select(-!!text_field) |>
+    dplyr::mutate(dplyr::across(!!docid_field, ~ factor(., col_u))) |>
+    dplyr::rename(doc_id = {{ docid_field }}) |>
     dplyr::left_join(
       result,
       by = c("doc_id" = "doc_id")
@@ -129,11 +129,11 @@ tagger_impl <- function(sentences,
     rlang::abort("Can't find dictionaries.", class = "gbs_missing_dict")
   }
 
-  grain_size <- ifelse(grain_size > 0L, as.integer(grain_size), 1L)
+  grain_size <- if (grain_size > 0L) as.integer(grain_size) else 1L
 
   if (isTRUE(split)) {
     res <-
-      stringi::stri_split_boundaries(sentences, type = "sentence") %>%
+      stringi::stri_split_boundaries(sentences, type = "sentence") |>
       rlang::as_function(~ {
         sizes <- lengths(.)
         posParallelRcpp(
@@ -142,7 +142,7 @@ tagger_impl <- function(sentences,
           user_dic,
           partial,
           grain_size
-        ) %>%
+        ) |>
           dplyr::left_join(
             data.frame(
               doc_id = rep(docnames, sizes),
@@ -150,25 +150,25 @@ tagger_impl <- function(sentences,
             ),
             by = "sentence_id"
           )
-      })() %>%
+      })() |>
       dplyr::mutate(
         sentence_id = dplyr::consecutive_id(.data$sentence_id),
         .by = "doc_id"
-      ) %>%
+      ) |>
       dplyr::relocate("doc_id", dplyr::everything())
   } else {
     res <-
-      posParallelRcpp(sentences, sys_dic, user_dic, partial, grain_size) %>%
+      posParallelRcpp(sentences, sys_dic, user_dic, partial, grain_size) |>
       dplyr::left_join(
         data.frame(
           sentence_id = seq_along(sentences),
           doc_id = docnames
         ),
         by = "sentence_id"
-      ) %>%
+      ) |>
       dplyr::relocate("doc_id", dplyr::everything())
   }
-  res %>%
-    dplyr::mutate(doc_id = factor(.data$doc_id, unique(.data$doc_id))) %>%
+  res |>
+    dplyr::mutate(doc_id = factor(.data$doc_id, unique(.data$doc_id))) |>
     dplyr::as_tibble()
 }

@@ -36,7 +36,7 @@ bind_lr <- function(tbl,
   term <- as_name(enquo(term))
 
   tbl <-
-    dplyr::ungroup(tbl) %>%
+    dplyr::ungroup(tbl) |>
     dplyr::mutate(
       ltoken = .data[[term]],
       rtoken = dplyr::lead(.data$ltoken, default = NA_character_),
@@ -44,20 +44,20 @@ bind_lr <- function(tbl,
     )
   fl <-
     switch(lr_mode,
-      n = tbl %>%
-        dplyr::summarize(n = dplyr::n(), .by = "ltoken") %>%
+      n = tbl |>
+        dplyr::summarize(n = dplyr::n(), .by = "ltoken") |>
         dplyr::pull("n", "ltoken"),
-      dn = tbl %>%
-        dplyr::summarize(dn = length(unique(.data$rtoken)), .by = "ltoken") %>%
+      dn = tbl |>
+        dplyr::summarize(dn = length(unique(.data$rtoken)), .by = "ltoken") |>
         dplyr::pull("dn", "ltoken")
     )
   fr <-
     switch(lr_mode,
-      n = tbl %>%
-        dplyr::summarize(n = dplyr::n(), .by = "rtoken") %>%
+      n = tbl |>
+        dplyr::summarize(n = dplyr::n(), .by = "rtoken") |>
         dplyr::pull("n", "rtoken"),
-      dn = tbl %>%
-        dplyr::summarize(dn = length(unique(.data$ltoken)), .by = "rtoken") %>%
+      dn = tbl |>
+        dplyr::summarize(dn = length(unique(.data$ltoken)), .by = "rtoken") |>
         dplyr::pull("dn", "rtoken")
     )
 
