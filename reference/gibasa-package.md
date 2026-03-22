@@ -8,7 +8,7 @@ an alternative to 'tidytext' using morphological analysis.
 
 Useful links:
 
-- <https://paithiov909.github.io/gibasa/>
+- <https://github.com/paithiov909/gibasa>
 
 - Report bugs at <https://github.com/paithiov909/gibasa/issues>
 

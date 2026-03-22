@@ -44,16 +44,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/RtmpLXYTZx/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -514,7 +514,7 @@ sessioninfo::session_info()
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
 #>  ggplot2             * 4.0.2      2026-02-03 [1] RSPM
 #>  ggrepel               0.9.8      2026-03-17 [1] RSPM
-#>  gibasa                1.1.2.9000 2026-03-22 [1] local
+#>  gibasa                1.1.3      2026-03-22 [1] local
 #>  glmnet                4.1-10     2025-07-17 [1] RSPM
 #>  glue                  1.8.0      2024-09-30 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM

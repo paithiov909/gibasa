@@ -247,7 +247,7 @@ sessioninfo::session_info()
 #>  future.apply   1.20.2     2026-02-20 [1] RSPM
 #>  generics       0.1.4      2025-05-09 [1] RSPM
 #>  ggplot2      * 4.0.2      2026-02-03 [1] RSPM
-#>  gibasa         1.1.2.9000 2026-03-22 [1] local
+#>  gibasa         1.1.3      2026-03-22 [1] local
 #>  globals        0.19.1     2026-03-13 [1] RSPM
 #>  glue           1.8.0      2024-09-30 [1] RSPM
 #>  gower          1.0.2      2024-12-17 [1] RSPM
