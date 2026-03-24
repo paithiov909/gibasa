@@ -15,7 +15,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/paithiov909/gibasa/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/paithiov909/gibasa/blob/v1.1.3/DESCRIPTION)
 
 Kato A, Ichinose S, Kudo T (2026). *gibasa: An Alternative 'Rcpp'
 Wrapper of 'MeCab'*. R package version 1.1.3,
