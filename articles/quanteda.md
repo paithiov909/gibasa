@@ -44,16 +44,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/RtmpG3pqWv/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/RtmpBm62VU/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -486,7 +486,7 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-03-22
+#>  date     2026-03-24
 #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -508,13 +508,13 @@ sessioninfo::session_info()
 #>  fastmap               1.2.0      2024-05-15 [1] RSPM
 #>  fastmatch             1.1-8      2026-01-17 [1] RSPM
 #>  foreach               1.5.2      2022-02-02 [1] RSPM
-#>  fs                    1.6.7      2026-03-06 [1] RSPM
+#>  fs                    2.0.0      2026-03-22 [1] RSPM
 #>  generics              0.1.4      2025-05-09 [1] RSPM
 #>  ggh4x                 0.3.1      2025-05-30 [1] RSPM
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
 #>  ggplot2             * 4.0.2      2026-02-03 [1] RSPM
 #>  ggrepel               0.9.8      2026-03-17 [1] RSPM
-#>  gibasa                1.1.3      2026-03-22 [1] local
+#>  gibasa                1.1.3      2026-03-24 [1] local
 #>  glmnet                4.1-10     2025-07-17 [1] RSPM
 #>  glue                  1.8.0      2024-09-30 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM
@@ -527,7 +527,7 @@ sessioninfo::session_info()
 #>  knitr                 1.51       2025-12-20 [1] RSPM
 #>  labeling              0.4.3      2023-08-29 [1] RSPM
 #>  lattice               0.22-9     2026-02-09 [3] CRAN (R 4.5.3)
-#>  ldccr                 2026.01.16 2026-03-22 [1] Github (paithiov909/ldccr@6341f7b)
+#>  ldccr                 2026.03.24 2026-03-24 [1] Github (paithiov909/ldccr@aee5e2a)
 #>  lifecycle             1.0.5      2026-01-08 [1] RSPM
 #>  magrittr              2.0.4      2025-09-12 [1] RSPM
 #>  Matrix                1.7-4      2025-08-28 [3] CRAN (R 4.5.3)
@@ -542,7 +542,7 @@ sessioninfo::session_info()
 #>  quanteda.textmodels   0.9.10     2025-02-10 [1] RSPM
 #>  quanteda.textstats    0.97.2     2024-09-03 [1] RSPM
 #>  R6                    2.6.1      2025-02-15 [1] RSPM
-#>  ragg                  1.5.1      2026-03-06 [1] RSPM
+#>  ragg                  1.5.2      2026-03-23 [1] RSPM
 #>  RColorBrewer          1.1-3      2022-04-03 [1] RSPM
 #>  Rcpp                  1.1.1      2026-01-10 [1] RSPM
 #>  RcppParallel          5.1.11-2   2026-03-05 [1] RSPM
@@ -568,7 +568,7 @@ sessioninfo::session_info()
 #>  tokenizers            0.3.0      2022-12-22 [1] RSPM
 #>  tzdb                  0.5.0      2025-03-15 [1] RSPM
 #>  utf8                  1.2.6      2025-06-08 [1] RSPM
-#>  vctrs                 0.7.1      2026-01-23 [1] RSPM
+#>  vctrs                 0.7.2      2026-03-21 [1] RSPM
 #>  vroom                 1.7.0      2026-01-27 [1] RSPM
 #>  withr                 3.0.2      2024-10-28 [1] RSPM
 #>  xfun                  0.57       2026-03-20 [1] RSPM

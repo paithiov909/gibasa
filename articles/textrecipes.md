@@ -214,7 +214,7 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-03-22
+#>  date     2026-03-24
 #>  pandoc   3.1.11 @ /opt/hostedtoolcache/pandoc/3.1.11/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -241,13 +241,13 @@ sessioninfo::session_info()
 #>  farver         2.1.2      2024-05-13 [1] RSPM
 #>  fastmap        1.2.0      2024-05-15 [1] RSPM
 #>  float          0.3-3      2025-03-12 [1] RSPM
-#>  fs             1.6.7      2026-03-06 [1] RSPM
+#>  fs             2.0.0      2026-03-22 [1] RSPM
 #>  furrr          0.3.1      2022-08-15 [1] RSPM
 #>  future         1.70.0     2026-03-14 [1] RSPM
 #>  future.apply   1.20.2     2026-02-20 [1] RSPM
 #>  generics       0.1.4      2025-05-09 [1] RSPM
 #>  ggplot2      * 4.0.2      2026-02-03 [1] RSPM
-#>  gibasa         1.1.3      2026-03-22 [1] local
+#>  gibasa         1.1.3      2026-03-24 [1] local
 #>  globals        0.19.1     2026-03-13 [1] RSPM
 #>  glue           1.8.0      2024-09-30 [1] RSPM
 #>  gower          1.0.2      2024-12-17 [1] RSPM
@@ -264,7 +264,7 @@ sessioninfo::session_info()
 #>  labeling       0.4.3      2023-08-29 [1] RSPM
 #>  lattice        0.22-9     2026-02-09 [3] CRAN (R 4.5.3)
 #>  lava           1.8.2      2025-10-30 [1] RSPM
-#>  ldccr          2026.01.16 2026-03-22 [1] Github (paithiov909/ldccr@6341f7b)
+#>  ldccr          2026.03.24 2026-03-24 [1] Github (paithiov909/ldccr@aee5e2a)
 #>  lgr            0.5.2      2026-01-30 [1] RSPM
 #>  lhs            1.2.1      2026-03-01 [1] RSPM
 #>  lifecycle      1.0.5      2026-01-08 [1] RSPM
@@ -285,7 +285,7 @@ sessioninfo::session_info()
 #>  prodlim        2026.03.11 2026-03-11 [1] RSPM
 #>  purrr        * 1.2.1      2026-01-09 [1] RSPM
 #>  R6             2.6.1      2025-02-15 [1] RSPM
-#>  ragg           1.5.1      2026-03-06 [1] RSPM
+#>  ragg           1.5.2      2026-03-23 [1] RSPM
 #>  RColorBrewer   1.1-3      2022-04-03 [1] RSPM
 #>  Rcpp           1.1.1      2026-01-10 [1] RSPM
 #>  RcppParallel   5.1.11-2   2026-03-05 [1] RSPM
@@ -321,7 +321,7 @@ sessioninfo::session_info()
 #>  tune         * 2.0.1      2025-10-17 [1] RSPM
 #>  tzdb           0.5.0      2025-03-15 [1] RSPM
 #>  utf8           1.2.6      2025-06-08 [1] RSPM
-#>  vctrs          0.7.1      2026-01-23 [1] RSPM
+#>  vctrs          0.7.2      2026-03-21 [1] RSPM
 #>  vroom          1.7.0      2026-01-27 [1] RSPM
 #>  withr          3.0.2      2024-10-28 [1] RSPM
 #>  workflows    * 1.3.0      2025-08-27 [1] RSPM
