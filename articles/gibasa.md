@@ -11,6 +11,7 @@ gibasaは、Rから[MeCab](https://taku910.github.io/mecab/)を利用して形�
 [CRAN](https://cran.r-project.org/package=gibasa)のほか、[r-universe](https://paithiov909.r-universe.dev/gibasa)からもインストールできます。
 
 ``` r
+
 # Install gibasa from r-universe repository
 install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 ```
@@ -18,6 +19,7 @@ install.packages("gibasa", repos = c("https://paithiov909.r-universe.dev", "http
 バイナリパッケージが用意されていない環境では、ソースパッケージをビルドしてインストールします。ビルド時に`MECAB_DEFAULT_RC`という環境変数を内部的に指定するため、正しく動作させるには`mecabrc`ファイルとMeCabの辞書があらかじめ適切な位置に配置されている必要があります。使っているOSのパッケージマネージャなどからインストールしておいてください。
 
 ``` r
+
 # Sys.setenv(MECAB_DEFAULT_RC = "/fullpath/to/your/mecabrc") # if necessary
 remotes::install_github("paithiov909/gibasa")
 ```
@@ -36,6 +38,7 @@ $ python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > ~/.mecabrc
 また、gibasaはMeCabのシステム辞書をビルドする機能もラップしているため、辞書のソースファイルを用意できれば、パッケージのインストール後に辞書を配置することによっても使用可能になります。たとえば、[kelpbeds](https://paithiov909.r-universe.dev/kelpbeds)というパッケージを利用してIPA辞書を配置して使えるようにするには、次のようにします。
 
 ``` r
+
 install.packages("kelpbeds", repos = c("https://paithiov909.r-universe.dev", "https://cran.r-project.org"))
 
 dic_dir <- fs::dir_create(file.path(Sys.getenv("HOME"), "ipadic-utf8"))
@@ -63,6 +66,7 @@ gibasaは、次にあげる関数を使って、CJKテキストの分かち書�
 textのかたちにできます（以下の例ではIPA辞書を使っています）。ちなみに、元のデータフレームの`doc_id`列と`text`列以外の列は戻り値にも保持されます。
 
 ``` r
+
 gibasa::ginga[5]
 #> [1] "　カムパネルラが手をあげました。それから四、五人手をあげました。ジョバンニも手をあげようとして、急いでそのままやめました。たしかにあれがみんな星だと、いつか雑誌で読んだのでしたが、このごろはジョバンニはまるで毎日教室でもねむく、本を読むひまも読む本もないので、なんだかどんなこともよくわからないという気持ちがするのでした。"
 
@@ -89,6 +93,7 @@ head(res)
 [`gibasa::prettify`](https://paithiov909.github.io/gibasa/reference/prettify.md)で`feature`列の素性情報をパースして分割できます。このとき、`col_select`引数でパースしたい列を指定すると、それらの列だけをパースすることができます。
 
 ``` r
+
 head(gibasa::prettify(res))
 #> # A tibble: 6 × 14
 #>   doc_id meta  sentence_id token_id token    POS1  POS2  POS3  POS4  X5StageUse1
@@ -136,6 +141,7 @@ head(gibasa::prettify(res, col_select = c("POS1", "Original")))
 [`gibasa::pack`](https://paithiov909.github.io/gibasa/reference/pack.md)を使うと、`pull`引数で指定した列について、いわゆる「分かち書き」にすることができます。デフォルトでは`token`列について分かち書きにします。
 
 ``` r
+
 res <- gibasa::prettify(res)
 gibasa::pack(res)
 #> # A tibble: 4 × 2

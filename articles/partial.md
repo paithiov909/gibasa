@@ -22,6 +22,7 @@ MeCabのやや発展的な使い方のひとつとして、[制約付き解析](
 一例として、ここではIPA辞書を使って、「月ノ美兎」という語彙を含む文を解析してみます。`posDebugRcpp`は、与えられた文字列について、MeCabの`-a`オプションに相当する解析結果（解析結果になりえるすべての形態素の組み合わせ）を出力する関数です。ここでの最適解（`is_best == "01"`）である結果について確認すると、「月ノ美兎」という語彙は次のように複数の形態素に分割されてしまっていることがわかります。
 
 ``` r
+
 gibasa::posDebugRcpp("月ノ美兎は箱の中") |>
   dplyr::filter(is_best == "01")
 #>    doc_id pos_id surface                                 feature stat lcAttr
@@ -53,6 +54,7 @@ gibasa::posDebugRcpp("月ノ美兎は箱の中") |>
 そこで、「月ノ美兎」という語彙を形態素断片として与えてみます。なお、`posDebugRcpp`では、`partial=TRUE`にすると`-a`に相当するオプションは無効になり、最適解のみが出力されます。
 
 ``` r
+
 gibasa::posDebugRcpp("月ノ美兎\t名詞,固有名詞,人名,*,*,*\nは箱の中", partial = TRUE)
 #>   doc_id pos_id  surface                                 feature stat lcAttr
 #> 1      1      0                          BOS/EOS,*,*,*,*,*,*,*,*   02      0
@@ -75,6 +77,7 @@ gibasa::posDebugRcpp("月ノ美兎\t名詞,固有名詞,人名,*,*,*\nは箱の�
 これでひとまず期待どおりに解析することができました。こうした使い方のほかに、形態素断片の素性パターンにワイルドカード（`*`）を使うと、その単語を切り出しながら品詞については適当なものを付与させることができます。以下では「月ノ美兎」については常に単語として切り出しながら、品詞は適当なものを付与させています。
 
 ``` r
+
 gibasa::posDebugRcpp("月ノ美兎\t*\nは箱の中", partial = TRUE)
 #>   doc_id pos_id  surface                                 feature stat lcAttr
 #> 1      1      0                          BOS/EOS,*,*,*,*,*,*,*,*   02      0
@@ -99,6 +102,7 @@ gibasa::posDebugRcpp("月ノ美兎\t*\nは箱の中", partial = TRUE)
 `partial`引数は`tokenize`にも実装されています。実用的には、たとえば次のように使えるかもしれません。
 
 ``` r
+
 sentences <- c(
   "証券コードは４桁の銘柄識別コードです。",
   "たとえば、7777です。あるいは7777 JPや7777.Tというのもあります。",

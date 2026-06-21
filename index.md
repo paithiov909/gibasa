@@ -48,6 +48,7 @@ You can install gibasa from
 [r-universe](https://paithiov909.r-universe.dev/gibasa).
 
 ``` r
+
 ## Install gibasa from r-universe
 install.packages(
   "gibasa",
@@ -89,6 +90,7 @@ $ python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > ~/.mecabrc
 ### Tokenize sentences
 
 ``` r
+
 res <- gibasa::tokenize(
   data.frame(
     doc_id = seq_along(gibasa::ginga[5:8]),
@@ -117,6 +119,7 @@ res
 ### Prettify output
 
 ``` r
+
 gibasa::prettify(res)
 #> # A tibble: 187 × 13
 #>    doc_id sentence_id token_id token        POS1   POS2  POS3  POS4  X5StageUse1
@@ -184,6 +187,7 @@ gibasa::prettify(res, col_select = c("POS1", "Original"))
 ### Pack output
 
 ``` r
+
 res <- gibasa::prettify(res)
 gibasa::pack(res)
 #> # A tibble: 4 × 2
@@ -217,6 +221,7 @@ gibasa supports several dictionary schemes including:
 - [mecab-ko-dic](https://bitbucket.org/eunjeon/mecab-ko-dic/src/master/)
 
 ``` r
+
 ## UniDic 2.1.2
 gibasa::tokenize("あのイーハトーヴォのすきとおった風", sys_dic = file.path("mecab/unidic-lite")) |>
   gibasa::prettify(into = gibasa::get_dict_features("unidic26"))
@@ -273,6 +278,7 @@ gibasa::tokenize("하네다공항한정토트백", sys_dic = file.path("mecab/me
 ### Build a system dictionary
 
 ``` r
+
 ## build a new ipadic in temporary directory
 build_sys_dic(
   dic_dir = file.path("mecab/ipadic-eucjp"), # replace here with path to your source dictionary
@@ -322,6 +328,7 @@ dictionary_info(sys_dic = tempdir())
 ### Build a user dictionary
 
 ``` r
+
 ## write a csv file and compile it into a user dictionary
 writeLines(
   c(

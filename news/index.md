@@ -2,6 +2,8 @@
 
 ## gibasa 1.1.3
 
+CRAN release: 2026-03-24
+
 - Upkeep with Rcpp v1.1.1.
 
 ## gibasa 1.1.2
