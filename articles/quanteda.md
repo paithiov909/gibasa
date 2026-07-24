@@ -45,16 +45,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/Rtmp0c47Ub/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -151,7 +151,7 @@ toks |>
   dplyr::filter(!pos %in% c("その他", "タグ")) |>
   dplyr::count(doc_id, token) |>
   dplyr::arrange(dplyr::desc(n))
-#> # A tibble: 1,037,323 × 3
+#> # A tibble: 1,037,324 × 3
 #>    doc_id token            n
 #>    <fct>  <chr>        <int>
 #>  1 5674   /              607
@@ -164,7 +164,7 @@ toks |>
 #>  8 5537   (              119
 #>  9 1460   し             111
 #> 10 5692   :              101
-#> # ℹ 1,037,313 more rows
+#> # ℹ 1,037,314 more rows
 ```
 
 一方で、たとえば、特定のトークンの連なりは連語と見なして一つのトークンとして集計したいといった場合には、dplyrだけで集計するのはなかなか大変です。そういったより複雑なケースでは、quantedaの枠組みと組み合わせて使ったほうが便利なことがあります。
@@ -490,7 +490,7 @@ toks |>
 sessioninfo::session_info()
 #> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value
-#>  version  R version 4.6.0 (2026-04-24)
+#>  version  R version 4.6.1 (2026-06-24)
 #>  os       Ubuntu 24.04.4 LTS
 #>  system   x86_64, linux-gnu
 #>  ui       X11
@@ -498,7 +498,7 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-06-21
+#>  date     2026-07-24
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -510,7 +510,7 @@ sessioninfo::session_info()
 #>  ca                  * 0.71.1     2020-01-24 [1] RSPM
 #>  cachem                1.1.0      2024-05-16 [1] RSPM
 #>  cli                   3.6.6      2026-04-09 [1] RSPM
-#>  codetools             0.2-20     2024-03-31 [3] CRAN (R 4.6.0)
+#>  codetools             0.2-20     2024-03-31 [3] CRAN (R 4.6.1)
 #>  crayon                1.5.3      2024-06-20 [1] RSPM
 #>  desc                  1.4.3      2023-12-10 [1] RSPM
 #>  digest                0.6.39     2025-11-19 [1] RSPM
@@ -526,7 +526,7 @@ sessioninfo::session_info()
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
 #>  ggplot2             * 4.0.3      2026-04-22 [1] RSPM
 #>  ggrepel               0.9.8      2026-03-17 [1] RSPM
-#>  gibasa                1.1.3      2026-06-21 [1] local
+#>  gibasa                1.1.3      2026-07-24 [1] local
 #>  glmnet                5.0        2026-05-04 [1] RSPM
 #>  glue                  1.8.1      2026-04-17 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM
@@ -538,17 +538,17 @@ sessioninfo::session_info()
 #>  jsonlite              2.0.0      2025-03-27 [1] RSPM
 #>  knitr                 1.51       2025-12-20 [1] RSPM
 #>  labeling              0.4.3      2023-08-29 [1] RSPM
-#>  lattice               0.22-9     2026-02-09 [3] CRAN (R 4.6.0)
-#>  ldccr                 2026.05.23 2026-06-21 [1] Github (paithiov909/ldccr@956d092)
+#>  lattice               0.22-9     2026-02-09 [3] CRAN (R 4.6.1)
+#>  ldccr                 2026.05.23 2026-07-24 [1] Github (paithiov909/ldccr@956d092)
 #>  lifecycle             1.0.5      2026-01-08 [1] RSPM
 #>  magrittr              2.0.5      2026-04-04 [1] RSPM
-#>  Matrix                1.7-5      2026-03-21 [3] CRAN (R 4.6.0)
+#>  Matrix                1.7-5      2026-03-21 [3] CRAN (R 4.6.1)
 #>  memoise               2.0.1      2021-11-26 [1] RSPM
 #>  nsyllable             1.0.1      2022-02-28 [1] RSPM
 #>  otel                  0.2.0      2025-08-29 [1] RSPM
 #>  pillar                1.11.1     2025-09-17 [1] RSPM
 #>  pkgconfig             2.0.3      2019-09-22 [1] RSPM
-#>  pkgdown               2.2.0      2025-11-06 [1] any (@2.2.0)
+#>  pkgdown               2.2.1      2026-07-07 [1] any (@2.2.1)
 #>  proxyC                0.5.2      2025-04-25 [1] RSPM
 #>  purrr                 1.2.2      2026-04-10 [1] RSPM
 #>  quanteda              4.4        2026-04-06 [1] RSPM
@@ -557,10 +557,10 @@ sessioninfo::session_info()
 #>  R6                    2.6.1      2025-02-15 [1] RSPM
 #>  ragg                  1.5.2      2026-03-23 [1] RSPM
 #>  RColorBrewer          1.1-3      2022-04-03 [1] RSPM
-#>  Rcpp                  1.1.1-1.1  2026-04-24 [1] RSPM
-#>  RcppParallel          5.1.11-2   2026-03-05 [1] RSPM
+#>  Rcpp                  1.1.2      2026-07-05 [1] RSPM
+#>  RcppParallel          6.0.0      2026-07-23 [1] RSPM
 #>  readr                 2.2.0      2026-02-19 [1] RSPM
-#>  rlang                 1.2.0      2026-04-06 [1] RSPM
+#>  rlang                 1.3.0      2026-07-05 [1] RSPM
 #>  rmarkdown             2.31       2026-03-26 [1] RSPM
 #>  RSpectra              0.16-2     2024-07-18 [1] RSPM
 #>  S7                    0.2.2      2026-04-22 [1] RSPM
@@ -572,7 +572,7 @@ sessioninfo::session_info()
 #>  stopwords             2.3        2021-10-28 [1] RSPM
 #>  stringi               1.8.7      2025-03-27 [1] RSPM
 #>  stringr               1.6.0      2025-11-04 [1] RSPM
-#>  survival              3.8-6      2026-01-16 [3] CRAN (R 4.6.0)
+#>  survival              3.8-6      2026-01-16 [3] CRAN (R 4.6.1)
 #>  systemfonts           1.3.2      2026-03-05 [1] RSPM
 #>  textshaping           1.0.5      2026-03-06 [1] RSPM
 #>  tibble                3.3.1      2026-01-11 [1] RSPM
@@ -584,12 +584,12 @@ sessioninfo::session_info()
 #>  vctrs                 0.7.3      2026-04-11 [1] RSPM
 #>  vroom                 1.7.1      2026-03-31 [1] RSPM
 #>  withr                 3.0.3      2026-06-19 [1] RSPM
-#>  xfun                  0.59       2026-06-19 [1] RSPM
+#>  xfun                  0.60       2026-07-09 [1] RSPM
 #>  yaml                  2.3.12     2025-12-10 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library
-#>  [2] /opt/R/4.6.0/lib/R/site-library
-#>  [3] /opt/R/4.6.0/lib/R/library
+#>  [2] /opt/R/4.6.1/lib/R/site-library
+#>  [3] /opt/R/4.6.1/lib/R/library
 #>  * ── Packages attached to the search path.
 #> 
 #> ──────────────────────────────────────────────────────────────────────────────
