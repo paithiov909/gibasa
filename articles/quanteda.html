@@ -88,11 +88,7 @@
 <div class="section level2">
 <h2 id="はじめに">はじめに<a class="anchor" aria-label="anchor" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB"></a>
 </h2>
-<p>このページでは、<a href="https://quanteda.io/" class="external-link">quanteda</a>と<a href="https://paithiov909.github.io/gibasa/">gibasa</a>を用いた簡単なテキストマイニングを例に、quantedaやその他のRパッケージとのあいだでテキストデータをやりとりする方法を紹介します。ここでおこなっているようなテキスト分析の例としては、次のサイトも参考にしてください。</p>
-<ul>
-<li><a href="https://paithiov909.github.io/textvis-recipes/" class="external-link">Cookbook to
-Draw KHCoder-like Visualizations Using R</a></li>
-</ul>
+<p>このページでは、<a href="https://quanteda.io/" class="external-link">quanteda</a>と<a href="https://paithiov909.github.io/gibasa/">gibasa</a>を用いた簡単なテキストマイニングを例に、quantedaやその他のRパッケージとのあいだでテキストデータをやりとりする方法を紹介します。</p>
 <p>ちなみに、quantedaは<a href="https://stringi.gagolewski.com/" class="external-link">stringi</a>をラップした関数によって日本語の文書でも分かち書きできるので、手元の辞書に収録されている表現どおりに分かち書きしたい場合や、品詞情報が欲しい場合でないかぎりは、形態素解析器を使うメリットはあまりないかもしれません。stringiが利用しているICUの<a href="https://unicode-org.github.io/icu/userguide/boundaryanalysis/" class="external-link">Boundary
 Analysis</a>の仕様については、<a href="https://www.unicode.org/reports/tr29/#Word_Boundaries" class="external-link">UAX#29</a>などを参照してください。</p>
 <hr>
@@ -125,16 +121,16 @@ Workshop</a>で整備された、テキスト分析用のRパッケージのデ�
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,367 × 7</span></span></span>
 <span><span class="co">#&gt;    file_path                       source time_stamp title text  category doc_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 友人代表… <span style="color: #949494;">"</span>友人代… dokujo-… 1     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… ネットで… <span style="color: #949494;">"</span>ネット… dokujo-… 2     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… <span style="color: #949494;">"</span>相次ぐ… dokujo-… 3     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… ムダな抵… <span style="color: #949494;">"</span>ムダな… dokujo-… 4     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 税金を払… <span style="color: #949494;">"</span>税金を… dokujo-… 5     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-3… 読んでみ… <span style="color: #949494;">"</span>読んで… dokujo-… 6     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 大人にな… <span style="color: #949494;">"</span>大人に… dokujo-… 7     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… 結婚して… <span style="color: #949494;">"</span>結婚し… dokujo-… 8     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-2… お肌に優… <span style="color: #949494;">"</span>お肌に… dokujo-… 9     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> /tmp/RtmpbYY2Pg/text/dokujo-ts… http:… 2010-05-3… 初回デー… <span style="color: #949494;">"</span>初回デ… dokujo-… 10    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 友人代表… <span style="color: #949494;">"</span>友人代… dokujo-… 1     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… ネットで… <span style="color: #949494;">"</span>ネット… dokujo-… 2     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… <span style="color: #949494;">"</span>相次ぐ… dokujo-… 3     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… ムダな抵… <span style="color: #949494;">"</span>ムダな… dokujo-… 4     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 税金を払… <span style="color: #949494;">"</span>税金を… dokujo-… 5     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-3… 読んでみ… <span style="color: #949494;">"</span>読んで… dokujo-… 6     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 大人にな… <span style="color: #949494;">"</span>大人に… dokujo-… 7     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 結婚して… <span style="color: #949494;">"</span>結婚し… dokujo-… 8     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… お肌に優… <span style="color: #949494;">"</span>お肌に… dokujo-… 9     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-3… 初回デー… <span style="color: #949494;">"</span>初回デ… dokujo-… 10    </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,357 more rows</span></span></span></code></pre></div>
 <p>livedoorニュースコーパスは文書分類をおこなうことを主な目的につくられたデータセットで、以下の9カテゴリのブログ記事からなっています。</p>
 <ul>
