@@ -42,16 +42,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/RtmpNO9n9m/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -185,7 +185,8 @@ dfm <- toks |>
   quanteda::dfm()
 
 dfm
-#> Document-feature matrix of: 5,893 documents, 57,645 features (99.74% sparse) and 0 docvars.
+#> Document-feature matrix of: 5,893 documents, 57,645 features (99.74% sparse) and
+#> 0 docvars.
 #>       features
 #> docs   インタビュー シーバスリーガル マスターブレンダー コリン スコット
 #>   2736            1               14                  3      3        9
@@ -202,7 +203,8 @@ dfm
 #>   1524          0          0      0    0    0
 #>   3643          0          0      1    0    0
 #>   7150          0          0      0    0    0
-#> [ reached max_ndoc ... 5,887 more documents, reached max_nfeat ... 57,635 more features ]
+#> [ reached max_ndoc ... 5,887 more documents, reached max_nfeat ... 57,635 more
+#> features ]
 ```
 
 [`quanteda::dfm()`](https://quanteda.io/reference/dfm.html)の戻り値は「文書単語行列（dtm）」を疎行列オブジェクト（dgCMatrix
@@ -495,15 +497,15 @@ sessioninfo::session_info()
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-07-24
+#>  date     2026-09-07
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package             * version    date (UTC) lib source
 #>  bit                   4.6.0      2025-03-06 [1] RSPM
-#>  bit64                 4.8.2      2026-05-19 [1] RSPM
-#>  bslib                 0.11.0     2026-05-16 [1] RSPM
+#>  bit64                 4.8.6      2026-09-01 [1] RSPM
+#>  bslib                 0.12.0     2026-08-04 [1] RSPM
 #>  ca                  * 0.71.1     2020-01-24 [1] RSPM
 #>  cachem                1.1.0      2024-05-16 [1] RSPM
 #>  cli                   3.6.6      2026-04-09 [1] RSPM
@@ -523,7 +525,7 @@ sessioninfo::session_info()
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
 #>  ggplot2             * 4.0.3      2026-04-22 [1] RSPM
 #>  ggrepel               0.9.8      2026-03-17 [1] RSPM
-#>  gibasa                1.1.3      2026-07-24 [1] local
+#>  gibasa                1.1.3      2026-09-07 [1] local
 #>  glmnet                5.0        2026-05-04 [1] RSPM
 #>  glue                  1.8.1      2026-04-17 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM
@@ -533,10 +535,10 @@ sessioninfo::session_info()
 #>  janeaustenr           1.0.0      2022-08-26 [1] RSPM
 #>  jquerylib             0.1.4      2021-04-26 [1] RSPM
 #>  jsonlite              2.0.0      2025-03-27 [1] RSPM
-#>  knitr                 1.51       2025-12-20 [1] RSPM
+#>  knitr                 1.52       2026-09-06 [1] RSPM
 #>  labeling              0.4.3      2023-08-29 [1] RSPM
 #>  lattice               0.22-9     2026-02-09 [3] CRAN (R 4.6.1)
-#>  ldccr                 2026.05.23 2026-07-24 [1] Github (paithiov909/ldccr@956d092)
+#>  ldccr                 2026.08.22 2026-09-07 [1] Github (paithiov909/ldccr@caf70e0)
 #>  lifecycle             1.0.5      2026-01-08 [1] RSPM
 #>  magrittr              2.0.5      2026-04-04 [1] RSPM
 #>  Matrix                1.7-5      2026-03-21 [3] CRAN (R 4.6.1)
@@ -548,17 +550,17 @@ sessioninfo::session_info()
 #>  pkgdown               2.2.1      2026-07-07 [1] any (@2.2.1)
 #>  proxyC                0.5.2      2025-04-25 [1] RSPM
 #>  purrr                 1.2.2      2026-04-10 [1] RSPM
-#>  quanteda              4.4        2026-04-06 [1] RSPM
+#>  quanteda              4.5.0      2026-08-04 [1] RSPM
 #>  quanteda.textmodels   0.9.10     2025-02-10 [1] RSPM
 #>  quanteda.textstats    0.97.2     2024-09-03 [1] RSPM
 #>  R6                    2.6.1      2025-02-15 [1] RSPM
 #>  ragg                  1.5.2      2026-03-23 [1] RSPM
 #>  RColorBrewer          1.1-3      2022-04-03 [1] RSPM
 #>  Rcpp                  1.1.2      2026-07-05 [1] RSPM
-#>  RcppParallel          6.0.0      2026-07-23 [1] RSPM
+#>  RcppParallel          6.2.1      2026-08-27 [1] RSPM
 #>  readr                 2.2.0      2026-02-19 [1] RSPM
 #>  rlang                 1.3.0      2026-07-05 [1] RSPM
-#>  rmarkdown             2.31       2026-03-26 [1] RSPM
+#>  rmarkdown             2.32       2026-09-01 [1] RSPM
 #>  RSpectra              0.16-2     2024-07-18 [1] RSPM
 #>  S7                    0.2.2      2026-04-22 [1] RSPM
 #>  sass                  0.4.10     2025-04-11 [1] RSPM
@@ -567,7 +569,7 @@ sessioninfo::session_info()
 #>  shape                 1.4.6.1    2024-02-23 [1] RSPM
 #>  SnowballC             0.7.1      2023-04-25 [1] RSPM
 #>  stopwords             2.3        2021-10-28 [1] RSPM
-#>  stringi               1.8.7      2025-03-27 [1] RSPM
+#>  stringi               1.8.9      2026-08-04 [1] RSPM
 #>  stringr               1.6.0      2025-11-04 [1] RSPM
 #>  survival              3.8-6      2026-01-16 [3] CRAN (R 4.6.1)
 #>  systemfonts           1.3.2      2026-03-05 [1] RSPM
