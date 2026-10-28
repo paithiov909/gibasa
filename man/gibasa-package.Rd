@@ -21,6 +21,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Akiru Kato \email{paithiov909@gmail.com}
   \item Shogo Ichinose
   \item Taku Kudo
 }

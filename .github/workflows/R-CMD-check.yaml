@@ -52,18 +52,6 @@ jobs:
           sudo make install
           cd ../../
 
-      - uses: actions/setup-python@v7
-        if: ${{ matrix.config.os == 'windows-latest' }}
-        with:
-          python-version: '3.15'
-
-      - name: Setup ipadic for windows
-        if: ${{ matrix.config.os == 'windows-latest' }}
-        run: |
-          python3 -m pip install ipadic
-          python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > $env:RUNNER_TEMP/mecabrc
-          echo "MECABRC='$env:RUNNER_TEMP/mecabrc'" >> $env:GITHUB_ENV
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

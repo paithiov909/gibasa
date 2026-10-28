@@ -25,13 +25,15 @@ export(prettify)
 export(tokenize)
 import(Rcpp)
 importFrom(RcppParallel,RcppParallelLibs)
-importFrom(rlang,":=")
-importFrom(rlang,.data)
-importFrom(rlang,.env)
-importFrom(rlang,as_name)
-importFrom(rlang,enquo)
-importFrom(rlang,enquos)
-importFrom(rlang,ensym)
-importFrom(rlang,sym)
+importFrom(rlang,
+  ":=",
+  .data,
+  .env,
+  as_name,
+  enquo,
+  enquos,
+  ensym,
+  sym
+)
 importFrom(utils,globalVariables)
 useDynLib(gibasa, .registration = TRUE)

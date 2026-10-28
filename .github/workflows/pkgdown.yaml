@@ -36,6 +36,16 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.15'
+
+      - name: Setup ipadic for windows
+        run: |
+          python3 -m pip install ipadic
+          python3 -c "import ipadic; print('dicdir=' + ipadic.DICDIR);" > $env:RUNNER_TEMP/mecabrc
+          echo "MECABRC='$env:RUNNER_TEMP/mecabrc'" >> $env:GITHUB_ENV
+
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
