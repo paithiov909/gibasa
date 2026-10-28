@@ -18,6 +18,8 @@ Useful links:
 
 Authors:
 
+- Akiru Kato <paithiov909@gmail.com>
+
 - Shogo Ichinose
 
 - Taku Kudo

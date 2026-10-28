@@ -42,16 +42,16 @@ tbl
 #> # A tibble: 7,367 × 7
 #>    file_path                       source time_stamp title text  category doc_id
 #>    <chr>                           <chr>  <chr>      <chr> <chr> <fct>    <chr> 
-#>  1 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
-#>  2 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
-#>  3 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
-#>  4 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
-#>  5 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
-#>  6 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
-#>  7 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
-#>  8 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
-#>  9 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
-#> 10 /tmp/RtmpGZxlb4/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
+#>  1 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… 友人代表… "友人代… dokujo-… 1     
+#>  2 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… ネットで… "ネット… dokujo-… 2     
+#>  3 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… 相次ぐ芸… "相次ぐ… dokujo-… 3     
+#>  4 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… ムダな抵… "ムダな… dokujo-… 4     
+#>  5 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… 税金を払… "税金を… dokujo-… 5     
+#>  6 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-3… 読んでみ… "読んで… dokujo-… 6     
+#>  7 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… 大人にな… "大人に… dokujo-… 7     
+#>  8 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… 結婚して… "結婚し… dokujo-… 8     
+#>  9 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-2… お肌に優… "お肌に… dokujo-… 9     
+#> 10 /tmp/Rtmp5LoiSK/text/dokujo-ts… http:… 2010-05-3… 初回デー… "初回デ… dokujo-… 10    
 #> # ℹ 7,357 more rows
 ```
 
@@ -123,7 +123,7 @@ toks
 #>    doc_id category       token_id token              pos      original    
 #>    <fct>  <fct>             <int> <chr>              <chr>    <chr>       
 #>  1 2736   livedoor-homme        1 インタビュー       サ変名詞 インタビュー
-#>  2 2736   livedoor-homme        2 :                  サ変名詞 NA          
+#>  2 2736   livedoor-homme        2 :                  その他   NA          
 #>  3 2736   livedoor-homme        3 シーバスリーガル   未知語   NA          
 #>  4 2736   livedoor-homme        4 マスターブレンダー 未知語   NA          
 #>  5 2736   livedoor-homme        5 コリン             人名     コリン      
@@ -148,20 +148,20 @@ toks |>
   dplyr::filter(!pos %in% c("その他", "タグ")) |>
   dplyr::count(doc_id, token) |>
   dplyr::arrange(dplyr::desc(n))
-#> # A tibble: 1,037,324 × 3
+#> # A tibble: 988,511 × 3
 #>    doc_id token            n
 #>    <fct>  <chr>        <int>
-#>  1 5674   /              607
-#>  2 5674   ソフトバンク   508
-#>  3 5189   /              204
-#>  4 5074   ,              126
-#>  5 5559   (              125
-#>  6 5559   )              124
-#>  7 5537   )              120
-#>  8 5537   (              119
-#>  9 1460   し             111
-#> 10 5692   :              101
-#> # ℹ 1,037,314 more rows
+#>  1 5674   ソフトバンク   508
+#>  2 1460   し             111
+#>  3 5583   Xperia          87
+#>  4 1460   する            85
+#>  5 5537   ちょろ          84
+#>  6 1343   写真            81
+#>  7 5559   西岡            79
+#>  8 4924   D               78
+#>  9 4736   飴              71
+#> 10 5074   月々            70
+#> # ℹ 988,501 more rows
 ```
 
 一方で、たとえば、特定のトークンの連なりは連語と見なして一つのトークンとして集計したいといった場合には、dplyrだけで集計するのはなかなか大変です。そういったより複雑なケースでは、quantedaの枠組みと組み合わせて使ったほうが便利なことがあります。
@@ -185,8 +185,8 @@ dfm <- toks |>
   quanteda::dfm()
 
 dfm
-#> Document-feature matrix of: 5,893 documents, 57,645 features (99.74% sparse) and
-#> 0 docvars.
+#> dfm of 5,893 documents x 57,645 features (1,420,887 occurrences, 99.74%
+#> sparsity).
 #>       features
 #> docs   インタビュー シーバスリーガル マスターブレンダー コリン スコット
 #>   2736            1               14                  3      3        9
@@ -441,7 +441,7 @@ toks |>
   dplyr::reframe(token = list(token), .by = doc_id) |>
   tibble::deframe() |>
   quanteda::as.tokens()
-#> Tokens consisting of 5,893 documents.
+#> tokens of 5,893 documents (860,777 tokens, 48,368 types).
 #> 2736 :
 #>  [1] "シーバスリーガル"   "マスターブレンダー" "コリン"            
 #>  [4] "スコット"           "プレミアム"         "ウイスキー"        
@@ -490,14 +490,14 @@ sessioninfo::session_info()
 #> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value
 #>  version  R version 4.6.1 (2026-06-24)
-#>  os       Ubuntu 24.04.4 LTS
+#>  os       Ubuntu 26.04.1 LTS
 #>  system   x86_64, linux-gnu
 #>  ui       X11
 #>  language en
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-09-07
+#>  date     2026-10-28
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -506,7 +506,7 @@ sessioninfo::session_info()
 #>  bit                   4.6.0      2025-03-06 [1] RSPM
 #>  bit64                 4.8.6      2026-09-01 [1] RSPM
 #>  bslib                 0.12.0     2026-08-04 [1] RSPM
-#>  ca                  * 0.71.1     2020-01-24 [1] RSPM
+#>  ca                  * 0.72       2026-09-13 [1] RSPM
 #>  cachem                1.1.0      2024-05-16 [1] RSPM
 #>  cli                   3.6.6      2026-04-09 [1] RSPM
 #>  codetools             0.2-20     2024-03-31 [3] CRAN (R 4.6.1)
@@ -525,20 +525,22 @@ sessioninfo::session_info()
 #>  gghighlight           0.5.0      2025-06-14 [1] RSPM
 #>  ggplot2             * 4.0.3      2026-04-22 [1] RSPM
 #>  ggrepel               0.9.8      2026-03-17 [1] RSPM
-#>  gibasa                1.1.3      2026-09-07 [1] local
-#>  glmnet                5.0        2026-05-04 [1] RSPM
+#>  gibasa                1.1.3      2026-10-28 [1] local
+#>  glmnet                5.1        2026-09-24 [1] RSPM
 #>  glue                  1.8.1      2026-04-17 [1] RSPM
 #>  gtable                0.3.6      2024-10-25 [1] RSPM
 #>  hms                   1.1.4      2025-10-17 [1] RSPM
 #>  htmltools             0.5.9      2025-12-04 [1] RSPM
+#>  htmlwidgets           1.6.4      2023-12-06 [1] RSPM
 #>  iterators             1.0.14     2022-02-05 [1] RSPM
 #>  janeaustenr           1.0.0      2022-08-26 [1] RSPM
 #>  jquerylib             0.1.4      2021-04-26 [1] RSPM
 #>  jsonlite              2.0.0      2025-03-27 [1] RSPM
+#>  kelpbeds              0.1.2      2026-10-28 [1] Github (paithiov909/kelpbeds@7910eb1)
 #>  knitr                 1.52       2026-09-06 [1] RSPM
 #>  labeling              0.4.3      2023-08-29 [1] RSPM
 #>  lattice               0.22-9     2026-02-09 [3] CRAN (R 4.6.1)
-#>  ldccr                 2026.08.22 2026-09-07 [1] Github (paithiov909/ldccr@caf70e0)
+#>  ldccr                 2026.08.22 2026-10-28 [1] Github (paithiov909/ldccr@caf70e0)
 #>  lifecycle             1.0.5      2026-01-08 [1] RSPM
 #>  magrittr              2.0.5      2026-04-04 [1] RSPM
 #>  Matrix                1.7-5      2026-03-21 [3] CRAN (R 4.6.1)
@@ -550,9 +552,13 @@ sessioninfo::session_info()
 #>  pkgdown               2.2.1      2026-07-07 [1] any (@2.2.1)
 #>  proxyC                0.5.2      2025-04-25 [1] RSPM
 #>  purrr                 1.2.2      2026-04-10 [1] RSPM
-#>  quanteda              4.5.0      2026-08-04 [1] RSPM
+#>  quanteda              4.5.1      2026-10-21 [1] RSPM
 #>  quanteda.textmodels   0.9.10     2025-02-10 [1] RSPM
 #>  quanteda.textstats    0.97.2     2024-09-03 [1] RSPM
+#>  R.cache               0.17.0     2025-05-02 [1] RSPM
+#>  R.methodsS3           1.8.2      2022-06-13 [1] RSPM
+#>  R.oo                  1.27.1     2025-05-02 [1] RSPM
+#>  R.utils               2.13.0     2025-02-24 [1] RSPM
 #>  R6                    2.6.1      2025-02-15 [1] RSPM
 #>  ragg                  1.5.2      2026-03-23 [1] RSPM
 #>  RColorBrewer          1.1-3      2022-04-03 [1] RSPM
@@ -571,6 +577,7 @@ sessioninfo::session_info()
 #>  stopwords             2.3        2021-10-28 [1] RSPM
 #>  stringi               1.8.9      2026-08-04 [1] RSPM
 #>  stringr               1.6.0      2025-11-04 [1] RSPM
+#>  styler                1.11.0     2025-10-13 [1] RSPM
 #>  survival              3.8-6      2026-01-16 [3] CRAN (R 4.6.1)
 #>  systemfonts           1.3.2      2026-03-05 [1] RSPM
 #>  textshaping           1.0.5      2026-03-06 [1] RSPM
@@ -583,7 +590,7 @@ sessioninfo::session_info()
 #>  vctrs                 0.7.3      2026-04-11 [1] RSPM
 #>  vroom                 1.7.1      2026-03-31 [1] RSPM
 #>  withr                 3.0.3      2026-06-19 [1] RSPM
-#>  xfun                  0.60       2026-07-09 [1] RSPM
+#>  xfun                  0.62       2026-10-16 [1] RSPM
 #>  yaml                  2.3.12     2025-12-10 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library

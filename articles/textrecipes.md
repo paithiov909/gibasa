@@ -82,19 +82,19 @@ corp <- tbl |>
           .default = "その他"
         )
       ) |>
-        dplyr::filter(
-          pos %in% c(
-            "名詞",
-            "地名", "人名", "組織名", "固有名詞",
-            "動詞", "未知語"
-          )
-        ) |>
-        dplyr::mutate(
-          doc_id = droplevels(doc_id),
-          token = dplyr::if_else(is.na(Original), token, Original),
-          token = paste(token, pos, sep = "/")
-        ) |>
-        gibasa::pack()
+      dplyr::filter(
+        pos %in% c(
+          "名詞",
+          "地名", "人名", "組織名", "固有名詞",
+          "動詞", "未知語"
+        )
+      ) |>
+      dplyr::mutate(
+        doc_id = droplevels(doc_id),
+        token = dplyr::if_else(is.na(Original), token, Original),
+        token = paste(token, pos, sep = "/")
+      ) |>
+      gibasa::pack()
   }) |>
   dplyr::ungroup() |>
   dplyr::left_join(dplyr::select(tbl, doc_id, category), by = "doc_id")
@@ -217,14 +217,14 @@ sessioninfo::session_info()
 #> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value
 #>  version  R version 4.6.1 (2026-06-24)
-#>  os       Ubuntu 24.04.4 LTS
+#>  os       Ubuntu 26.04.1 LTS
 #>  system   x86_64, linux-gnu
 #>  ui       X11
 #>  language en
 #>  collate  C.UTF-8
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-09-07
+#>  date     2026-10-28
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
 #>  quarto   NA
 #> 
@@ -250,33 +250,35 @@ sessioninfo::session_info()
 #>  evaluate       1.0.5      2025-08-27 [1] RSPM
 #>  farver         2.1.2      2024-05-13 [1] RSPM
 #>  fastmap        1.2.0      2024-05-15 [1] RSPM
-#>  float          0.3-3      2025-03-12 [1] RSPM
+#>  float          0.3-4      2026-10-02 [1] RSPM
 #>  fs             2.1.0      2026-04-18 [1] RSPM
 #>  furrr          0.4.0      2026-03-31 [1] RSPM
-#>  future         1.75.0     2026-07-20 [1] RSPM
-#>  future.apply   1.20.2     2026-02-20 [1] RSPM
+#>  future         1.80.0     2026-10-16 [1] RSPM
+#>  future.apply   1.21.0     2026-10-16 [1] RSPM
 #>  generics       0.1.4      2025-05-09 [1] RSPM
 #>  ggplot2      * 4.0.3      2026-04-22 [1] RSPM
-#>  gibasa         1.1.3      2026-09-07 [1] local
-#>  globals        0.19.1     2026-03-13 [1] RSPM
+#>  gibasa         1.1.3      2026-10-28 [1] local
+#>  globals        0.20.0     2026-10-11 [1] RSPM
 #>  glue           1.8.1      2026-04-17 [1] RSPM
 #>  gower          1.0.2      2024-12-17 [1] RSPM
 #>  gtable         0.3.6      2024-10-25 [1] RSPM
 #>  hardhat        1.4.3      2026-04-04 [1] RSPM
 #>  hms            1.1.4      2025-10-17 [1] RSPM
 #>  htmltools      0.5.9      2025-12-04 [1] RSPM
+#>  htmlwidgets    1.6.4      2023-12-06 [1] RSPM
 #>  infer        * 1.1.0      2025-12-18 [1] RSPM
 #>  ipred          0.9-16     2026-08-22 [1] RSPM
 #>  jquerylib      0.1.4      2021-04-26 [1] RSPM
 #>  jsonlite       2.0.0      2025-03-27 [1] RSPM
+#>  kelpbeds       0.1.2      2026-10-28 [1] Github (paithiov909/kelpbeds@7910eb1)
 #>  knitr          1.52       2026-09-06 [1] RSPM
 #>  labeling       0.4.3      2023-08-29 [1] RSPM
 #>  lattice        0.22-9     2026-02-09 [3] CRAN (R 4.6.1)
-#>  lava           1.9.3      2026-08-20 [1] RSPM
-#>  ldccr          2026.08.22 2026-09-07 [1] Github (paithiov909/ldccr@caf70e0)
+#>  lava           1.10       2026-10-22 [1] RSPM
+#>  ldccr          2026.08.22 2026-10-28 [1] Github (paithiov909/ldccr@caf70e0)
 #>  lgr            0.5.2      2026-01-30 [1] RSPM
 #>  lifecycle      1.0.5      2026-01-08 [1] RSPM
-#>  listenv        1.0.0      2026-06-22 [1] RSPM
+#>  listenv        1.1.0      2026-10-04 [1] RSPM
 #>  lubridate      1.9.5      2026-02-04 [1] RSPM
 #>  magrittr       2.0.5      2026-04-04 [1] RSPM
 #>  MASS           7.3-65     2025-02-28 [3] CRAN (R 4.6.1)
@@ -287,12 +289,16 @@ sessioninfo::session_info()
 #>  nnet           7.3-20     2025-01-01 [3] CRAN (R 4.6.1)
 #>  otel           0.2.0      2025-08-29 [1] RSPM
 #>  parallelly     1.48.0     2026-06-29 [1] RSPM
-#>  parsnip      * 1.6.0      2026-05-14 [1] RSPM
+#>  parsnip      * 1.6.1      2026-09-27 [1] RSPM
 #>  pillar         1.11.1     2025-09-17 [1] RSPM
 #>  pkgconfig      2.0.3      2019-09-22 [1] RSPM
 #>  pkgdown        2.2.1      2026-07-07 [1] any (@2.2.1)
 #>  prodlim        2026.03.11 2026-03-11 [1] RSPM
 #>  purrr        * 1.2.2      2026-04-10 [1] RSPM
+#>  R.cache        0.17.0     2025-05-02 [1] RSPM
+#>  R.methodsS3    1.8.2      2022-06-13 [1] RSPM
+#>  R.oo           1.27.1     2025-05-02 [1] RSPM
+#>  R.utils        2.13.0     2025-02-24 [1] RSPM
 #>  R6             2.6.1      2025-02-15 [1] RSPM
 #>  ragg           1.5.2      2026-03-23 [1] RSPM
 #>  RColorBrewer   1.1-3      2022-04-03 [1] RSPM
@@ -315,6 +321,7 @@ sessioninfo::session_info()
 #>  sparsevctrs    0.3.6      2026-01-27 [1] RSPM
 #>  stringi        1.8.9      2026-08-04 [1] RSPM
 #>  stringr        1.6.0      2025-11-04 [1] RSPM
+#>  styler         1.11.0     2025-10-13 [1] RSPM
 #>  survival       3.8-6      2026-01-16 [3] CRAN (R 4.6.1)
 #>  systemfonts    1.3.2      2026-03-05 [1] RSPM
 #>  tailor       * 0.1.0      2025-08-25 [1] RSPM
@@ -335,7 +342,7 @@ sessioninfo::session_info()
 #>  withr          3.0.3      2026-06-19 [1] RSPM
 #>  workflows    * 1.3.0      2025-08-27 [1] RSPM
 #>  workflowsets * 1.1.1      2025-05-27 [1] RSPM
-#>  xfun           0.60       2026-07-09 [1] RSPM
+#>  xfun           0.62       2026-10-16 [1] RSPM
 #>  xgboost        3.2.1.1    2026-03-18 [1] RSPM
 #>  yaml           2.3.12     2025-12-10 [1] RSPM
 #>  yardstick    * 1.4.0      2026-04-07 [1] RSPM
