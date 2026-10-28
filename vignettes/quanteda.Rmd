@@ -16,6 +16,19 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+dic_dir <- fs::dir_create(file.path(Sys.getenv("HOME"), "ipadic-utf8"))
+kelpbeds::prep_ipadic(dic_dir)
+gibasa::build_sys_dic(
+  dic_dir = dic_dir,
+  out_dir = dic_dir,
+  encoding = "utf8"
+)
+readr::write_lines(
+  paste0("dicdir=", dic_dir),
+  file.path(Sys.getenv("HOME"), ".mecabrc")
+)
+
 set.seed(3179)
 
 require("ggplot2", quietly = TRUE)
